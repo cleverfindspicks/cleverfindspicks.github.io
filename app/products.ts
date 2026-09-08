@@ -58,6 +58,20 @@ export const products: Product[] = [
     bestFor: ['Keeping spice labels visible', 'Shallow kitchen drawers', 'Small kitchens with limited cupboard space'],
     checks: ['Measure the drawer width and depth before ordering.', 'Confirm the selected two-tier or four-tier option.', 'Compare the final delivered price and estimated arrival at checkout.'],
   },
+  {
+    slug: 'folding-wall-hanging-laundry-basket',
+    eyebrow: 'LAUNDRY & BATHROOM',
+    name: 'Folding wall-hanging laundry basket',
+    shortName: 'Folding laundry basket',
+    summary: 'A collapsible mesh hamper that hangs out of the way and folds down when a small bathroom or utility area needs its floor space back.',
+    price: '£24.13',
+    positiveFeedback: '98%',
+    recentVolume: '6,285',
+    image: 'https://ae-pic-a1.aliexpress-media.com/kf/Sf4cae7ed131b4b1ea19dcc5d0f05ae95T.jpg',
+    affiliateUrl: 'https://s.click.aliexpress.com/s/fwx308cRD9Eny963e3KDdYxyIpNj8TXVr7saiF9Um5rMUg1kZtJALLnfa2LNXtiVgnxdD8Og6MmvwBoxhnSYQGM6r0c08U4TfX8DFGo7vviCuu3q62Q60OAhRZcqm3G8PtwM69xY7TOEWRrvulP5ukZQ4uQbBBtaVsdr6EffAqVmp3O5GyUANU2DoA3dJufNhDfh7KOlLgKIvRVhDxRESHLmea6fTE26gLUqKEUuuizJiLENrCbax94DZHDu8WhaXM9vQ86gzlqceNPO5w3vwXm4VrBF3x2lAMEl06wgNdTSMiT7cNG4HIdW0JxROAOd4KPej6F4x0XuhgRltQ7I09a1p8iVdl0cTi8DtLaveHMmL7L',
+    bestFor: ['Small bathrooms', 'Utility cupboards', 'Keeping laundry off the floor'],
+    checks: ['Confirm the selected size and hanging-frame option.', 'Check the fixing method suits your wall or door.', 'Compare the final delivered price and estimated arrival at checkout.'],
+  },
 ];
 
 export function getProduct(slug: string) {
