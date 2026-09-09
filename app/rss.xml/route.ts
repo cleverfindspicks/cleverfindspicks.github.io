@@ -1,7 +1,9 @@
 import { products } from '../products';
 
-const baseUrl = 'https://cleverfindspicks.mohammdmadhar99.chatgpt.site';
+const baseUrl = 'https://cleverfindspicks.github.io';
 const escapeXml = (value: string) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&apos;');
+
+export const dynamic = 'force-static';
 
 export function GET() {
   const items = products.map((product) => `

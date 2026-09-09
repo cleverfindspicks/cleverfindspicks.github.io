@@ -20,7 +20,7 @@ export default function Home() {
           <p className="eyebrow">SMALL-SPACE EDIT</p>
           <h1 id="hero-title">Useful finds.<br /><em>Fewer regrets.</em></h1>
           <p className="lead">Practical organisers shortlisted using buyer feedback, recent demand and value—not viral hype.</p>
-          <a className="primary-link" href="#finds">See the first two finds <span aria-hidden="true">↓</span></a>
+          <a className="primary-link" href="#finds">See the latest finds <span aria-hidden="true">↓</span></a>
         </div>
         <div className="hero-note" aria-label="Selection standard">
           <span className="note-number">98%</span>
