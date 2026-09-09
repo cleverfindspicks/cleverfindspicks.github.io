@@ -92,6 +92,21 @@ export const products: Product[] = [
     bestFor: ['Compact wardrobes', 'Keeping shirts from slipping', 'Creating a consistent hanging layout'],
     checks: ['Confirm the quantity and hanger dimensions for the selected option.', 'Check the maximum supported garment weight.', 'Compare the final delivered price and estimated arrival at checkout.'],
   },
+  {
+    slug: 'adjustable-cutlery-drawer-organiser',
+    eyebrow: 'KITCHEN DRAWERS',
+    name: 'Adjustable cutlery drawer organiser',
+    shortName: 'Adjustable cutlery drawer organiser',
+    summary: 'An expandable tray that separates everyday cutlery and utensils while adapting to the width of a compact kitchen drawer.',
+    price: '£125.15',
+    positiveFeedback: '98%',
+    recentVolume: '4,205',
+    image: 'https://ae-pic-a1.aliexpress-media.com/kf/S74c7d3e32f274dd48a0c3e522b1932e3y.jpg',
+    affiliateUrl: 'https://s.click.aliexpress.com/s/fwx308cRD9Eny963e3KDdYxyIpNj8TXVr7saiF9Um5rMUg1kZtJALLnfa2LNXtiVgnxdD8Og6MmvwBoxhnSYQGM6r0c08U4TfX8DFGo7vviCuu3q62Q60OAhRZcqm3G8PtwM69xY7TOEWRrvulP5ukZQ4uQbBBtaVsdr6EffAqVmp3O5GyUANU2DoA3dJufNhDfh7KOlLgKIvRVhDxRESHLmea6fTE26gLUqKEUuuizJiLENrCbax94DZHDu8WhaXM9vQ86gzlqceNPO5w3vwXm4VrBF3x2lAMEl06wgNdTSMiT7cNG4HIdW0Jxw0Esx6Evh80rnDefQNNRiCFbFt9kdff28OUwIG3yFwSlfitnjBoe',
+    publishedAt: '2026-09-09T16:00:00Z',
+    bestFor: ['Narrow kitchen drawers', 'Separating cutlery and utensils', 'Adjusting storage without permanent fittings'],
+    checks: ['Measure the internal drawer width, depth and height.', 'Confirm the selected size and included compartments.', 'Compare the final delivered price and estimated arrival at checkout.'],
+  },
 ];
 
 export function getProduct(slug: string) {
