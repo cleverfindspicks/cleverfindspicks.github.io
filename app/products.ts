@@ -13,7 +13,7 @@ export type Product = {
   checks: string[];
 };
 
-export const checkedAt = '8 September 2026';
+export const checkedAt = '9 September 2026';
 
 export const products: Product[] = [
   {
@@ -71,6 +71,20 @@ export const products: Product[] = [
     affiliateUrl: 'https://s.click.aliexpress.com/s/fwx308cRD9Eny963e3KDdYxyIpNj8TXVr7saiF9Um5rMUg1kZtJALLnfa2LNXtiVgnxdD8Og6MmvwBoxhnSYQGM6r0c08U4TfX8DFGo7vviCuu3q62Q60OAhRZcqm3G8PtwM69xY7TOEWRrvulP5ukZQ4uQbBBtaVsdr6EffAqVmp3O5GyUANU2DoA3dJufNhDfh7KOlLgKIvRVhDxRESHLmea6fTE26gLUqKEUuuizJiLENrCbax94DZHDu8WhaXM9vQ86gzlqceNPO5w3vwXm4VrBF3x2lAMEl06wgNdTSMiT7cNG4HIdW0JxROAOd4KPej6F4x0XuhgRltQ7I09a1p8iVdl0cTi8DtLaveHMmL7L',
     bestFor: ['Small bathrooms', 'Utility cupboards', 'Keeping laundry off the floor'],
     checks: ['Confirm the selected size and hanging-frame option.', 'Check the fixing method suits your wall or door.', 'Compare the final delivered price and estimated arrival at checkout.'],
+  },
+  {
+    slug: 'non-slip-slim-clothes-hangers-set',
+    eyebrow: 'WARDROBE SPACE',
+    name: '10-piece non-slip slim clothes hanger set',
+    shortName: 'Slim non-slip clothes hangers',
+    summary: 'A coordinated set of slim hangers that reduces visual clutter and helps a compact wardrobe fit more everyday clothes.',
+    price: '£55.47',
+    positiveFeedback: '98%',
+    recentVolume: '748',
+    image: 'https://ae-pic-a1.aliexpress-media.com/kf/Sa270d7ed467846e5bda9a1bf433a8ae10.jpeg',
+    affiliateUrl: 'https://s.click.aliexpress.com/s/fwx308cRD9Eny963e3KDdYxyIpNj8TXVr7saiF9Um5rMUg1kZtJALLnfa2LNXtiVgnxdD8Og6MmvwBoxhnSYQGM6r0c08U4TfX8DFGo7vviCuu3q62Q60OAhRZcqm3G8PtwM69xY7TOEWRrvulP5ukZQ4uQbBBtaVsdr6EffAqVmp3O5GyUANU2DoA3dJufNhDfh7KOlLgKIvRVhDxRESHLmea6fTE26gLUqKEUuuizJiLENrCbax94DZHDu8WhaXM9vQ86gzlqceNPO5w3vwXm4VrBF3x2lAMEl06wgNdTSMiT7cNG4HIdW0JxheqIaC7rIUaXrhn5vOpmD4E0KzjLvnExCSpKmJaEYgG7xfGE1GQL',
+    bestFor: ['Compact wardrobes', 'Keeping shirts from slipping', 'Creating a consistent hanging layout'],
+    checks: ['Confirm the quantity and hanger dimensions for the selected option.', 'Check the maximum supported garment weight.', 'Compare the final delivered price and estimated arrival at checkout.'],
   },
 ];
 
