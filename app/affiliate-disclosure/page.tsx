@@ -4,7 +4,7 @@ export default function DisclosurePage() {
   return (
     <main className="site-shell text-page">
       <div className="brand-rule" />
-      <header className="site-header"><a className="brand-lockup" href="/"><img src="/clever-finds.png" alt="" width="42" height="42" /><span>Clever Finds</span></a><a className="back-link" href="/">← Home</a></header>
+      <header className="site-header"><a className="brand-lockup" href="/"><img src="https://cleverfindspicks.mohammdmadhar99.chatgpt.site/clever-finds.png" alt="" width="42" height="42" /><span>Clever Finds</span></a><a className="back-link" href="/">← Home</a></header>
       <article>
         <p className="eyebrow">TRANSPARENCY</p>
         <h1>How Clever Finds works</h1>

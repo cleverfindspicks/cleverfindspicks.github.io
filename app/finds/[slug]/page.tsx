@@ -20,7 +20,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     <main className="site-shell detail-shell">
       <div className="brand-rule" />
       <header className="site-header">
-        <a className="brand-lockup" href="/"><img src="/clever-finds.png" alt="" width="42" height="42" /><span>Clever Finds</span></a>
+        <a className="brand-lockup" href="/"><img src="https://cleverfindspicks.mohammdmadhar99.chatgpt.site/clever-finds.png" alt="" width="42" height="42" /><span>Clever Finds</span></a>
         <a className="back-link" href="/#finds">← All finds</a>
       </header>
       <article className="detail">

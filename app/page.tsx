@@ -6,7 +6,7 @@ export default function Home() {
       <div className="brand-rule" />
       <header className="site-header">
         <a className="brand-lockup" href="/" aria-label="Clever Finds home">
-          <img src="/clever-finds.png" alt="" width="42" height="42" />
+          <img src="https://cleverfindspicks.mohammdmadhar99.chatgpt.site/clever-finds.png" alt="" width="42" height="42" />
           <span>Clever Finds</span>
         </a>
         <nav aria-label="Main navigation">
