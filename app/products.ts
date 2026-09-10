@@ -14,7 +14,7 @@ export type Product = {
   checks: string[];
 };
 
-export const checkedAt = '9 September 2026';
+export const checkedAt = '10 September 2026';
 
 export const products: Product[] = [
   {
@@ -106,6 +106,21 @@ export const products: Product[] = [
     publishedAt: '2026-09-09T16:00:00Z',
     bestFor: ['Narrow kitchen drawers', 'Separating cutlery and utensils', 'Adjusting storage without permanent fittings'],
     checks: ['Measure the internal drawer width, depth and height.', 'Confirm the selected size and included compartments.', 'Compare the final delivered price and estimated arrival at checkout.'],
+  },
+  {
+    slug: 'adjustable-double-layer-shoe-slots',
+    eyebrow: 'ENTRYWAY & WARDROBE',
+    name: 'Adjustable double-layer shoe storage slots',
+    shortName: 'Adjustable shoe storage slots',
+    summary: 'Stackable plastic slots that give each pair a second level, helping a compact hallway or wardrobe store more shoes without a wider rack.',
+    price: '£98.77',
+    positiveFeedback: '95.6%',
+    recentVolume: '751',
+    image: 'https://ae-pic-a1.aliexpress-media.com/kf/S6ca6a34703bd49a89e7e32cc74778c92Z.jpg',
+    affiliateUrl: 'https://s.click.aliexpress.com/s/fwx308cRD9Eny963e3KDdYxyIpNj8TXVr7saiF9Um5rMUg1kZtJALLnfa2LNXtiVgnxdD8Og6MmvwBoxhnSYQGM6r0c08U4TfX8DFGo7vviCuu3q62Q60OAhRZcqm3G8PtwM69xY7TOEWRrvulP5ukZQ4uQbBBtaVsdr6EffAqVmp3O5GyUANU2DoA3dJufNhDfh7KOlLgKIvRVhDxRESHLmea6fTE26gLUqKEUuuizJiLENrCbax94DZHDu8WhaXM9vQ86gzlqceNPO5w3vwXm4VrBF3x2lAMEl06wgNdTSMiT7cNG4HIdW0JxRtiSrpzVqCNEuQKp39ihbozWn469RaK0tJMdLnhNMsF6OeZfcZN3',
+    publishedAt: '2026-09-10T12:00:00Z',
+    bestFor: ['Narrow entryways', 'Compact wardrobes', 'Doubling shelf space for everyday shoes'],
+    checks: ['Confirm whether the selected option includes 7 or 100 pieces.', 'Measure the height available between shelves.', 'Compare the final delivered price and estimated arrival at checkout.'],
   },
 ];
 
