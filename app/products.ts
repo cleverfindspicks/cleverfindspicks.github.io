@@ -122,6 +122,21 @@ export const products: Product[] = [
     bestFor: ['Narrow entryways', 'Compact wardrobes', 'Doubling shelf space for everyday shoes'],
     checks: ['Confirm whether the selected option includes 7 or 100 pieces.', 'Measure the height available between shelves.', 'Compare the final delivered price and estimated arrival at checkout.'],
   },
+  {
+    slug: 'five-shelf-over-door-organiser',
+    eyebrow: 'DOOR-BACK STORAGE',
+    name: 'Five-shelf over-door storage organiser',
+    shortName: 'Five-shelf over-door organiser',
+    summary: 'A hanging five-tier organiser that turns the unused back of a door into accessible storage without taking up floor or cupboard space.',
+    price: '£102.27',
+    positiveFeedback: '97%',
+    recentVolume: '90',
+    image: 'https://ae-pic-a1.aliexpress-media.com/kf/Sd0d0a851ac254d77b895ce651f8e42e6x.jpg',
+    affiliateUrl: 'https://s.click.aliexpress.com/s/fwx308cRD9Eny963e3KDdYxyIpNj8TXVr7saiF9Um5rMUg1kZtJALLnfa2LNXtiVgnxdD8Og6MmvwBoxhnSYQGM6r0c08U4TfX8DFGo7vviCuu3q62Q60OAhRZcqm3G8PtwM69xY7TOEWRrvulP5ukZQ4uQbBBtaVsdr6EffAqVmp3O5GyUANU2DoA3dJufNhDfh7KOlLgKIvRVhDxRESHLmea6fTE26gLUqKEUuuizJiLENrCbax94DZHDu8WhaXM9vQ86gzlqceNPO5w3vwXm4VrBF3x2lAMEl06wgNdTSMiT7cNG4HIdW0JxhFCO27oCQWy9iEZdILIg3hOm4u6gf7yFalscClnTsERGiUgnDQ21',
+    publishedAt: '2026-09-10T16:00:00Z',
+    bestFor: ['Small bedrooms', 'Bathroom essentials', 'Renters short on cupboard space'],
+    checks: ['Measure the door width and available drop before ordering.', 'Confirm the hooks fit the thickness of your door.', 'Check the selected quantity, delivered price and estimated arrival at checkout.'],
+  },
 ];
 
 export function getProduct(slug: string) {
