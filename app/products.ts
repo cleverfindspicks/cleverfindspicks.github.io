@@ -137,6 +137,21 @@ export const products: Product[] = [
     bestFor: ['Small bedrooms', 'Bathroom essentials', 'Renters short on cupboard space'],
     checks: ['Measure the door width and available drop before ordering.', 'Confirm the hooks fit the thickness of your door.', 'Check the selected quantity, delivered price and estimated arrival at checkout.'],
   },
+  {
+    slug: 'five-tier-plastic-shelving-unit',
+    eyebrow: 'FREESTANDING STORAGE',
+    name: 'Five-tier plastic shelving unit',
+    shortName: 'Five-tier storage shelves',
+    summary: 'A slim freestanding rack that adds five open storage levels to a kitchen, utility room or garage without permanent fittings.',
+    price: '£20.70',
+    positiveFeedback: '100%',
+    recentVolume: '52',
+    image: 'https://ae-pic-a1.aliexpress-media.com/kf/A68028408e1d2400a93ccdce0c61630c3g.png',
+    affiliateUrl: 'https://s.click.aliexpress.com/s/fwx308cRD9Eny963e3KDdYxyIpNj8TXVr7saiF9Um5rMUg1kZtJALLnfa2LNXtiVgnxdD8Og6MmvwBoxhnSYQGM6r0c08U4TfX8DFGo7vviCuu3q62Q60OAhRZcqm3G8PtwM69xY7TOEWRrvulP5ukZQ4uQbBBtaVsdr6EffAqVmp3O5GyUANU2DoA3dJufNhDfh7KOlLgKIvRVhDxRESHLmea6fTE26gLUqKEUuuizJiLENrCbax94DZHDu8WhaXM9vQ86gzlqceNPO5w3vwXm4VrBF3x2lAMEl06wgNdTSMiT7cNG4HIdW0Jxg6HLdvrh6u1XDDlpl8V7aB2GMnFFdhyXmoumrqaTgC9AfeD17ALY',
+    publishedAt: '2026-09-10T19:00:00Z',
+    bestFor: ['Utility rooms', 'Kitchen overflow storage', 'Garages and compact cupboards'],
+    checks: ['Confirm the selected shelf count and overall dimensions.', 'Check the stated load limit before storing heavy items.', 'Compare the final delivered price and estimated arrival at checkout.'],
+  },
 ];
 
 export function getProduct(slug: string) {
