@@ -169,6 +169,22 @@ export const products: Product[] = [
     bestFor: ['Seasonal bedding', 'Bulky winter clothes', 'Small wardrobes and cupboards'],
     checks: ['Confirm the selected bag quantity and included sizes.', 'Check whether a hand or electric pump is included.', 'Compare the final delivered price and estimated arrival at checkout.'],
   },
+  {
+    slug: 'no-drill-bathroom-scale-storage-rack',
+    eyebrow: 'BATHROOM STORAGE',
+    name: 'No-drill wall-mounted bathroom scale storage rack',
+    shortName: 'No-drill bathroom scale rack',
+    summary: 'A compact adhesive wall rack that stores a bathroom scale upright, clearing the floor without drilling into tiles.',
+    price: '£17.68',
+    positiveFeedback: '98%',
+    recentVolume: '5,966',
+    image: 'https://ae-pic-a1.aliexpress-media.com/kf/S611a7fc968b94fc3b31491723fc0d945Q.jpg',
+    pinImage: 'https://cleverfindspicks.github.io/pinterest/bathroom-scale-rack-pin.png',
+    affiliateUrl: 'https://s.click.aliexpress.com/s/fwx308cRD9Eny963e3KDdYxyIpNj8TXVr7saiF9Um5rMUg1kZtJALLnfa2LNXtiVgnxdD8Og6MmvwBoxhnSYQGM6r0c08U4TfX8DFGo7vviCuu3q62Q60OAhRZcqm3G8PtwM69xY7TOEWRrvulP5ukZQ4uQbBBtaVsdr6EffAqVmp3O5GyUANU2DoA3dJufNhDfh7KOlLgKIvRVhDxRESHLmea6fTE26gLUqKEUuuizJiLENrCbax94DZHDu8WhaXM9vQ86gzlqceNPO5w3vwXm4VrBF3x2lAMEl06wgNdTSMiT7cNG4HIdW0JxwsugEo6uflinDXyZZn4Mk0WYkWUr0OBq5p3kLR4vPtCZJSCvkZSf',
+    publishedAt: '2026-09-11T16:00:00Z',
+    bestFor: ['Compact bathrooms', 'Keeping a scale off the floor', 'Renters who want a no-drill option'],
+    checks: ['Measure the thickness and width of your bathroom scale.', 'Confirm the adhesive is suitable for your wall or tile surface.', 'Compare the final delivered price and estimated arrival at checkout.'],
+  },
 ];
 
 export function getProduct(slug: string) {
