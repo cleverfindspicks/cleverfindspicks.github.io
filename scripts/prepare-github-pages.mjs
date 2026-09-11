@@ -32,7 +32,7 @@ const items = products.map((product) => `
       <guid isPermaLink="true">${baseUrl}/finds/${product.slug}/</guid>
       <description>${escapeXml(`${product.summary} Affiliate disclosure: we may earn a commission from qualifying purchases.`)}</description>
       <pubDate>${new Date(product.publishedAt).toUTCString()}</pubDate>
-      <media:content url="${escapeXml(product.image)}" medium="image" />
+      <media:content url="${escapeXml(product.pinImage ?? product.image)}" medium="image" />
     </item>`).join('');
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
