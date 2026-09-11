@@ -8,6 +8,7 @@ export type Product = {
   positiveFeedback: string;
   recentVolume: string;
   image: string;
+  pinImage?: string;
   affiliateUrl: string;
   publishedAt: string;
   bestFor: string[];
@@ -162,6 +163,7 @@ export const products: Product[] = [
     positiveFeedback: '98%',
     recentVolume: '830',
     image: 'https://ae-pic-a1.aliexpress-media.com/kf/S688af7664a4e4f0592f5bd8dd13a3e51X.jpg',
+    pinImage: 'https://cleverfindspicks.github.io/pinterest/vacuum-storage-pin.png',
     affiliateUrl: 'https://s.click.aliexpress.com/s/fwx308cRD9Eny963e3KDdYxyIpNj8TXVr7saiF9Um5rMUg1kZtJALLnfa2LNXtiVgnxdD8Og6MmvwBoxhnSYQGM6r0c08U4TfX8DFGo7vviCuu3q62Q60OAhRZcqm3G8PtwM69xY7TOEWRrvulP5ukZQ4uQbBBtaVsdr6EffAqVmp3O5GyUANU2DoA3dJufNhDfh7KOlLgKIvRVhDxRESHLmea6fTE26gLUqKEUuuizJiLENrCbax94DZHDu8WhaXM9vQ86gzlqceNPO5w3vwXm4VrBF3x2lAMEl06wgNdTSMiT7cNG4HIdW0Jxg0zjJ5oCsj8sSKxdkdExL24IJtjEOAN2p4H0IT6CDSR8X4gSbt1F',
     publishedAt: '2026-09-11T12:00:00Z',
     bestFor: ['Seasonal bedding', 'Bulky winter clothes', 'Small wardrobes and cupboards'],
