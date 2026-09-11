@@ -14,7 +14,7 @@ export type Product = {
   checks: string[];
 };
 
-export const checkedAt = '10 September 2026';
+export const checkedAt = '11 September 2026';
 
 export const products: Product[] = [
   {
@@ -151,6 +151,21 @@ export const products: Product[] = [
     publishedAt: '2026-09-10T19:00:00Z',
     bestFor: ['Utility rooms', 'Kitchen overflow storage', 'Garages and compact cupboards'],
     checks: ['Confirm the selected shelf count and overall dimensions.', 'Check the stated load limit before storing heavy items.', 'Compare the final delivered price and estimated arrival at checkout.'],
+  },
+  {
+    slug: 'twelve-piece-vacuum-storage-bag-set',
+    eyebrow: 'SEASONAL STORAGE',
+    name: '12-piece reusable vacuum storage bag set',
+    shortName: 'Vacuum storage bag set',
+    summary: 'A reusable set of vacuum-seal bags that compresses bulky duvets, pillows and seasonal clothes to free up wardrobe space.',
+    price: '£208.54',
+    positiveFeedback: '98%',
+    recentVolume: '830',
+    image: 'https://ae-pic-a1.aliexpress-media.com/kf/S688af7664a4e4f0592f5bd8dd13a3e51X.jpg',
+    affiliateUrl: 'https://s.click.aliexpress.com/s/fwx308cRD9Eny963e3KDdYxyIpNj8TXVr7saiF9Um5rMUg1kZtJALLnfa2LNXtiVgnxdD8Og6MmvwBoxhnSYQGM6r0c08U4TfX8DFGo7vviCuu3q62Q60OAhRZcqm3G8PtwM69xY7TOEWRrvulP5ukZQ4uQbBBtaVsdr6EffAqVmp3O5GyUANU2DoA3dJufNhDfh7KOlLgKIvRVhDxRESHLmea6fTE26gLUqKEUuuizJiLENrCbax94DZHDu8WhaXM9vQ86gzlqceNPO5w3vwXm4VrBF3x2lAMEl06wgNdTSMiT7cNG4HIdW0Jxg0zjJ5oCsj8sSKxdkdExL24IJtjEOAN2p4H0IT6CDSR8X4gSbt1F',
+    publishedAt: '2026-09-11T12:00:00Z',
+    bestFor: ['Seasonal bedding', 'Bulky winter clothes', 'Small wardrobes and cupboards'],
+    checks: ['Confirm the selected bag quantity and included sizes.', 'Check whether a hand or electric pump is included.', 'Compare the final delivered price and estimated arrival at checkout.'],
   },
 ];
 
