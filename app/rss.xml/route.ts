@@ -2,19 +2,24 @@ import { products } from '../products';
 
 const baseUrl = 'https://cleverfindspicks.github.io';
 const escapeXml = (value: string) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&apos;');
+const imageType = (url: string) => url.toLowerCase().includes('.png') ? 'image/png' : 'image/jpeg';
 
 export const dynamic = 'force-static';
 
 export function GET() {
-  const items = products.map((product) => `
+  const items = products.map((product) => {
+    const image = product.pinImage ?? product.image;
+    return `
     <item>
       <title>${escapeXml(product.shortName)}</title>
       <link>${baseUrl}/finds/${product.slug}</link>
       <guid isPermaLink="true">${baseUrl}/finds/${product.slug}</guid>
       <description>${escapeXml(`${product.summary} Affiliate disclosure: we may earn a commission from qualifying purchases.`)}</description>
       <pubDate>${new Date(product.publishedAt).toUTCString()}</pubDate>
-      <media:content url="${escapeXml(product.pinImage ?? product.image)}" medium="image" />
-    </item>`).join('');
+      <media:content url="${escapeXml(image)}" medium="image" />
+      <enclosure url="${escapeXml(image)}" type="${imageType(image)}" length="0" />
+    </item>`;
+  }).join('');
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
