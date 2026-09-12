@@ -185,6 +185,21 @@ export const products: Product[] = [
     bestFor: ['Compact bathrooms', 'Keeping a scale off the floor', 'Renters who want a no-drill option'],
     checks: ['Measure the thickness and width of your bathroom scale.', 'Confirm the adhesive is suitable for your wall or tile surface.', 'Compare the final delivered price and estimated arrival at checkout.'],
   },
+  {
+    slug: 'over-cabinet-door-multipurpose-hooks',
+    eyebrow: 'NO-DRILL DOOR STORAGE',
+    name: 'Multi-purpose over-cabinet door hook rack',
+    shortName: 'Over-cabinet door hook rack',
+    summary: 'A slim hook rail that slips over a cabinet door to keep tea towels, oven gloves and lightweight kitchen tools within reach without drilling.',
+    price: '£14.09',
+    positiveFeedback: '98%',
+    recentVolume: '754',
+    image: 'https://cleverfindspicks.github.io/products/over-cabinet-door-multipurpose-hooks.jpg',
+    affiliateUrl: 'https://s.click.aliexpress.com/s/fwx308cRD9Eny963e3KDdYxyIpNj8TXVr7saiF9Um5rMUg1kZtJALLnfa2LNXtiVgnxdD8Og6MmvwBoxhnSYQGM6r0c08U4TfX8DFGo7vviCuu3q62Q60OAhRZcqm3G8PtwM69xY7TOEWRrvulP5ukZQ4uQbBBtaVsdr6EffAqVmp3O5GyUANU2DoA3dJufNhDfh7KOlLgKIvRVhDxRESHLmea6fTE26gLUqKEUuuizJiLENrCbax94DZHDu8WhaXM9vQ86gzlqceNPO5w3vwXm4VrBF3x2lAMEl06wgNdTSMiT7cNG4HIdW0JyacREzRr0DIyjIuFFl4YD9UGMEEibFzrqal3CmiyegBDAzZxVKLUZ',
+    publishedAt: '2026-09-12T12:00:00Z',
+    bestFor: ['Compact kitchens', 'Renters who want no-drill storage', 'Keeping frequently used cloths and tools visible'],
+    checks: ['Measure the cabinet-door thickness before ordering.', 'Confirm the hook depth will not obstruct shelves inside the cabinet.', 'Check the selected colour, delivered price and estimated arrival at checkout.'],
+  },
 ];
 
 export function getProduct(slug: string) {
