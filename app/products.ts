@@ -215,6 +215,21 @@ export const products: Product[] = [
     bestFor: ['Compact kitchen worktops', 'Creating storage above a microwave', 'Keeping spices and light utensils within reach'],
     checks: ['Measure the microwave width, height and ventilation clearances.', 'Confirm the selected rack width and stated load limit.', 'Compare the final variant, delivered price and estimated arrival at checkout.'],
   },
+  {
+    slug: 'wooden-cap-accessories-organiser-hanger',
+    eyebrow: 'WARDROBE DOOR STORAGE',
+    name: 'Wooden cap and accessories organiser hanger',
+    shortName: 'Wooden cap organiser hanger',
+    summary: 'A space-saving wooden and metal hanger with multiple hooks that keeps caps, belts, ties and lightweight accessories together inside a wardrobe.',
+    price: '£22.50',
+    positiveFeedback: '98%',
+    recentVolume: '3,971',
+    image: 'https://cleverfindspicks.github.io/products/wooden-hat-accessories-organiser-rack.jpg',
+    affiliateUrl: 'https://s.click.aliexpress.com/s/fwx308cRD9Eny963e3KDdYxyIpNj8TXVr7saiF9Um5rMUg1kZtJALLnfa2LNXtiVgnxdD8Og6MmvwBoxhnSYQGM6r0c08U4TfX8DFGo7vviCuu3q62Q60OAhRZcqm3G8PtwM69xY7TOEWRrvulP5ukZQ4uQbBBtaVsdr6EffAqVmp3O5GyUANU2DoA3dJufNhDfh7KOlLgKIvRVhDxRESHLmea6fTE26gLUqKEUuuizJiLENrCbax94DZHDu8WhaXM9vQ86gzlqceNPO5w3vwXm4VrBF3x2lAMEl06wgNdTSMiT7cNG4HIdW0Jya2rRBOHuveKNknUL8njbURHfo5vNuj4IqzNRirirnTC3Ry6kDyGy',
+    publishedAt: '2026-09-12T19:00:00Z',
+    bestFor: ['Caps and everyday hats', 'Belts, ties and lightweight accessories', 'Making better use of wardrobe hanging space'],
+    checks: ['Confirm the number of hooks included with the selected variant.', 'Measure the available wardrobe drop and rail clearance.', 'Compare the final finish, delivered price and estimated arrival at checkout.'],
+  },
 ];
 
 export function getProduct(slug: string) {
