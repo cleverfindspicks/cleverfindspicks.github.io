@@ -200,6 +200,21 @@ export const products: Product[] = [
     bestFor: ['Compact kitchens', 'Renters who want no-drill storage', 'Keeping frequently used cloths and tools visible'],
     checks: ['Measure the cabinet-door thickness before ordering.', 'Confirm the hook depth will not obstruct shelves inside the cabinet.', 'Check the selected colour, delivered price and estimated arrival at checkout.'],
   },
+  {
+    slug: 'expandable-microwave-oven-storage-rack',
+    eyebrow: 'KITCHEN COUNTER SPACE',
+    name: 'Expandable microwave oven storage rack with hooks',
+    shortName: 'Expandable microwave storage rack',
+    summary: 'An adjustable carbon-steel shelf that uses the space above a microwave for spices and small kitchen essentials while keeping the worktop footprint compact.',
+    price: '£126.67',
+    positiveFeedback: '98%',
+    recentVolume: '582',
+    image: 'https://cleverfindspicks.github.io/products/expandable-microwave-oven-rack.jpg',
+    affiliateUrl: 'https://s.click.aliexpress.com/s/fwx308cRD9Eny963e3KDdYxyIpNj8TXVr7saiF9Um5rMUg1kZtJALLnfa2LNXtiVgnxdD8Og6MmvwBoxhnSYQGM6r0c08U4TfX8DFGo7vviCuu3q62Q60OAhRZcqm3G8PtwM69xY7TOEWRrvulP5ukZQ4uQbBBtaVsdr6EffAqVmp3O5GyUANU2DoA3dJufNhDfh7KOlLgKIvRVhDxRESHLmea6fTE26gLUqKEUuuizJiLENrCbax94DZHDu8WhaXM9vQ86gzlqceNPO5w3vwXm4VrBF3x2lAMEl06wgNdTSMiT7cNG4HIdW0JxRNW4I7npH37okmOx1QXGktQC6RhsvAwtrGUBhvS0ypvLOee6as9H',
+    publishedAt: '2026-09-12T16:00:00Z',
+    bestFor: ['Compact kitchen worktops', 'Creating storage above a microwave', 'Keeping spices and light utensils within reach'],
+    checks: ['Measure the microwave width, height and ventilation clearances.', 'Confirm the selected rack width and stated load limit.', 'Compare the final variant, delivered price and estimated arrival at checkout.'],
+  },
 ];
 
 export function getProduct(slug: string) {
