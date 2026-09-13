@@ -21,6 +21,11 @@ export function buildContentCandidate(candidate) {
     recentVolume: Number(candidate.metrics.recentVolume).toLocaleString('en-GB'),
     image: candidate.image,
     affiliateUrl: candidate.affiliateUrl,
+    productId: candidate.productId,
+    canonicalProductUrl: candidate.canonicalProductUrl,
+    affiliateDestinationVerified: candidate.affiliateDestinationVerified === true,
+    affiliateDestinationStatus: candidate.affiliateDestination?.reason || 'NOT_VERIFIED',
+    affiliateDestinationCheckedAt: candidate.affiliateDestination?.checkedAt || null,
     bestFor: isSideTable ? ['Small living rooms', 'Bedside storage', 'Using vertical space beside a sofa or bed'] : ['Small homes', 'Reducing visible clutter', 'A removable organisation upgrade'],
     checks: ['Check the exact dimensions against your available space.', 'Confirm the selected option and quantity on AliExpress.', 'Check the current delivered price before ordering.'],
   };

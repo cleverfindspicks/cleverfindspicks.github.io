@@ -21,6 +21,8 @@
     "intelligence:automation": "node product-intelligence/automation-run.mjs",
     "intelligence:publish-approved": "node product-intelligence/publish-approved.mjs",
     "intelligence:validate": "node product-intelligence/validate-production.mjs",
+    "intelligence:affiliate-audit": "node product-intelligence/audit-affiliate-destinations.mjs",
+    "intelligence:affiliate-verify": "node product-intelligence/verify-provisional-destination.mjs",
     "lint": "oxlint",
     "format": "oxfmt"
   },

@@ -15,6 +15,9 @@ export function applyVerificationEvidence(candidate, evidence) {
   return {
     ...candidate,
     affiliateUrl: evidence.affiliateUrl ?? candidate.affiliateUrl,
+    canonicalProductUrl: evidence.canonicalProductUrl ?? candidate.canonicalProductUrl,
+    affiliateDestinationVerified: evidence.affiliateDestinationVerified ?? candidate.affiliateDestinationVerified,
+    affiliateDestination: evidence.affiliateDestination ?? candidate.affiliateDestination,
     expectedPriceBandGbp: evidence.expectedPriceBandGbp ?? candidate.expectedPriceBandGbp,
     shipping: evidence.shipping ?? candidate.shipping,
     seller: evidence.seller ?? candidate.seller,
@@ -25,6 +28,7 @@ export function applyVerificationEvidence(candidate, evidence) {
       source: evidence.source,
       checkedAt: evidence.checkedAt,
       exactProductIdMatched: evidence.exactProductIdMatched ?? null,
+      affiliateDestinationVerified: evidence.affiliateDestinationVerified ?? null,
     },
   };
 }

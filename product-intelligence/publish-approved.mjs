@@ -18,7 +18,17 @@ if (products.some((item) => item.slug === bundle.landingPage.slug)) throw new Er
 const creativeSource = resolve(bundle.candidate.pinCreative.path);
 const creativeName = basename(creativeSource);
 await copyFile(creativeSource, new URL(`../public/pinterest/${creativeName}`, import.meta.url));
-products.push({ ...bundle.landingPage, pinImage: `https://cleverfindspicks.github.io/pinterest/${creativeName}`, affiliateUrl: bundle.candidate.affiliateUrl, publishedAt: bundle.publishedAt });
+products.push({
+  ...bundle.landingPage,
+  pinImage: `https://cleverfindspicks.github.io/pinterest/${creativeName}`,
+  affiliateUrl: bundle.candidate.affiliateUrl,
+  productId: bundle.candidate.productId,
+  canonicalProductUrl: bundle.candidate.canonicalProductUrl,
+  affiliateDestinationVerified: true,
+  affiliateDestinationStatus: bundle.candidate.affiliateDestination.reason,
+  affiliateDestinationCheckedAt: bundle.candidate.affiliateDestination.checkedAt,
+  publishedAt: bundle.publishedAt,
+});
 await writeFile(target, JSON.stringify(products, null, 2));
 const build = process.platform === 'win32'
   ? spawnSync(process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', 'pnpm build'], { cwd: new URL('..', import.meta.url), stdio: 'inherit' })

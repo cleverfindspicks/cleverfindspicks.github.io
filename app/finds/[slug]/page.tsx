@@ -37,8 +37,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div><dt>Positive feedback</dt><dd>{product.positiveFeedback}</dd></div>
             <div><dt>Recent volume</dt><dd>{product.recentVolume}</dd></div>
           </dl>
-          <AffiliateLink href={product.affiliateUrl} slug={product.slug} cluster={product.eyebrow}>Check current price on AliExpress <span aria-hidden="true">↗</span></AffiliateLink>
-          <p className="affiliate-note">Affiliate link: we may earn a commission if you buy, at no extra cost to you.</p>
+          {product.affiliateDestinationVerified ? (
+            <><AffiliateLink href={product.affiliateUrl} slug={product.slug} cluster={product.eyebrow}>Check current price on AliExpress <span aria-hidden="true">↗</span></AffiliateLink><p className="affiliate-note">Affiliate link: we may earn a commission if you buy, at no extra cost to you.</p></>
+          ) : (
+            <><span className="buy-link buy-link-disabled" aria-disabled="true">Listing temporarily unavailable</span><p className="affiliate-note">We disabled this link because its exact AliExpress destination could not be verified.</p></>
+          )}
         </div>
       </article>
       <section className="article-body" aria-label={`Why we shortlisted ${product.shortName}`}>
@@ -62,8 +65,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <p className="eyebrow">READY TO CHECK IT?</p>
             <h2>See the live listing</h2>
             <p>Confirm the current variant, delivery date and final price directly on AliExpress.</p>
-            <AffiliateLink href={product.affiliateUrl} slug={product.slug} cluster={product.eyebrow}>View on AliExpress <span aria-hidden="true">↗</span></AffiliateLink>
-            <p className="affiliate-note">Sponsored affiliate link. You pay no extra; we may receive a commission.</p>
+            {product.affiliateDestinationVerified ? (
+              <><AffiliateLink href={product.affiliateUrl} slug={product.slug} cluster={product.eyebrow}>View on AliExpress <span aria-hidden="true">↗</span></AffiliateLink><p className="affiliate-note">Sponsored affiliate link. You pay no extra; we may receive a commission.</p></>
+            ) : (
+              <><span className="buy-link buy-link-disabled" aria-disabled="true">Listing temporarily unavailable</span><p className="affiliate-note">The exact product destination is under review, so this CTA is disabled.</p></>
+            )}
           </div>
         </aside>
       </section>

@@ -7,15 +7,27 @@ import { enrichCandidate } from './enrichment.mjs';
 import { readFile } from 'node:fs/promises';
 import { products } from '../app/products.ts';
 import { hiddenLegacyRecommendationSlugs } from '../app/catalog-visibility.ts';
+import { canonicalProductUrl, classifyDestination, extractProductId } from './affiliate-destination.mjs';
 
 assert.equal(Object.values(config.weights).reduce((sum, value) => sum + value, 0), 100, 'Weights must total 100.');
 
 const strong = {
-  productId: 'EXAMPLE-1',
+  productId: '1005000000000001',
   trackingId: 'cfp-example-1',
   pinId: 'pin-cfp-example-1-2026-09-13',
   runId: 'cf-run-test',
   affiliateUrl: 'https://s.click.aliexpress.com/e/example',
+  canonicalProductUrl: 'https://www.aliexpress.com/item/1005000000000001.html',
+  affiliateDestinationVerified: true,
+  affiliateDestination: {
+    checkedAt: '2026-09-13T00:00:00.000Z',
+    finalDestination: 'https://www.aliexpress.com/item/1005000000000001.html',
+    finalProductId: '1005000000000001',
+    destinationType: 'PRODUCT',
+    matchesExpectedProduct: true,
+    pass: true,
+    reason: 'PASS_EXACT_PRODUCT_ID',
+  },
   detailVerification: { productIdMatched: true, priceMatched: true },
   cluster: 'under-sink-storage',
   metrics: { priceGbp: 24, feedbackPct: 98.7, recentVolume: 3200, commissionRatePct: 9, commissionAmountGbp: 2.16 },
@@ -30,6 +42,9 @@ const strong = {
 };
 
 assert.equal(scoreCandidate(strong).decision, 'keep', 'A complete strong candidate should pass.');
+assert.equal(extractProductId(canonicalProductUrl('1005000000000001')), '1005000000000001');
+assert.equal(classifyDestination('https://best.aliexpress.com/'), 'HOMEPAGE');
+assert.equal(classifyDestination('https://www.aliexpress.com/item/1005000000000001.html'), 'PRODUCT');
 assert.equal(scoreCandidate({ ...strong, shipping: { verified: false } }).decision, 'reject', 'Unknown UK shipping must block publication.');
 assert.equal(scoreCandidate({ ...strong, duplicateSimilarity: 0.9 }).decision, 'reject', 'A near duplicate must be rejected.');
 assert.equal(scoreCandidate({ ...strong, pinCreative: null }).decision, 'reject', 'A missing custom vertical pin must be rejected.');
@@ -56,6 +71,7 @@ assert.ok(clusters[0].searchPriorityMultiplier > clusters[1].searchPriorityMulti
 
 const validBundle = validatePublicationBundle({ candidate: strong, verification: { productId: strong.productId }, landingPage: { slug: 'example', title: 'Example', summary: 'Summary', affiliateUrl: strong.affiliateUrl }, rssItem: { title: 'Example', link: 'https://cleverfindspicks.github.io/finds/example', image: '/pin.png' } });
 assert.equal(validBundle.ok, true);
+assert.equal(validatePublicationBundle({ candidate: { ...strong, affiliateDestinationVerified: false }, verification: { productId: strong.productId }, landingPage: { slug: 'example', title: 'Example', summary: 'Summary', affiliateUrl: strong.affiliateUrl }, rssItem: { title: 'Example', link: 'https://cleverfindspicks.github.io/finds/example', image: '/pin.png' } }).ok, false, 'An unverified affiliate destination must block publication.');
 assert.equal(validatePublicationBundle({ candidate: strong, verification: { productId: 'WRONG' }, landingPage: {}, rssItem: {} }).ok, false);
 const productSource = await readFile(new URL('../app/products.ts', import.meta.url), 'utf8');
 const rssSource = await readFile(new URL('../app/rss.xml/route.ts', import.meta.url), 'utf8');
@@ -68,6 +84,7 @@ assert.ok(hiddenLegacyRecommendationSlugs.every((slug) => products.some((product
 assert.match(homeSource, /products\.filter\(\(product\) => isVisibleRecommendation\(product\.slug\)\)/, 'The homepage must filter legacy rejects from recommendations.');
 assert.match(rssSource, /product\.pinImage \?\? product\.image/, 'RSS must use the custom pin when available.');
 assert.match(pageSource, /AffiliateLink/, 'Landing pages must use the tracked affiliate CTA.');
+assert.match(pageSource, /affiliateDestinationVerified/, 'Landing pages must disable unverified affiliate destinations.');
 assert.match(analyticsSource, /aliexpress_outbound_click/, 'Outbound clicks must emit an analytics event.');
 
-console.log(JSON.stringify({ ok: true, assertions: 28 }));
+console.log(JSON.stringify({ ok: true, assertions: 33 }));

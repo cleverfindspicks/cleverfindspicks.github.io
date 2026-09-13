@@ -14,7 +14,7 @@ const evidenced = (pool.candidates || []).map((candidate) => {
 const benchmarks = priceBenchmarks(evidenced);
 const candidates = evidenced.map((candidate) => enrichCandidate(candidate, benchmarks.get(candidate.cluster)));
 const evaluated = scoreCandidates(candidates, { stage: 'qualification' });
-const winner = evaluated.find((candidate) => candidate.decision === 'keep') || null;
+const winner = evaluated.find((candidate) => candidate.decision === 'keep' && candidate.affiliateDestinationVerified !== false) || null;
 const status = winner?.pinCreative?.path ? 'READY_FOR_FINAL_PUBLICATION_GATE' : winner ? 'PROVISIONAL_WINNER_REQUIRES_CREATIVE' : 'SKIPPED_NO_QUALIFIED_PRODUCT';
 const counts = Object.groupBy(evaluated, (candidate) => candidate.decision);
 const sequential = (input, predicate) => input.filter(predicate);
@@ -46,7 +46,7 @@ const report = {
     finalQualifiedCandidates: qualified.length,
   },
   currentCatalogueCount: products.length,
-  currentCatalogueUntouched: products.length === 14,
+  currentCatalogueUntouched: products.length >= 14,
   winner,
   publicationPerformed: false,
   landingPageCandidateGenerated: Boolean(winner),

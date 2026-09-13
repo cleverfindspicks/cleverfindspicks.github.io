@@ -1,4 +1,5 @@
 import generatedProducts from './generated-products.json' with { type: 'json' };
+import affiliateDestinations from './affiliate-destinations.json' with { type: 'json' };
 
 export type Product = {
   slug: string;
@@ -12,6 +13,11 @@ export type Product = {
   image: string;
   pinImage?: string;
   affiliateUrl: string;
+  productId?: string | null;
+  canonicalProductUrl?: string | null;
+  affiliateDestinationVerified?: boolean;
+  affiliateDestinationStatus?: string;
+  affiliateDestinationCheckedAt?: string | null;
   publishedAt: string;
   bestFor: string[];
   checks: string[];
@@ -234,7 +240,30 @@ const existingProducts: Product[] = [
   },
 ];
 
-export const products: Product[] = [...existingProducts, ...(generatedProducts as Product[])];
+type DestinationRecord = {
+  slug: string;
+  productId?: string | null;
+  canonicalProductUrl?: string | null;
+  affiliateUrl?: string;
+  affiliateDestinationVerified?: boolean;
+  status?: string;
+  validationTimestamp?: string | null;
+};
+
+const destinationBySlug = new Map((affiliateDestinations.records as DestinationRecord[]).map((record) => [record.slug, record]));
+
+export const products: Product[] = [...existingProducts, ...(generatedProducts as Product[])].map((product) => {
+  const destination = destinationBySlug.get(product.slug);
+  return {
+    ...product,
+    productId: destination?.productId ?? product.productId ?? null,
+    canonicalProductUrl: destination?.canonicalProductUrl ?? product.canonicalProductUrl ?? null,
+    affiliateUrl: destination?.affiliateUrl ?? product.affiliateUrl,
+    affiliateDestinationVerified: destination?.affiliateDestinationVerified ?? product.affiliateDestinationVerified ?? false,
+    affiliateDestinationStatus: destination?.status ?? product.affiliateDestinationStatus ?? 'NOT_AUDITED',
+    affiliateDestinationCheckedAt: destination?.validationTimestamp ?? product.affiliateDestinationCheckedAt ?? null,
+  };
+});
 
 export function getProduct(slug: string) {
   return products.find((product) => product.slug === slug);

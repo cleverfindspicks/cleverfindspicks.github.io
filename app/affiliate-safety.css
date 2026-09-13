@@ -1,0 +1,6 @@
+.buy-link-disabled {
+  background: var(--muted);
+  color: var(--muted-foreground);
+  cursor: not-allowed;
+  justify-content: center;
+}

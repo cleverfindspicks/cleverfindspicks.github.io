@@ -7,7 +7,15 @@ assert.ok(products.length >= 14, 'The legacy catalogue must contain at least 14 
 for (const product of products) {
   assert.ok(product.slug && product.image && product.affiliateUrl && product.publishedAt);
   assert.equal(new URL(product.affiliateUrl).hostname, 's.click.aliexpress.com');
+  if (product.affiliateDestinationVerified) {
+    assert.ok(product.productId, `Verified product ${product.slug} must store its Product ID.`);
+    assert.match(product.canonicalProductUrl || '', new RegExp(`/item/${product.productId}\\.html$`));
+  }
 }
+const destinationAudit = JSON.parse(await readFile(new URL('./data/affiliate-destination-audit.json', import.meta.url), 'utf8'));
+assert.equal(destinationAudit.records.length, products.length, 'Every published product must have an Affiliate destination audit record.');
+assert.equal(destinationAudit.summary.checked, products.length);
+assert.ok(destinationAudit.records.every((record) => record.status === 'PASS' || record.action.includes('CTA_DISABLED')), 'Every failed destination must have its CTA disabled.');
 const rssSource = await readFile(new URL('../app/rss.xml/route.ts', import.meta.url), 'utf8');
 assert.match(rssSource, /<rss version="2\.0"/);
 assert.match(rssSource, /products\.map/);
