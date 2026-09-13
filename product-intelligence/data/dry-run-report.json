@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-09-13T01:36:07.283Z",
+  "runId": "cf-run-20260913T013347-697dbde0",
+  "status": "SKIPPED_NO_QUALIFIED_PRODUCT",
+  "candidateCount": 1040,
+  "evaluatedCounts": {
+    "reject": 1040
+  },
+  "currentCatalogueCount": 14,
+  "currentCatalogueUntouched": true,
+  "winner": null,
+  "publicationPerformed": false,
+  "landingPageCandidateGenerated": false,
+  "rssCandidateGenerated": false,
+  "creativeCandidateGenerated": false,
+  "analyticsValidation": {
+    "stableIds": false,
+    "outboundEvent": "aliexpress_outbound_click",
+    "productViewEvent": "product_view"
+  },
+  "topCandidates": [
+    {
+      "productId": "1005009045188656",
+      "title": "30L/42L/56L Insulated Waterproof Tactical Camping Bag Foldable Outdoor Picnic Tableware Storage Box Large Capacity Field Cookwar",
+      "totalScore": 33.2,
+      "confidence": 0.4,
+      "decision": "reject",
+      "rejectionReason": "High price is not verified for the pictured product and quantity. Weak relevance to small-space organisation. The image does not communicate an obvious problem and solution quickly enough. A reviewed custom vertical Pinterest image is required. Score is below 65. Data confidence is below 75%. Manual verification is required before publication."
+    },
+    {
+      "productId": "1005009414721195",
+      "title": "1PC Universal Foldable Felt Car Storage Box High-Quality Mat for Tools And Towels Organization",
+      "totalScore": 32.6,
+      "confidence": 0.4,
+      "decision": "reject",
+      "rejectionReason": "Weak relevance to small-space organisation. The image does not communicate an obvious problem and solution quickly enough. A reviewed custom vertical Pinterest image is required. Score is below 65. Data confidence is below 75%. Manual verification is required before publication."
+    },
+    {
+      "productId": "1005013100857580",
+      "title": "6 Layers Shoes Box Foldable Transparent Sneaker Shoe Storage Organizers Box Stackable Dustproof High-top Cabinet Shoe Rack Shelf",
+      "totalScore": 32.1,
+      "confidence": 0.4,
+      "decision": "reject",
+      "rejectionReason": "High price is not verified for the pictured product and quantity. Weak relevance to small-space organisation. The image does not communicate an obvious problem and solution quickly enough. A reviewed custom vertical Pinterest image is required. Score is below 65. Data confidence is below 75%. Manual verification is required before publication."
+    },
+    {
+      "productId": "1005012541002451",
+      "title": "Triangular Space-Saving Suction Cup Bathroom Storage Shelf  No Drilling Required Multifunctional Storage Organizer with Hooks",
+      "totalScore": 31.5,
+      "confidence": 0.4,
+      "decision": "reject",
+      "rejectionReason": "High price is not verified for the pictured product and quantity. Weak relevance to small-space organisation. The image does not communicate an obvious problem and solution quickly enough. A reviewed custom vertical Pinterest image is required. Score is below 65. Data confidence is below 75%. Manual verification is required before publication."
+    },
+    {
+      "productId": "1005012814894115",
+      "title": "1PC Stainless Steel Bathroom Shelf No Drill Wall Mounted Corner Shower Shelf for Shampoo Storage Kitchen Organizer Accessories",
+      "totalScore": 31.3,
+      "confidence": 0.4,
+      "decision": "reject",
+      "rejectionReason": "High price is not verified for the pictured product and quantity. Weak relevance to small-space organisation. The image does not communicate an obvious problem and solution quickly enough. A reviewed custom vertical Pinterest image is required. Score is below 65. Data confidence is below 75%. Manual verification is required before publication."
+    },
+    {
+      "productId": "1005011587291291",
+      "title": "20/50PCS Heavy Duty Stainless Steel Hangers 16.5 Inch Ultra Thin Space Saving Clothes Hangers Polished Metal Wardrobe Hangers",
+      "totalScore": 31.3,
+      "confidence": 0.4,
+      "decision": "reject",
+      "rejectionReason": "High price is not verified for the pictured product and quantity. Weak relevance to small-space organisation. The image does not communicate an obvious problem and solution quickly enough. A reviewed custom vertical Pinterest image is required. Score is below 65. Data confidence is below 75%. Manual verification is required before publication."
+    },
+    {
+      "productId": "1005011743095305",
+      "title": "Homefish 4 Pcs Compressible Travel Organizer Bag Vertical Waterproof Multi-functional Business Luggage Storage Pouches Set",
+      "totalScore": 31.3,
+      "confidence": 0.4,
+      "decision": "reject",
+      "rejectionReason": "Weak relevance to small-space organisation. The image does not communicate an obvious problem and solution quickly enough. A reviewed custom vertical Pinterest image is required. Score is below 65. Data confidence is below 75%. Manual verification is required before publication."
+    },
+    {
+      "productId": "1005009874288209",
+      "title": "Double-Layer Pull-Out Kitchen Storage Rack, Non-Slip and Stable, Multifunctional Storage Box with Five Hooks, Under-Sink Brush Holder, Double-Layer Drawer Storage Rack, Suitable for Kitchen and Bathroom Countertop Sink Storage",
+      "totalScore": 31.2,
+      "confidence": 0.4,
+      "decision": "reject",
+      "rejectionReason": "High price is not verified for the pictured product and quantity. Weak relevance to small-space organisation. The image does not communicate an obvious problem and solution quickly enough. A reviewed custom vertical Pinterest image is required. Score is below 65. Data confidence is below 75%. Manual verification is required before publication."
+    },
+    {
+      "productId": "1005006997225965",
+      "title": "Bathroom Trash Can-10L Small Garbage Can with Press Top Lid for Toilet,Bedroom,Living Room – Plastic Wastebasket with Pop-up Lid",
+      "totalScore": 31.2,
+      "confidence": 0.4,
+      "decision": "reject",
+      "rejectionReason": "High price is not verified for the pictured product and quantity. Weak relevance to small-space organisation. The image does not communicate an obvious problem and solution quickly enough. A reviewed custom vertical Pinterest image is required. Score is below 65. Data confidence is below 75%. Manual verification is required before publication."
+    },
+    {
+      "productId": "1005010285536327",
+      "title": "Rilakkuma Korilakkuma Bear Hanging Storage Pockets Pink Plush Organizer Bag Receiving Makeup Pouch Box Case Bags For Home Girls",
+      "totalScore": 31.1,
+      "confidence": 0.4,
+      "decision": "reject",
+      "rejectionReason": "Weak relevance to small-space organisation. The image does not communicate an obvious problem and solution quickly enough. A reviewed custom vertical Pinterest image is required. Score is below 65. Data confidence is below 75%. Manual verification is required before publication."
+    }
+  ],
+  "note": "No product passed every evidence gate. The existing site and RSS remain unchanged."
+}

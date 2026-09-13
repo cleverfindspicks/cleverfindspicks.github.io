@@ -15,20 +15,22 @@ This layer is deliberately separate from the production catalogue, RSS and GitHu
 
 | Factor | Weight |
 |---|---:|
-| Recent demand | 12 |
-| Positive feedback | 10 |
-| Commission rate | 10 |
-| Estimated commission amount | 10 |
-| Price fit | 8 |
-| Value for money | 8 |
-| UK suitability | 6 |
-| Verified shipping | 6 |
-| Verified seller reliability | 5 |
+| Recent demand | 8 |
+| Positive feedback | 7 |
+| Commission rate | 6 |
+| Estimated commission amount | 7 |
+| Price fit | 6 |
+| Value for money | 6 |
+| UK suitability | 5 |
+| Verified shipping | 7 |
+| Verified seller reliability | 4 |
 | Small-space relevance | 8 |
-| Pinterest visual appeal | 5 |
-| Impulse purchase likelihood | 4 |
-| Obvious problem/solution | 4 |
-| Novelty versus recent products | 4 |
+| Pinterest visual appeal | 7 |
+| Impulse purchase likelihood | 5 |
+| Obvious problem/solution | 6 |
+| Novelty versus recent products | 5 |
+| Buyer intent | 7 |
+| Competition opportunity | 6 |
 
 Unknown factors receive zero points and reduce `confidence`. This is intentional: the model must prefer evidence over optimistic guesses.
 

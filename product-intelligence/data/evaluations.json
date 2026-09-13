@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T00:11:05.358Z",
+  "generatedAt": "2026-09-13T01:30:04.687Z",
   "modelVersion": 1,
   "purpose": "Analysis only. This file is not connected to RSS, app/products.ts or production publishing.",
   "products": [
@@ -50,47 +50,47 @@
       "scoreBreakdown": {
         "recentDemand": {
           "value": 0.9,
-          "weight": 12,
-          "points": 10.8
-        },
-        "positiveFeedback": {
-          "value": 0.8,
-          "weight": 10,
-          "points": 8
-        },
-        "commissionRate": {
-          "value": 0.444,
-          "weight": 10,
-          "points": 4.4
-        },
-        "estimatedCommission": {
-          "value": 0.24,
-          "weight": 10,
-          "points": 2.4
-        },
-        "priceFit": {
-          "value": 1,
-          "weight": 8,
-          "points": 8
-        },
-        "valueForMoney": {
-          "value": 0.9,
           "weight": 8,
           "points": 7.2
         },
-        "ukSuitability": {
+        "positiveFeedback": {
+          "value": 0.8,
+          "weight": 7,
+          "points": 5.6
+        },
+        "commissionRate": {
+          "value": 0.444,
+          "weight": 6,
+          "points": 2.7
+        },
+        "estimatedCommission": {
+          "value": 0.24,
+          "weight": 7,
+          "points": 1.7
+        },
+        "priceFit": {
+          "value": 1,
+          "weight": 6,
+          "points": 6
+        },
+        "valueForMoney": {
           "value": 0.9,
           "weight": 6,
           "points": 5.4
         },
+        "ukSuitability": {
+          "value": 0.9,
+          "weight": 5,
+          "points": 4.5
+        },
         "shipping": {
           "value": "unknown",
-          "weight": 6,
+          "weight": 7,
           "points": 0
         },
         "sellerReliability": {
           "value": "unknown",
-          "weight": 5,
+          "weight": 4,
           "points": 0
         },
         "smallSpaceRelevance": {
@@ -100,154 +100,37 @@
         },
         "visualAppeal": {
           "value": 0.88,
-          "weight": 5,
-          "points": 4.4
+          "weight": 7,
+          "points": 6.2
         },
         "impulsePurchase": {
           "value": 0.8,
-          "weight": 4,
-          "points": 3.2
+          "weight": 5,
+          "points": 4
         },
         "obviousProblem": {
-          "value": 0.9,
-          "weight": 4,
-          "points": 3.6
-        },
-        "novelty": {
-          "value": 0.58,
-          "weight": 4,
-          "points": 2.3
-        }
-      },
-      "totalScore": 66.6,
-      "confidence": 0.89,
-      "decision": "keep",
-      "rejectionReason": null,
-      "reviewNotes": [
-        "Product ID is missing; the exact listing cannot be re-queried.",
-        "Variant and quantity are not verified.",
-        "UK shipping cost and delivery time are unknown.",
-        "Seller reliability is unknown."
-      ]
-    },
-    {
-      "productId": null,
-      "slug": "over-cabinet-door-multipurpose-hooks",
-      "title": "Over-cabinet door hook rack",
-      "evaluatedAt": "2026-09-13T00:00:00Z",
-      "searchQuery": "legacy catalogue review",
-      "cluster": "no-drill-storage",
-      "metrics": {
-        "priceGbp": 14.09,
-        "feedbackPct": 98,
-        "recentVolume": 754,
-        "commissionRatePct": 7,
-        "commissionAmountGbp": 0.99
-      },
-      "expectedPriceBandGbp": {
-        "min": 8,
-        "max": 25
-      },
-      "shipping": {
-        "available": null,
-        "costGbp": null,
-        "daysMax": null,
-        "verified": false
-      },
-      "seller": {
-        "reliabilityScore": null,
-        "verified": false
-      },
-      "listing": {
-        "variantClarity": null,
-        "priceVerifiedForShownVariant": false
-      },
-      "factors": {
-        "valueForMoney": 0.9,
-        "ukSuitability": 0.9,
-        "smallSpaceRelevance": 0.9,
-        "visualAppeal": 0.9,
-        "impulsePurchase": 0.9,
-        "obviousProblem": 1
-      },
-      "duplicateSimilarity": 0.45,
-      "pinCreative": null,
-      "estimatedProfitability": "About £0.99 per order at the observed 7% rate; viable but modest.",
-      "selectionReason": "Affordable, renter-friendly and immediately understandable, with acceptable demand.",
-      "scoreBreakdown": {
-        "recentDemand": {
-          "value": 0.719,
-          "weight": 12,
-          "points": 8.6
-        },
-        "positiveFeedback": {
-          "value": 0.8,
-          "weight": 10,
-          "points": 8
-        },
-        "commissionRate": {
-          "value": 0.444,
-          "weight": 10,
-          "points": 4.4
-        },
-        "estimatedCommission": {
-          "value": 0.109,
-          "weight": 10,
-          "points": 1.1
-        },
-        "priceFit": {
-          "value": 1,
-          "weight": 8,
-          "points": 8
-        },
-        "valueForMoney": {
-          "value": 0.9,
-          "weight": 8,
-          "points": 7.2
-        },
-        "ukSuitability": {
           "value": 0.9,
           "weight": 6,
           "points": 5.4
         },
-        "shipping": {
+        "novelty": {
+          "value": 0.58,
+          "weight": 5,
+          "points": 2.9
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
           "value": "unknown",
           "weight": 6,
           "points": 0
-        },
-        "sellerReliability": {
-          "value": "unknown",
-          "weight": 5,
-          "points": 0
-        },
-        "smallSpaceRelevance": {
-          "value": 0.9,
-          "weight": 8,
-          "points": 7.2
-        },
-        "visualAppeal": {
-          "value": 0.9,
-          "weight": 5,
-          "points": 4.5
-        },
-        "impulsePurchase": {
-          "value": 0.9,
-          "weight": 4,
-          "points": 3.6
-        },
-        "obviousProblem": {
-          "value": 1,
-          "weight": 4,
-          "points": 4
-        },
-        "novelty": {
-          "value": 0.55,
-          "weight": 4,
-          "points": 2.2
         }
       },
-      "totalScore": 64.3,
-      "confidence": 0.89,
+      "totalScore": 58.3,
+      "confidence": 0.76,
       "decision": "keep",
       "rejectionReason": null,
       "reviewNotes": [
@@ -309,47 +192,47 @@
       "scoreBreakdown": {
         "recentDemand": {
           "value": 0.944,
-          "weight": 12,
-          "points": 11.3
+          "weight": 8,
+          "points": 7.6
         },
         "positiveFeedback": {
           "value": 0.8,
-          "weight": 10,
-          "points": 8
+          "weight": 7,
+          "points": 5.6
         },
         "commissionRate": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 6,
           "points": 0
         },
         "estimatedCommission": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 7,
           "points": 0
         },
         "priceFit": {
           "value": 1,
-          "weight": 8,
-          "points": 8
+          "weight": 6,
+          "points": 6
         },
         "valueForMoney": {
-          "value": 0.9,
-          "weight": 8,
-          "points": 7.2
-        },
-        "ukSuitability": {
           "value": 0.9,
           "weight": 6,
           "points": 5.4
         },
+        "ukSuitability": {
+          "value": 0.9,
+          "weight": 5,
+          "points": 4.5
+        },
         "shipping": {
           "value": "unknown",
-          "weight": 6,
+          "weight": 7,
           "points": 0
         },
         "sellerReliability": {
           "value": "unknown",
-          "weight": 5,
+          "weight": 4,
           "points": 0
         },
         "smallSpaceRelevance": {
@@ -359,27 +242,174 @@
         },
         "visualAppeal": {
           "value": 1,
-          "weight": 5,
-          "points": 5
+          "weight": 7,
+          "points": 7
         },
         "impulsePurchase": {
           "value": 0.9,
-          "weight": 4,
-          "points": 3.6
+          "weight": 5,
+          "points": 4.5
         },
         "obviousProblem": {
           "value": 1,
-          "weight": 4,
-          "points": 4
+          "weight": 6,
+          "points": 6
         },
         "novelty": {
           "value": 0.8,
-          "weight": 4,
-          "points": 3.2
+          "weight": 5,
+          "points": 4
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
         }
       },
-      "totalScore": 62.9,
-      "confidence": 0.69,
+      "totalScore": 57.8,
+      "confidence": 0.63,
+      "decision": "keep",
+      "rejectionReason": null,
+      "reviewNotes": [
+        "Product ID is missing; the exact listing cannot be re-queried.",
+        "Variant and quantity are not verified.",
+        "UK shipping cost and delivery time are unknown.",
+        "Seller reliability is unknown."
+      ]
+    },
+    {
+      "productId": null,
+      "slug": "over-cabinet-door-multipurpose-hooks",
+      "title": "Over-cabinet door hook rack",
+      "evaluatedAt": "2026-09-13T00:00:00Z",
+      "searchQuery": "legacy catalogue review",
+      "cluster": "no-drill-storage",
+      "metrics": {
+        "priceGbp": 14.09,
+        "feedbackPct": 98,
+        "recentVolume": 754,
+        "commissionRatePct": 7,
+        "commissionAmountGbp": 0.99
+      },
+      "expectedPriceBandGbp": {
+        "min": 8,
+        "max": 25
+      },
+      "shipping": {
+        "available": null,
+        "costGbp": null,
+        "daysMax": null,
+        "verified": false
+      },
+      "seller": {
+        "reliabilityScore": null,
+        "verified": false
+      },
+      "listing": {
+        "variantClarity": null,
+        "priceVerifiedForShownVariant": false
+      },
+      "factors": {
+        "valueForMoney": 0.9,
+        "ukSuitability": 0.9,
+        "smallSpaceRelevance": 0.9,
+        "visualAppeal": 0.9,
+        "impulsePurchase": 0.9,
+        "obviousProblem": 1
+      },
+      "duplicateSimilarity": 0.45,
+      "pinCreative": null,
+      "estimatedProfitability": "About £0.99 per order at the observed 7% rate; viable but modest.",
+      "selectionReason": "Affordable, renter-friendly and immediately understandable, with acceptable demand.",
+      "scoreBreakdown": {
+        "recentDemand": {
+          "value": 0.719,
+          "weight": 8,
+          "points": 5.8
+        },
+        "positiveFeedback": {
+          "value": 0.8,
+          "weight": 7,
+          "points": 5.6
+        },
+        "commissionRate": {
+          "value": 0.444,
+          "weight": 6,
+          "points": 2.7
+        },
+        "estimatedCommission": {
+          "value": 0.109,
+          "weight": 7,
+          "points": 0.8
+        },
+        "priceFit": {
+          "value": 1,
+          "weight": 6,
+          "points": 6
+        },
+        "valueForMoney": {
+          "value": 0.9,
+          "weight": 6,
+          "points": 5.4
+        },
+        "ukSuitability": {
+          "value": 0.9,
+          "weight": 5,
+          "points": 4.5
+        },
+        "shipping": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "sellerReliability": {
+          "value": "unknown",
+          "weight": 4,
+          "points": 0
+        },
+        "smallSpaceRelevance": {
+          "value": 0.9,
+          "weight": 8,
+          "points": 7.2
+        },
+        "visualAppeal": {
+          "value": 0.9,
+          "weight": 7,
+          "points": 6.3
+        },
+        "impulsePurchase": {
+          "value": 0.9,
+          "weight": 5,
+          "points": 4.5
+        },
+        "obviousProblem": {
+          "value": 1,
+          "weight": 6,
+          "points": 6
+        },
+        "novelty": {
+          "value": 0.55,
+          "weight": 5,
+          "points": 2.8
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
+        }
+      },
+      "totalScore": 57.4,
+      "confidence": 0.76,
       "decision": "keep",
       "rejectionReason": null,
       "reviewNotes": [
@@ -436,47 +466,47 @@
       "scoreBreakdown": {
         "recentDemand": {
           "value": 0.95,
-          "weight": 12,
-          "points": 11.4
+          "weight": 8,
+          "points": 7.6
         },
         "positiveFeedback": {
           "value": 0.8,
-          "weight": 10,
-          "points": 8
+          "weight": 7,
+          "points": 5.6
         },
         "commissionRate": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 6,
           "points": 0
         },
         "estimatedCommission": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 7,
           "points": 0
         },
         "priceFit": {
           "value": 1,
-          "weight": 8,
-          "points": 8
+          "weight": 6,
+          "points": 6
         },
         "valueForMoney": {
           "value": 0.85,
-          "weight": 8,
-          "points": 6.8
+          "weight": 6,
+          "points": 5.1
         },
         "ukSuitability": {
           "value": 0.9,
-          "weight": 6,
-          "points": 5.4
+          "weight": 5,
+          "points": 4.5
         },
         "shipping": {
           "value": "unknown",
-          "weight": 6,
+          "weight": 7,
           "points": 0
         },
         "sellerReliability": {
           "value": "unknown",
-          "weight": 5,
+          "weight": 4,
           "points": 0
         },
         "smallSpaceRelevance": {
@@ -486,27 +516,37 @@
         },
         "visualAppeal": {
           "value": 0.9,
-          "weight": 5,
-          "points": 4.5
+          "weight": 7,
+          "points": 6.3
         },
         "impulsePurchase": {
           "value": 0.8,
-          "weight": 4,
-          "points": 3.2
+          "weight": 5,
+          "points": 4
         },
         "obviousProblem": {
           "value": 0.95,
-          "weight": 4,
-          "points": 3.8
+          "weight": 6,
+          "points": 5.7
         },
         "novelty": {
           "value": 0.8,
-          "weight": 4,
-          "points": 3.2
+          "weight": 5,
+          "points": 4
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
         }
       },
-      "totalScore": 61.9,
-      "confidence": 0.69,
+      "totalScore": 56.4,
+      "confidence": 0.63,
       "decision": "keep",
       "rejectionReason": null,
       "reviewNotes": [
@@ -563,47 +603,47 @@
       "scoreBreakdown": {
         "recentDemand": {
           "value": 0.839,
-          "weight": 12,
-          "points": 10.1
+          "weight": 8,
+          "points": 6.7
         },
         "positiveFeedback": {
           "value": 0.8,
-          "weight": 10,
-          "points": 8
+          "weight": 7,
+          "points": 5.6
         },
         "commissionRate": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 6,
           "points": 0
         },
         "estimatedCommission": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 7,
           "points": 0
         },
         "priceFit": {
           "value": 1,
-          "weight": 8,
-          "points": 8
+          "weight": 6,
+          "points": 6
         },
         "valueForMoney": {
           "value": 0.75,
-          "weight": 8,
-          "points": 6
+          "weight": 6,
+          "points": 4.5
         },
         "ukSuitability": {
           "value": 0.9,
-          "weight": 6,
-          "points": 5.4
+          "weight": 5,
+          "points": 4.5
         },
         "shipping": {
           "value": "unknown",
-          "weight": 6,
+          "weight": 7,
           "points": 0
         },
         "sellerReliability": {
           "value": "unknown",
-          "weight": 5,
+          "weight": 4,
           "points": 0
         },
         "smallSpaceRelevance": {
@@ -613,28 +653,38 @@
         },
         "visualAppeal": {
           "value": 0.9,
-          "weight": 5,
-          "points": 4.5
+          "weight": 7,
+          "points": 6.3
         },
         "impulsePurchase": {
           "value": 0.65,
-          "weight": 4,
-          "points": 2.6
+          "weight": 5,
+          "points": 3.3
         },
         "obviousProblem": {
           "value": 0.95,
-          "weight": 4,
-          "points": 3.8
+          "weight": 6,
+          "points": 5.7
         },
         "novelty": {
           "value": 0.75,
-          "weight": 4,
-          "points": 3
+          "weight": 5,
+          "points": 3.8
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
         }
       },
-      "totalScore": 59,
-      "confidence": 0.69,
-      "decision": "keep",
+      "totalScore": 53.9,
+      "confidence": 0.63,
+      "decision": "questionable",
       "rejectionReason": null,
       "reviewNotes": [
         "Product ID is missing; the exact listing cannot be re-queried.",
@@ -690,47 +740,47 @@
       "scoreBreakdown": {
         "recentDemand": {
           "value": 0.691,
-          "weight": 12,
-          "points": 8.3
+          "weight": 8,
+          "points": 5.5
         },
         "positiveFeedback": {
           "value": 0.8,
-          "weight": 10,
-          "points": 8
+          "weight": 7,
+          "points": 5.6
         },
         "commissionRate": {
           "value": 0.444,
-          "weight": 10,
-          "points": 4.4
+          "weight": 6,
+          "points": 2.7
         },
         "estimatedCommission": {
           "value": 1,
-          "weight": 10,
-          "points": 10
+          "weight": 7,
+          "points": 7
         },
         "priceFit": {
           "value": 0,
-          "weight": 8,
+          "weight": 6,
           "points": 0
         },
         "valueForMoney": {
           "value": 0.2,
-          "weight": 8,
-          "points": 1.6
+          "weight": 6,
+          "points": 1.2
         },
         "ukSuitability": {
           "value": 0.8,
-          "weight": 6,
-          "points": 4.8
+          "weight": 5,
+          "points": 4
         },
         "shipping": {
           "value": "unknown",
-          "weight": 6,
+          "weight": 7,
           "points": 0
         },
         "sellerReliability": {
           "value": "unknown",
-          "weight": 5,
+          "weight": 4,
           "points": 0
         },
         "smallSpaceRelevance": {
@@ -740,27 +790,37 @@
         },
         "visualAppeal": {
           "value": 0.8,
-          "weight": 5,
-          "points": 4
+          "weight": 7,
+          "points": 5.6
         },
         "impulsePurchase": {
           "value": 0.3,
-          "weight": 4,
-          "points": 1.2
+          "weight": 5,
+          "points": 1.5
         },
         "obviousProblem": {
           "value": 0.9,
-          "weight": 4,
-          "points": 3.6
+          "weight": 6,
+          "points": 5.4
         },
         "novelty": {
           "value": 0.75,
-          "weight": 4,
-          "points": 3
+          "weight": 5,
+          "points": 3.8
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
         }
       },
-      "totalScore": 56.1,
-      "confidence": 0.89,
+      "totalScore": 49.4,
+      "confidence": 0.76,
       "decision": "reject",
       "rejectionReason": "High price is not verified for the pictured product and quantity. Price is an extreme outlier for this product type. Listing uses an unclear or misleading variant/quantity.",
       "reviewNotes": [
@@ -816,47 +876,47 @@
       "scoreBreakdown": {
         "recentDemand": {
           "value": 0.725,
-          "weight": 12,
-          "points": 8.7
+          "weight": 8,
+          "points": 5.8
         },
         "positiveFeedback": {
           "value": 0.8,
-          "weight": 10,
-          "points": 8
+          "weight": 7,
+          "points": 5.6
         },
         "commissionRate": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 6,
           "points": 0
         },
         "estimatedCommission": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 7,
           "points": 0
         },
         "priceFit": {
           "value": 0.855,
-          "weight": 8,
-          "points": 6.8
-        },
-        "valueForMoney": {
-          "value": 0.55,
-          "weight": 8,
-          "points": 4.4
-        },
-        "ukSuitability": {
-          "value": 0.85,
           "weight": 6,
           "points": 5.1
         },
+        "valueForMoney": {
+          "value": 0.55,
+          "weight": 6,
+          "points": 3.3
+        },
+        "ukSuitability": {
+          "value": 0.85,
+          "weight": 5,
+          "points": 4.3
+        },
         "shipping": {
           "value": "unknown",
-          "weight": 6,
+          "weight": 7,
           "points": 0
         },
         "sellerReliability": {
           "value": "unknown",
-          "weight": 5,
+          "weight": 4,
           "points": 0
         },
         "smallSpaceRelevance": {
@@ -866,154 +926,37 @@
         },
         "visualAppeal": {
           "value": 0.75,
-          "weight": 5,
-          "points": 3.8
+          "weight": 7,
+          "points": 5.3
         },
         "impulsePurchase": {
           "value": 0.6,
-          "weight": 4,
-          "points": 2.4
+          "weight": 5,
+          "points": 3
         },
         "obviousProblem": {
-          "value": 0.85,
-          "weight": 4,
-          "points": 3.4
-        },
-        "novelty": {
-          "value": 0.8,
-          "weight": 4,
-          "points": 3.2
-        }
-      },
-      "totalScore": 53,
-      "confidence": 0.69,
-      "decision": "questionable",
-      "rejectionReason": null,
-      "reviewNotes": [
-        "Product ID is missing; the exact listing cannot be re-queried.",
-        "Variant and quantity are not verified.",
-        "UK shipping cost and delivery time are unknown.",
-        "Seller reliability is unknown."
-      ]
-    },
-    {
-      "productId": null,
-      "slug": "five-tier-plastic-shelving-unit",
-      "title": "Five-tier storage shelves",
-      "evaluatedAt": "2026-09-13T00:00:00Z",
-      "searchQuery": "legacy catalogue review",
-      "cluster": "vertical-storage",
-      "metrics": {
-        "priceGbp": 20.7,
-        "feedbackPct": 100,
-        "recentVolume": 52,
-        "commissionRatePct": null,
-        "commissionAmountGbp": null
-      },
-      "expectedPriceBandGbp": {
-        "min": 15,
-        "max": 45
-      },
-      "shipping": {
-        "available": null,
-        "costGbp": null,
-        "daysMax": null,
-        "verified": false
-      },
-      "seller": {
-        "reliabilityScore": null,
-        "verified": false
-      },
-      "listing": {
-        "variantClarity": null,
-        "priceVerifiedForShownVariant": false
-      },
-      "factors": {
-        "valueForMoney": 0.8,
-        "ukSuitability": 0.85,
-        "smallSpaceRelevance": 0.7,
-        "visualAppeal": 0.55,
-        "impulsePurchase": 0.4,
-        "obviousProblem": 0.8
-      },
-      "duplicateSimilarity": 0.2,
-      "pinCreative": null,
-      "estimatedProfitability": "Unverified; low demand makes the signal weak.",
-      "selectionReason": "Sensible price and vertical storage value, but little demand evidence.",
-      "scoreBreakdown": {
-        "recentDemand": {
-          "value": 0.431,
-          "weight": 12,
-          "points": 5.2
-        },
-        "positiveFeedback": {
-          "value": 1,
-          "weight": 10,
-          "points": 10
-        },
-        "commissionRate": {
-          "value": "unknown",
-          "weight": 10,
-          "points": 0
-        },
-        "estimatedCommission": {
-          "value": "unknown",
-          "weight": 10,
-          "points": 0
-        },
-        "priceFit": {
-          "value": 1,
-          "weight": 8,
-          "points": 8
-        },
-        "valueForMoney": {
-          "value": 0.8,
-          "weight": 8,
-          "points": 6.4
-        },
-        "ukSuitability": {
           "value": 0.85,
           "weight": 6,
           "points": 5.1
         },
-        "shipping": {
+        "novelty": {
+          "value": 0.8,
+          "weight": 5,
+          "points": 4
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
           "value": "unknown",
           "weight": 6,
           "points": 0
-        },
-        "sellerReliability": {
-          "value": "unknown",
-          "weight": 5,
-          "points": 0
-        },
-        "smallSpaceRelevance": {
-          "value": 0.7,
-          "weight": 8,
-          "points": 5.6
-        },
-        "visualAppeal": {
-          "value": 0.55,
-          "weight": 5,
-          "points": 2.8
-        },
-        "impulsePurchase": {
-          "value": 0.4,
-          "weight": 4,
-          "points": 1.6
-        },
-        "obviousProblem": {
-          "value": 0.8,
-          "weight": 4,
-          "points": 3.2
-        },
-        "novelty": {
-          "value": 0.8,
-          "weight": 4,
-          "points": 3.2
         }
       },
-      "totalScore": 51,
-      "confidence": 0.69,
+      "totalScore": 48.6,
+      "confidence": 0.63,
       "decision": "questionable",
       "rejectionReason": null,
       "reviewNotes": [
@@ -1070,47 +1013,47 @@
       "scoreBreakdown": {
         "recentDemand": {
           "value": 1,
-          "weight": 12,
-          "points": 12
+          "weight": 8,
+          "points": 8
         },
         "positiveFeedback": {
           "value": 0.8,
-          "weight": 10,
-          "points": 8
+          "weight": 7,
+          "points": 5.6
         },
         "commissionRate": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 6,
           "points": 0
         },
         "estimatedCommission": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 7,
           "points": 0
         },
         "priceFit": {
           "value": 0.206,
-          "weight": 8,
-          "points": 1.6
+          "weight": 6,
+          "points": 1.2
         },
         "valueForMoney": {
           "value": 0.4,
-          "weight": 8,
-          "points": 3.2
+          "weight": 6,
+          "points": 2.4
         },
         "ukSuitability": {
           "value": 0.9,
-          "weight": 6,
-          "points": 5.4
+          "weight": 5,
+          "points": 4.5
         },
         "shipping": {
           "value": "unknown",
-          "weight": 6,
+          "weight": 7,
           "points": 0
         },
         "sellerReliability": {
           "value": "unknown",
-          "weight": 5,
+          "weight": 4,
           "points": 0
         },
         "smallSpaceRelevance": {
@@ -1120,27 +1063,37 @@
         },
         "visualAppeal": {
           "value": 0.7,
-          "weight": 5,
-          "points": 3.5
+          "weight": 7,
+          "points": 4.9
         },
         "impulsePurchase": {
           "value": 0.9,
-          "weight": 4,
-          "points": 3.6
+          "weight": 5,
+          "points": 4.5
         },
         "obviousProblem": {
           "value": 0.9,
-          "weight": 4,
-          "points": 3.6
+          "weight": 6,
+          "points": 5.4
         },
         "novelty": {
           "value": 0.65,
-          "weight": 4,
-          "points": 2.6
+          "weight": 5,
+          "points": 3.3
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
         }
       },
-      "totalScore": 50.8,
-      "confidence": 0.69,
+      "totalScore": 47,
+      "confidence": 0.63,
       "decision": "reject",
       "rejectionReason": "Price is too low to produce a meaningful expected commission. Listing uses an unclear or misleading variant/quantity.",
       "reviewNotes": [
@@ -1151,21 +1104,21 @@
     },
     {
       "productId": null,
-      "slug": "non-slip-slim-clothes-hangers-set",
-      "title": "Slim non-slip clothes hangers",
+      "slug": "five-tier-plastic-shelving-unit",
+      "title": "Five-tier storage shelves",
       "evaluatedAt": "2026-09-13T00:00:00Z",
       "searchQuery": "legacy catalogue review",
-      "cluster": "wardrobe-storage",
+      "cluster": "vertical-storage",
       "metrics": {
-        "priceGbp": 55.47,
-        "feedbackPct": 98,
-        "recentVolume": 748,
+        "priceGbp": 20.7,
+        "feedbackPct": 100,
+        "recentVolume": 52,
         "commissionRatePct": null,
         "commissionAmountGbp": null
       },
       "expectedPriceBandGbp": {
         "min": 15,
-        "max": 35
+        "max": 45
       },
       "shipping": {
         "available": null,
@@ -1182,222 +1135,106 @@
         "priceVerifiedForShownVariant": false
       },
       "factors": {
-        "valueForMoney": 0.4,
+        "valueForMoney": 0.8,
         "ukSuitability": 0.85,
-        "smallSpaceRelevance": 0.85,
-        "visualAppeal": 0.65,
-        "impulsePurchase": 0.5,
+        "smallSpaceRelevance": 0.7,
+        "visualAppeal": 0.55,
+        "impulsePurchase": 0.4,
         "obviousProblem": 0.8
       },
-      "duplicateSimilarity": 0.55,
+      "duplicateSimilarity": 0.2,
       "pinCreative": null,
-      "estimatedProfitability": "Unverified; price is high for a 10-piece hanger set.",
-      "selectionReason": "Slim profile is relevant, but the stored price weakens value and impulse appeal.",
+      "estimatedProfitability": "Unverified; low demand makes the signal weak.",
+      "selectionReason": "Sensible price and vertical storage value, but little demand evidence.",
       "scoreBreakdown": {
         "recentDemand": {
-          "value": 0.719,
-          "weight": 12,
-          "points": 8.6
+          "value": 0.431,
+          "weight": 8,
+          "points": 3.4
         },
         "positiveFeedback": {
-          "value": 0.8,
-          "weight": 10,
-          "points": 8
+          "value": 1,
+          "weight": 7,
+          "points": 7
         },
         "commissionRate": {
-          "value": "unknown",
-          "weight": 10,
-          "points": 0
-        },
-        "estimatedCommission": {
-          "value": "unknown",
-          "weight": 10,
-          "points": 0
-        },
-        "priceFit": {
-          "value": 0.415,
-          "weight": 8,
-          "points": 3.3
-        },
-        "valueForMoney": {
-          "value": 0.4,
-          "weight": 8,
-          "points": 3.2
-        },
-        "ukSuitability": {
-          "value": 0.85,
-          "weight": 6,
-          "points": 5.1
-        },
-        "shipping": {
           "value": "unknown",
           "weight": 6,
           "points": 0
         },
-        "sellerReliability": {
-          "value": "unknown",
-          "weight": 5,
-          "points": 0
-        },
-        "smallSpaceRelevance": {
-          "value": 0.85,
-          "weight": 8,
-          "points": 6.8
-        },
-        "visualAppeal": {
-          "value": 0.65,
-          "weight": 5,
-          "points": 3.3
-        },
-        "impulsePurchase": {
-          "value": 0.5,
-          "weight": 4,
-          "points": 2
-        },
-        "obviousProblem": {
-          "value": 0.8,
-          "weight": 4,
-          "points": 3.2
-        },
-        "novelty": {
-          "value": 0.45,
-          "weight": 4,
-          "points": 1.8
-        }
-      },
-      "totalScore": 45.3,
-      "confidence": 0.69,
-      "decision": "reject",
-      "rejectionReason": "Price is an extreme outlier for this product type.",
-      "reviewNotes": [
-        "Product ID is missing; the exact listing cannot be re-queried.",
-        "Variant and quantity are not verified.",
-        "UK shipping cost and delivery time are unknown.",
-        "Seller reliability is unknown."
-      ]
-    },
-    {
-      "productId": null,
-      "slug": "adjustable-cutlery-drawer-organiser",
-      "title": "Adjustable cutlery drawer organiser",
-      "evaluatedAt": "2026-09-13T00:00:00Z",
-      "searchQuery": "adjustable cutlery drawer organiser",
-      "cluster": "drawer-organisation",
-      "metrics": {
-        "priceGbp": 125.15,
-        "feedbackPct": 98,
-        "recentVolume": 4205,
-        "commissionRatePct": null,
-        "commissionAmountGbp": null
-      },
-      "expectedPriceBandGbp": {
-        "min": 12,
-        "max": 35
-      },
-      "shipping": {
-        "available": null,
-        "costGbp": null,
-        "daysMax": null,
-        "verified": false
-      },
-      "seller": {
-        "reliabilityScore": null,
-        "verified": false
-      },
-      "listing": {
-        "variantClarity": false,
-        "priceVerifiedForShownVariant": false
-      },
-      "factors": {
-        "valueForMoney": 0.25,
-        "ukSuitability": 0.8,
-        "smallSpaceRelevance": 0.85,
-        "visualAppeal": 0.65,
-        "impulsePurchase": 0.3,
-        "obviousProblem": 0.9
-      },
-      "duplicateSimilarity": 0.3,
-      "pinCreative": null,
-      "estimatedProfitability": "Not trustworthy: exact listing/variant could not be matched; current API results included comparable organisers around £7–£25 as well as zero-volume high-price listings.",
-      "selectionReason": "Historical demand looked strong, but the current price and listing identity are not credible enough for a new approval.",
-      "scoreBreakdown": {
-        "recentDemand": {
-          "value": 0.906,
-          "weight": 12,
-          "points": 10.9
-        },
-        "positiveFeedback": {
-          "value": 0.8,
-          "weight": 10,
-          "points": 8
-        },
-        "commissionRate": {
-          "value": "unknown",
-          "weight": 10,
-          "points": 0
-        },
         "estimatedCommission": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 7,
           "points": 0
         },
         "priceFit": {
-          "value": 0,
-          "weight": 8,
-          "points": 0
+          "value": 1,
+          "weight": 6,
+          "points": 6
         },
         "valueForMoney": {
-          "value": 0.25,
-          "weight": 8,
-          "points": 2
-        },
-        "ukSuitability": {
           "value": 0.8,
           "weight": 6,
           "points": 4.8
         },
+        "ukSuitability": {
+          "value": 0.85,
+          "weight": 5,
+          "points": 4.3
+        },
         "shipping": {
           "value": "unknown",
-          "weight": 6,
+          "weight": 7,
           "points": 0
         },
         "sellerReliability": {
           "value": "unknown",
-          "weight": 5,
+          "weight": 4,
           "points": 0
         },
         "smallSpaceRelevance": {
-          "value": 0.85,
+          "value": 0.7,
           "weight": 8,
-          "points": 6.8
+          "points": 5.6
         },
         "visualAppeal": {
-          "value": 0.65,
-          "weight": 5,
-          "points": 3.3
+          "value": 0.55,
+          "weight": 7,
+          "points": 3.9
         },
         "impulsePurchase": {
-          "value": 0.3,
-          "weight": 4,
-          "points": 1.2
+          "value": 0.4,
+          "weight": 5,
+          "points": 2
         },
         "obviousProblem": {
-          "value": 0.9,
-          "weight": 4,
-          "points": 3.6
+          "value": 0.8,
+          "weight": 6,
+          "points": 4.8
         },
         "novelty": {
-          "value": 0.7,
-          "weight": 4,
-          "points": 2.8
+          "value": 0.8,
+          "weight": 5,
+          "points": 4
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
         }
       },
-      "totalScore": 43.3,
-      "confidence": 0.69,
-      "decision": "reject",
-      "rejectionReason": "High price is not verified for the pictured product and quantity. Price is an extreme outlier for this product type. Listing uses an unclear or misleading variant/quantity.",
+      "totalScore": 45.7,
+      "confidence": 0.63,
+      "decision": "questionable",
+      "rejectionReason": null,
       "reviewNotes": [
         "Product ID is missing; the exact listing cannot be re-queried.",
+        "Variant and quantity are not verified.",
         "UK shipping cost and delivery time are unknown.",
         "Seller reliability is unknown."
       ]
@@ -1454,47 +1291,47 @@
       "scoreBreakdown": {
         "recentDemand": {
           "value": 0.73,
-          "weight": 12,
-          "points": 8.8
+          "weight": 8,
+          "points": 5.8
         },
         "positiveFeedback": {
           "value": 0.8,
-          "weight": 10,
-          "points": 8
+          "weight": 7,
+          "points": 5.6
         },
         "commissionRate": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 6,
           "points": 0
         },
         "estimatedCommission": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 7,
           "points": 0
         },
         "priceFit": {
           "value": 0,
-          "weight": 8,
+          "weight": 6,
           "points": 0
         },
         "valueForMoney": {
           "value": 0.1,
-          "weight": 8,
-          "points": 0.8
+          "weight": 6,
+          "points": 0.6
         },
         "ukSuitability": {
           "value": 0.85,
-          "weight": 6,
-          "points": 5.1
+          "weight": 5,
+          "points": 4.3
         },
         "shipping": {
           "value": "unknown",
-          "weight": 6,
+          "weight": 7,
           "points": 0
         },
         "sellerReliability": {
           "value": "unknown",
-          "weight": 5,
+          "weight": 4,
           "points": 0
         },
         "smallSpaceRelevance": {
@@ -1504,27 +1341,310 @@
         },
         "visualAppeal": {
           "value": 1,
-          "weight": 5,
-          "points": 5
+          "weight": 7,
+          "points": 7
         },
         "impulsePurchase": {
           "value": 0.2,
-          "weight": 4,
-          "points": 0.8
+          "weight": 5,
+          "points": 1
         },
         "obviousProblem": {
           "value": 0.95,
-          "weight": 4,
-          "points": 3.8
+          "weight": 6,
+          "points": 5.7
         },
         "novelty": {
           "value": 0.8,
-          "weight": 4,
-          "points": 3.2
+          "weight": 5,
+          "points": 4
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
         }
       },
-      "totalScore": 43.1,
-      "confidence": 0.69,
+      "totalScore": 41.6,
+      "confidence": 0.63,
+      "decision": "reject",
+      "rejectionReason": "High price is not verified for the pictured product and quantity. Price is an extreme outlier for this product type. Listing uses an unclear or misleading variant/quantity.",
+      "reviewNotes": [
+        "Product ID is missing; the exact listing cannot be re-queried.",
+        "UK shipping cost and delivery time are unknown.",
+        "Seller reliability is unknown."
+      ]
+    },
+    {
+      "productId": null,
+      "slug": "non-slip-slim-clothes-hangers-set",
+      "title": "Slim non-slip clothes hangers",
+      "evaluatedAt": "2026-09-13T00:00:00Z",
+      "searchQuery": "legacy catalogue review",
+      "cluster": "wardrobe-storage",
+      "metrics": {
+        "priceGbp": 55.47,
+        "feedbackPct": 98,
+        "recentVolume": 748,
+        "commissionRatePct": null,
+        "commissionAmountGbp": null
+      },
+      "expectedPriceBandGbp": {
+        "min": 15,
+        "max": 35
+      },
+      "shipping": {
+        "available": null,
+        "costGbp": null,
+        "daysMax": null,
+        "verified": false
+      },
+      "seller": {
+        "reliabilityScore": null,
+        "verified": false
+      },
+      "listing": {
+        "variantClarity": null,
+        "priceVerifiedForShownVariant": false
+      },
+      "factors": {
+        "valueForMoney": 0.4,
+        "ukSuitability": 0.85,
+        "smallSpaceRelevance": 0.85,
+        "visualAppeal": 0.65,
+        "impulsePurchase": 0.5,
+        "obviousProblem": 0.8
+      },
+      "duplicateSimilarity": 0.55,
+      "pinCreative": null,
+      "estimatedProfitability": "Unverified; price is high for a 10-piece hanger set.",
+      "selectionReason": "Slim profile is relevant, but the stored price weakens value and impulse appeal.",
+      "scoreBreakdown": {
+        "recentDemand": {
+          "value": 0.719,
+          "weight": 8,
+          "points": 5.7
+        },
+        "positiveFeedback": {
+          "value": 0.8,
+          "weight": 7,
+          "points": 5.6
+        },
+        "commissionRate": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
+        },
+        "estimatedCommission": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "priceFit": {
+          "value": 0.415,
+          "weight": 6,
+          "points": 2.5
+        },
+        "valueForMoney": {
+          "value": 0.4,
+          "weight": 6,
+          "points": 2.4
+        },
+        "ukSuitability": {
+          "value": 0.85,
+          "weight": 5,
+          "points": 4.3
+        },
+        "shipping": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "sellerReliability": {
+          "value": "unknown",
+          "weight": 4,
+          "points": 0
+        },
+        "smallSpaceRelevance": {
+          "value": 0.85,
+          "weight": 8,
+          "points": 6.8
+        },
+        "visualAppeal": {
+          "value": 0.65,
+          "weight": 7,
+          "points": 4.5
+        },
+        "impulsePurchase": {
+          "value": 0.5,
+          "weight": 5,
+          "points": 2.5
+        },
+        "obviousProblem": {
+          "value": 0.8,
+          "weight": 6,
+          "points": 4.8
+        },
+        "novelty": {
+          "value": 0.45,
+          "weight": 5,
+          "points": 2.3
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
+        }
+      },
+      "totalScore": 41.4,
+      "confidence": 0.63,
+      "decision": "reject",
+      "rejectionReason": "Price is an extreme outlier for this product type.",
+      "reviewNotes": [
+        "Product ID is missing; the exact listing cannot be re-queried.",
+        "Variant and quantity are not verified.",
+        "UK shipping cost and delivery time are unknown.",
+        "Seller reliability is unknown."
+      ]
+    },
+    {
+      "productId": null,
+      "slug": "adjustable-cutlery-drawer-organiser",
+      "title": "Adjustable cutlery drawer organiser",
+      "evaluatedAt": "2026-09-13T00:00:00Z",
+      "searchQuery": "adjustable cutlery drawer organiser",
+      "cluster": "drawer-organisation",
+      "metrics": {
+        "priceGbp": 125.15,
+        "feedbackPct": 98,
+        "recentVolume": 4205,
+        "commissionRatePct": null,
+        "commissionAmountGbp": null
+      },
+      "expectedPriceBandGbp": {
+        "min": 12,
+        "max": 35
+      },
+      "shipping": {
+        "available": null,
+        "costGbp": null,
+        "daysMax": null,
+        "verified": false
+      },
+      "seller": {
+        "reliabilityScore": null,
+        "verified": false
+      },
+      "listing": {
+        "variantClarity": false,
+        "priceVerifiedForShownVariant": false
+      },
+      "factors": {
+        "valueForMoney": 0.25,
+        "ukSuitability": 0.8,
+        "smallSpaceRelevance": 0.85,
+        "visualAppeal": 0.65,
+        "impulsePurchase": 0.3,
+        "obviousProblem": 0.9
+      },
+      "duplicateSimilarity": 0.3,
+      "pinCreative": null,
+      "estimatedProfitability": "Not trustworthy: exact listing/variant could not be matched; current API results included comparable organisers around £7–£25 as well as zero-volume high-price listings.",
+      "selectionReason": "Historical demand looked strong, but the current price and listing identity are not credible enough for a new approval.",
+      "scoreBreakdown": {
+        "recentDemand": {
+          "value": 0.906,
+          "weight": 8,
+          "points": 7.2
+        },
+        "positiveFeedback": {
+          "value": 0.8,
+          "weight": 7,
+          "points": 5.6
+        },
+        "commissionRate": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
+        },
+        "estimatedCommission": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "priceFit": {
+          "value": 0,
+          "weight": 6,
+          "points": 0
+        },
+        "valueForMoney": {
+          "value": 0.25,
+          "weight": 6,
+          "points": 1.5
+        },
+        "ukSuitability": {
+          "value": 0.8,
+          "weight": 5,
+          "points": 4
+        },
+        "shipping": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "sellerReliability": {
+          "value": "unknown",
+          "weight": 4,
+          "points": 0
+        },
+        "smallSpaceRelevance": {
+          "value": 0.85,
+          "weight": 8,
+          "points": 6.8
+        },
+        "visualAppeal": {
+          "value": 0.65,
+          "weight": 7,
+          "points": 4.5
+        },
+        "impulsePurchase": {
+          "value": 0.3,
+          "weight": 5,
+          "points": 1.5
+        },
+        "obviousProblem": {
+          "value": 0.9,
+          "weight": 6,
+          "points": 5.4
+        },
+        "novelty": {
+          "value": 0.7,
+          "weight": 5,
+          "points": 3.5
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
+        }
+      },
+      "totalScore": 40.1,
+      "confidence": 0.63,
       "decision": "reject",
       "rejectionReason": "High price is not verified for the pictured product and quantity. Price is an extreme outlier for this product type. Listing uses an unclear or misleading variant/quantity.",
       "reviewNotes": [
@@ -1580,47 +1700,47 @@
       "scoreBreakdown": {
         "recentDemand": {
           "value": 0.49,
-          "weight": 12,
-          "points": 5.9
+          "weight": 8,
+          "points": 3.9
         },
         "positiveFeedback": {
           "value": 0.7,
-          "weight": 10,
-          "points": 7
+          "weight": 7,
+          "points": 4.9
         },
         "commissionRate": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 6,
           "points": 0
         },
         "estimatedCommission": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 7,
           "points": 0
         },
         "priceFit": {
           "value": 0.141,
-          "weight": 8,
-          "points": 1.1
+          "weight": 6,
+          "points": 0.8
         },
         "valueForMoney": {
           "value": 0.3,
-          "weight": 8,
-          "points": 2.4
+          "weight": 6,
+          "points": 1.8
         },
         "ukSuitability": {
           "value": 0.8,
-          "weight": 6,
-          "points": 4.8
+          "weight": 5,
+          "points": 4
         },
         "shipping": {
           "value": "unknown",
-          "weight": 6,
+          "weight": 7,
           "points": 0
         },
         "sellerReliability": {
           "value": "unknown",
-          "weight": 5,
+          "weight": 4,
           "points": 0
         },
         "smallSpaceRelevance": {
@@ -1630,27 +1750,37 @@
         },
         "visualAppeal": {
           "value": 0.65,
-          "weight": 5,
-          "points": 3.3
+          "weight": 7,
+          "points": 4.5
         },
         "impulsePurchase": {
           "value": 0.4,
-          "weight": 4,
-          "points": 1.6
+          "weight": 5,
+          "points": 2
         },
         "obviousProblem": {
           "value": 0.9,
-          "weight": 4,
-          "points": 3.6
+          "weight": 6,
+          "points": 5.4
         },
         "novelty": {
           "value": 0.8,
-          "weight": 4,
-          "points": 3.2
+          "weight": 5,
+          "points": 4
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
         }
       },
-      "totalScore": 40.1,
-      "confidence": 0.69,
+      "totalScore": 38.6,
+      "confidence": 0.63,
       "decision": "reject",
       "rejectionReason": "High price is not verified for the pictured product and quantity. Price is an extreme outlier for this product type. Listing uses an unclear or misleading variant/quantity.",
       "reviewNotes": [
@@ -1706,47 +1836,47 @@
       "scoreBreakdown": {
         "recentDemand": {
           "value": 0.719,
-          "weight": 12,
-          "points": 8.6
+          "weight": 8,
+          "points": 5.8
         },
         "positiveFeedback": {
           "value": 0.56,
-          "weight": 10,
-          "points": 5.6
+          "weight": 7,
+          "points": 3.9
         },
         "commissionRate": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 6,
           "points": 0
         },
         "estimatedCommission": {
           "value": "unknown",
-          "weight": 10,
+          "weight": 7,
           "points": 0
         },
         "priceFit": {
           "value": 0,
-          "weight": 8,
+          "weight": 6,
           "points": 0
         },
         "valueForMoney": {
           "value": 0.2,
-          "weight": 8,
-          "points": 1.6
+          "weight": 6,
+          "points": 1.2
         },
         "ukSuitability": {
           "value": 0.8,
-          "weight": 6,
-          "points": 4.8
+          "weight": 5,
+          "points": 4
         },
         "shipping": {
           "value": "unknown",
-          "weight": 6,
+          "weight": 7,
           "points": 0
         },
         "sellerReliability": {
           "value": "unknown",
-          "weight": 5,
+          "weight": 4,
           "points": 0
         },
         "smallSpaceRelevance": {
@@ -1756,27 +1886,37 @@
         },
         "visualAppeal": {
           "value": 0.75,
-          "weight": 5,
-          "points": 3.8
+          "weight": 7,
+          "points": 5.3
         },
         "impulsePurchase": {
           "value": 0.4,
-          "weight": 4,
-          "points": 1.6
+          "weight": 5,
+          "points": 2
         },
         "obviousProblem": {
           "value": 0.9,
-          "weight": 4,
-          "points": 3.6
+          "weight": 6,
+          "points": 5.4
         },
         "novelty": {
           "value": 0.6,
-          "weight": 4,
-          "points": 2.4
+          "weight": 5,
+          "points": 3
+        },
+        "buyerIntent": {
+          "value": "unknown",
+          "weight": 7,
+          "points": 0
+        },
+        "competitionOpportunity": {
+          "value": "unknown",
+          "weight": 6,
+          "points": 0
         }
       },
-      "totalScore": 38.4,
-      "confidence": 0.69,
+      "totalScore": 36.9,
+      "confidence": 0.63,
       "decision": "reject",
       "rejectionReason": "High price is not verified for the pictured product and quantity. Price is an extreme outlier for this product type. Listing uses an unclear or misleading variant/quantity.",
       "reviewNotes": [

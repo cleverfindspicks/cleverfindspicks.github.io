@@ -65,6 +65,8 @@ function factorMap(candidate) {
     impulsePurchase: candidate.factors?.impulsePurchase ?? null,
     obviousProblem: candidate.factors?.obviousProblem ?? null,
     novelty: known(candidate.duplicateSimilarity) ? 1 - Number(candidate.duplicateSimilarity) : null,
+    buyerIntent: candidate.factors?.buyerIntent ?? null,
+    competitionOpportunity: known(candidate.factors?.competitionSaturation) ? 1 - Number(candidate.factors.competitionSaturation) : null,
   };
 }
 
@@ -93,12 +95,18 @@ function hardFilters(candidate, totalScore, confidence, { existingProduct = fals
   if (!candidate.seller?.verified) review.push('Seller reliability is unknown.');
   if ((candidate.factors?.smallSpaceRelevance ?? 0) < h.minimumSmallSpaceRelevance) reject.push('Weak relevance to small-space organisation.');
   if ((candidate.factors?.obviousProblem ?? 0) < h.minimumObviousProblem) reject.push('The image does not communicate an obvious problem and solution quickly enough.');
+  if (!existingProduct && (candidate.factors?.buyerIntent ?? 0) < h.minimumBuyerIntent) reject.push('Search intent is too informational or weakly commercial.');
   if (known(candidate.duplicateSimilarity) && Number(candidate.duplicateSimilarity) > h.maximumDuplicateSimilarity) reject.push('Too similar to a recently published product.');
   if (!existingProduct) {
     const aspect = known(candidate.pinCreative?.width) && known(candidate.pinCreative?.height)
       ? Number(candidate.pinCreative.height) / Number(candidate.pinCreative.width)
       : null;
     if (!candidate.pinCreative?.path || !candidate.pinCreative?.reviewedNonClickbait || aspect === null || aspect < h.minimumPinAspectRatioHeightToWidth) reject.push('A reviewed custom vertical Pinterest image is required.');
+    if (!candidate.trackingId || !candidate.pinId || !candidate.runId) reject.push('Stable run, product and pin tracking IDs are required.');
+    try {
+      const affiliate = new URL(candidate.affiliateUrl);
+      if (affiliate.hostname !== config.publication.requiredAffiliateHost) reject.push('Affiliate URL does not use the approved AliExpress tracking host.');
+    } catch { reject.push('A valid affiliate URL is required.'); }
     if (totalScore < h.minimumPublishScore) reject.push(`Score is below ${h.minimumPublishScore}.`);
     if (confidence < h.minimumConfidence) reject.push(`Data confidence is below ${Math.round(h.minimumConfidence * 100)}%.`);
     if (review.length) reject.push('Manual verification is required before publication.');

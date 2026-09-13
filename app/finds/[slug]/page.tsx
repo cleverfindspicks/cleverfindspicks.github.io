@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { checkedAt, getProduct, products } from '../../products';
+import { AffiliateLink, ProductView } from '@/components/affiliate-link';
 
 export function generateStaticParams() {
   return products.map(({ slug }) => ({ slug }));
@@ -18,9 +19,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   return (
     <main className="site-shell detail-shell">
+      <ProductView slug={product.slug} cluster={product.eyebrow.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-')} />
       <div className="brand-rule" />
       <header className="site-header">
-        <a className="brand-lockup" href="/"><img src="https://cleverfindspicks.mohammdmadhar99.chatgpt.site/clever-finds.png" alt="" width="42" height="42" /><span>Clever Finds</span></a>
+        <a className="brand-lockup" href="/"><img src="https://cleverfindspicks.github.io/clever-finds.png" alt="" width="42" height="42" /><span>Clever Finds</span></a>
         <a className="back-link" href="/#finds">← All finds</a>
       </header>
       <article className="detail product-story">
@@ -35,7 +37,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div><dt>Positive feedback</dt><dd>{product.positiveFeedback}</dd></div>
             <div><dt>Recent volume</dt><dd>{product.recentVolume}</dd></div>
           </dl>
-          <a className="buy-link" href={product.affiliateUrl} target="_blank" rel="sponsored nofollow noopener">Check current price on AliExpress <span aria-hidden="true">↗</span></a>
+          <AffiliateLink href={product.affiliateUrl} slug={product.slug} cluster={product.eyebrow}>Check current price on AliExpress <span aria-hidden="true">↗</span></AffiliateLink>
           <p className="affiliate-note">Affiliate link: we may earn a commission if you buy, at no extra cost to you.</p>
         </div>
       </article>
@@ -60,7 +62,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <p className="eyebrow">READY TO CHECK IT?</p>
             <h2>See the live listing</h2>
             <p>Confirm the current variant, delivery date and final price directly on AliExpress.</p>
-            <a className="buy-link" href={product.affiliateUrl} target="_blank" rel="sponsored nofollow noopener">View on AliExpress <span aria-hidden="true">↗</span></a>
+            <AffiliateLink href={product.affiliateUrl} slug={product.slug} cluster={product.eyebrow}>View on AliExpress <span aria-hidden="true">↗</span></AffiliateLink>
             <p className="affiliate-note">Sponsored affiliate link. You pay no extra; we may receive a commission.</p>
           </div>
         </aside>

@@ -15,6 +15,12 @@
     "intelligence:performance": "node product-intelligence/run-performance.mjs",
     "intelligence:check": "node product-intelligence/prepublish-check.mjs",
     "intelligence:test": "node product-intelligence/self-test.mjs",
+    "intelligence:dry-run": "node product-intelligence/dry-run.mjs",
+    "intelligence:import": "node product-intelligence/import-performance.mjs",
+    "intelligence:gate": "node product-intelligence/publication-gate.mjs",
+    "intelligence:automation": "node product-intelligence/automation-run.mjs",
+    "intelligence:publish-approved": "node product-intelligence/publish-approved.mjs",
+    "intelligence:validate": "node product-intelligence/validate-production.mjs",
     "lint": "oxlint",
     "format": "oxfmt"
   },

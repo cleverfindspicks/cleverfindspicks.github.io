@@ -1,3 +1,5 @@
+import generatedProducts from './generated-products.json' with { type: 'json' };
+
 export type Product = {
   slug: string;
   eyebrow: string;
@@ -17,7 +19,7 @@ export type Product = {
 
 export const checkedAt = '11 September 2026';
 
-export const products: Product[] = [
+const existingProducts: Product[] = [
   {
     slug: 'pull-out-under-sink-organiser',
     eyebrow: 'KITCHEN & BATHROOM',
@@ -231,6 +233,8 @@ export const products: Product[] = [
     checks: ['Confirm the number of hooks included with the selected variant.', 'Measure the available wardrobe drop and rail clearance.', 'Compare the final finish, delivered price and estimated arrival at checkout.'],
   },
 ];
+
+export const products: Product[] = [...existingProducts, ...(generatedProducts as Product[])];
 
 export function getProduct(slug: string) {
   return products.find((product) => product.slug === slug);

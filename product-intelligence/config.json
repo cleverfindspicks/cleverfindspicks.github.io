@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "market": {
     "country": "GB",
     "currency": "GBP",
@@ -18,7 +18,13 @@
     "tiny kitchen organisation",
     "drawer organisation",
     "vertical storage",
-    "foldable storage"
+    "foldable storage",
+    "storage for small flats",
+    "tiny kitchen space saving",
+    "no drilling bathroom storage",
+    "narrow gap storage trolley",
+    "storage for renters",
+    "small wardrobe space saver"
   ],
   "queryClusters": {
     "under sink storage": "under-sink-storage",
@@ -32,23 +38,31 @@
     "tiny kitchen organisation": "tiny-kitchen-storage",
     "drawer organisation": "drawer-organisation",
     "vertical storage": "vertical-storage",
-    "foldable storage": "foldable-storage"
+    "foldable storage": "foldable-storage",
+    "storage for small flats": "small-flat-storage",
+    "tiny kitchen space saving": "tiny-kitchen-storage",
+    "no drilling bathroom storage": "no-drill-storage",
+    "narrow gap storage trolley": "tiny-kitchen-storage",
+    "storage for renters": "renter-friendly-storage",
+    "small wardrobe space saver": "wardrobe-storage"
   },
   "weights": {
-    "recentDemand": 12,
-    "positiveFeedback": 10,
-    "commissionRate": 10,
-    "estimatedCommission": 10,
-    "priceFit": 8,
-    "valueForMoney": 8,
-    "ukSuitability": 6,
-    "shipping": 6,
-    "sellerReliability": 5,
+    "recentDemand": 8,
+    "positiveFeedback": 7,
+    "commissionRate": 6,
+    "estimatedCommission": 7,
+    "priceFit": 6,
+    "valueForMoney": 6,
+    "ukSuitability": 5,
+    "shipping": 7,
+    "sellerReliability": 4,
     "smallSpaceRelevance": 8,
-    "visualAppeal": 5,
-    "impulsePurchase": 4,
-    "obviousProblem": 4,
-    "novelty": 4
+    "visualAppeal": 7,
+    "impulsePurchase": 5,
+    "obviousProblem": 6,
+    "novelty": 5,
+    "buyerIntent": 7,
+    "competitionOpportunity": 6
   },
   "hardFilters": {
     "minimumFeedbackPct": 95,
@@ -57,6 +71,7 @@
     "maximumUnverifiedPriceGbp": 80,
     "minimumSmallSpaceRelevance": 0.6,
     "minimumObviousProblem": 0.6,
+    "minimumBuyerIntent": 0.6,
     "maximumDuplicateSimilarity": 0.72,
     "minimumPublishScore": 65,
     "minimumConfidence": 0.75,
@@ -71,6 +86,17 @@
     "maximumSearchPriorityMultiplier": 1.35,
     "minimumSearchPriorityMultiplier": 0.75,
     "maximumConsecutiveClusterWins": 2,
-    "epmiField": "earningsPerThousandPinterestImpressions"
+    "epmiField": "earningsPerThousandPinterestImpressions",
+    "explorationRate": 0.2
+  },
+  "retention": {
+    "maximumRunSummaries": 90,
+    "maximumPerformanceEvents": 10000
+  },
+  "publication": {
+    "dailyTimesAsiaRiyadh": ["15:00", "19:00", "22:00"],
+    "requiredAffiliateHost": "s.click.aliexpress.com",
+    "requiredPinWidth": 1000,
+    "requiredPinHeight": 1500
   }
 }
