@@ -3,6 +3,7 @@ import config from './config.json' with { type: 'json' };
 import { calculateEarningsPerThousandPinterestImpressions, scoreCandidate } from './scoring.mjs';
 import { scoreClusters } from './performance.mjs';
 import { validatePublicationBundle } from './publication-gate.mjs';
+import { enrichCandidate } from './enrichment.mjs';
 import { readFile } from 'node:fs/promises';
 import { products } from '../app/products.ts';
 import { hiddenLegacyRecommendationSlugs } from '../app/catalog-visibility.ts';
@@ -40,6 +41,7 @@ assert.equal(scoreCandidate({ ...strong, shipping: { ...strong.shipping, availab
 assert.equal(scoreCandidate({ ...strong, shipping: { available: true, marketAvailabilityVerified: true, costGbp: null, daysMax: null, method: null } }, { stage: 'qualification' }).decision, 'keep', 'Unavailable optional shipping details must not block a GB-verified offer.');
 assert.equal(scoreCandidate({ ...strong, listing: { variantRisk: 'LOW', variantClarity: true, priceVerifiedForShownVariant: true } }, { stage: 'qualification' }).decision, 'keep', 'Low-risk listings do not require SKU-level detail.');
 assert.equal(scoreCandidate({ ...strong, listing: { variantRisk: 'HIGH', variantClarity: false, priceVerifiedForShownVariant: false } }, { stage: 'qualification' }).decision, 'reject', 'Unresolved high-risk variants must block qualification.');
+assert.equal(enrichCandidate({ ...strong, title: '4/6-Tier Hanging Storage Bag' }, { sampleSize: 10, p10: 10, median: 25, p90: 60 }).listing.variantRisk, 'HIGH', 'Slash-separated tier quantities must be treated as high-risk variants.');
 assert.equal(scoreCandidate({ ...strong, priceSanity: { status: 'REJECT', reason: 'Extreme cluster outlier.' } }, { stage: 'qualification' }).decision, 'reject', 'A robust price anomaly must block qualification.');
 assert.equal(scoreCandidate({ ...strong, factors: { ...strong.factors, buyerIntent: 0.2 } }).decision, 'reject', 'Weak buyer intent must block publication.');
 assert.equal(scoreCandidate({ ...strong, metrics: { ...strong.metrics, priceGbp: 150 }, listing: { variantClarity: false, priceVerifiedForShownVariant: false } }).decision, 'reject', 'An unclear high-price variant must be rejected.');
@@ -68,4 +70,4 @@ assert.match(rssSource, /product\.pinImage \?\? product\.image/, 'RSS must use t
 assert.match(pageSource, /AffiliateLink/, 'Landing pages must use the tracked affiliate CTA.');
 assert.match(analyticsSource, /aliexpress_outbound_click/, 'Outbound clicks must emit an analytics event.');
 
-console.log(JSON.stringify({ ok: true, assertions: 27 }));
+console.log(JSON.stringify({ ok: true, assertions: 28 }));

@@ -29,6 +29,22 @@
         "headline": "Free Up Shelf Space",
         "subheadline": "Magnetic Spray Can Holder"
       }
+    },
+    {
+      "productId": "1005008077357865",
+      "source": "Creative review against the exact AliExpress product image; the source photograph is preserved as the full central panel.",
+      "checkedAt": "2026-09-13T19:06:47.258Z",
+      "exactProductIdMatched": true,
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
+      "pinCreative": {
+        "path": "public/pinterest/three-in-one-sink-organiser-pin.png",
+        "width": 1000,
+        "height": 1500,
+        "reviewedNonClickbait": true,
+        "productDepiction": "Exact full AliExpress source photograph, proportionally resized without product edits.",
+        "headline": "Clear the Sink Edge",
+        "subheadline": "3-in-1 Sink Organiser"
+      }
     }
   ],
   "note": "Only verified, timestamped evidence belongs here. Unknown values must remain null."

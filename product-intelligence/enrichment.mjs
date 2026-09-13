@@ -15,7 +15,7 @@ const nicheTerms = /(storage|organis(?:er|ation)|organizer|rack|shelf|drawer|war
 const problemTerms = /(narrow|small|tiny|gap|clutter|under.?sink|over.?door|no.?drill|wall.?mounted|foldable|stackable|expandable|pull.?out|slim|space.?sav)/i;
 const homeContextTerms = /(home|house|flat|kitchen|bathroom|wardrobe|bedroom|cabinet|cupboard|drawer|shoe|clothes|laundry|door|sink|pantry|toilet|wall|room|closet)/i;
 const excludedContextTerms = /(car|automotive|vehicle|camping|outdoor|fishing|motorcycle|bicycle|tool bag|picnic|pet carrier)/i;
-const highVariantRisk = /(\d+\s*(?:\/|-|,)\s*\d+\s*(?:pcs?|pieces?))|\b(?:set|pack|assorted|random colour|random color)\b|\b\d+\s*(?:sizes?|colou?rs?)\b/i;
+const highVariantRisk = /(\d+(?:\.\d+)?\s*(?:\/|-|,)\s*\d+(?:\.\d+)?\s*-?\s*(?:pcs?|pieces?|tiers?|l\b))|\b(?:set|pack|assorted|random colour|random color)\b|\b\d+\s*(?:sizes?|colou?rs?)\b/i;
 const mediumVariantRisk = /(size|colour|color|style|option|adjustable|expandable|\b[2-9]\s*pcs?\b)/i;
 
 export function priceBenchmarks(candidates) {
