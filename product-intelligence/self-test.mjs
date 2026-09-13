@@ -4,6 +4,8 @@ import { calculateEarningsPerThousandPinterestImpressions, scoreCandidate } from
 import { scoreClusters } from './performance.mjs';
 import { validatePublicationBundle } from './publication-gate.mjs';
 import { readFile } from 'node:fs/promises';
+import { products } from '../app/products.ts';
+import { hiddenLegacyRecommendationSlugs } from '../app/catalog-visibility.ts';
 
 assert.equal(Object.values(config.weights).reduce((sum, value) => sum + value, 0), 100, 'Weights must total 100.');
 
@@ -57,9 +59,13 @@ const productSource = await readFile(new URL('../app/products.ts', import.meta.u
 const rssSource = await readFile(new URL('../app/rss.xml/route.ts', import.meta.url), 'utf8');
 const pageSource = await readFile(new URL('../app/finds/[slug]/page.tsx', import.meta.url), 'utf8');
 const analyticsSource = await readFile(new URL('../components/affiliate-link.tsx', import.meta.url), 'utf8');
+const homeSource = await readFile(new URL('../app/page.tsx', import.meta.url), 'utf8');
 assert.equal((productSource.match(/\n  \{\n    slug:/g) || []).length, 14, 'The existing catalogue must remain at 14 products.');
+assert.equal(hiddenLegacyRecommendationSlugs.length, 7, 'Exactly the seven legacy rejects must be hidden from recommendation lists.');
+assert.ok(hiddenLegacyRecommendationSlugs.every((slug) => products.some((product) => product.slug === slug)), 'Hidden products must remain in the catalogue so their legacy pages keep working.');
+assert.match(homeSource, /products\.filter\(\(product\) => isVisibleRecommendation\(product\.slug\)\)/, 'The homepage must filter legacy rejects from recommendations.');
 assert.match(rssSource, /product\.pinImage \?\? product\.image/, 'RSS must use the custom pin when available.');
 assert.match(pageSource, /AffiliateLink/, 'Landing pages must use the tracked affiliate CTA.');
 assert.match(analyticsSource, /aliexpress_outbound_click/, 'Outbound clicks must emit an analytics event.');
 
-console.log(JSON.stringify({ ok: true, assertions: 24 }));
+console.log(JSON.stringify({ ok: true, assertions: 27 }));

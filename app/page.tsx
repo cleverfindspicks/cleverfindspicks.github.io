@@ -1,6 +1,8 @@
 import { checkedAt, products } from './products';
+import { isVisibleRecommendation } from './catalog-visibility';
 
 export default function Home() {
+  const recommendedProducts = products.filter((product) => isVisibleRecommendation(product.slug));
   return (
     <main className="site-shell">
       <div className="brand-rule" />
@@ -34,7 +36,7 @@ export default function Home() {
           <p>Data checked {checkedAt}. Prices and availability can change.</p>
         </div>
         <div className="product-grid">
-          {products.map((product, index) => (
+          {recommendedProducts.map((product, index) => (
             <article className="product-card" key={product.slug}>
               <a className="product-image" href={`/finds/${product.slug}`} aria-label={`Read about ${product.shortName}`}>
                 <span className="card-index">0{index + 1}</span>
