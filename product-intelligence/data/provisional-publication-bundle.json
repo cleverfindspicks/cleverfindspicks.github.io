@@ -1,27 +1,5 @@
 {
-  "generatedAt": "2026-09-13T04:59:01.940Z",
-  "runId": "cf-run-20260913T044447-507819c0",
-  "status": "READY_FOR_FINAL_PUBLICATION_GATE",
-  "candidateCount": 1044,
-  "evaluatedCounts": {
-    "keep": 161,
-    "reject": 883
-  },
-  "funnel": {
-    "candidatesFound": 1044,
-    "passedProductId": 1044,
-    "passedGbAvailability": 1044,
-    "passedPriceSanity": 959,
-    "passedDemandFeedback": 262,
-    "passedNicheBuyerIntent": 224,
-    "passedProfitability": 222,
-    "passedDuplicateChecks": 222,
-    "passedScore65": 162,
-    "finalQualifiedCandidates": 161
-  },
-  "currentCatalogueCount": 14,
-  "currentCatalogueUntouched": true,
-  "winner": {
+  "candidate": {
     "productId": "1005008660091954",
     "trackingId": "cfp-c97f694b80fc",
     "pinId": "pin-cfp-c97f694b80fc-2026-09-13",
@@ -243,106 +221,42 @@
       "reason": "Title directly supports home organisation."
     }
   },
-  "publicationPerformed": false,
-  "landingPageCandidateGenerated": true,
-  "landingPageCandidate": {
-    "slug": "cfp-c97f694b80fc",
-    "title": "1pcs Four-Leaf Clover Sofa Side Several Bedroom Small Table Living Room Storage Table Creative Balcony Double Layer Coffee Table",
-    "summary": "A practical small bedroom storage option for smaller UK homes. Check the exact current offer before buying."
+  "verification": {
+    "productId": "1005008660091954",
+    "source": "AliExpress Affiliate Product Detail API (GB)",
+    "checkedAt": "2026-09-13T04:45:58.447Z"
   },
-  "rssCandidateGenerated": true,
-  "rssCandidate": {
-    "title": "1pcs Four-Leaf Clover Sofa Side Several Bedroom Small Table Living Room Storage Table Creative Balcony Double Layer Coffee Table",
-    "link": "https://cleverfindspicks.github.io/finds/cfp-c97f694b80fc",
-    "image": "public/pinterest/two-tier-side-table-pin.png"
+  "landingPage": {
+    "slug": "two-tier-storage-side-table",
+    "eyebrow": "SMALL BEDROOM STORAGE",
+    "name": "1pcs Four-Leaf Clover Sofa Side Several Bedroom Small Table Living Room Storage Table Creative Balcony Double Layer Coff",
+    "shortName": "Two-tier storage side table",
+    "summary": "A compact two-tier side table that keeps everyday items close while adding a lower storage shelf without a bulky footprint.",
+    "price": "From £69.73",
+    "positiveFeedback": "98%",
+    "recentVolume": "865",
+    "image": "https://ae-pic-a1.aliexpress-media.com/kf/Sdf83b3abb93d4745854064c850e64274g.jpg",
+    "affiliateUrl": "https://s.click.aliexpress.com/s/pyFri10M6ltAv61YZY9TfrxiDaaFXRreuZWJMeLtD8jig1wPxn51K2eq59ds8iT5Wl5L3w5KJyrl7SjOO3B0oJ0Xjwnc7n8AQA7gf5qnT4sCyU05LNms9JvyWQNFHNKtzBcoBpSguMg3UBR1FOODkmGTloXosMhqhnKgzzuJPYPxewVvzupiAiKSJA5SK0iQRxmaQ7UPG0AP2HC7uLitVpvXIfjMl7RnsnN7B8FrGfP9TWP7emQeaXV90Bp9fLEiLe5mOF3ZxRkgXTxDel4NhdR1WLVYSoygR9Mm1fajL9UmwmCVRVHwLPp0N3CoTDOP9aXYDbrkXL76Tes0KGDrrPEcu827LCYa7UCiNP9u3ZgE1q0ySgkgolR9Y2zMJq56hkh6R8L6NXKLxYQVc1HmrlcbAF9iL2wBwf3wKTemiwhenP1FqCn6SgjQlLS32KqojCZw9bJIy6WH5Ly0XNdZnzz8GTbbOS5Y4D4kf2fBR0QKUOKbBWJcXL5usAZThfSdcBeF2EoohUxaMDicYVbYD6IkiG59GWPWPLi52YNQTXFrlk6NRfIoPDbPY2XPbbB4PFFLpi7lQgNihPfcUjnnG9guxVaGwGtEUarufbNdbr4m8clJ0yv1LgzzTaqZjnXrwaugGCRJXSixsQulOVO9l8R2HhnWZwvVWda4ADs7NbmLxNbs7tLoNHw02Y2Bh7x3tgKoKZAvyNgkcmH0CreCQ0ay3Y25goIF08ZQVBwuZUr2i7KCRQDXroLmthv3ZcoxFCV93iUvXtAmMs1mIIW2MM3SDkErnK76eLFnFPw7Bs4bB4iz53fjduhnlCbe3VEXHyyVtxVOnezFMER4g7St9HBT7kyxfZU4ctVerqbrU2cfdG5zE6CIVlwThOjguiZpqaMac7sm092HCnJvgKBQD6C0AF0lCgVDUrRwhVbQgakvXdYDmKBSvgwt4U12BFJLOD7UJKiwEcoZnpl1tBlUfI4VF0yNgVav1ec7pRIeRwdtSF3hDRDneGZADBHI9sz5Djs9Gh96",
+    "bestFor": [
+      "Small living rooms",
+      "Bedside storage",
+      "Using vertical space beside a sofa or bed"
+    ],
+    "checks": [
+      "Check the exact dimensions against your available space.",
+      "Confirm the selected option and quantity on AliExpress.",
+      "Check the current delivered price before ordering."
+    ]
   },
-  "creativeCandidateGenerated": true,
-  "analyticsValidation": {
-    "stableIds": true,
-    "outboundEvent": "aliexpress_outbound_click",
-    "productViewEvent": "product_view"
+  "rssItem": {
+    "title": "Two-tier storage side table",
+    "link": "https://cleverfindspicks.github.io/finds/two-tier-storage-side-table",
+    "image": "https://cleverfindspicks.github.io/pinterest/two-tier-side-table-pin.png"
   },
-  "topCandidates": [
-    {
-      "productId": "1005008660091954",
-      "title": "1pcs Four-Leaf Clover Sofa Side Several Bedroom Small Table Living Room Storage Table Creative Balcony Double Layer Coffee Table",
-      "totalScore": 74,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005010228915186",
-      "title": "4/6-Tier Hanging Storage Bag Foldable Organizer Over-The-Door Holder For Hair Accessories Snacks Toys Clothes Storage Holder",
-      "totalScore": 73.5,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005011587179676",
-      "title": "Magnetic Aerosol Can Holder Spray Can Rack Wall Mount Tool-Free Installation Space Saving Organizer for Garage Workshop Kitchen",
-      "totalScore": 73.3,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005012061024710",
-      "title": "Waterproof Bathroom Wall-mounted Mobile Phone Box Protective Cover Touch Screen Mobile Phone Holder Kitchen Sealed Storage",
-      "totalScore": 73.1,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005012434399097",
-      "title": "Versatile Clothing Storage Bag Large Makeup Organizer Box Bedroom Kitchen Office Essentials for Storing Small Things",
-      "totalScore": 72.9,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005009508737989",
-      "title": "Wardrobe Organizer Bags Down Jacket Air Compression Hanging Bag with Zipper Clothes Dust Cover Bag Save Space Cloth Storage Bag",
-      "totalScore": 72.7,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005008077357865",
-      "title": "3-in-1 Kitchen Stainless Steel Tableware Soap Dispenser, Sponge Holder, Sink Organizer Drain Rack, Suitable for Kitchen Sinks",
-      "totalScore": 72.7,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005011942838529",
-      "title": "Extremely Narrow Kitchen Spice Rack, Seasoning Storage Organizer, Double-Layer Oil, Salt, Sauce, Vinegar Storage for Windowsill, Window Edge, Countertop",
-      "totalScore": 72.7,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005012523972404",
-      "title": "Large Capacity Vacuum Storage Bags for Clothes,Bedding,Space Saving Bags Storage Space Saver Compression Bags Vacuum Seal Packet",
-      "totalScore": 72.7,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005010285468529",
-      "title": "LED 4 Leaf Bulb E27 Collapsible Warm White Light Pendant Light Storage Garage Kitchen Lighting High Brightness Remote Control",
-      "totalScore": 72.6,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    }
-  ],
-  "note": "A provisional winner passed product qualification. Creative generation and final publication validation are the next stage."
+  "pin": {
+    "title": "Two-Tier Side Table for Small Rooms",
+    "description": "A compact two-tier side table that keeps everyday items close while adding a lower storage shelf without a bulky footprint. Check the exact option, current price and UK availability before ordering. Affiliate link."
+  },
+  "publishedAt": "2026-09-13T04:59:01.952Z",
+  "publicationPerformed": false
 }

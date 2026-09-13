@@ -5,11 +5,13 @@ import config from './config.json' with { type: 'json' };
 import { scoreCandidates } from './scoring.mjs';
 import { maximumSimilarity } from './similarity.mjs';
 import { products as publishedProducts } from '../app/products.ts';
+import { classifyEvidence, enrichCandidate, priceBenchmarks } from './enrichment.mjs';
 
 const env = parseEnv(await readFile(new URL('../.env.local', import.meta.url), 'utf8'));
 const key = env.ALIEXPRESS_APP_KEY?.trim();
 const secret = env.ALIEXPRESS_APP_SECRET?.trim();
-if (!key || !secret) throw new Error('Missing ALIEXPRESS_APP_KEY or ALIEXPRESS_APP_SECRET in .env.local');
+const trackingId = env.ALIEXPRESS_TRACKING_ID?.trim();
+if (!key || !secret || !trackingId) throw new Error('Missing required AliExpress credentials in .env.local');
 const clusterPerformance = JSON.parse(await readFile(new URL('./data/cluster-performance.json', import.meta.url), 'utf8'));
 const priorityByCluster = new Map((clusterPerformance.clusters || []).map((cluster) => [cluster.cluster, cluster.searchPriorityMultiplier]));
 const runId = `cf-run-${new Date().toISOString().replaceAll(/[-:.]/g, '').slice(0, 15)}-${randomUUID().slice(0, 8)}`;
@@ -109,6 +111,31 @@ async function search(query, pageNo, sortMode) {
   });
 }
 
+async function detail(products) {
+  const params = {
+    app_key: key,
+    method: 'aliexpress.affiliate.productdetail.get',
+    timestamp: String(Date.now()),
+    sign_method: 'sha256',
+    format: 'json',
+    v: '2.0',
+    product_ids: products.map((product) => product.productId).join(','),
+    country: config.market.country,
+    target_currency: config.market.currency,
+    target_language: config.market.language,
+    tracking_id: trackingId,
+    fields: 'product_id,product_title,product_main_image_url,product_detail_url,promotion_link,sale_price,commission_rate,commission_amount,evaluate_rate,lastest_volume,ship_to_days',
+  };
+  const canonical = Object.keys(params).sort().map((name) => name + params[name]).join('');
+  const sign = createHmac('sha256', secret).update(canonical, 'utf8').digest('hex').toUpperCase();
+  const response = await fetch('https://api-sg.aliexpress.com/sync', { method: 'POST', body: new URLSearchParams({ ...params, sign }), signal: AbortSignal.timeout(25000) });
+  const data = await response.json();
+  const result = data.aliexpress_affiliate_productdetail_get_response?.resp_result;
+  const rows = result?.result?.products?.product;
+  if (!response.ok || Number(result?.resp_code) !== 200 || !Array.isArray(rows)) return [];
+  return rows;
+}
+
 const batches = [];
 for (const item of searchPlan) {
   for (let page = 1; page <= item.pages; page += 1) {
@@ -122,7 +149,53 @@ const deduped = [...Map.groupBy(batches, (item) => item.productId).values()].map
   searchSortModes: [...new Set(rows.map((row) => row.searchSortMode))],
   matchedClusters: [...new Set(rows.map((row) => row.cluster))],
 }));
-const evaluated = scoreCandidates(deduped);
+const details = [];
+for (let index = 0; index < deduped.length; index += 20) {
+  try { details.push(...await detail(deduped.slice(index, index + 20))); } catch { /* Missing detail evidence safely blocks that batch. */ }
+}
+const detailById = new Map(details.map((item) => [String(item.product_id), item]));
+const detailed = deduped.map((candidate) => {
+  const item = detailById.get(candidate.productId);
+  if (!item) return { ...candidate, detailVerification: { productIdMatched: false, checkedAt: new Date().toISOString(), source: 'AliExpress Affiliate Product Detail API (GB)' } };
+  const detailPrice = Number(item.sale_price) || null;
+  const queryPrice = Number(candidate.metrics.priceGbp) || null;
+  const priceMatched = Boolean(detailPrice && queryPrice && Math.abs(detailPrice - queryPrice) / Math.max(detailPrice, queryPrice) <= 0.08);
+  return {
+    ...candidate,
+    affiliateUrl: item.promotion_link || candidate.affiliateUrl,
+    productUrl: item.product_detail_url || candidate.productUrl,
+    metrics: {
+      ...candidate.metrics,
+      priceGbp: detailPrice || queryPrice,
+      feedbackPct: Number.parseFloat(item.evaluate_rate) || candidate.metrics.feedbackPct,
+      recentVolume: Number(item.lastest_volume) || candidate.metrics.recentVolume,
+      commissionRatePct: Number.parseFloat(item.commission_rate) || candidate.metrics.commissionRatePct,
+      commissionAmountGbp: Number(item.commission_amount) || candidate.metrics.commissionAmountGbp,
+    },
+    shipping: {
+      available: true,
+      marketAvailabilityVerified: true,
+      costGbp: null,
+      daysMax: Number(item.ship_to_days) || null,
+      method: null,
+      verified: true,
+      checkedAt: new Date().toISOString(),
+      source: 'AliExpress Affiliate Product Detail API queried with country=GB',
+      note: 'GB market availability is verified by the returned exact product. Cost, method and exact estimate remain unknown when absent.',
+    },
+    detailVerification: {
+      productIdMatched: String(item.product_id) === candidate.productId,
+      priceMatched,
+      queryPriceGbp: queryPrice,
+      detailPriceGbp: detailPrice,
+      checkedAt: new Date().toISOString(),
+      source: 'AliExpress Affiliate Product Detail API (GB)',
+    },
+  };
+});
+const benchmarks = priceBenchmarks(detailed);
+const enriched = detailed.map((candidate) => enrichCandidate(candidate, benchmarks.get(candidate.cluster)));
+const evaluated = scoreCandidates(enriched, { stage: 'qualification' }).map((candidate) => ({ ...candidate, evidence: classifyEvidence(candidate) }));
 await writeFile(new URL('./data/candidate-pool.json', import.meta.url), JSON.stringify({
   generatedAt: new Date().toISOString(),
   runId,

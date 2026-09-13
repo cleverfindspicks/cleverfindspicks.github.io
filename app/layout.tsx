@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Practical home organisers shortlisted using buyer feedback, recent demand and value.',
   metadataBase: new URL('https://cleverfindspicks.github.io'),
   robots: { index: true, follow: true },
-  icons: { icon: 'https://cleverfindspicks.github.io/clever-finds.png' },
+  icons: { icon: '/clever-finds.png' },
 };
 
 export default function RootLayout({

@@ -24,7 +24,7 @@ export function applyVerificationEvidence(candidate, evidence) {
     verification: {
       source: evidence.source,
       checkedAt: evidence.checkedAt,
-      exactProductIdMatched: evidence.exactProductIdMatched === true,
+      exactProductIdMatched: evidence.exactProductIdMatched ?? null,
     },
   };
 }

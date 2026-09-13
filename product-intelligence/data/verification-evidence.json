@@ -1,5 +1,19 @@
 {
   "schemaVersion": 1,
-  "records": [],
+  "records": [
+    {
+      "productId": "1005008660091954",
+      "source": "Creative review after Product Intelligence qualification",
+      "checkedAt": "2026-09-13T04:50:11.084Z",
+      "pinCreative": {
+        "path": "public/pinterest/two-tier-side-table-pin.png",
+        "width": 1024,
+        "height": 1536,
+        "reviewedNonClickbait": true,
+        "headline": "Small Room, Smarter Storage",
+        "subheadline": "Two-Tier Side Table"
+      }
+    }
+  ],
   "note": "Only verified, timestamped evidence belongs here. Unknown values must remain null."
 }

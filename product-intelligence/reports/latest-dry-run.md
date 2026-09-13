@@ -1,8 +1,22 @@
 # Product Intelligence dry run
 
-- Status: **SKIPPED_NO_QUALIFIED_PRODUCT**
-- Candidates evaluated: 1040
+- Status: **READY_FOR_FINAL_PUBLICATION_GATE**
+- Candidates evaluated: 1044
 - Current products preserved: 14
-- Winner: none
+- Winner: 1005008660091954
 - Publication performed: no
-- Reason: No candidate had complete verified UK shipping, exact variant, seller/listing evidence, affiliate URL and reviewed vertical creative.
+
+## Funnel
+
+- candidatesFound: 1044
+- passedProductId: 1044
+- passedGbAvailability: 1044
+- passedPriceSanity: 959
+- passedDemandFeedback: 262
+- passedNicheBuyerIntent: 224
+- passedProfitability: 222
+- passedDuplicateChecks: 222
+- passedScore65: 162
+- finalQualifiedCandidates: 161
+
+- Reason: The product passed qualification and is ready for creative generation.

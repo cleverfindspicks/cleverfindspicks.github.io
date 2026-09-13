@@ -36,7 +36,7 @@ function priceFitScore(price, expectedBand) {
 }
 
 function shippingScore(shipping) {
-  if (!shipping?.verified || shipping.available !== true) return null;
+  if (shipping?.available !== true || shipping?.marketAvailabilityVerified !== true) return null;
   const days = known(shipping.daysMax) ? Number(shipping.daysMax) : null;
   const cost = known(shipping.costGbp) ? Number(shipping.costGbp) : null;
   const speed = days === null ? 0.5 : clamp(1 - Math.max(0, days - 5) / 20);
@@ -70,7 +70,7 @@ function factorMap(candidate) {
   };
 }
 
-function hardFilters(candidate, totalScore, confidence, { existingProduct = false } = {}) {
+function hardFilters(candidate, totalScore, confidence, { existingProduct = false, stage = 'publication' } = {}) {
   const reject = [];
   const review = [];
   const h = config.hardFilters;
@@ -80,20 +80,26 @@ function hardFilters(candidate, totalScore, confidence, { existingProduct = fals
     ? Number(candidate.metrics.commissionAmountGbp)
     : known(price) && known(rate) ? price * rate / 100 : null;
 
-  if (!candidate.productId) review.push('Product ID is missing; the exact listing cannot be re-queried.');
-  if (!known(candidate.metrics?.feedbackPct)) review.push('Feedback is unknown.');
+  if (!candidate.productId) reject.push('Product ID is missing; the exact listing cannot be re-queried.');
+  if (!existingProduct && candidate.detailVerification?.productIdMatched !== true) reject.push('Product detail query did not verify the exact product ID.');
+  if (!known(candidate.metrics?.feedbackPct)) reject.push('Feedback is missing when expected from the Affiliate API.');
   else if (Number(candidate.metrics.feedbackPct) < h.minimumFeedbackPct) reject.push(`Feedback is below ${h.minimumFeedbackPct}%.`);
   if (known(price) && price < h.minimumPriceGbp && (!known(amount) || amount < h.minimumEstimatedCommissionGbp)) reject.push('Price is too low to produce a meaningful expected commission.');
   if (known(amount) && amount < h.minimumEstimatedCommissionGbp) reject.push(`Estimated commission is below £${h.minimumEstimatedCommissionGbp}.`);
+  if (!existingProduct && !known(rate) && !known(amount)) reject.push('Commission rate or amount is required.');
+  if (!existingProduct && !(Number(candidate.metrics?.recentVolume) > 0)) reject.push('A positive demand signal is required.');
+  if (!existingProduct && !known(price)) reject.push('A current GBP price is required.');
+  if (!existingProduct && candidate.detailVerification?.priceMatched !== true) reject.push('Current GBP price was not confirmed by the product detail query.');
+  if (candidate.priceSanity?.status === 'REJECT') reject.push(candidate.priceSanity.reason || 'Price sanity check failed.');
   if (known(price) && price > h.maximumUnverifiedPriceGbp && candidate.listing?.priceVerifiedForShownVariant !== true) reject.push('High price is not verified for the pictured product and quantity.');
   if (candidate.expectedPriceBandGbp && known(price) && price > Number(candidate.expectedPriceBandGbp.max) * 1.5) reject.push('Price is an extreme outlier for this product type.');
-  if (candidate.listing?.variantClarity === false) reject.push('Listing uses an unclear or misleading variant/quantity.');
-  else if (candidate.listing?.variantClarity !== true) review.push('Variant and quantity are not verified.');
+  if (candidate.listing?.variantRisk === 'HIGH' && candidate.listing?.variantClarity !== true) reject.push('High-risk variant or quantity could not be verified.');
+  else if (candidate.listing?.variantClarity === false) reject.push('Listing uses an unclear or misleading variant/quantity.');
   if (candidate.shipping?.available === false) reject.push('Not available for UK delivery.');
-  else if (!candidate.shipping?.verified) review.push('UK shipping cost and delivery time are unknown.');
+  else if (!existingProduct && candidate.shipping?.marketAvailabilityVerified !== true) reject.push('GB market availability was not verified by a product detail query.');
   else if (known(candidate.shipping.daysMax) && Number(candidate.shipping.daysMax) > h.maximumShippingDays) reject.push('UK delivery time is too slow.');
-  if (!candidate.seller?.verified) review.push('Seller reliability is unknown.');
   if ((candidate.factors?.smallSpaceRelevance ?? 0) < h.minimumSmallSpaceRelevance) reject.push('Weak relevance to small-space organisation.');
+  if (candidate.nicheFit?.status === 'REJECT') reject.push(candidate.nicheFit.reason);
   if ((candidate.factors?.obviousProblem ?? 0) < h.minimumObviousProblem) reject.push('The image does not communicate an obvious problem and solution quickly enough.');
   if (!existingProduct && (candidate.factors?.buyerIntent ?? 0) < h.minimumBuyerIntent) reject.push('Search intent is too informational or weakly commercial.');
   if (known(candidate.duplicateSimilarity) && Number(candidate.duplicateSimilarity) > h.maximumDuplicateSimilarity) reject.push('Too similar to a recently published product.');
@@ -101,7 +107,7 @@ function hardFilters(candidate, totalScore, confidence, { existingProduct = fals
     const aspect = known(candidate.pinCreative?.width) && known(candidate.pinCreative?.height)
       ? Number(candidate.pinCreative.height) / Number(candidate.pinCreative.width)
       : null;
-    if (!candidate.pinCreative?.path || !candidate.pinCreative?.reviewedNonClickbait || aspect === null || aspect < h.minimumPinAspectRatioHeightToWidth) reject.push('A reviewed custom vertical Pinterest image is required.');
+    if (stage === 'publication' && (!candidate.pinCreative?.path || !candidate.pinCreative?.reviewedNonClickbait || aspect === null || aspect < h.minimumPinAspectRatioHeightToWidth)) reject.push('A reviewed custom vertical Pinterest image is required.');
     if (!candidate.trackingId || !candidate.pinId || !candidate.runId) reject.push('Stable run, product and pin tracking IDs are required.');
     try {
       const affiliate = new URL(candidate.affiliateUrl);
@@ -109,7 +115,6 @@ function hardFilters(candidate, totalScore, confidence, { existingProduct = fals
     } catch { reject.push('A valid affiliate URL is required.'); }
     if (totalScore < h.minimumPublishScore) reject.push(`Score is below ${h.minimumPublishScore}.`);
     if (confidence < h.minimumConfidence) reject.push(`Data confidence is below ${Math.round(h.minimumConfidence * 100)}%.`);
-    if (review.length) reject.push('Manual verification is required before publication.');
   }
   return { reject: [...new Set(reject)], review: [...new Set(review)] };
 }
@@ -126,8 +131,14 @@ export function scoreCandidate(candidate, options = {}) {
     total += points;
     breakdown[name] = { value: raw === null || raw === undefined ? 'unknown' : round(Number(raw), 3), weight, points: round(points) };
   }
-  const totalScore = round(total);
-  const confidence = round(knownWeight / 100, 2);
+  const variantRiskPenalty = candidate.listing?.variantRisk === 'HIGH' ? 10 : candidate.listing?.variantRisk === 'MEDIUM' ? 3 : 0;
+  breakdown.variantRiskPenalty = { value: candidate.listing?.variantRisk || 'unknown', weight: 0, points: -variantRiskPenalty };
+  const totalScore = round(Math.max(0, total - variantRiskPenalty));
+  const requiredEvidence = [Boolean(candidate.productId), candidate.detailVerification?.productIdMatched === true, candidate.shipping?.marketAvailabilityVerified === true, known(candidate.metrics?.priceGbp), candidate.detailVerification?.priceMatched === true, known(candidate.metrics?.feedbackPct), Number(candidate.metrics?.recentVolume) > 0, known(candidate.metrics?.commissionRatePct) || known(candidate.metrics?.commissionAmountGbp), Boolean(candidate.affiliateUrl)];
+  const requiredConfidence = requiredEvidence.filter(Boolean).length / requiredEvidence.length;
+  const editorialEvidence = ['valueForMoney', 'ukSuitability', 'smallSpaceRelevance', 'visualAppeal', 'impulsePurchase', 'obviousProblem', 'buyerIntent'].filter((name) => factors[name] !== null && factors[name] !== undefined).length / 7;
+  const optionalEvidence = [known(candidate.shipping?.costGbp), known(candidate.shipping?.daysMax), Boolean(candidate.shipping?.method), candidate.seller?.verified === true, known(candidate.factors?.competitionSaturation)].filter(Boolean).length / 5;
+  const confidence = options.existingProduct ? round(knownWeight / 100, 2) : round(requiredConfidence * 0.85 + editorialEvidence * 0.1 + optionalEvidence * 0.05, 2);
   const filters = hardFilters(candidate, totalScore, confidence, options);
   let decision = filters.reject.length ? 'reject' : filters.review.length ? 'questionable' : 'keep';
   if (options.existingProduct && !filters.reject.length && totalScore >= 55) decision = 'keep';
