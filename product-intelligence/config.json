@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "market": {
+    "country": "GB",
+    "currency": "GBP",
+    "language": "EN",
+    "niche": "small homes and small-space organisation"
+  },
+  "queries": [
+    "under sink storage",
+    "bathroom storage",
+    "no drill storage",
+    "renter friendly storage",
+    "narrow kitchen storage",
+    "wardrobe space saving",
+    "behind door storage",
+    "small bedroom storage",
+    "tiny kitchen organisation",
+    "drawer organisation",
+    "vertical storage",
+    "foldable storage"
+  ],
+  "queryClusters": {
+    "under sink storage": "under-sink-storage",
+    "bathroom storage": "bathroom-storage",
+    "no drill storage": "no-drill-storage",
+    "renter friendly storage": "renter-friendly-storage",
+    "narrow kitchen storage": "tiny-kitchen-storage",
+    "wardrobe space saving": "wardrobe-storage",
+    "behind door storage": "behind-door-storage",
+    "small bedroom storage": "small-bedroom-storage",
+    "tiny kitchen organisation": "tiny-kitchen-storage",
+    "drawer organisation": "drawer-organisation",
+    "vertical storage": "vertical-storage",
+    "foldable storage": "foldable-storage"
+  },
+  "weights": {
+    "recentDemand": 12,
+    "positiveFeedback": 10,
+    "commissionRate": 10,
+    "estimatedCommission": 10,
+    "priceFit": 8,
+    "valueForMoney": 8,
+    "ukSuitability": 6,
+    "shipping": 6,
+    "sellerReliability": 5,
+    "smallSpaceRelevance": 8,
+    "visualAppeal": 5,
+    "impulsePurchase": 4,
+    "obviousProblem": 4,
+    "novelty": 4
+  },
+  "hardFilters": {
+    "minimumFeedbackPct": 95,
+    "minimumEstimatedCommissionGbp": 0.5,
+    "minimumPriceGbp": 5,
+    "maximumUnverifiedPriceGbp": 80,
+    "minimumSmallSpaceRelevance": 0.6,
+    "minimumObviousProblem": 0.6,
+    "maximumDuplicateSimilarity": 0.72,
+    "minimumPublishScore": 65,
+    "minimumConfidence": 0.75,
+    "maximumShippingDays": 18,
+    "requireVerifiedUkShipping": true,
+    "requireClearVariant": true,
+    "requireCustomVerticalPin": true,
+    "minimumPinAspectRatioHeightToWidth": 1.4
+  },
+  "performance": {
+    "minimumClusterImpressions": 1000,
+    "maximumSearchPriorityMultiplier": 1.35,
+    "minimumSearchPriorityMultiplier": 0.75,
+    "maximumConsecutiveClusterWins": 2,
+    "epmiField": "earningsPerThousandPinterestImpressions"
+  }
+}

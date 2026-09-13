@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "updatedAt": null,
+  "events": [],
+  "fields": [
+    "productId",
+    "slug",
+    "cluster",
+    "date",
+    "pinterestImpressions",
+    "pinterestSaves",
+    "pinterestPinClicks",
+    "pinterestOutboundClicks",
+    "websiteVisits",
+    "aliexpressClicks",
+    "aliexpressOrders",
+    "affiliateCommissionEarnedGbp"
+  ]
+}

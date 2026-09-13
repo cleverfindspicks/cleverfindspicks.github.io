@@ -9,6 +9,12 @@
     "dev": "vinext dev",
     "build": "vinext build && node scripts/prepare-github-pages.mjs",
     "start": "wrangler dev --config dist/server/wrangler.json",
+    "intelligence:search": "node product-intelligence/search-candidates.mjs",
+    "intelligence:select": "node product-intelligence/select-winner.mjs",
+    "intelligence:audit": "node product-intelligence/run-current-audit.mjs",
+    "intelligence:performance": "node product-intelligence/run-performance.mjs",
+    "intelligence:check": "node product-intelligence/prepublish-check.mjs",
+    "intelligence:test": "node product-intelligence/self-test.mjs",
     "lint": "oxlint",
     "format": "oxfmt"
   },

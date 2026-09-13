@@ -1,0 +1,22 @@
+# Current catalogue Product Intelligence audit
+
+Generated: 2026-09-13T00:11:05.358Z
+
+Unknown data receives zero points. A low confidence score is deliberate and means the exact listing, shipping, seller or commission data must be re-verified. Existing products are not removed by this report.
+
+| Product | Existing price | Demand | Feedback | Estimated profitability | New score | Status | Primary reason |
+|---|---:|---:|---:|---|---:|---|---|
+| Wooden cap organiser hanger | £22.5 | 3,971 | 98% | About £1.58 per order at the observed 7% rate; commercially healthier than very low-priced accessories. | 66.6/100 (89% confidence) | keep | Product ID is missing; the exact listing cannot be re-queried. |
+| Over-cabinet door hook rack | £14.09 | 754 | 98% | About £0.99 per order at the observed 7% rate; viable but modest. | 64.3/100 (89% confidence) | keep | Product ID is missing; the exact listing cannot be re-queried. |
+| No-drill bathroom scale rack | £17.68 | 5,966 | 98% | Unverified: commission rate was not stored; commercial signal is otherwise strong. | 62.9/100 (69% confidence) | keep | Product ID is missing; the exact listing cannot be re-queried. |
+| Folding laundry basket | £24.13 | 6,285 | 98% | Unverified: commission rate was not stored. | 61.9/100 (69% confidence) | keep | Product ID is missing; the exact listing cannot be re-queried. |
+| Pull-out under-sink organiser | £41.99 | 2,265 | 98% | Unverified: commission rate was not stored. | 59/100 (69% confidence) | keep | Product ID is missing; the exact listing cannot be re-queried. |
+| Expandable microwave storage rack | £126.67 | 582 | 98% | Nominally £8.87 per order at 7%, but not trustworthy because the exact price/variant and historical volume could not be matched in the current query. | 56.1/100 (89% confidence) | reject | High price is not verified for the pictured product and quantity. Price is an extreme outlier for this product type. Listing uses an unclear or misleading variant/quantity. |
+| Expandable spice drawer organiser | £45.81 | 795 | 98% | Unverified: commission rate was not stored. | 53/100 (69% confidence) | questionable | Product ID is missing; the exact listing cannot be re-queried. |
+| Five-tier storage shelves | £20.7 | 52 | 100% | Unverified; low demand makes the signal weak. | 51/100 (69% confidence) | questionable | Product ID is missing; the exact listing cannot be re-queried. |
+| Wardrobe clothes organiser | £1.65 | 15,485 | 98% | Too low: even a 20% illustrative rate would be only £0.33 per order. | 50.8/100 (69% confidence) | reject | Price is too low to produce a meaningful expected commission. Listing uses an unclear or misleading variant/quantity. |
+| Slim non-slip clothes hangers | £55.47 | 748 | 98% | Unverified; price is high for a 10-piece hanger set. | 45.3/100 (69% confidence) | reject | Price is an extreme outlier for this product type. |
+| Adjustable cutlery drawer organiser | £125.15 | 4,205 | 98% | Not trustworthy: exact listing/variant could not be matched; current API results included comparable organisers around £7–£25 as well as zero-volume high-price listings. | 43.3/100 (69% confidence) | reject | High price is not verified for the pictured product and quantity. Price is an extreme outlier for this product type. Listing uses an unclear or misleading variant/quantity. |
+| Vacuum storage bag set | £208.54 | 830 | 98% | Not verifiable: the exact current query returned no matching affiliate result; the stored price is implausible without bundle confirmation. | 43.1/100 (69% confidence) | reject | High price is not verified for the pictured product and quantity. Price is an extreme outlier for this product type. Listing uses an unclear or misleading variant/quantity. |
+| Five-shelf over-door organiser | £102.27 | 90 | 97% | Not verifiable: the exact current query returned no matching affiliate result. | 40.1/100 (69% confidence) | reject | High price is not verified for the pictured product and quantity. Price is an extreme outlier for this product type. Listing uses an unclear or misleading variant/quantity. |
+| Adjustable shoe storage slots | £98.77 | 751 | 95.6% | Not trustworthy: current search showed 1-, 2-, 6-, 12- and 15-piece variants with widely different prices; the recorded quantity is unclear. | 38.4/100 (69% confidence) | reject | High price is not verified for the pictured product and quantity. Price is an extreme outlier for this product type. Listing uses an unclear or misleading variant/quantity. |
