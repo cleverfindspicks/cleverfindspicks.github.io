@@ -20,7 +20,9 @@ const creativeName = basename(creativeSource);
 await copyFile(creativeSource, new URL(`../public/pinterest/${creativeName}`, import.meta.url));
 products.push({ ...bundle.landingPage, pinImage: `https://cleverfindspicks.github.io/pinterest/${creativeName}`, affiliateUrl: bundle.candidate.affiliateUrl, publishedAt: bundle.publishedAt });
 await writeFile(target, JSON.stringify(products, null, 2));
-const build = spawnSync(process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm', ['build'], { cwd: new URL('..', import.meta.url), stdio: 'inherit' });
+const build = process.platform === 'win32'
+  ? spawnSync(process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', 'pnpm build'], { cwd: new URL('..', import.meta.url), stdio: 'inherit' })
+  : spawnSync('pnpm', ['build'], { cwd: new URL('..', import.meta.url), stdio: 'inherit' });
 if (build.status !== 0) {
   await writeFile(target, before);
   throw new Error('Build failed; generated-products.json was rolled back.');
