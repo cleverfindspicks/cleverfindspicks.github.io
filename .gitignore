@@ -36,3 +36,5 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+/.publish-git/
+/public/pinterest/*-source.jpg
