@@ -13,6 +13,22 @@
         "headline": "Small Room, Smarter Storage",
         "subheadline": "Two-Tier Side Table"
       }
+    },
+    {
+      "productId": "1005011587179676",
+      "source": "Creative review against the exact AliExpress product image; the source photograph is preserved as the full central panel.",
+      "checkedAt": "2026-09-13T16:07:23.672Z",
+      "exactProductIdMatched": true,
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S29f4e512c37545d7bb98695838de3345V.jpg",
+      "pinCreative": {
+        "path": "public/pinterest/magnetic-aerosol-can-holder-pin.png",
+        "width": 1000,
+        "height": 1500,
+        "reviewedNonClickbait": true,
+        "productDepiction": "Exact full AliExpress source photograph, proportionally resized without product edits.",
+        "headline": "Free Up Shelf Space",
+        "subheadline": "Magnetic Spray Can Holder"
+      }
     }
   ],
   "note": "Only verified, timestamped evidence belongs here. Unknown values must remain null."

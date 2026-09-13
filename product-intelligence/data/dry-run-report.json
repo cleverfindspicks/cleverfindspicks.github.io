@@ -1,53 +1,53 @@
 {
-  "generatedAt": "2026-09-13T12:05:08.059Z",
-  "runId": "cf-run-20260913T120357-ede9d72a",
+  "generatedAt": "2026-09-13T16:07:56.762Z",
+  "runId": "cf-run-20260913T160214-453c8579",
   "status": "READY_FOR_FINAL_PUBLICATION_GATE",
-  "candidateCount": 1034,
+  "candidateCount": 1032,
   "evaluatedCounts": {
-    "keep": 146,
-    "reject": 888
+    "keep": 151,
+    "reject": 881
   },
   "funnel": {
-    "candidatesFound": 1034,
-    "passedProductId": 934,
-    "passedGbAvailability": 934,
-    "passedPriceSanity": 859,
-    "passedDemandFeedback": 240,
-    "passedNicheBuyerIntent": 202,
-    "passedProfitability": 200,
-    "passedDuplicateChecks": 200,
-    "passedScore65": 147,
-    "finalQualifiedCandidates": 146
+    "candidatesFound": 1032,
+    "passedProductId": 920,
+    "passedGbAvailability": 920,
+    "passedPriceSanity": 851,
+    "passedDemandFeedback": 250,
+    "passedNicheBuyerIntent": 216,
+    "passedProfitability": 213,
+    "passedDuplicateChecks": 212,
+    "passedScore65": 152,
+    "finalQualifiedCandidates": 151
   },
-  "currentCatalogueCount": 14,
-  "currentCatalogueUntouched": true,
+  "currentCatalogueCount": 15,
+  "currentCatalogueUntouched": false,
   "winner": {
-    "productId": "1005008660091954",
-    "trackingId": "cfp-c97f694b80fc",
-    "pinId": "pin-cfp-c97f694b80fc-2026-09-13",
-    "runId": "cf-run-20260913T120357-ede9d72a",
-    "evaluatedAt": "2026-09-13T12:04:15.745Z",
+    "productId": "1005011587179676",
+    "trackingId": "cfp-97c15d9e9966",
+    "pinId": "pin-cfp-97c15d9e9966-2026-09-13",
+    "runId": "cf-run-20260913T160214-453c8579",
+    "evaluatedAt": "2026-09-13T16:02:30.019Z",
     "searchQuery": [
-      "small bedroom storage"
+      "behind door storage"
     ],
     "searchPage": 1,
     "searchSortMode": "LAST_VOLUME_DESC",
-    "title": "1pcs Four-Leaf Clover Sofa Side Several Bedroom Small Table Living Room Storage Table Creative Balcony Double Layer Coffee Table",
-    "image": "https://ae-pic-a1.aliexpress-media.com/kf/Sdf83b3abb93d4745854064c850e64274g.jpg",
-    "productUrl": "https://www.aliexpress.com/item/1005008660091954.html?pdp_npi=6%40dis%21GBP%2115.84%217.92%21%21%21139.46%2169.73%21%402101611117893010914437516e0ce5%2112000046136099250%21affd%21%21%21%211%210%21",
-    "affiliateUrl": "https://s.click.aliexpress.com/s/pyFri10M6ltAv61YZY9TfrxiDaaFXRreuZWJMeLtD8jig1wPxn51K2eq59ds8iT5Wl5L3w5KJyrl7SjOO3B0oJ0Xjwnc7n8AQA7gf5qnT4sCyU05LNms9JvyWQNFHNKtzBcoBpSguMg3UBR1FOODkmGTloXosMhqhnKgzzuJPYPxewVvzupiAiKSJA5SK0iQRxmaQ7UPG0AP2HC7uLitVpvXIfjMl7RnsnN7B8FrGfP9TWP7emQeaXV90Bp9fLEiLe5mOF3ZxRkgXTxDel4NhdR1WLVYSoygR9Mm1fajL9UmwmCVRVHwLPp0N3CoTDOP9aXYDbrkXL76Tes0KGDrrPEcu827LCYa7UCiNP9u3ZgE1q0ySgkgolR9Y2zMJq56hkh6R8L6NXKLxYQVc1HmrlcbAF9iL2wBwf3wKTemiwhenP1FqCn6SgjQlLS32KqojCZw9bJIy6WH5Ly0XNdZnzz8GTbbOS5Y4D4kf2fBR0QKUOKbBWJcXL5usAZThfSdcBeF2EoohUxaMDicYVbYD6IkiG59GWPW0lX5LYxXgi1I26P8VqCafDYVbh2Ol4diS82iheha31y1nCBVKfTDfnCPjIug8CtdpT6a2NoMuYUTXplVVepsxmpUZabU4bnpQFAboWbbHj98zjXu88sOH5NWACgshaERM2xmVvY5KqyMtM2nhXnJv15D4Y2NgCYlfFeZ4vJJJKgmT8k9nuJofrIpVxbsF0xcq0nYScSM4zRjqhbsCKiUFvGFIQU4Z1JPeO3MuYy0dhswsCZFR08TpvRXeHgwPoT6RJ9XoyxKNKE9DVm7Lds3tMHHsCQNJafaEPzYk4eS2QKz9ZVvrt7YRrGlVB4KjczeNoU2rQovHBAVVc5frLw6g26y1feZ4zmQePlF8LvHtzoOo3vOoEby2PT3oAIURdcmoaPICNokqiYaJLvZMWamaNlf9xYn91WSV0Rm5ylvFweXrI33jfO48QT3JKcA2IbeHM1PHT3YvLq7RGVjumzkPqI5PoAa87geNvw9g5cY",
-    "cluster": "small-bedroom-storage",
+    "title": "Magnetic Aerosol Can Holder Spray Can Rack Wall Mount Tool-Free Installation Space Saving Organizer for Garage Workshop Kitchen",
+    "image": "https://ae-pic-a1.aliexpress-media.com/kf/S29f4e512c37545d7bb98695838de3345V.jpg",
+    "productUrl": "https://www.aliexpress.com/item/1005011587179676.html?pdp_npi=6%40dis%21GBP%217.21%213.61%21%21%2163.43%2131.71%21%402140f89017893153888521906e1175%2112000055993221434%21affd%21%21%21%211%210%21",
+    "affiliateUrl": "https://s.click.aliexpress.com/s/pyFri10M6ltAv61YZY9TfrxiDaaFXRreuZWJMeLtD8jig1wPxn51K2eq59ds8iT5Wl5L3w5KJyrl7SjOO3B0oJ0Xjwnc7n8AQA7gf5qnT4sCyU05LNms9JvyWQNFHNKtzBcoBpSguMg3UBR1FOODkmGTloXosMhqhnKgzzuJPYPxewVvzupiAiKSJA5SK0iQRxmaQ7UPG0AP2HC7uLitVpvXIfjMl7RnsnN7B8FrGfP9TWP7emQeaXV90Bp9fLEiLe5mOF3ZxRkgXTxDel4NhdR1WLVYSoygR9Mm1fajL9UmwmCVRVHwLPp0N3C3zHJ75GjFRYWUOhaRZFzAHNmtTWt1a9yko4dTiZzOg2gJJxJW1Vj5gWMBdSjbDleov9PaFlGxgXXkqHZOHdg2sEsv3NdjbB1ww5fyMYUhCTD9EDrSss4Psdp8jPS4OPiE6SjgANV5vtOErwPnwEFVJMZy7PvyvZDSLA0RLkg3oGenIodqvfetC5v6xyh4gwOEmiosoVBmcd69bndTz2R8fKdETevhYdW3o2ZdtZjuIE3TsfustwsBXiLlyKhexwZFpk4ZNFFFLA3BHro3rZQV8BZMUWnmY3Vhl237YeKBJCavA76wgaIUdGDNrjBfHQJocTKYBP8XglkKVORmc9I8axpycKQtODJLAvtcF2wj2wc26nH6CnsCiCfz1yt1JXb0Z2NRrpzVrMVqk6evUXRlcAreruWga5XjYAx64I2ZWpteMwcl5guM7pcSCzaEibUXpM2Zl8C6q4BeZo7Z0F1oHT0Q94IqxuxmvJZi5rlO7VxJNLoDQvkXPBHlSDy6Raj1sCSGsbxlDeY0XLEHxvKjiDC2DlgeQJP6Ox7OB8563QI25Tt4v3bPmvAL1mzX2w3AHFJPhZkJ0ZQhSS80SIbMYQ6QjiXbJRGxqFtiWOCRvKHjnmQUSOhaGsfxnfJDDZcB0LdR0XO1qi1VKNFqjgDTwF4lfZXtsKBbc9EFvltlNWLi5YJgAbJ3Mj8XGbk4ILtCnGUbtqJmYkWk",
+    "cluster": "behind-door-storage",
     "metrics": {
-      "priceGbp": 69.73,
+      "priceGbp": 31.71,
       "feedbackPct": 98,
-      "recentVolume": 865,
+      "recentVolume": 2523,
       "commissionRatePct": 7,
-      "commissionAmountGbp": 4.88,
+      "commissionAmountGbp": 2.22,
       "commissionAmountSource": "calculated-from-price-and-rate"
     },
     "expectedPriceBandGbp": {
-      "min": 16.56,
-      "max": 475.26
+      "min": 10.44,
+      "max": 64.54
     },
     "shipping": {
       "available": true,
@@ -56,7 +56,7 @@
       "daysMax": null,
       "method": null,
       "verified": true,
-      "checkedAt": "2026-09-13T12:05:07.829Z",
+      "checkedAt": "2026-09-13T16:03:29.190Z",
       "source": "AliExpress Affiliate Product Detail API queried with country=GB",
       "note": "GB market availability is verified by the returned exact product. Cost, method and exact estimate remain unknown when absent."
     },
@@ -72,23 +72,24 @@
       "variantRiskReasons": []
     },
     "factors": {
-      "valueForMoney": 0.8658549130028265,
+      "valueForMoney": 0.9685474444826647,
       "ukSuitability": 0.82,
       "smallSpaceRelevance": 0.92,
       "visualAppeal": 0.72,
-      "impulsePurchase": 0.55,
+      "impulsePurchase": 0.9,
       "obviousProblem": 0.88,
       "buyerIntent": 0.9,
       "competitionSaturation": 0.5
     },
-    "duplicateSimilarity": 0.1,
+    "duplicateSimilarity": 0.095,
     "pinCreative": {
-      "path": "public/pinterest/two-tier-side-table-pin.png",
-      "width": 1024,
-      "height": 1536,
+      "path": "public/pinterest/magnetic-aerosol-can-holder-pin.png",
+      "width": 1000,
+      "height": 1500,
       "reviewedNonClickbait": true,
-      "headline": "Small Room, Smarter Storage",
-      "subheadline": "Two-Tier Side Table"
+      "productDepiction": "Exact full AliExpress source photograph, proportionally resized without product edits.",
+      "headline": "Free Up Shelf Space",
+      "subheadline": "Magnetic Spray Can Holder"
     },
     "selectionReason": null,
     "searchPages": [
@@ -98,26 +99,26 @@
       "LAST_VOLUME_DESC"
     ],
     "matchedClusters": [
-      "small-bedroom-storage"
+      "behind-door-storage"
     ],
     "detailVerification": {
       "productIdMatched": true,
       "priceMatched": true,
-      "queryPriceGbp": 69.73,
-      "detailPriceGbp": 69.73,
-      "checkedAt": "2026-09-13T12:05:07.829Z",
+      "queryPriceGbp": 31.71,
+      "detailPriceGbp": 31.71,
+      "checkedAt": "2026-09-13T16:03:29.190Z",
       "source": "AliExpress Affiliate Product Detail API (GB)"
     },
     "priceSanity": {
       "status": "PASS",
       "reason": "Price is within robust cluster bounds.",
       "benchmark": {
-        "sampleSize": 76,
-        "p10": 16.56,
-        "median": 51.91,
-        "p90": 475.26
+        "sampleSize": 70,
+        "p10": 10.44,
+        "median": 29.59,
+        "p90": 64.54
       },
-      "medianRatio": 1.343
+      "medianRatio": 1.072
     },
     "nicheFit": {
       "status": "PASS",
@@ -125,9 +126,9 @@
     },
     "scoreBreakdown": {
       "recentDemand": {
-        "value": 0.734,
+        "value": 0.851,
         "weight": 8,
-        "points": 5.9
+        "points": 6.8
       },
       "positiveFeedback": {
         "value": 0.8,
@@ -140,9 +141,9 @@
         "points": 2.7
       },
       "estimatedCommission": {
-        "value": 0.973,
+        "value": 0.382,
         "weight": 7,
-        "points": 6.8
+        "points": 2.7
       },
       "priceFit": {
         "value": 1,
@@ -150,9 +151,9 @@
         "points": 6
       },
       "valueForMoney": {
-        "value": 0.866,
+        "value": 0.969,
         "weight": 6,
-        "points": 5.2
+        "points": 5.8
       },
       "ukSuitability": {
         "value": 0.82,
@@ -180,9 +181,9 @@
         "points": 5
       },
       "impulsePurchase": {
-        "value": 0.55,
+        "value": 0.9,
         "weight": 5,
-        "points": 2.8
+        "points": 4.5
       },
       "obviousProblem": {
         "value": 0.88,
@@ -190,7 +191,7 @@
         "points": 5.3
       },
       "novelty": {
-        "value": 0.9,
+        "value": 0.905,
         "weight": 5,
         "points": 4.5
       },
@@ -210,7 +211,7 @@
         "points": 0
       }
     },
-    "totalScore": 74,
+    "totalScore": 73.2,
     "confidence": 0.96,
     "decision": "keep",
     "rejectionReason": null,
@@ -238,23 +239,23 @@
       }
     },
     "verification": {
-      "source": "Creative review after Product Intelligence qualification",
-      "checkedAt": "2026-09-13T04:50:11.084Z",
-      "exactProductIdMatched": null
+      "source": "Creative review against the exact AliExpress product image; the source photograph is preserved as the full central panel.",
+      "checkedAt": "2026-09-13T16:07:23.672Z",
+      "exactProductIdMatched": true
     }
   },
   "publicationPerformed": false,
   "landingPageCandidateGenerated": true,
   "landingPageCandidate": {
-    "slug": "cfp-c97f694b80fc",
-    "title": "1pcs Four-Leaf Clover Sofa Side Several Bedroom Small Table Living Room Storage Table Creative Balcony Double Layer Coffee Table",
-    "summary": "A practical small bedroom storage option for smaller UK homes. Check the exact current offer before buying."
+    "slug": "cfp-97c15d9e9966",
+    "title": "Magnetic Aerosol Can Holder Spray Can Rack Wall Mount Tool-Free Installation Space Saving Organizer for Garage Workshop Kitchen",
+    "summary": "A practical behind door storage option for smaller UK homes. Check the exact current offer before buying."
   },
   "rssCandidateGenerated": true,
   "rssCandidate": {
-    "title": "1pcs Four-Leaf Clover Sofa Side Several Bedroom Small Table Living Room Storage Table Creative Balcony Double Layer Coffee Table",
-    "link": "https://cleverfindspicks.github.io/finds/cfp-c97f694b80fc",
-    "image": "public/pinterest/two-tier-side-table-pin.png"
+    "title": "Magnetic Aerosol Can Holder Spray Can Rack Wall Mount Tool-Free Installation Space Saving Organizer for Garage Workshop Kitchen",
+    "link": "https://cleverfindspicks.github.io/finds/cfp-97c15d9e9966",
+    "image": "public/pinterest/magnetic-aerosol-can-holder-pin.png"
   },
   "creativeCandidateGenerated": true,
   "analyticsValidation": {
@@ -264,17 +265,9 @@
   },
   "topCandidates": [
     {
-      "productId": "1005008660091954",
-      "title": "1pcs Four-Leaf Clover Sofa Side Several Bedroom Small Table Living Room Storage Table Creative Balcony Double Layer Coffee Table",
-      "totalScore": 74,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
       "productId": "1005011587179676",
       "title": "Magnetic Aerosol Can Holder Spray Can Rack Wall Mount Tool-Free Installation Space Saving Organizer for Garage Workshop Kitchen",
-      "totalScore": 73.3,
+      "totalScore": 73.2,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null
@@ -282,15 +275,7 @@
     {
       "productId": "1005010228915186",
       "title": "4/6-Tier Hanging Storage Bag Foldable Organizer Over-The-Door Holder For Hair Accessories Snacks Toys Clothes Storage Holder",
-      "totalScore": 73.3,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005008077357865",
-      "title": "3-in-1 Kitchen Stainless Steel Tableware Soap Dispenser, Sponge Holder, Sink Organizer Drain Rack, Suitable for Kitchen Sinks",
-      "totalScore": 73,
+      "totalScore": 73.2,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null
@@ -312,16 +297,8 @@
       "rejectionReason": null
     },
     {
-      "productId": "1005007635410483",
-      "title": "Press Type Slender Trash Can with Pop Lid Narrow Gap Storage Bin for Kitchen Bathroom Bedroom Living Room",
-      "totalScore": 72.8,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005009508737989",
-      "title": "Wardrobe Organizer Bags Down Jacket Air Compression Hanging Bag with Zipper Clothes Dust Cover Bag Save Space Cloth Storage Bag",
+      "productId": "1005008077357865",
+      "title": "3-in-1 Kitchen Stainless Steel Tableware Soap Dispenser, Sponge Holder, Sink Organizer Drain Rack, Suitable for Kitchen Sinks",
       "totalScore": 72.8,
       "confidence": 0.96,
       "decision": "keep",
@@ -330,6 +307,14 @@
     {
       "productId": "1005010285468529",
       "title": "LED 4 Leaf Bulb E27 Collapsible Warm White Light Pendant Light Storage Garage Kitchen Lighting High Brightness Remote Control",
+      "totalScore": 72.8,
+      "confidence": 0.96,
+      "decision": "keep",
+      "rejectionReason": null
+    },
+    {
+      "productId": "1005008660181693",
+      "title": "8.5/12L Kitchen Wastebasket Wall Mounted Trash Can With Lid Bathroom Trash Bin Garbage Can for Cabinet Under Sink Recycling Bin",
       "totalScore": 72.7,
       "confidence": 0.96,
       "decision": "keep",
@@ -338,7 +323,23 @@
     {
       "productId": "1005012523972404",
       "title": "Large Capacity Vacuum Storage Bags for Clothes,Bedding,Space Saving Bags Storage Space Saver Compression Bags Vacuum Seal Packet",
-      "totalScore": 72.6,
+      "totalScore": 72.5,
+      "confidence": 0.96,
+      "decision": "keep",
+      "rejectionReason": null
+    },
+    {
+      "productId": "1005010530084516",
+      "title": "HOMEFISH Large Foldable Shopping Bag Reusable Eco Bag Grocery Package Beach Toy Storage Bags Shoulder Cat Lemon Printing Pouch T",
+      "totalScore": 72.5,
+      "confidence": 0.96,
+      "decision": "keep",
+      "rejectionReason": null
+    },
+    {
+      "productId": "1005008660029988",
+      "title": "Wet Wipes Dispenser Wall Mounted Storage Box Organizer Tissue Dispenser Adhesive Secure Mount for Family Toilet Home Bathroom",
+      "totalScore": 72.4,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null
