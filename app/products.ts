@@ -18,6 +18,12 @@ export type Product = {
   affiliateDestinationVerified?: boolean;
   affiliateDestinationStatus?: string;
   affiliateDestinationCheckedAt?: string | null;
+  publicationId?: string;
+  pinTrackingId?: string;
+  pinterestPinId?: string | null;
+  automationRunId?: string | null;
+  searchQuery?: string | null;
+  cluster?: string;
   publishedAt: string;
   bestFor: string[];
   checks: string[];
@@ -254,14 +260,22 @@ const destinationBySlug = new Map((affiliateDestinations.records as DestinationR
 
 export const products: Product[] = [...existingProducts, ...(generatedProducts as Product[])].map((product) => {
   const destination = destinationBySlug.get(product.slug);
+  const stableProductId = String(destination?.productId ?? product.productId ?? `legacy:${product.slug}`);
+  const publishedDate = product.publishedAt.slice(0, 10);
   return {
     ...product,
-    productId: destination?.productId ?? product.productId ?? null,
+    productId: stableProductId,
     canonicalProductUrl: destination?.canonicalProductUrl ?? product.canonicalProductUrl ?? null,
     affiliateUrl: destination?.affiliateUrl ?? product.affiliateUrl,
     affiliateDestinationVerified: destination?.affiliateDestinationVerified ?? product.affiliateDestinationVerified ?? false,
     affiliateDestinationStatus: destination?.status ?? product.affiliateDestinationStatus ?? 'NOT_AUDITED',
     affiliateDestinationCheckedAt: destination?.validationTimestamp ?? product.affiliateDestinationCheckedAt ?? null,
+    publicationId: product.publicationId ?? `pub:${product.slug}:${publishedDate}`,
+    pinTrackingId: product.pinTrackingId ?? `pin:${product.slug}:${publishedDate}`,
+    pinterestPinId: product.pinterestPinId ?? null,
+    automationRunId: product.automationRunId ?? null,
+    searchQuery: product.searchQuery ?? null,
+    cluster: product.cluster ?? product.eyebrow.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-').replaceAll(/^-|-$/g, ''),
   };
 });
 

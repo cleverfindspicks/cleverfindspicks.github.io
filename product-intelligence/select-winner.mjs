@@ -1,6 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import config from './config.json' with { type: 'json' };
 import { scoreCandidates } from './scoring.mjs';
+import { isExplorationRun } from './performance.mjs';
 
 const inputPath = process.argv[2];
 if (!inputPath) throw new Error('Usage: node product-intelligence/select-winner.mjs <verified-candidates.json>');
@@ -12,10 +13,12 @@ const performance = JSON.parse(await readFile(new URL('./data/cluster-performanc
 const history = JSON.parse(await readFile(new URL('./data/selection-history.json', import.meta.url), 'utf8'));
 const multipliers = new Map((performance.clusters || []).map((cluster) => [cluster.cluster, cluster.searchPriorityMultiplier]));
 const recentClusters = (history.selections || []).slice(-config.performance.maximumConsecutiveClusterWins).map((selection) => selection.cluster);
+const runId = input.runId || candidates[0]?.runId || new Date().toISOString().slice(0, 10);
+const exploration = isExplorationRun(runId);
 
 const evaluated = scoreCandidates(candidates).map((candidate) => {
   const repeatedCluster = recentClusters.length === config.performance.maximumConsecutiveClusterWins && recentClusters.every((cluster) => cluster === candidate.cluster);
-  const performanceMultiplier = multipliers.get(candidate.cluster) || 1;
+  const performanceMultiplier = exploration ? 1 : (multipliers.get(candidate.cluster) || 1);
   return {
     ...candidate,
     performanceMultiplier,
@@ -32,6 +35,7 @@ const winnerWithReason = winner ? {
 
 await writeFile(new URL('./data/selection-result.json', import.meta.url), JSON.stringify({
   generatedAt: new Date().toISOString(),
+  mode: exploration ? 'exploration' : 'exploitation',
   winner: winnerWithReason,
   evaluated,
   publicationPerformed: false,

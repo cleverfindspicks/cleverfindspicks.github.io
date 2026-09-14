@@ -1,6 +1,7 @@
 import { copyFile, mkdir, readdir, writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import { products } from '../app/products.ts';
+import { pinterestDestination } from '../lib/tracking.ts';
 
 const outputDirectory = 'dist/client';
 const baseUrl = 'https://cleverfindspicks.github.io';
@@ -28,11 +29,13 @@ async function addDirectoryIndexes(directory) {
 
 const items = products.map((product) => {
   const image = product.pinImage ?? product.image;
+  const canonical = `${baseUrl}/finds/${product.slug}/`;
+  const destination = pinterestDestination(baseUrl, product.slug, product.pinTrackingId);
   return `
     <item>
       <title>${escapeXml(product.shortName)}</title>
-      <link>${baseUrl}/finds/${product.slug}/</link>
-      <guid isPermaLink="true">${baseUrl}/finds/${product.slug}/</guid>
+      <link>${escapeXml(destination)}</link>
+      <guid isPermaLink="true">${canonical}</guid>
       <description>${escapeXml(`${product.summary} Affiliate disclosure: we may earn a commission from qualifying purchases.`)}</description>
       <pubDate>${new Date(product.publishedAt).toUTCString()}</pubDate>
       <media:content url="${escapeXml(image)}" medium="image" />

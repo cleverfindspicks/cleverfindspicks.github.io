@@ -1,3 +1,4 @@
+/* oxlint-disable next/no-html-link-for-pages, next/no-img-element */
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { checkedAt, getProduct, products } from '../../products';
@@ -10,16 +11,21 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const product = getProduct((await params).slug);
   if (!product) return {};
-  return { title: product.shortName, description: product.summary };
+  return { title: product.shortName, description: product.summary, alternates: { canonical: `/finds/${product.slug}` } };
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const product = getProduct((await params).slug);
   if (!product) notFound();
+  const identity = {
+    productId: product.productId!, productSlug: product.slug, cluster: product.cluster!,
+    pinTrackingId: product.pinTrackingId!, publicationId: product.publicationId!,
+    automationRunId: product.automationRunId, searchQuery: product.searchQuery,
+  };
 
   return (
     <main className="site-shell detail-shell">
-      <ProductView slug={product.slug} cluster={product.eyebrow.toLowerCase().replaceAll(/[^a-z0-9]+/g, '-')} />
+      <ProductView identity={identity} />
       <div className="brand-rule" />
       <header className="site-header">
         <a className="brand-lockup" href="/"><img src="/clever-finds.png" alt="" width="42" height="42" /><span>Clever Finds</span></a>
@@ -38,7 +44,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div><dt>Recent volume</dt><dd>{product.recentVolume}</dd></div>
           </dl>
           {product.affiliateDestinationVerified ? (
-            <><AffiliateLink href={product.affiliateUrl} slug={product.slug} cluster={product.eyebrow}>Check current price on AliExpress <span aria-hidden="true">↗</span></AffiliateLink><p className="affiliate-note">Affiliate link: we may earn a commission if you buy, at no extra cost to you.</p></>
+            <><AffiliateLink href={product.affiliateUrl} identity={identity}>Check current price on AliExpress <span aria-hidden="true">↗</span></AffiliateLink><p className="affiliate-note">Affiliate link: we may earn a commission if you buy, at no extra cost to you.</p></>
           ) : (
             <><span className="buy-link buy-link-disabled" aria-disabled="true">Listing temporarily unavailable</span><p className="affiliate-note">We disabled this link because its exact AliExpress destination could not be verified.</p></>
           )}
@@ -66,7 +72,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <h2>See the live listing</h2>
             <p>Confirm the current variant, delivery date and final price directly on AliExpress.</p>
             {product.affiliateDestinationVerified ? (
-              <><AffiliateLink href={product.affiliateUrl} slug={product.slug} cluster={product.eyebrow}>View on AliExpress <span aria-hidden="true">↗</span></AffiliateLink><p className="affiliate-note">Sponsored affiliate link. You pay no extra; we may receive a commission.</p></>
+              <><AffiliateLink href={product.affiliateUrl} identity={identity}>View on AliExpress <span aria-hidden="true">↗</span></AffiliateLink><p className="affiliate-note">Sponsored affiliate link. You pay no extra; we may receive a commission.</p></>
             ) : (
               <><span className="buy-link buy-link-disabled" aria-disabled="true">Listing temporarily unavailable</span><p className="affiliate-note">The exact product destination is under review, so this CTA is disabled.</p></>
             )}

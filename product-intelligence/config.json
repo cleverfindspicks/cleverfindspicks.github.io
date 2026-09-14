@@ -83,11 +83,17 @@
   },
   "performance": {
     "minimumClusterImpressions": 1000,
-    "maximumSearchPriorityMultiplier": 1.35,
-    "minimumSearchPriorityMultiplier": 0.75,
+    "minimumPublishedPins": 3,
+    "minimumOutboundClicksForConversion": 25,
+    "maximumSearchPriorityMultiplier": 1.15,
+    "minimumSearchPriorityMultiplier": 0.85,
     "maximumConsecutiveClusterWins": 2,
     "epmiField": "earningsPerThousandPinterestImpressions",
-    "explorationRate": 0.2
+    "explorationRate": 0.2,
+    "windowsDays": [7, 30, 90],
+    "lifetimeWeight": 0.6,
+    "recent30DayWeight": 0.4,
+    "dailySyncHourAsiaRiyadh": 5
   },
   "retention": {
     "maximumRunSummaries": 90,

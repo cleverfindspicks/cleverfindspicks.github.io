@@ -1,6 +1,160 @@
 {
-  "generatedAt": "2026-09-14T19:02:36.192Z",
+  "generatedAt": "2026-09-14T23:13:49.935Z",
   "status": "waiting-for-data",
-  "clusters": [],
-  "note": "Priority changes only after a cluster reaches the configured impression threshold; diversity caps still apply."
+  "clusters": [
+    {
+      "cluster": "kitchen-bathroom",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "wardrobe",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "kitchen-drawers",
+      "enoughData": false,
+      "publishedPins": 2,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "laundry-bathroom",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "wardrobe-space",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "entryway-wardrobe",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "door-back-storage",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "freestanding-storage",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "seasonal-storage",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "bathroom-storage",
+      "enoughData": false,
+      "publishedPins": 2,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "no-drill-door-storage",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "kitchen-counter-space",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "wardrobe-door-storage",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "small-bedroom-storage",
+      "enoughData": false,
+      "publishedPins": 2,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "behind-door-storage",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "under-sink-storage",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    },
+    {
+      "cluster": "wardrobe-storage",
+      "enoughData": false,
+      "publishedPins": 1,
+      "performanceScore": null,
+      "searchPriorityMultiplier": 1,
+      "status": "INSUFFICIENT_DATA",
+      "sampleConfidence": 0
+    }
+  ],
+  "note": "Only sufficiently sampled 30-day aggregate performance affects search priority. Missing data remains neutral."
 }

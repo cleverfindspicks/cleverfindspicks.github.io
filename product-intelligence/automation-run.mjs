@@ -6,7 +6,9 @@ function run(script) {
   if (result.status !== 0) throw new Error(`${script} failed with exit ${result.status}.`);
 }
 
-run('product-intelligence/run-performance.mjs');
+try { run('product-intelligence/run-performance.mjs'); } catch (error) {
+  console.warn(JSON.stringify({ analyticsStatus: 'ERROR', publishingContinues: true, message: error.message }));
+}
 run('product-intelligence/audit-affiliate-destinations.mjs');
 run('product-intelligence/search-candidates.mjs');
 run('product-intelligence/dry-run.mjs');

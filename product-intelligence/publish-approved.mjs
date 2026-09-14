@@ -27,6 +27,12 @@ products.push({
   affiliateDestinationVerified: true,
   affiliateDestinationStatus: bundle.candidate.affiliateDestination.reason,
   affiliateDestinationCheckedAt: bundle.candidate.affiliateDestination.checkedAt,
+  publicationId: `pub:${bundle.landingPage.slug}:${String(bundle.publishedAt).slice(0, 10)}`,
+  pinTrackingId: bundle.candidate.pinId,
+  pinterestPinId: null,
+  automationRunId: bundle.candidate.runId,
+  searchQuery: Array.isArray(bundle.candidate.searchQuery) ? bundle.candidate.searchQuery.join(' | ') : bundle.candidate.searchQuery,
+  cluster: bundle.candidate.cluster,
   publishedAt: bundle.publishedAt,
 });
 await writeFile(target, JSON.stringify(products, null, 2));

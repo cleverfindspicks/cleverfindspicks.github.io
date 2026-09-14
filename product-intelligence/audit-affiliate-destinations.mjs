@@ -10,10 +10,14 @@ const previousBySlug = new Map((runtime.records || []).map((record) => [record.s
 const env = await readFile(new URL('../.env.local', import.meta.url), 'utf8').then(parseEnv).catch(() => ({}));
 const credentialsAvailable = Boolean(env.ALIEXPRESS_APP_KEY && env.ALIEXPRESS_APP_SECRET && env.ALIEXPRESS_TRACKING_ID);
 const results = [];
+const numericProductId = (value) => /^\d{8,}$/.test(String(value || '')) ? String(value) : null;
 
 for (const product of products) {
   const previous = previousBySlug.get(product.slug) || {};
-  const expectedProductId = previous.productId || product.productId || null;
+  // Legacy catalogue entries deliberately use a stable `legacy:<slug>` identity
+  // for analytics. That identity is not an AliExpress product ID and must not
+  // be passed to canonicalProductUrl or link generation.
+  const expectedProductId = numericProductId(previous.productId) || numericProductId(product.productId);
   const originalPromotionLink = previous.originalAffiliateUrl || product.affiliateUrl;
   let activePromotionLink = previous.affiliateUrl || product.affiliateUrl;
   let validation = await resolveAffiliateDestination(activePromotionLink, expectedProductId);

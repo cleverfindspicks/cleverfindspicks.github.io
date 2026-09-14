@@ -63,8 +63,8 @@ assert.equal(scoreCandidate({ ...strong, metrics: { ...strong.metrics, priceGbp:
 assert.equal(calculateEarningsPerThousandPinterestImpressions({ pinterestImpressions: 5000, affiliateCommissionEarnedGbp: 25 }), 5);
 
 const clusters = scoreClusters([
-  { cluster: 'under-sink-storage', pinterestImpressions: 2000, pinterestOutboundClicks: 100, aliexpressClicks: 60, aliexpressOrders: 6, affiliateCommissionEarnedGbp: 30 },
-  { cluster: 'drawer-organisation', pinterestImpressions: 2000, pinterestOutboundClicks: 40, aliexpressClicks: 25, aliexpressOrders: 1, affiliateCommissionEarnedGbp: 4 },
+  ...Array.from({ length: 3 }, (_, index) => ({ trackingId: `under-${index}`, cluster: 'under-sink-storage', pinterestImpressions: 700, pinterestOutboundClicks: 35, aliexpressClicks: 20, aliexpressOrders: 2, affiliateCommissionEarnedGbp: 10 })),
+  ...Array.from({ length: 3 }, (_, index) => ({ trackingId: `drawer-${index}`, cluster: 'drawer-organisation', pinterestImpressions: 700, pinterestOutboundClicks: 14, aliexpressClicks: 9, aliexpressOrders: 0, affiliateCommissionEarnedGbp: 1 })),
 ]);
 assert.equal(clusters[0].cluster, 'under-sink-storage');
 assert.ok(clusters[0].searchPriorityMultiplier > clusters[1].searchPriorityMultiplier);

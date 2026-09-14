@@ -1,59 +1,110 @@
 import config from './config.json' with { type: 'json' };
-import { calculateEarningsPerThousandPinterestImpressions } from './scoring.mjs';
 
-const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-const safeRate = (numerator, denominator) => Number(denominator) > 0 ? Number(numerator || 0) / Number(denominator) : null;
-const average = (values) => values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : null;
+export const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+export const safeRate = (numerator, denominator) => Number.isFinite(Number(denominator)) && Number(denominator) > 0 && Number.isFinite(Number(numerator))
+  ? Number(numerator) / Number(denominator) : null;
+export const epmi = (commission, impressions) => safeRate(commission, impressions) === null ? null : Number(commission) / Number(impressions) * 1000;
 
-export function enrichPerformanceEvent(event) {
+export function normalizeOrderStatus(value) {
+  const status = String(value || 'pending').toLowerCase();
+  if (['completed', 'confirmed', 'validated'].includes(status)) return 'completed';
+  if (['cancelled', 'refunded', 'invalid'].includes(status)) return status;
+  return 'pending';
+}
+
+export function commissionByStatus(status, commission) {
+  const amount = Number.isFinite(Number(commission)) ? Number(commission) : null;
   return {
-    ...event,
-    pinterestSaveRate: safeRate(event.pinterestSaves, event.pinterestImpressions),
-    pinterestPinClickRate: safeRate(event.pinterestPinClicks, event.pinterestImpressions),
-    pinterestOutboundClickRate: safeRate(event.pinterestOutboundClicks, event.pinterestImpressions),
-    websiteVisitRate: safeRate(event.websiteVisits, event.pinterestImpressions),
-    aliexpressClickThroughRate: safeRate(event.aliexpressClicks, event.websiteVisits),
-    orderConversionRate: safeRate(event.aliexpressOrders, event.aliexpressClicks),
-    earningsPerThousandPinterestImpressions: calculateEarningsPerThousandPinterestImpressions(event),
+    pendingCommissionGbp: status === 'pending' ? amount : status === 'completed' ? 0 : 0,
+    confirmedCommissionGbp: status === 'completed' ? amount : 0,
   };
 }
 
-export function scoreClusters(events) {
-  const enriched = events.map(enrichPerformanceEvent);
-  const accountEpmi = average(enriched.map((event) => event.earningsPerThousandPinterestImpressions).filter(Number.isFinite));
-  const accountOutbound = average(enriched.map((event) => event.pinterestOutboundClickRate).filter(Number.isFinite));
-  const accountConversion = average(enriched.map((event) => event.orderConversionRate).filter(Number.isFinite));
-  const groups = Map.groupBy(enriched, (event) => event.cluster || 'unclassified');
-  return [...groups.entries()].map(([cluster, rows]) => {
-    const totals = rows.reduce((sum, row) => ({
-      impressions: sum.impressions + Number(row.pinterestImpressions || 0),
-      outboundClicks: sum.outboundClicks + Number(row.pinterestOutboundClicks || 0),
-      aliexpressClicks: sum.aliexpressClicks + Number(row.aliexpressClicks || 0),
-      orders: sum.orders + Number(row.aliexpressOrders || 0),
-      earnings: sum.earnings + Number(row.affiliateCommissionEarnedGbp || 0),
-    }), { impressions: 0, outboundClicks: 0, aliexpressClicks: 0, orders: 0, earnings: 0 });
-    const epmi = totals.impressions ? totals.earnings / totals.impressions * 1000 : null;
-    const outboundRate = safeRate(totals.outboundClicks, totals.impressions);
-    const conversionRate = safeRate(totals.orders, totals.aliexpressClicks);
-    const enoughData = totals.impressions >= config.performance.minimumClusterImpressions;
-    const relative = (value, baseline) => Number.isFinite(value) && Number.isFinite(baseline) && baseline > 0 ? clamp(value / baseline, 0, 2) / 2 : 0.5;
-    const performanceScore = enoughData
-      ? Math.round((relative(epmi, accountEpmi) * 0.55 + relative(outboundRate, accountOutbound) * 0.25 + relative(conversionRate, accountConversion) * 0.2) * 100)
-      : 50;
-    const multiplier = enoughData
-      ? clamp(0.75 + performanceScore / 100 * 0.6, config.performance.minimumSearchPriorityMultiplier, config.performance.maximumSearchPriorityMultiplier)
-      : 1;
+export function isExplorationRun(runId, rate = config.performance.explorationRate) {
+  const bucket = Array.from(String(runId)).reduce((sum, char) => (sum * 31 + char.charCodeAt(0)) % 10000, 0) / 10000;
+  return bucket < rate;
+}
+
+export function performanceMetrics(row) {
+  const impressions = row.impressions ?? row.pinterestImpressions ?? null;
+  const pinterestOutboundClicks = row.pinterestOutboundClicks ?? null;
+  const productViews = row.productViews ?? row.websiteVisits ?? null;
+  const aliexpressClicks = row.aliexpressClicks ?? null;
+  const orders = row.orders ?? row.aliexpressOrders ?? null;
+  const confirmedCommissionGbp = row.confirmedCommissionGbp ?? row.affiliateCommissionEarnedGbp ?? null;
+  return {
+    ...row,
+    pinterestOutboundCtr: safeRate(pinterestOutboundClicks, impressions),
+    websiteToAliExpressCtr: safeRate(aliexpressClicks, productViews),
+    clickToOrderCvr: safeRate(orders, aliexpressClicks),
+    commissionPerClick: safeRate(confirmedCommissionGbp, aliexpressClicks),
+    earningsPerThousandPinterestImpressions: epmi(confirmedCommissionGbp, impressions),
+  };
+}
+
+export const enrichPerformanceEvent = performanceMetrics;
+
+function sumKnown(rows, field) {
+  const values = rows.map((row) => row[field]).filter((value) => value !== null && value !== undefined && Number.isFinite(Number(value)));
+  return values.length ? values.reduce((sum, value) => sum + Number(value), 0) : null;
+}
+
+function commercialSignal(metrics, baselines) {
+  const ratio = (value, baseline) => value !== null && baseline !== null && baseline > 0 ? clamp(value / baseline, 0, 2) / 2 : null;
+  const signals = [
+    [ratio(metrics.earningsPerThousandPinterestImpressions, baselines.epmi), 0.45],
+    [ratio(metrics.commissionPerClick, baselines.commissionPerClick), 0.2],
+    [ratio(metrics.clickToOrderCvr, baselines.cvr), 0.2],
+    [ratio(metrics.websiteToAliExpressCtr, baselines.websiteCtr), 0.1],
+    [ratio(metrics.pinterestOutboundCtr, baselines.pinterestCtr), 0.05],
+  ].filter(([value]) => value !== null);
+  if (!signals.length) return null;
+  const weight = signals.reduce((sum, [, itemWeight]) => sum + itemWeight, 0);
+  return signals.reduce((sum, [value, itemWeight]) => sum + value * itemWeight, 0) / weight;
+}
+
+export function aggregateClusters(rows, options = {}) {
+  const minimumImpressions = options.minimumClusterImpressions ?? config.performance.minimumClusterImpressions;
+  const minimumPins = options.minimumPublishedPins ?? config.performance.minimumPublishedPins;
+  const minimumClicks = options.minimumOutboundClicksForConversion ?? config.performance.minimumOutboundClicksForConversion;
+  const minimumMultiplier = options.minimumSearchPriorityMultiplier ?? config.performance.minimumSearchPriorityMultiplier;
+  const maximumMultiplier = options.maximumSearchPriorityMultiplier ?? config.performance.maximumSearchPriorityMultiplier;
+  const groups = Map.groupBy(rows, (row) => row.cluster || 'unclassified');
+  const account = performanceMetrics({
+    impressions: sumKnown(rows, 'impressions'), pinterestOutboundClicks: sumKnown(rows, 'pinterestOutboundClicks'),
+    productViews: sumKnown(rows, 'productViews'), aliexpressClicks: sumKnown(rows, 'aliexpressClicks'),
+    orders: sumKnown(rows, 'orders'), confirmedCommissionGbp: sumKnown(rows, 'confirmedCommissionGbp'),
+  });
+  const baselines = { epmi: account.earningsPerThousandPinterestImpressions, commissionPerClick: account.commissionPerClick, cvr: account.clickToOrderCvr, websiteCtr: account.websiteToAliExpressCtr, pinterestCtr: account.pinterestOutboundCtr };
+  return [...groups.entries()].map(([cluster, items]) => {
+    const totals = performanceMetrics({
+      impressions: sumKnown(items, 'impressions'), pinterestOutboundClicks: sumKnown(items, 'pinterestOutboundClicks'),
+      productViews: sumKnown(items, 'productViews'), aliexpressClicks: sumKnown(items, 'aliexpressClicks'),
+      orders: sumKnown(items, 'orders'), pendingCommissionGbp: sumKnown(items, 'pendingCommissionGbp'),
+      confirmedCommissionGbp: sumKnown(items, 'confirmedCommissionGbp'),
+    });
+    const publishedPins = new Set(items.map((row) => row.pinTrackingId).filter(Boolean)).size || items.length;
+    const enoughTopFunnel = Number(totals.impressions || 0) >= minimumImpressions && publishedPins >= minimumPins;
+    const enoughConversion = Number(totals.aliexpressClicks || 0) >= minimumClicks;
+    const signal = enoughTopFunnel ? commercialSignal({ ...totals, clickToOrderCvr: enoughConversion ? totals.clickToOrderCvr : null }, baselines) : null;
+    const confidence = enoughTopFunnel ? clamp(Math.min(1, Number(totals.impressions) / (minimumImpressions * 4)) * 0.6 + Math.min(1, publishedPins / (minimumPins * 2)) * 0.4, 0, 1) : 0;
+    const rawMultiplier = signal === null ? 1 : 1 + (signal - 0.5) * 0.3 * confidence;
     return {
-      cluster,
-      enoughData,
-      productCount: rows.length,
-      totals,
-      outboundClickRate: outboundRate,
-      conversionRate,
-      earningsPerThousandPinterestImpressions: epmi === null ? null : Number(epmi.toFixed(2)),
-      performanceScore,
-      searchPriorityMultiplier: Number(multiplier.toFixed(2)),
+      cluster, publishedPins, totals, sampleConfidence: Number(confidence.toFixed(3)), enoughData: enoughTopFunnel,
+      conversionSampleEnough: enoughConversion, performanceScore: signal === null ? null : Number((signal * 100).toFixed(1)),
+      searchPriorityMultiplier: Number(clamp(rawMultiplier, minimumMultiplier, maximumMultiplier).toFixed(3)),
+      status: enoughTopFunnel ? 'ACTIVE' : 'INSUFFICIENT_DATA',
       diversityRule: `Do not select this cluster more than ${config.performance.maximumConsecutiveClusterWins} times consecutively.`,
     };
-  }).sort((a, b) => b.performanceScore - a.performanceScore);
+  }).sort((a, b) => (b.performanceScore ?? -1) - (a.performanceScore ?? -1));
+}
+
+export function scoreClusters(events) {
+  return aggregateClusters(events.map((event) => ({
+    ...event, impressions: event.pinterestImpressions ?? null,
+    pinterestOutboundClicks: event.pinterestOutboundClicks ?? null,
+    productViews: event.websiteVisits ?? null, orders: event.aliexpressOrders ?? null,
+    confirmedCommissionGbp: event.affiliateCommissionEarnedGbp ?? null,
+    pinTrackingId: event.pinTrackingId || event.trackingId,
+  })));
 }

@@ -1,4 +1,5 @@
 import { products } from '../products';
+import { pinterestDestination } from '../../lib/tracking';
 
 const baseUrl = 'https://cleverfindspicks.github.io';
 const escapeXml = (value: string) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&apos;');
@@ -9,11 +10,13 @@ export const dynamic = 'force-static';
 export function GET() {
   const items = products.map((product) => {
     const image = product.pinImage ?? product.image;
+    const canonical = `${baseUrl}/finds/${product.slug}`;
+    const destination = pinterestDestination(baseUrl, product.slug, product.pinTrackingId!);
     return `
     <item>
       <title>${escapeXml(product.shortName)}</title>
-      <link>${baseUrl}/finds/${product.slug}</link>
-      <guid isPermaLink="true">${baseUrl}/finds/${product.slug}</guid>
+      <link>${escapeXml(destination)}</link>
+      <guid isPermaLink="true">${canonical}</guid>
       <description>${escapeXml(`${product.summary} Affiliate disclosure: we may earn a commission from qualifying purchases.`)}</description>
       <pubDate>${new Date(product.publishedAt).toUTCString()}</pubDate>
       <media:content url="${escapeXml(image)}" medium="image" />
