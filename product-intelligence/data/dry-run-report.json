@@ -1,53 +1,53 @@
 {
-  "generatedAt": "2026-09-13T19:07:15.346Z",
-  "runId": "cf-run-20260913T190146-03f93c6c",
+  "generatedAt": "2026-09-14T12:07:08.355Z",
+  "runId": "cf-run-20260914T120231-658f8d37",
   "status": "READY_FOR_FINAL_PUBLICATION_GATE",
-  "candidateCount": 1030,
+  "candidateCount": 1041,
   "evaluatedCounts": {
-    "keep": 122,
-    "reject": 908
+    "keep": 150,
+    "reject": 891
   },
   "funnel": {
-    "candidatesFound": 1030,
-    "passedProductId": 810,
-    "passedGbAvailability": 810,
-    "passedPriceSanity": 744,
-    "passedDemandFeedback": 203,
-    "passedNicheBuyerIntent": 173,
-    "passedProfitability": 171,
-    "passedDuplicateChecks": 171,
-    "passedScore65": 123,
-    "finalQualifiedCandidates": 122
+    "candidatesFound": 1041,
+    "passedProductId": 1037,
+    "passedGbAvailability": 1037,
+    "passedPriceSanity": 952,
+    "passedDemandFeedback": 258,
+    "passedNicheBuyerIntent": 222,
+    "passedProfitability": 220,
+    "passedDuplicateChecks": 217,
+    "passedScore65": 150,
+    "finalQualifiedCandidates": 150
   },
-  "currentCatalogueCount": 16,
-  "currentCatalogueUntouched": false,
+  "currentCatalogueCount": 17,
+  "currentCatalogueUntouched": true,
   "winner": {
-    "productId": "1005008077357865",
-    "trackingId": "cfp-a10b7d1ffb62",
-    "pinId": "pin-cfp-a10b7d1ffb62-2026-09-13",
-    "runId": "cf-run-20260913T190146-03f93c6c",
-    "evaluatedAt": "2026-09-13T19:01:51.159Z",
+    "productId": "1005010560281600",
+    "trackingId": "cfp-d6938f96c47f",
+    "pinId": "pin-cfp-d6938f96c47f-2026-09-14",
+    "runId": "cf-run-20260914T120231-658f8d37",
+    "evaluatedAt": "2026-09-14T12:02:45.416Z",
     "searchQuery": [
-      "under sink storage"
+      "small bedroom storage"
     ],
     "searchPage": 1,
-    "searchSortMode": "RELEVANCE",
-    "title": "3-in-1 Kitchen Stainless Steel Tableware Soap Dispenser, Sponge Holder, Sink Organizer Drain Rack, Suitable for Kitchen Sinks",
-    "image": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
-    "productUrl": "https://www.aliexpress.com/item/1005008077357865.html?pdp_npi=6%40dis%21GBP%2117.98%218.99%21%21%21158.28%2179.14%21%402140f88817893261450917831e0f4d%2112000043565256809%21affd%21%21%21%211%210%21",
-    "affiliateUrl": "https://s.click.aliexpress.com/s/pyFri10M6ltAv61YZY9TfrxiDaaFXRreuZWJMeLtD8jig1wPxn51K2eq59ds8iT5Wl5L3w5KJyrl7SjOO3B0oJ0Xjwnc7n8AQA7gf5qnT4sCyU05LNms9JvyWQNFHNKtzBcoBpSguMg3UBR1FOODkmGTloXosMhqhnKgzzuJPYPxewVvzupiAiKSJA5SK0iQRxmaQ7UPG0AP2HC7uLitVpvXIfjMl7RnsnN7B8FrGfP9TWP7emQeaXV90Bp9fLEiLe5mOF3ZxRkgXTxDel4NhdR1WLVYSoygR9Mm1fajL9UmwmCVRVHwLPp0N3C2X4GHAASb7AJReGISPe8Ubatr0Z0ysadDT5h4LIYdDhUwhfjJdN8IyHaQI7vpYcF2OF8c7AdLVLPbMfSe3bx3Fzc9cCYWUH5EqfCos5ffkb90AVXt4ezvRR7xPuqFx2DoeNSAAE71WYNaaMa0Cqgt2A329xfpW0PYHhtwZj0vaZhAr3JvQfyX8tjztMs75Bl5O8gMXcwACgFfhdOCvjS4BCVbdH5wxwv0lYOmGiJdKhyqQ8JuitVhA8P1NFMlBYjUo3sUYaRKuCDSc9ZK6tYhSIAd99VbGBsjuuVmplTMtwlrLcWkKJeQK5w1NmyjgdO5abRuccp9f0gsNwLyxe25xvXLG2L0Km0MDb2N8vszSlryeKoYGjzDr2q5z5qaL4DhCxutXWDbPVbC5RQ0Dqi3jp6YSgsvtGK0IJ7RV2L0ctjngD6eP76ZqHPvlEZebTmALivgCWCV4l1G590ewZN6qjajd9nj0iol8fGghdtmTxLxW2utzFMhBwNdcWV3hgl7BCukCN6593wo9QfShJLh758XCceERJVNOpieRnXAKSzOUfTxTpBxnwnyEHxOPpqn50qrjdbzB909stz7ufPSzn41v1QwCuRtDDCEVajooSGig0dVGnjFRTdvh53klfkBAuqIylrvxBKSDViNV3a4933dDssKPDfDrzb0iai9OjWfyRzfQRJqR2jDlL2fvlsYaumaT2pd4xnW",
-    "cluster": "under-sink-storage",
+    "searchSortMode": "LAST_VOLUME_DESC",
+    "title": "Mini Desktop Bin Small Trash Can Tube with Cover Bedroom Trash Can Garbage Can Clean Workspace Storage Box Desk Small Trash Can",
+    "image": "https://ae-pic-a1.aliexpress-media.com/kf/Sa7b68c2c8c79475bac73d7d078830cbbJ.jpg",
+    "productUrl": "https://www.aliexpress.com/item/1005010560281600.html?pdp_npi=6%40dis%21GBP%2113.86%216.79%21%21%21122.01%2159.77%21%40214114e317893874084111455e0d49%2112000052813832347%21affd%21%21%21%211%210%21",
+    "affiliateUrl": "https://s.click.aliexpress.com/e/_c38WbxtL",
+    "cluster": "small-bedroom-storage",
     "metrics": {
-      "priceGbp": 79.14,
-      "feedbackPct": 98,
-      "recentVolume": 170,
+      "priceGbp": 59.77,
+      "feedbackPct": 100,
+      "recentVolume": 94,
       "commissionRatePct": 7,
-      "commissionAmountGbp": 5.54,
+      "commissionAmountGbp": 4.18,
       "commissionAmountSource": "calculated-from-price-and-rate"
     },
     "expectedPriceBandGbp": {
-      "min": 16.67,
-      "max": 253.44
+      "min": 17.16,
+      "max": 545.69
     },
     "shipping": {
       "available": true,
@@ -56,7 +56,7 @@
       "daysMax": null,
       "method": null,
       "verified": true,
-      "checkedAt": "2026-09-13T19:02:57.863Z",
+      "checkedAt": "2026-09-14T12:03:48.341Z",
       "source": "AliExpress Affiliate Product Detail API queried with country=GB",
       "note": "GB market availability is verified by the returned exact product. Cost, method and exact estimate remain unknown when absent."
     },
@@ -72,53 +72,53 @@
       "variantRiskReasons": []
     },
     "factors": {
-      "valueForMoney": 0.8383834564683426,
+      "valueForMoney": 0.9881403143996557,
       "ukSuitability": 0.82,
       "smallSpaceRelevance": 0.92,
       "visualAppeal": 0.72,
-      "impulsePurchase": 0.55,
+      "impulsePurchase": 0.72,
       "obviousProblem": 0.88,
       "buyerIntent": 0.9,
       "competitionSaturation": 0.5
     },
-    "duplicateSimilarity": 0.067,
+    "duplicateSimilarity": 0.065,
     "pinCreative": {
-      "path": "public/pinterest/three-in-one-sink-organiser-pin.png",
-      "width": 1000,
-      "height": 1500,
+      "path": "public/pinterest/mini-desktop-bin-pin.png",
+      "width": 1024,
+      "height": 1536,
       "reviewedNonClickbait": true,
-      "productDepiction": "Exact full AliExpress source photograph, proportionally resized without product edits.",
-      "headline": "Clear the Sink Edge",
-      "subheadline": "3-in-1 Sink Organiser"
+      "productDepiction": "The exact AliExpress source photograph is retained as the central panel; product shape, colours, quantity and lid design are unchanged.",
+      "headline": "Clear Desk, Clear Mind",
+      "subheadline": "Mini Desktop Bin"
     },
     "selectionReason": null,
     "searchPages": [
       1
     ],
     "searchSortModes": [
-      "RELEVANCE"
+      "LAST_VOLUME_DESC"
     ],
     "matchedClusters": [
-      "under-sink-storage"
+      "small-bedroom-storage"
     ],
     "detailVerification": {
       "productIdMatched": true,
       "priceMatched": true,
-      "queryPriceGbp": 79.14,
-      "detailPriceGbp": 79.14,
-      "checkedAt": "2026-09-13T19:02:57.863Z",
+      "queryPriceGbp": 59.77,
+      "detailPriceGbp": 59.77,
+      "checkedAt": "2026-09-14T12:03:48.341Z",
       "source": "AliExpress Affiliate Product Detail API (GB)"
     },
     "priceSanity": {
       "status": "PASS",
       "reason": "Price is within robust cluster bounds.",
       "benchmark": {
-        "sampleSize": 80,
-        "p10": 16.67,
-        "median": 55.459999999999994,
-        "p90": 253.44
+        "sampleSize": 76,
+        "p10": 17.16,
+        "median": 61.349999999999994,
+        "p90": 545.69
       },
-      "medianRatio": 1.427
+      "medianRatio": 0.974
     },
     "nicheFit": {
       "status": "PASS",
@@ -126,14 +126,14 @@
     },
     "scoreBreakdown": {
       "recentDemand": {
-        "value": 0.558,
+        "value": 0.494,
         "weight": 8,
-        "points": 4.5
+        "points": 4
       },
       "positiveFeedback": {
-        "value": 0.8,
+        "value": 1,
         "weight": 7,
-        "points": 5.6
+        "points": 7
       },
       "commissionRate": {
         "value": 0.444,
@@ -141,9 +141,9 @@
         "points": 2.7
       },
       "estimatedCommission": {
-        "value": 1,
+        "value": 0.818,
         "weight": 7,
-        "points": 7
+        "points": 5.7
       },
       "priceFit": {
         "value": 1,
@@ -151,9 +151,9 @@
         "points": 6
       },
       "valueForMoney": {
-        "value": 0.838,
+        "value": 0.988,
         "weight": 6,
-        "points": 5
+        "points": 5.9
       },
       "ukSuitability": {
         "value": 0.82,
@@ -181,9 +181,9 @@
         "points": 5
       },
       "impulsePurchase": {
-        "value": 0.55,
+        "value": 0.72,
         "weight": 5,
-        "points": 2.8
+        "points": 3.6
       },
       "obviousProblem": {
         "value": 0.88,
@@ -191,7 +191,7 @@
         "points": 5.3
       },
       "novelty": {
-        "value": 0.933,
+        "value": 0.935,
         "weight": 5,
         "points": 4.7
       },
@@ -211,7 +211,7 @@
         "points": 0
       }
     },
-    "totalScore": 72.8,
+    "totalScore": 74.1,
     "confidence": 0.96,
     "decision": "keep",
     "rejectionReason": null,
@@ -238,24 +238,55 @@
         "competitionSaturation": 0.5
       }
     },
+    "canonicalProductUrl": "https://www.aliexpress.com/item/1005010560281600.html",
+    "affiliateDestinationVerified": true,
+    "affiliateDestination": {
+      "checkedAt": "2026-09-14T12:03:51.210Z",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c38WbxtL",
+      "expectedProductId": "1005010560281600",
+      "finalDestination": "https://ar.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y&gatewayAdapt=glo2ara",
+      "finalProductId": "1005010560281600",
+      "destinationType": "PRODUCT",
+      "matchesExpectedProduct": true,
+      "pass": true,
+      "reason": "PASS_EXACT_PRODUCT_ID",
+      "redirectChain": [
+        {
+          "url": "https://s.click.aliexpress.com/e/_c38WbxtL",
+          "status": 302,
+          "location": "https://www.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y"
+        },
+        {
+          "url": "https://www.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y",
+          "status": 302,
+          "location": "https://ar.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y&gatewayAdapt=glo2ara"
+        },
+        {
+          "url": "https://ar.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y&gatewayAdapt=glo2ara",
+          "status": 200,
+          "location": null
+        }
+      ]
+    },
     "verification": {
-      "source": "Creative review against the exact AliExpress product image; the source photograph is preserved as the full central panel.",
-      "checkedAt": "2026-09-13T19:06:47.258Z",
-      "exactProductIdMatched": true
+      "source": "Official AliExpress Affiliate link.generate followed by end-to-end redirect validation",
+      "checkedAt": "2026-09-14T12:03:51.210Z",
+      "exactProductIdMatched": true,
+      "affiliateDestinationVerified": true
     }
   },
   "publicationPerformed": false,
   "landingPageCandidateGenerated": true,
   "landingPageCandidate": {
-    "slug": "cfp-a10b7d1ffb62",
-    "title": "3-in-1 Kitchen Stainless Steel Tableware Soap Dispenser, Sponge Holder, Sink Organizer Drain Rack, Suitable for Kitchen Sinks",
-    "summary": "A practical under sink storage option for smaller UK homes. Check the exact current offer before buying."
+    "slug": "cfp-d6938f96c47f",
+    "title": "Mini Desktop Bin Small Trash Can Tube with Cover Bedroom Trash Can Garbage Can Clean Workspace Storage Box Desk Small Trash Can",
+    "summary": "A practical small bedroom storage option for smaller UK homes. Check the exact current offer before buying."
   },
   "rssCandidateGenerated": true,
   "rssCandidate": {
-    "title": "3-in-1 Kitchen Stainless Steel Tableware Soap Dispenser, Sponge Holder, Sink Organizer Drain Rack, Suitable for Kitchen Sinks",
-    "link": "https://cleverfindspicks.github.io/finds/cfp-a10b7d1ffb62",
-    "image": "public/pinterest/three-in-one-sink-organiser-pin.png"
+    "title": "Mini Desktop Bin Small Trash Can Tube with Cover Bedroom Trash Can Garbage Can Clean Workspace Storage Box Desk Small Trash Can",
+    "link": "https://cleverfindspicks.github.io/finds/cfp-d6938f96c47f",
+    "image": "public/pinterest/mini-desktop-bin-pin.png"
   },
   "creativeCandidateGenerated": true,
   "analyticsValidation": {
@@ -265,9 +296,9 @@
   },
   "topCandidates": [
     {
-      "productId": "1005008077357865",
-      "title": "3-in-1 Kitchen Stainless Steel Tableware Soap Dispenser, Sponge Holder, Sink Organizer Drain Rack, Suitable for Kitchen Sinks",
-      "totalScore": 72.8,
+      "productId": "1005010560281600",
+      "title": "Mini Desktop Bin Small Trash Can Tube with Cover Bedroom Trash Can Garbage Can Clean Workspace Storage Box Desk Small Trash Can",
+      "totalScore": 74.1,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null
@@ -275,7 +306,7 @@
     {
       "productId": "1005012061024710",
       "title": "Waterproof Bathroom Wall-mounted Mobile Phone Box Protective Cover Touch Screen Mobile Phone Holder Kitchen Sealed Storage",
-      "totalScore": 72.7,
+      "totalScore": 72.8,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null
@@ -283,7 +314,15 @@
     {
       "productId": "1005010285468529",
       "title": "LED 4 Leaf Bulb E27 Collapsible Warm White Light Pendant Light Storage Garage Kitchen Lighting High Brightness Remote Control",
-      "totalScore": 72.7,
+      "totalScore": 72.8,
+      "confidence": 0.96,
+      "decision": "keep",
+      "rejectionReason": null
+    },
+    {
+      "productId": "1005009508737989",
+      "title": "Wardrobe Organizer Bags Down Jacket Air Compression Hanging Bag with Zipper Clothes Dust Cover Bag Save Space Cloth Storage Bag",
+      "totalScore": 72.6,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null
@@ -291,7 +330,15 @@
     {
       "productId": "1005008660029988",
       "title": "Wet Wipes Dispenser Wall Mounted Storage Box Organizer Tissue Dispenser Adhesive Secure Mount for Family Toilet Home Bathroom",
-      "totalScore": 72.6,
+      "totalScore": 72.5,
+      "confidence": 0.96,
+      "decision": "keep",
+      "rejectionReason": null
+    },
+    {
+      "productId": "1005007635410483",
+      "title": "Press Type Slender Trash Can with Pop Lid Narrow Gap Storage Bin for Kitchen Bathroom Bedroom Living Room",
+      "totalScore": 72.5,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null
@@ -299,14 +346,6 @@
     {
       "productId": "1005012523972404",
       "title": "Large Capacity Vacuum Storage Bags for Clothes,Bedding,Space Saving Bags Storage Space Saver Compression Bags Vacuum Seal Packet",
-      "totalScore": 72.5,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005007805582693",
-      "title": "3-piece foldable 9-hole clothes hanger - Space-saving wardrobe organizer with multi-functional hooks",
       "totalScore": 72.5,
       "confidence": 0.96,
       "decision": "keep",
@@ -321,25 +360,17 @@
       "rejectionReason": null
     },
     {
-      "productId": "1005009508737989",
-      "title": "Wardrobe Organizer Bags Down Jacket Air Compression Hanging Bag with Zipper Clothes Dust Cover Bag Save Space Cloth Storage Bag",
-      "totalScore": 72.2,
+      "productId": "1005007805582693",
+      "title": "3-piece foldable 9-hole clothes hanger - Space-saving wardrobe organizer with multi-functional hooks",
+      "totalScore": 72.4,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null
     },
     {
-      "productId": "1005012172859253",
-      "title": "1pc Clothing Compression Bag Wardrobe Organizer Down Jacket Compression Storage Bag Save Space closet Clothes Organizer Bag",
-      "totalScore": 72.2,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005012217813599",
-      "title": "Double-layer Bamboo Storage Rack Desktop Organizer Multi-functional Miscellaneous Shelf Home Kitchen Bedroom Countertop Use",
-      "totalScore": 72.1,
+      "productId": "1005012434399097",
+      "title": "Versatile Clothing Storage Bag Large Makeup Organizer Box Bedroom Kitchen Office Essentials for Storing Small Things",
+      "totalScore": 72.4,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null

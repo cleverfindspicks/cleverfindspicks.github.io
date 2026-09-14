@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-13T19:01:46.473Z",
+  "generatedAt": "2026-09-14T12:02:02.901Z",
   "status": "waiting-for-data",
   "clusters": [],
   "note": "Priority changes only after a cluster reaches the configured impression threshold; diversity caps still apply."

@@ -45,6 +45,54 @@
         "headline": "Clear the Sink Edge",
         "subheadline": "3-in-1 Sink Organiser"
       }
+    },
+    {
+      "productId": "1005010560281600",
+      "source": "Official AliExpress Affiliate link.generate followed by end-to-end redirect validation",
+      "checkedAt": "2026-09-14T12:03:51.210Z",
+      "exactProductIdMatched": true,
+      "canonicalProductUrl": "https://www.aliexpress.com/item/1005010560281600.html",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c38WbxtL",
+      "affiliateDestinationVerified": true,
+      "affiliateDestination": {
+        "checkedAt": "2026-09-14T12:03:51.210Z",
+        "affiliateUrl": "https://s.click.aliexpress.com/e/_c38WbxtL",
+        "expectedProductId": "1005010560281600",
+        "finalDestination": "https://ar.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y&gatewayAdapt=glo2ara",
+        "finalProductId": "1005010560281600",
+        "destinationType": "PRODUCT",
+        "matchesExpectedProduct": true,
+        "pass": true,
+        "reason": "PASS_EXACT_PRODUCT_ID",
+        "redirectChain": [
+          {
+            "url": "https://s.click.aliexpress.com/e/_c38WbxtL",
+            "status": 302,
+            "location": "https://www.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y"
+          },
+          {
+            "url": "https://www.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y",
+            "status": 302,
+            "location": "https://ar.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y&gatewayAdapt=glo2ara"
+          },
+          {
+            "url": "https://ar.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y&gatewayAdapt=glo2ara",
+            "status": 200,
+            "location": null
+          }
+        ]
+      },
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa7b68c2c8c79475bac73d7d078830cbbJ.jpg",
+      "creativeSourceVerified": true,
+      "pinCreative": {
+        "path": "public/pinterest/mini-desktop-bin-pin.png",
+        "width": 1024,
+        "height": 1536,
+        "reviewedNonClickbait": true,
+        "productDepiction": "The exact AliExpress source photograph is retained as the central panel; product shape, colours, quantity and lid design are unchanged.",
+        "headline": "Clear Desk, Clear Mind",
+        "subheadline": "Mini Desktop Bin"
+      }
     }
   ],
   "note": "Only verified, timestamped evidence belongs here. Unknown values must remain null."
