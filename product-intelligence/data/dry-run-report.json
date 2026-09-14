@@ -1,53 +1,53 @@
 {
-  "generatedAt": "2026-09-14T16:05:58.813Z",
-  "runId": "cf-run-20260914T160223-ecf9a85d",
+  "generatedAt": "2026-09-14T19:11:17.940Z",
+  "runId": "cf-run-20260914T190305-64d67c91",
   "status": "READY_FOR_FINAL_PUBLICATION_GATE",
-  "candidateCount": 1033,
+  "candidateCount": 1040,
   "evaluatedCounts": {
-    "keep": 132,
-    "reject": 901
+    "keep": 140,
+    "reject": 900
   },
   "funnel": {
-    "candidatesFound": 1033,
-    "passedProductId": 837,
-    "passedGbAvailability": 837,
-    "passedPriceSanity": 766,
-    "passedDemandFeedback": 225,
-    "passedNicheBuyerIntent": 194,
-    "passedProfitability": 192,
-    "passedDuplicateChecks": 188,
-    "passedScore65": 133,
-    "finalQualifiedCandidates": 132
+    "candidatesFound": 1040,
+    "passedProductId": 1000,
+    "passedGbAvailability": 1000,
+    "passedPriceSanity": 921,
+    "passedDemandFeedback": 254,
+    "passedNicheBuyerIntent": 218,
+    "passedProfitability": 215,
+    "passedDuplicateChecks": 209,
+    "passedScore65": 140,
+    "finalQualifiedCandidates": 140
   },
-  "currentCatalogueCount": 18,
+  "currentCatalogueCount": 19,
   "currentCatalogueUntouched": true,
   "winner": {
-    "productId": "1005012061024710",
-    "trackingId": "cfp-d9a3620f5d7d",
-    "pinId": "pin-cfp-d9a3620f5d7d-2026-09-14",
-    "runId": "cf-run-20260914T160223-ecf9a85d",
-    "evaluatedAt": "2026-09-14T16:02:26.897Z",
+    "productId": "1005012523972404",
+    "trackingId": "cfp-c82b0cc8c7c8",
+    "pinId": "pin-cfp-c82b0cc8c7c8-2026-09-14",
+    "runId": "cf-run-20260914T190305-64d67c91",
+    "evaluatedAt": "2026-09-14T19:03:15.470Z",
     "searchQuery": [
-      "bathroom storage"
+      "wardrobe space saving"
     ],
     "searchPage": 1,
     "searchSortMode": "LAST_VOLUME_DESC",
-    "title": "Waterproof Bathroom Wall-mounted Mobile Phone Box Protective Cover Touch Screen Mobile Phone Holder Kitchen Sealed Storage",
-    "image": "https://ae-pic-a1.aliexpress-media.com/kf/Sdf9e699c097d41e4916b349860780455U.jpg",
-    "productUrl": "https://www.aliexpress.com/item/1005012061024710.html?pdp_npi=6%40dis%21GBP%217.89%213.95%21%21%2169.43%2134.71%21%40214114e317894017750538249e1080%2112000057415368415%21affd%21%21%21%211%210%21",
-    "affiliateUrl": "https://s.click.aliexpress.com/e/_c3Zf8gQZ",
-    "cluster": "bathroom-storage",
+    "title": "Large Capacity Vacuum Storage Bags for Clothes,Bedding,Space Saving Bags Storage Space Saver Compression Bags Vacuum Seal Packet",
+    "image": "https://ae-pic-a1.aliexpress-media.com/kf/S7d617a8a1f614b86988f4e2947399169F.jpg",
+    "productUrl": "https://www.aliexpress.com/item/1005012523972404.html?pdp_npi=6%40dis%21GBP%217.78%213.89%21%21%2168.49%2134.25%21%402151fca717894126233175766e0df7%2112000058621706345%21affd%21%21%21%211%210%21",
+    "affiliateUrl": "https://s.click.aliexpress.com/e/_c4SpPrZL",
+    "cluster": "wardrobe-storage",
     "metrics": {
-      "priceGbp": 34.71,
+      "priceGbp": 34.25,
       "feedbackPct": 98,
-      "recentVolume": 6363,
+      "recentVolume": 1178,
       "commissionRatePct": 7,
-      "commissionAmountGbp": 2.43,
+      "commissionAmountGbp": 2.4,
       "commissionAmountSource": "calculated-from-price-and-rate"
     },
     "expectedPriceBandGbp": {
-      "min": 8.75,
-      "max": 120.51
+      "min": 12.22,
+      "max": 135.59
     },
     "shipping": {
       "available": true,
@@ -56,7 +56,7 @@
       "daysMax": null,
       "method": null,
       "verified": true,
-      "checkedAt": "2026-09-14T16:03:23.125Z",
+      "checkedAt": "2026-09-14T19:04:07.257Z",
       "source": "AliExpress Affiliate Product Detail API queried with country=GB",
       "note": "GB market availability is verified by the returned exact product. Cost, method and exact estimate remain unknown when absent."
     },
@@ -72,7 +72,7 @@
       "variantRiskReasons": []
     },
     "factors": {
-      "valueForMoney": 0.782812372927318,
+      "valueForMoney": 0.9439253294231462,
       "ukSuitability": 0.82,
       "smallSpaceRelevance": 0.92,
       "visualAppeal": 0.72,
@@ -81,15 +81,15 @@
       "buyerIntent": 0.9,
       "competitionSaturation": 0.5
     },
-    "duplicateSimilarity": 0.167,
+    "duplicateSimilarity": 0.077,
     "pinCreative": {
-      "path": "public/pinterest/covered-phone-holder-pin.png",
+      "path": "public/pinterest/vacuum-storage-bags-pin.png",
       "width": 1024,
       "height": 1536,
       "reviewedNonClickbait": true,
-      "productDepiction": "The exact AliExpress source photograph is retained as the central panel; product shape, colours, angle, cover and phone are unchanged.",
-      "headline": "Keep Your Phone Off the Counter",
-      "subheadline": "Wall-Mounted Covered Holder"
+      "productDepiction": "The Pin preserves the listing's transparent vacuum bags, blue double-seal edges, blue valves, hand pump and shown assortment without adding unsupported functions or pack-count claims.",
+      "headline": "Make More Wardrobe Space",
+      "subheadline": "Compress bulky bedding & clothes"
     },
     "selectionReason": null,
     "searchPages": [
@@ -99,26 +99,26 @@
       "LAST_VOLUME_DESC"
     ],
     "matchedClusters": [
-      "bathroom-storage"
+      "wardrobe-storage"
     ],
     "detailVerification": {
       "productIdMatched": true,
       "priceMatched": true,
-      "queryPriceGbp": 34.71,
-      "detailPriceGbp": 34.71,
-      "checkedAt": "2026-09-14T16:03:23.125Z",
+      "queryPriceGbp": 34.25,
+      "detailPriceGbp": 34.25,
+      "checkedAt": "2026-09-14T19:04:07.257Z",
       "source": "AliExpress Affiliate Product Detail API (GB)"
     },
     "priceSanity": {
       "status": "PASS",
       "reason": "Price is within robust cluster bounds.",
       "benchmark": {
-        "sampleSize": 74,
-        "p10": 8.75,
-        "median": 21.525,
-        "p90": 120.51
+        "sampleSize": 86,
+        "p10": 12.22,
+        "median": 30.275,
+        "p90": 135.59
       },
-      "medianRatio": 1.613
+      "medianRatio": 1.131
     },
     "nicheFit": {
       "status": "PASS",
@@ -126,9 +126,9 @@
     },
     "scoreBreakdown": {
       "recentDemand": {
-        "value": 0.951,
+        "value": 0.768,
         "weight": 8,
-        "points": 7.6
+        "points": 6.1
       },
       "positiveFeedback": {
         "value": 0.8,
@@ -141,7 +141,7 @@
         "points": 2.7
       },
       "estimatedCommission": {
-        "value": 0.429,
+        "value": 0.422,
         "weight": 7,
         "points": 3
       },
@@ -151,9 +151,9 @@
         "points": 6
       },
       "valueForMoney": {
-        "value": 0.783,
+        "value": 0.944,
         "weight": 6,
-        "points": 4.7
+        "points": 5.7
       },
       "ukSuitability": {
         "value": 0.82,
@@ -191,9 +191,9 @@
         "points": 5.3
       },
       "novelty": {
-        "value": 0.833,
+        "value": 0.923,
         "weight": 5,
-        "points": 4.2
+        "points": 4.6
       },
       "buyerIntent": {
         "value": 0.9,
@@ -211,7 +211,7 @@
         "points": 0
       }
     },
-    "totalScore": 72.8,
+    "totalScore": 72.7,
     "confidence": 0.96,
     "decision": "keep",
     "rejectionReason": null,
@@ -238,31 +238,31 @@
         "competitionSaturation": 0.5
       }
     },
-    "canonicalProductUrl": "https://www.aliexpress.com/item/1005012061024710.html",
+    "canonicalProductUrl": "https://www.aliexpress.com/item/1005012523972404.html",
     "affiliateDestinationVerified": true,
     "affiliateDestination": {
-      "checkedAt": "2026-09-14T16:03:26.247Z",
-      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3Zf8gQZ",
-      "expectedProductId": "1005012061024710",
-      "finalDestination": "https://ar.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y&gatewayAdapt=glo2ara",
-      "finalProductId": "1005012061024710",
+      "checkedAt": "2026-09-14T19:08:17.016Z",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4SpPrZL",
+      "expectedProductId": "1005012523972404",
+      "finalDestination": "https://ar.aliexpress.com/item/1005012523972404.html?aff_fcid=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&aff_fsk=_c4SpPrZL&aff_platform=api-new-link-generate&sk=_c4SpPrZL&aff_trace_key=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&terminal_id=6c2569978e5e4fc68de742f8b85098ad&afSmartRedirect=y&gatewayAdapt=glo2ara",
+      "finalProductId": "1005012523972404",
       "destinationType": "PRODUCT",
       "matchesExpectedProduct": true,
       "pass": true,
       "reason": "PASS_EXACT_PRODUCT_ID",
       "redirectChain": [
         {
-          "url": "https://s.click.aliexpress.com/e/_c3Zf8gQZ",
+          "url": "https://s.click.aliexpress.com/e/_c4SpPrZL",
           "status": 302,
-          "location": "https://www.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y"
+          "location": "https://www.aliexpress.com/item/1005012523972404.html?aff_fcid=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&aff_fsk=_c4SpPrZL&aff_platform=api-new-link-generate&sk=_c4SpPrZL&aff_trace_key=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&terminal_id=6c2569978e5e4fc68de742f8b85098ad&afSmartRedirect=y"
         },
         {
-          "url": "https://www.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y",
+          "url": "https://www.aliexpress.com/item/1005012523972404.html?aff_fcid=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&aff_fsk=_c4SpPrZL&aff_platform=api-new-link-generate&sk=_c4SpPrZL&aff_trace_key=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&terminal_id=6c2569978e5e4fc68de742f8b85098ad&afSmartRedirect=y",
           "status": 302,
-          "location": "https://ar.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y&gatewayAdapt=glo2ara"
+          "location": "https://ar.aliexpress.com/item/1005012523972404.html?aff_fcid=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&aff_fsk=_c4SpPrZL&aff_platform=api-new-link-generate&sk=_c4SpPrZL&aff_trace_key=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&terminal_id=6c2569978e5e4fc68de742f8b85098ad&afSmartRedirect=y&gatewayAdapt=glo2ara"
         },
         {
-          "url": "https://ar.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y&gatewayAdapt=glo2ara",
+          "url": "https://ar.aliexpress.com/item/1005012523972404.html?aff_fcid=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&aff_fsk=_c4SpPrZL&aff_platform=api-new-link-generate&sk=_c4SpPrZL&aff_trace_key=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&terminal_id=6c2569978e5e4fc68de742f8b85098ad&afSmartRedirect=y&gatewayAdapt=glo2ara",
           "status": 200,
           "location": null
         }
@@ -270,7 +270,7 @@
     },
     "verification": {
       "source": "Official AliExpress Affiliate link.generate followed by end-to-end redirect validation",
-      "checkedAt": "2026-09-14T16:03:26.247Z",
+      "checkedAt": "2026-09-14T19:08:17.016Z",
       "exactProductIdMatched": true,
       "affiliateDestinationVerified": true
     }
@@ -278,15 +278,15 @@
   "publicationPerformed": false,
   "landingPageCandidateGenerated": true,
   "landingPageCandidate": {
-    "slug": "cfp-d9a3620f5d7d",
-    "title": "Waterproof Bathroom Wall-mounted Mobile Phone Box Protective Cover Touch Screen Mobile Phone Holder Kitchen Sealed Storage",
-    "summary": "A practical bathroom storage option for smaller UK homes. Check the exact current offer before buying."
+    "slug": "cfp-c82b0cc8c7c8",
+    "title": "Large Capacity Vacuum Storage Bags for Clothes,Bedding,Space Saving Bags Storage Space Saver Compression Bags Vacuum Seal Packet",
+    "summary": "A practical wardrobe storage option for smaller UK homes. Check the exact current offer before buying."
   },
   "rssCandidateGenerated": true,
   "rssCandidate": {
-    "title": "Waterproof Bathroom Wall-mounted Mobile Phone Box Protective Cover Touch Screen Mobile Phone Holder Kitchen Sealed Storage",
-    "link": "https://cleverfindspicks.github.io/finds/cfp-d9a3620f5d7d",
-    "image": "public/pinterest/covered-phone-holder-pin.png"
+    "title": "Large Capacity Vacuum Storage Bags for Clothes,Bedding,Space Saving Bags Storage Space Saver Compression Bags Vacuum Seal Packet",
+    "link": "https://cleverfindspicks.github.io/finds/cfp-c82b0cc8c7c8",
+    "image": "public/pinterest/vacuum-storage-bags-pin.png"
   },
   "creativeCandidateGenerated": true,
   "analyticsValidation": {
@@ -296,17 +296,17 @@
   },
   "topCandidates": [
     {
-      "productId": "1005012061024710",
-      "title": "Waterproof Bathroom Wall-mounted Mobile Phone Box Protective Cover Touch Screen Mobile Phone Holder Kitchen Sealed Storage",
-      "totalScore": 72.8,
+      "productId": "1005012523972404",
+      "title": "Large Capacity Vacuum Storage Bags for Clothes,Bedding,Space Saving Bags Storage Space Saver Compression Bags Vacuum Seal Packet",
+      "totalScore": 72.7,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null
     },
     {
-      "productId": "1005010285468529",
-      "title": "LED 4 Leaf Bulb E27 Collapsible Warm White Light Pendant Light Storage Garage Kitchen Lighting High Brightness Remote Control",
-      "totalScore": 72.7,
+      "productId": "1005012434399097",
+      "title": "Versatile Clothing Storage Bag Large Makeup Organizer Box Bedroom Kitchen Office Essentials for Storing Small Things",
+      "totalScore": 72.6,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null
@@ -320,16 +320,8 @@
       "rejectionReason": null
     },
     {
-      "productId": "1005012523972404",
-      "title": "Large Capacity Vacuum Storage Bags for Clothes,Bedding,Space Saving Bags Storage Space Saver Compression Bags Vacuum Seal Packet",
-      "totalScore": 72.5,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005010530084516",
-      "title": "HOMEFISH Large Foldable Shopping Bag Reusable Eco Bag Grocery Package Beach Toy Storage Bags Shoulder Cat Lemon Printing Pouch T",
+      "productId": "1005012172859253",
+      "title": "1pc Clothing Compression Bag Wardrobe Organizer Down Jacket Compression Storage Bag Save Space closet Clothes Organizer Bag",
       "totalScore": 72.5,
       "confidence": 0.96,
       "decision": "keep",
@@ -344,8 +336,16 @@
       "rejectionReason": null
     },
     {
-      "productId": "1005012434399097",
-      "title": "Versatile Clothing Storage Bag Large Makeup Organizer Box Bedroom Kitchen Office Essentials for Storing Small Things",
+      "productId": "1005010572765360",
+      "title": "Vacuum Storage Bags More Space Save Compression Travel Seal Zipper for Clothes Pillows Bedding Closet Home Organizer",
+      "totalScore": 72.3,
+      "confidence": 0.96,
+      "decision": "keep",
+      "rejectionReason": null
+    },
+    {
+      "productId": "1005007805582693",
+      "title": "3-piece foldable 9-hole clothes hanger - Space-saving wardrobe organizer with multi-functional hooks",
       "totalScore": 72.3,
       "confidence": 0.96,
       "decision": "keep",
@@ -360,17 +360,17 @@
       "rejectionReason": null
     },
     {
-      "productId": "1005009508737989",
-      "title": "Wardrobe Organizer Bags Down Jacket Air Compression Hanging Bag with Zipper Clothes Dust Cover Bag Save Space Cloth Storage Bag",
-      "totalScore": 72.2,
+      "productId": "1005010228874323",
+      "title": "Multi-Layer Pants Hanger Space Saving Closet Organizer Foldable Trousers Clothes Rack Wardrobe Storage with Non Slip Clips",
+      "totalScore": 72.1,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null
     },
     {
-      "productId": "1005009045113935",
-      "title": "Transparent Foldable Book Storage Bag for Students Waterproof Tote Bag Large-Capacity Storage Bag for Classroom and Dormitory St",
-      "totalScore": 72.1,
+      "productId": "1005008248078560",
+      "title": "Behind The Door Storage Cabinet Bathroom and Kitchen Storage Rack Multi-layer Narrow Cabinet Space Saving Trolley Storage Rack",
+      "totalScore": 71.9,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null

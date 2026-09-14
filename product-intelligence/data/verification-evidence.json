@@ -141,6 +141,97 @@
         "headline": "Keep Your Phone Off the Counter",
         "subheadline": "Wall-Mounted Covered Holder"
       }
+    },
+    {
+      "productId": "1005010285468529",
+      "source": "Official AliExpress Affiliate link.generate followed by end-to-end redirect validation",
+      "checkedAt": "2026-09-14T19:04:09.664Z",
+      "exactProductIdMatched": true,
+      "canonicalProductUrl": "https://www.aliexpress.com/item/1005010285468529.html",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3OmgTkZ",
+      "affiliateDestinationVerified": true,
+      "affiliateDestination": {
+        "checkedAt": "2026-09-14T19:04:09.664Z",
+        "affiliateUrl": "https://s.click.aliexpress.com/e/_c3OmgTkZ",
+        "expectedProductId": "1005010285468529",
+        "finalDestination": "https://ar.aliexpress.com/item/1005010285468529.html?aff_fcid=88a35103d4d54bde927a88634ea404c0-1789412648475-03111-_c3OmgTkZ&aff_fsk=_c3OmgTkZ&aff_platform=api-new-link-generate&sk=_c3OmgTkZ&aff_trace_key=88a35103d4d54bde927a88634ea404c0-1789412648475-03111-_c3OmgTkZ&terminal_id=69666bff87dc4891bc10dcbd34a2acba&afSmartRedirect=y&gatewayAdapt=glo2ara",
+        "finalProductId": "1005010285468529",
+        "destinationType": "PRODUCT",
+        "matchesExpectedProduct": true,
+        "pass": true,
+        "reason": "PASS_EXACT_PRODUCT_ID",
+        "redirectChain": [
+          {
+            "url": "https://s.click.aliexpress.com/e/_c3OmgTkZ",
+            "status": 302,
+            "location": "https://www.aliexpress.com/item/1005010285468529.html?aff_fcid=88a35103d4d54bde927a88634ea404c0-1789412648475-03111-_c3OmgTkZ&aff_fsk=_c3OmgTkZ&aff_platform=api-new-link-generate&sk=_c3OmgTkZ&aff_trace_key=88a35103d4d54bde927a88634ea404c0-1789412648475-03111-_c3OmgTkZ&terminal_id=69666bff87dc4891bc10dcbd34a2acba&afSmartRedirect=y"
+          },
+          {
+            "url": "https://www.aliexpress.com/item/1005010285468529.html?aff_fcid=88a35103d4d54bde927a88634ea404c0-1789412648475-03111-_c3OmgTkZ&aff_fsk=_c3OmgTkZ&aff_platform=api-new-link-generate&sk=_c3OmgTkZ&aff_trace_key=88a35103d4d54bde927a88634ea404c0-1789412648475-03111-_c3OmgTkZ&terminal_id=69666bff87dc4891bc10dcbd34a2acba&afSmartRedirect=y",
+            "status": 302,
+            "location": "https://ar.aliexpress.com/item/1005010285468529.html?aff_fcid=88a35103d4d54bde927a88634ea404c0-1789412648475-03111-_c3OmgTkZ&aff_fsk=_c3OmgTkZ&aff_platform=api-new-link-generate&sk=_c3OmgTkZ&aff_trace_key=88a35103d4d54bde927a88634ea404c0-1789412648475-03111-_c3OmgTkZ&terminal_id=69666bff87dc4891bc10dcbd34a2acba&afSmartRedirect=y&gatewayAdapt=glo2ara"
+          },
+          {
+            "url": "https://ar.aliexpress.com/item/1005010285468529.html?aff_fcid=88a35103d4d54bde927a88634ea404c0-1789412648475-03111-_c3OmgTkZ&aff_fsk=_c3OmgTkZ&aff_platform=api-new-link-generate&sk=_c3OmgTkZ&aff_trace_key=88a35103d4d54bde927a88634ea404c0-1789412648475-03111-_c3OmgTkZ&terminal_id=69666bff87dc4891bc10dcbd34a2acba&afSmartRedirect=y&gatewayAdapt=glo2ara",
+            "status": 200,
+            "location": null
+          }
+        ]
+      },
+      "factors": {
+        "smallSpaceRelevance": 0.2,
+        "obviousProblem": 0.3,
+        "buyerIntent": 0.25
+      },
+      "creativeRejectedReason": "The verified listing is a light bulb, not a small-space organisation product. A truthful Pin would not match the Clever Finds niche."
+    },
+    {
+      "productId": "1005012523972404",
+      "source": "Official AliExpress Affiliate link.generate followed by end-to-end redirect validation",
+      "checkedAt": "2026-09-14T19:08:17.016Z",
+      "exactProductIdMatched": true,
+      "canonicalProductUrl": "https://www.aliexpress.com/item/1005012523972404.html",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4SpPrZL",
+      "affiliateDestinationVerified": true,
+      "affiliateDestination": {
+        "checkedAt": "2026-09-14T19:08:17.016Z",
+        "affiliateUrl": "https://s.click.aliexpress.com/e/_c4SpPrZL",
+        "expectedProductId": "1005012523972404",
+        "finalDestination": "https://ar.aliexpress.com/item/1005012523972404.html?aff_fcid=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&aff_fsk=_c4SpPrZL&aff_platform=api-new-link-generate&sk=_c4SpPrZL&aff_trace_key=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&terminal_id=6c2569978e5e4fc68de742f8b85098ad&afSmartRedirect=y&gatewayAdapt=glo2ara",
+        "finalProductId": "1005012523972404",
+        "destinationType": "PRODUCT",
+        "matchesExpectedProduct": true,
+        "pass": true,
+        "reason": "PASS_EXACT_PRODUCT_ID",
+        "redirectChain": [
+          {
+            "url": "https://s.click.aliexpress.com/e/_c4SpPrZL",
+            "status": 302,
+            "location": "https://www.aliexpress.com/item/1005012523972404.html?aff_fcid=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&aff_fsk=_c4SpPrZL&aff_platform=api-new-link-generate&sk=_c4SpPrZL&aff_trace_key=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&terminal_id=6c2569978e5e4fc68de742f8b85098ad&afSmartRedirect=y"
+          },
+          {
+            "url": "https://www.aliexpress.com/item/1005012523972404.html?aff_fcid=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&aff_fsk=_c4SpPrZL&aff_platform=api-new-link-generate&sk=_c4SpPrZL&aff_trace_key=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&terminal_id=6c2569978e5e4fc68de742f8b85098ad&afSmartRedirect=y",
+            "status": 302,
+            "location": "https://ar.aliexpress.com/item/1005012523972404.html?aff_fcid=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&aff_fsk=_c4SpPrZL&aff_platform=api-new-link-generate&sk=_c4SpPrZL&aff_trace_key=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&terminal_id=6c2569978e5e4fc68de742f8b85098ad&afSmartRedirect=y&gatewayAdapt=glo2ara"
+          },
+          {
+            "url": "https://ar.aliexpress.com/item/1005012523972404.html?aff_fcid=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&aff_fsk=_c4SpPrZL&aff_platform=api-new-link-generate&sk=_c4SpPrZL&aff_trace_key=01f4a655747a4d03ab54d2ef84f57b02-1789412895695-00951-_c4SpPrZL&terminal_id=6c2569978e5e4fc68de742f8b85098ad&afSmartRedirect=y&gatewayAdapt=glo2ara",
+            "status": 200,
+            "location": null
+          }
+        ]
+      },
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S7d617a8a1f614b86988f4e2947399169F.jpg",
+      "creativeSourceVerified": true,
+      "pinCreative": {
+        "path": "public/pinterest/vacuum-storage-bags-pin.png",
+        "width": 1024,
+        "height": 1536,
+        "reviewedNonClickbait": true,
+        "productDepiction": "The Pin preserves the listing's transparent vacuum bags, blue double-seal edges, blue valves, hand pump and shown assortment without adding unsupported functions or pack-count claims.",
+        "headline": "Make More Wardrobe Space",
+        "subheadline": "Compress bulky bedding & clothes"
+      }
     }
   ],
   "note": "Only verified, timestamped evidence belongs here. Unknown values must remain null."

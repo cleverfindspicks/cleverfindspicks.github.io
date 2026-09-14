@@ -7,12 +7,15 @@ import { buildContentCandidate } from './content.mjs';
 
 const pool = JSON.parse(await readFile(new URL('./data/candidate-pool.json', import.meta.url), 'utf8'));
 const evidence = await loadVerificationEvidence();
-const evidenced = (pool.candidates || []).map((candidate) => {
+const candidatesWithFreshEvidence = (pool.candidates || []).map((candidate) => {
   const record = evidence.get(String(candidate.productId));
-  return applyVerificationEvidence(candidate, evidenceIsFresh(record) ? record : null);
+  return { candidate, record: evidenceIsFresh(record) ? record : null };
 });
-const benchmarks = priceBenchmarks(evidenced);
-const candidates = evidenced.map((candidate) => enrichCandidate(candidate, benchmarks.get(candidate.cluster)));
+const benchmarks = priceBenchmarks(candidatesWithFreshEvidence.map(({ candidate }) => candidate));
+const candidates = candidatesWithFreshEvidence.map(({ candidate, record }) => applyVerificationEvidence(
+  enrichCandidate(candidate, benchmarks.get(candidate.cluster)),
+  record,
+));
 const evaluated = scoreCandidates(candidates, { stage: 'qualification' });
 const winner = evaluated.find((candidate) => candidate.decision === 'keep' && candidate.affiliateDestinationVerified !== false) || null;
 const status = winner?.pinCreative?.path ? 'READY_FOR_FINAL_PUBLICATION_GATE' : winner ? 'PROVISIONAL_WINNER_REQUIRES_CREATIVE' : 'SKIPPED_NO_QUALIFIED_PRODUCT';
