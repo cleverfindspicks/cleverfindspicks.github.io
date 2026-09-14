@@ -34,6 +34,13 @@
       "queryCount": 18,
       "candidateCount": 1041,
       "publishableCount": 150
+    },
+    {
+      "runId": "cf-run-20260914T160223-ecf9a85d",
+      "generatedAt": "2026-09-14T16:03:23.217Z",
+      "queryCount": 18,
+      "candidateCount": 1033,
+      "publishableCount": 132
     }
   ]
 }

@@ -1,53 +1,53 @@
 {
-  "generatedAt": "2026-09-14T12:07:08.355Z",
-  "runId": "cf-run-20260914T120231-658f8d37",
+  "generatedAt": "2026-09-14T16:05:58.813Z",
+  "runId": "cf-run-20260914T160223-ecf9a85d",
   "status": "READY_FOR_FINAL_PUBLICATION_GATE",
-  "candidateCount": 1041,
+  "candidateCount": 1033,
   "evaluatedCounts": {
-    "keep": 150,
-    "reject": 891
+    "keep": 132,
+    "reject": 901
   },
   "funnel": {
-    "candidatesFound": 1041,
-    "passedProductId": 1037,
-    "passedGbAvailability": 1037,
-    "passedPriceSanity": 952,
-    "passedDemandFeedback": 258,
-    "passedNicheBuyerIntent": 222,
-    "passedProfitability": 220,
-    "passedDuplicateChecks": 217,
-    "passedScore65": 150,
-    "finalQualifiedCandidates": 150
+    "candidatesFound": 1033,
+    "passedProductId": 837,
+    "passedGbAvailability": 837,
+    "passedPriceSanity": 766,
+    "passedDemandFeedback": 225,
+    "passedNicheBuyerIntent": 194,
+    "passedProfitability": 192,
+    "passedDuplicateChecks": 188,
+    "passedScore65": 133,
+    "finalQualifiedCandidates": 132
   },
-  "currentCatalogueCount": 17,
+  "currentCatalogueCount": 18,
   "currentCatalogueUntouched": true,
   "winner": {
-    "productId": "1005010560281600",
-    "trackingId": "cfp-d6938f96c47f",
-    "pinId": "pin-cfp-d6938f96c47f-2026-09-14",
-    "runId": "cf-run-20260914T120231-658f8d37",
-    "evaluatedAt": "2026-09-14T12:02:45.416Z",
+    "productId": "1005012061024710",
+    "trackingId": "cfp-d9a3620f5d7d",
+    "pinId": "pin-cfp-d9a3620f5d7d-2026-09-14",
+    "runId": "cf-run-20260914T160223-ecf9a85d",
+    "evaluatedAt": "2026-09-14T16:02:26.897Z",
     "searchQuery": [
-      "small bedroom storage"
+      "bathroom storage"
     ],
     "searchPage": 1,
     "searchSortMode": "LAST_VOLUME_DESC",
-    "title": "Mini Desktop Bin Small Trash Can Tube with Cover Bedroom Trash Can Garbage Can Clean Workspace Storage Box Desk Small Trash Can",
-    "image": "https://ae-pic-a1.aliexpress-media.com/kf/Sa7b68c2c8c79475bac73d7d078830cbbJ.jpg",
-    "productUrl": "https://www.aliexpress.com/item/1005010560281600.html?pdp_npi=6%40dis%21GBP%2113.86%216.79%21%21%21122.01%2159.77%21%40214114e317893874084111455e0d49%2112000052813832347%21affd%21%21%21%211%210%21",
-    "affiliateUrl": "https://s.click.aliexpress.com/e/_c38WbxtL",
-    "cluster": "small-bedroom-storage",
+    "title": "Waterproof Bathroom Wall-mounted Mobile Phone Box Protective Cover Touch Screen Mobile Phone Holder Kitchen Sealed Storage",
+    "image": "https://ae-pic-a1.aliexpress-media.com/kf/Sdf9e699c097d41e4916b349860780455U.jpg",
+    "productUrl": "https://www.aliexpress.com/item/1005012061024710.html?pdp_npi=6%40dis%21GBP%217.89%213.95%21%21%2169.43%2134.71%21%40214114e317894017750538249e1080%2112000057415368415%21affd%21%21%21%211%210%21",
+    "affiliateUrl": "https://s.click.aliexpress.com/e/_c3Zf8gQZ",
+    "cluster": "bathroom-storage",
     "metrics": {
-      "priceGbp": 59.77,
-      "feedbackPct": 100,
-      "recentVolume": 94,
+      "priceGbp": 34.71,
+      "feedbackPct": 98,
+      "recentVolume": 6363,
       "commissionRatePct": 7,
-      "commissionAmountGbp": 4.18,
+      "commissionAmountGbp": 2.43,
       "commissionAmountSource": "calculated-from-price-and-rate"
     },
     "expectedPriceBandGbp": {
-      "min": 17.16,
-      "max": 545.69
+      "min": 8.75,
+      "max": 120.51
     },
     "shipping": {
       "available": true,
@@ -56,7 +56,7 @@
       "daysMax": null,
       "method": null,
       "verified": true,
-      "checkedAt": "2026-09-14T12:03:48.341Z",
+      "checkedAt": "2026-09-14T16:03:23.125Z",
       "source": "AliExpress Affiliate Product Detail API queried with country=GB",
       "note": "GB market availability is verified by the returned exact product. Cost, method and exact estimate remain unknown when absent."
     },
@@ -72,24 +72,24 @@
       "variantRiskReasons": []
     },
     "factors": {
-      "valueForMoney": 0.9881403143996557,
+      "valueForMoney": 0.782812372927318,
       "ukSuitability": 0.82,
       "smallSpaceRelevance": 0.92,
       "visualAppeal": 0.72,
-      "impulsePurchase": 0.72,
+      "impulsePurchase": 0.9,
       "obviousProblem": 0.88,
       "buyerIntent": 0.9,
       "competitionSaturation": 0.5
     },
-    "duplicateSimilarity": 0.065,
+    "duplicateSimilarity": 0.167,
     "pinCreative": {
-      "path": "public/pinterest/mini-desktop-bin-pin.png",
+      "path": "public/pinterest/covered-phone-holder-pin.png",
       "width": 1024,
       "height": 1536,
       "reviewedNonClickbait": true,
-      "productDepiction": "The exact AliExpress source photograph is retained as the central panel; product shape, colours, quantity and lid design are unchanged.",
-      "headline": "Clear Desk, Clear Mind",
-      "subheadline": "Mini Desktop Bin"
+      "productDepiction": "The exact AliExpress source photograph is retained as the central panel; product shape, colours, angle, cover and phone are unchanged.",
+      "headline": "Keep Your Phone Off the Counter",
+      "subheadline": "Wall-Mounted Covered Holder"
     },
     "selectionReason": null,
     "searchPages": [
@@ -99,26 +99,26 @@
       "LAST_VOLUME_DESC"
     ],
     "matchedClusters": [
-      "small-bedroom-storage"
+      "bathroom-storage"
     ],
     "detailVerification": {
       "productIdMatched": true,
       "priceMatched": true,
-      "queryPriceGbp": 59.77,
-      "detailPriceGbp": 59.77,
-      "checkedAt": "2026-09-14T12:03:48.341Z",
+      "queryPriceGbp": 34.71,
+      "detailPriceGbp": 34.71,
+      "checkedAt": "2026-09-14T16:03:23.125Z",
       "source": "AliExpress Affiliate Product Detail API (GB)"
     },
     "priceSanity": {
       "status": "PASS",
       "reason": "Price is within robust cluster bounds.",
       "benchmark": {
-        "sampleSize": 76,
-        "p10": 17.16,
-        "median": 61.349999999999994,
-        "p90": 545.69
+        "sampleSize": 74,
+        "p10": 8.75,
+        "median": 21.525,
+        "p90": 120.51
       },
-      "medianRatio": 0.974
+      "medianRatio": 1.613
     },
     "nicheFit": {
       "status": "PASS",
@@ -126,14 +126,14 @@
     },
     "scoreBreakdown": {
       "recentDemand": {
-        "value": 0.494,
+        "value": 0.951,
         "weight": 8,
-        "points": 4
+        "points": 7.6
       },
       "positiveFeedback": {
-        "value": 1,
+        "value": 0.8,
         "weight": 7,
-        "points": 7
+        "points": 5.6
       },
       "commissionRate": {
         "value": 0.444,
@@ -141,9 +141,9 @@
         "points": 2.7
       },
       "estimatedCommission": {
-        "value": 0.818,
+        "value": 0.429,
         "weight": 7,
-        "points": 5.7
+        "points": 3
       },
       "priceFit": {
         "value": 1,
@@ -151,9 +151,9 @@
         "points": 6
       },
       "valueForMoney": {
-        "value": 0.988,
+        "value": 0.783,
         "weight": 6,
-        "points": 5.9
+        "points": 4.7
       },
       "ukSuitability": {
         "value": 0.82,
@@ -181,9 +181,9 @@
         "points": 5
       },
       "impulsePurchase": {
-        "value": 0.72,
+        "value": 0.9,
         "weight": 5,
-        "points": 3.6
+        "points": 4.5
       },
       "obviousProblem": {
         "value": 0.88,
@@ -191,9 +191,9 @@
         "points": 5.3
       },
       "novelty": {
-        "value": 0.935,
+        "value": 0.833,
         "weight": 5,
-        "points": 4.7
+        "points": 4.2
       },
       "buyerIntent": {
         "value": 0.9,
@@ -211,7 +211,7 @@
         "points": 0
       }
     },
-    "totalScore": 74.1,
+    "totalScore": 72.8,
     "confidence": 0.96,
     "decision": "keep",
     "rejectionReason": null,
@@ -238,31 +238,31 @@
         "competitionSaturation": 0.5
       }
     },
-    "canonicalProductUrl": "https://www.aliexpress.com/item/1005010560281600.html",
+    "canonicalProductUrl": "https://www.aliexpress.com/item/1005012061024710.html",
     "affiliateDestinationVerified": true,
     "affiliateDestination": {
-      "checkedAt": "2026-09-14T12:03:51.210Z",
-      "affiliateUrl": "https://s.click.aliexpress.com/e/_c38WbxtL",
-      "expectedProductId": "1005010560281600",
-      "finalDestination": "https://ar.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y&gatewayAdapt=glo2ara",
-      "finalProductId": "1005010560281600",
+      "checkedAt": "2026-09-14T16:03:26.247Z",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3Zf8gQZ",
+      "expectedProductId": "1005012061024710",
+      "finalDestination": "https://ar.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y&gatewayAdapt=glo2ara",
+      "finalProductId": "1005012061024710",
       "destinationType": "PRODUCT",
       "matchesExpectedProduct": true,
       "pass": true,
       "reason": "PASS_EXACT_PRODUCT_ID",
       "redirectChain": [
         {
-          "url": "https://s.click.aliexpress.com/e/_c38WbxtL",
+          "url": "https://s.click.aliexpress.com/e/_c3Zf8gQZ",
           "status": 302,
-          "location": "https://www.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y"
+          "location": "https://www.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y"
         },
         {
-          "url": "https://www.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y",
+          "url": "https://www.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y",
           "status": 302,
-          "location": "https://ar.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y&gatewayAdapt=glo2ara"
+          "location": "https://ar.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y&gatewayAdapt=glo2ara"
         },
         {
-          "url": "https://ar.aliexpress.com/item/1005010560281600.html?aff_fcid=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&aff_fsk=_c38WbxtL&aff_platform=api-new-link-generate&sk=_c38WbxtL&aff_trace_key=20d514a23cda4f1fba44081db0103869-1789387429770-07923-_c38WbxtL&terminal_id=4b7c4934d2814236a4141fbc77058d00&afSmartRedirect=y&gatewayAdapt=glo2ara",
+          "url": "https://ar.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y&gatewayAdapt=glo2ara",
           "status": 200,
           "location": null
         }
@@ -270,7 +270,7 @@
     },
     "verification": {
       "source": "Official AliExpress Affiliate link.generate followed by end-to-end redirect validation",
-      "checkedAt": "2026-09-14T12:03:51.210Z",
+      "checkedAt": "2026-09-14T16:03:26.247Z",
       "exactProductIdMatched": true,
       "affiliateDestinationVerified": true
     }
@@ -278,15 +278,15 @@
   "publicationPerformed": false,
   "landingPageCandidateGenerated": true,
   "landingPageCandidate": {
-    "slug": "cfp-d6938f96c47f",
-    "title": "Mini Desktop Bin Small Trash Can Tube with Cover Bedroom Trash Can Garbage Can Clean Workspace Storage Box Desk Small Trash Can",
-    "summary": "A practical small bedroom storage option for smaller UK homes. Check the exact current offer before buying."
+    "slug": "cfp-d9a3620f5d7d",
+    "title": "Waterproof Bathroom Wall-mounted Mobile Phone Box Protective Cover Touch Screen Mobile Phone Holder Kitchen Sealed Storage",
+    "summary": "A practical bathroom storage option for smaller UK homes. Check the exact current offer before buying."
   },
   "rssCandidateGenerated": true,
   "rssCandidate": {
-    "title": "Mini Desktop Bin Small Trash Can Tube with Cover Bedroom Trash Can Garbage Can Clean Workspace Storage Box Desk Small Trash Can",
-    "link": "https://cleverfindspicks.github.io/finds/cfp-d6938f96c47f",
-    "image": "public/pinterest/mini-desktop-bin-pin.png"
+    "title": "Waterproof Bathroom Wall-mounted Mobile Phone Box Protective Cover Touch Screen Mobile Phone Holder Kitchen Sealed Storage",
+    "link": "https://cleverfindspicks.github.io/finds/cfp-d9a3620f5d7d",
+    "image": "public/pinterest/covered-phone-holder-pin.png"
   },
   "creativeCandidateGenerated": true,
   "analyticsValidation": {
@@ -295,14 +295,6 @@
     "productViewEvent": "product_view"
   },
   "topCandidates": [
-    {
-      "productId": "1005010560281600",
-      "title": "Mini Desktop Bin Small Trash Can Tube with Cover Bedroom Trash Can Garbage Can Clean Workspace Storage Box Desk Small Trash Can",
-      "totalScore": 74.1,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
     {
       "productId": "1005012061024710",
       "title": "Waterproof Bathroom Wall-mounted Mobile Phone Box Protective Cover Touch Screen Mobile Phone Holder Kitchen Sealed Storage",
@@ -314,15 +306,7 @@
     {
       "productId": "1005010285468529",
       "title": "LED 4 Leaf Bulb E27 Collapsible Warm White Light Pendant Light Storage Garage Kitchen Lighting High Brightness Remote Control",
-      "totalScore": 72.8,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005009508737989",
-      "title": "Wardrobe Organizer Bags Down Jacket Air Compression Hanging Bag with Zipper Clothes Dust Cover Bag Save Space Cloth Storage Bag",
-      "totalScore": 72.6,
+      "totalScore": 72.7,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null
@@ -330,14 +314,6 @@
     {
       "productId": "1005008660029988",
       "title": "Wet Wipes Dispenser Wall Mounted Storage Box Organizer Tissue Dispenser Adhesive Secure Mount for Family Toilet Home Bathroom",
-      "totalScore": 72.5,
-      "confidence": 0.96,
-      "decision": "keep",
-      "rejectionReason": null
-    },
-    {
-      "productId": "1005007635410483",
-      "title": "Press Type Slender Trash Can with Pop Lid Narrow Gap Storage Bin for Kitchen Bathroom Bedroom Living Room",
       "totalScore": 72.5,
       "confidence": 0.96,
       "decision": "keep",
@@ -360,9 +336,9 @@
       "rejectionReason": null
     },
     {
-      "productId": "1005007805582693",
-      "title": "3-piece foldable 9-hole clothes hanger - Space-saving wardrobe organizer with multi-functional hooks",
-      "totalScore": 72.4,
+      "productId": "1005011942838529",
+      "title": "Extremely Narrow Kitchen Spice Rack, Seasoning Storage Organizer, Double-Layer Oil, Salt, Sauce, Vinegar Storage for Windowsill, Window Edge, Countertop",
+      "totalScore": 72.3,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null
@@ -370,7 +346,31 @@
     {
       "productId": "1005012434399097",
       "title": "Versatile Clothing Storage Bag Large Makeup Organizer Box Bedroom Kitchen Office Essentials for Storing Small Things",
-      "totalScore": 72.4,
+      "totalScore": 72.3,
+      "confidence": 0.96,
+      "decision": "keep",
+      "rejectionReason": null
+    },
+    {
+      "productId": "1005012217813599",
+      "title": "Double-layer Bamboo Storage Rack Desktop Organizer Multi-functional Miscellaneous Shelf Home Kitchen Bedroom Countertop Use",
+      "totalScore": 72.2,
+      "confidence": 0.96,
+      "decision": "keep",
+      "rejectionReason": null
+    },
+    {
+      "productId": "1005009508737989",
+      "title": "Wardrobe Organizer Bags Down Jacket Air Compression Hanging Bag with Zipper Clothes Dust Cover Bag Save Space Cloth Storage Bag",
+      "totalScore": 72.2,
+      "confidence": 0.96,
+      "decision": "keep",
+      "rejectionReason": null
+    },
+    {
+      "productId": "1005009045113935",
+      "title": "Transparent Foldable Book Storage Bag for Students Waterproof Tote Bag Large-Capacity Storage Bag for Classroom and Dormitory St",
+      "totalScore": 72.1,
       "confidence": 0.96,
       "decision": "keep",
       "rejectionReason": null

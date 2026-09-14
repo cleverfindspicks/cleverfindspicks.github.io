@@ -93,6 +93,54 @@
         "headline": "Clear Desk, Clear Mind",
         "subheadline": "Mini Desktop Bin"
       }
+    },
+    {
+      "productId": "1005012061024710",
+      "source": "Official AliExpress Affiliate link.generate followed by end-to-end redirect validation",
+      "checkedAt": "2026-09-14T16:03:26.247Z",
+      "exactProductIdMatched": true,
+      "canonicalProductUrl": "https://www.aliexpress.com/item/1005012061024710.html",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3Zf8gQZ",
+      "affiliateDestinationVerified": true,
+      "affiliateDestination": {
+        "checkedAt": "2026-09-14T16:03:26.247Z",
+        "affiliateUrl": "https://s.click.aliexpress.com/e/_c3Zf8gQZ",
+        "expectedProductId": "1005012061024710",
+        "finalDestination": "https://ar.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y&gatewayAdapt=glo2ara",
+        "finalProductId": "1005012061024710",
+        "destinationType": "PRODUCT",
+        "matchesExpectedProduct": true,
+        "pass": true,
+        "reason": "PASS_EXACT_PRODUCT_ID",
+        "redirectChain": [
+          {
+            "url": "https://s.click.aliexpress.com/e/_c3Zf8gQZ",
+            "status": 302,
+            "location": "https://www.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y"
+          },
+          {
+            "url": "https://www.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y",
+            "status": 302,
+            "location": "https://ar.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y&gatewayAdapt=glo2ara"
+          },
+          {
+            "url": "https://ar.aliexpress.com/item/1005012061024710.html?aff_fcid=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&aff_fsk=_c3Zf8gQZ&aff_platform=api-new-link-generate&sk=_c3Zf8gQZ&aff_trace_key=718b308a48e84a99b72bf5f6bec02cdd-1789401804732-07290-_c3Zf8gQZ&terminal_id=ece622eecce547e0a10d750b3a8d32e0&afSmartRedirect=y&gatewayAdapt=glo2ara",
+            "status": 200,
+            "location": null
+          }
+        ]
+      },
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sdf9e699c097d41e4916b349860780455U.jpg",
+      "creativeSourceVerified": true,
+      "pinCreative": {
+        "path": "public/pinterest/covered-phone-holder-pin.png",
+        "width": 1024,
+        "height": 1536,
+        "reviewedNonClickbait": true,
+        "productDepiction": "The exact AliExpress source photograph is retained as the central panel; product shape, colours, angle, cover and phone are unchanged.",
+        "headline": "Keep Your Phone Off the Counter",
+        "subheadline": "Wall-Mounted Covered Holder"
+      }
     }
   ],
   "note": "Only verified, timestamped evidence belongs here. Unknown values must remain null."
