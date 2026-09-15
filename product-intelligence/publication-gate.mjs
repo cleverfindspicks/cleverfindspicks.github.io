@@ -2,10 +2,12 @@ import { readFile } from 'node:fs/promises';
 import { scoreCandidate } from './scoring.mjs';
 import { extractProductId } from './affiliate-destination.mjs';
 import {currencyGate} from './currency.mjs';
+import {imageGate} from '../media/image-validation.mjs';
 
 export function validatePublicationBundle(bundle) {
   const result = scoreCandidate(bundle.candidate);
   const errors = [];
+  if(!imageGate(bundle.candidate))errors.push('SKIPPED_IMAGE_NOT_VERIFIED: productImageVerified must be true with validated original-image evidence.');
   if(!currencyGate(bundle.candidate))errors.push('Currency Verification Gate: verified GBP evidence is required.');
   if (result.decision !== 'keep') errors.push(result.rejectionReason || 'Candidate did not pass scoring.');
   if (!bundle.landingPage?.slug || !(bundle.landingPage?.shortName || bundle.landingPage?.title) || !bundle.landingPage?.summary || !bundle.landingPage?.affiliateUrl) errors.push('Complete landing-page content is required.');

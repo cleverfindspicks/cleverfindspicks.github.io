@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import './affiliate-safety.css';
+import './discovery.css';
 import { Analytics } from '@/components/analytics';
 
 export const metadata: Metadata = {

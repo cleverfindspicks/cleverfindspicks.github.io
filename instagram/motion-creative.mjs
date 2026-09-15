@@ -6,6 +6,7 @@ import sharp from 'sharp';
 import ffmpeg from 'ffmpeg-static';
 import {creativeCopy} from './templates.mjs';
 import {validateFidelity} from './creative.mjs';
+import {prepareProductImage,recordProductMedia} from '../media/prepare-product-image.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 const execute=args=>new Promise((yes,no)=>{const p=spawn(process.env.CF_FFMPEG_PATH||ffmpeg,args,{windowsHide:true});let error='';p.stderr.on('data',b=>{error=(error+b).slice(-1500);});p.on('error',no);p.on('exit',code=>code===0?yes():no(new Error('Motion encoding failed: '+error)));});
@@ -13,6 +14,9 @@ export const motionSceneDurations=[2,3,3,2];
 export function motionTexts(candidate,history=[]){const copy=creativeCopy(candidate,history);return {copy,scenes:[[copy.hook],[copy.solution],[copy.benefits[0],copy.benefits[1]],['See today’s find','Link in bio']]};}
 export async function generateMotionReel(row,{sourceBytes=null,fetcher=fetch}={}){
  const {candidate}=JSON.parse(row.evidence_json);const url=new URL(candidate.image);
+ const verified=await prepareProductImage(candidate,{fetcher});
+ if(!verified.productImageVerified)throw new Error('SKIPPED_IMAGE_NOT_VERIFIED');
+ await recordProductMedia(row.product_slug,verified);
  if(url.protocol!=='https:'||!url.hostname.endsWith('.aliexpress-media.com'))throw new Error('Unapproved original image');
  let original=sourceBytes;if(!original){const r=await fetcher(url,{signal:AbortSignal.timeout(30000)});if(!r.ok)throw new Error('Original unavailable');original=Buffer.from(await r.arrayBuffer());}
  if(original.length>20e6)throw new Error('Original too large');
@@ -43,6 +47,8 @@ export async function generateMotionReel(row,{sourceBytes=null,fetcher=fetch}={}
  const posterPath=resolve('public/instagram',creativeId+'.png');await copyFile(join(work,'scene-0.png'),posterPath);
  const vtt='WEBVTT\n\n'+scenes.map((lines,i)=>{const start=[0,2,5,8][i],end=[2,5,8,10][i];return `00:${String(start).padStart(2,'0')}.000 --> 00:${String(end).padStart(2,'0')}.000\n${i===0?'Ad / affiliate. ':''}${lines.join('. ')}\n`;}).join('\n');await writeFile(resolve('public/instagram',creativeId+'.vtt'),vtt);
  const meta={creativeId,productId:String(candidate.productId),expectedProductId:String(row.product_id),sourceType:'ORIGINAL_ALIEXPRESS_IMAGE',sourceUrl:candidate.image,sourceSha256:sha(original),originalDimensions:{width:dimensions.width,height:dimensions.height},productImageFit:'contain',productMorphing:false,fabricatedBeforeAfter:false,variantAltered:false,rightsBasis:'CURRENT_AFFILIATE_WORKFLOW_PRODUCT_IMAGE_ONLY',listingVideoUsed:false,commercialMusicUsed:false,width:1080,height:1920,durationSeconds:10,fps:30,reelSha256:sha(await readFile(assetPath)),assetPath,posterPath,publicAssetUrl:`https://cleverfindspicks.github.io/instagram/${creativeId}.mp4`,template:'motion-v2',hook:copy.hook,caption:copy.caption,disclosure:'Ad / affiliate',claimsSource:copy.claimsSource,scenes:scenes.map((text,i)=>({start:[0,2,5,8][i],end:[2,5,8,10][i],text})),cameraMotion:'Independent pan/zoom, alternating directions; separate sliding/fading text'};
+ meta.productImageVerified=verified.productImageVerified;meta.productImageVerification=verified.productImageVerification;
+ if(meta.sourceSha256!==verified.productImageVerification.sha256)throw new Error('SKIPPED_IMAGE_NOT_VERIFIED: source changed during creative generation');
  if(!validateFidelity(meta).ok)throw new Error('Motion fidelity gate rejected');
  await writeFile(join(work,'creative.json'),JSON.stringify(meta,null,2));return meta;
 }

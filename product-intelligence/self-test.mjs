@@ -71,6 +71,9 @@ const clusters = scoreClusters([
 assert.equal(clusters[0].cluster, 'under-sink-storage');
 assert.ok(clusters[0].searchPriorityMultiplier > clusters[1].searchPriorityMultiplier);
 
+strong.image='https://ae-pic-a1.aliexpress-media.com/kf/fixture.jpg';
+strong.productImageVerified=true;
+strong.productImageVerification={productId:strong.productId,sourceUrl:strong.image,sameProductConfirmed:true,placeholder:false,httpStatus:200,contentType:'image/jpeg',sha256:'a'.repeat(64),verifiedAt:new Date().toISOString()};
 const validBundle = validatePublicationBundle({ candidate: strong, verification: { productId: strong.productId }, landingPage: { slug: 'example', title: 'Example', summary: 'Summary', affiliateUrl: strong.affiliateUrl }, rssItem: { title: 'Example', link: 'https://cleverfindspicks.github.io/finds/example', image: '/pin.png' } });
 assert.equal(validBundle.ok, true);
 assert.equal(validatePublicationBundle({ candidate: { ...strong, affiliateDestinationVerified: false }, verification: { productId: strong.productId }, landingPage: { slug: 'example', title: 'Example', summary: 'Summary', affiliateUrl: strong.affiliateUrl }, rssItem: { title: 'Example', link: 'https://cleverfindspicks.github.io/finds/example', image: '/pin.png' } }).ok, false, 'An unverified affiliate destination must block publication.');
@@ -83,7 +86,8 @@ const homeSource = await readFile(new URL('../app/page.tsx', import.meta.url), '
 assert.equal((productSource.match(/\n  \{\n    slug:/g) || []).length, 14, 'The existing catalogue must remain at 14 products.');
 assert.equal(hiddenLegacyRecommendationSlugs.length, 7, 'Exactly the seven legacy rejects must be hidden from recommendation lists.');
 assert.ok(hiddenLegacyRecommendationSlugs.every((slug) => products.some((product) => product.slug === slug)), 'Hidden products must remain in the catalogue so their legacy pages keep working.');
-assert.match(homeSource, /products\.filter\(\(product\) => isVisibleRecommendation\(product\.slug\)\)/, 'The homepage must filter legacy rejects from recommendations.');
+assert.match(homeSource, /products\.filter\([\s\S]*isVisibleRecommendation\(/, 'The homepage must filter legacy rejects from recommendations.');
+assert.match(homeSource,/discoveryEligible\(p\)/,'Homepage discovery requires verified image and active affiliate CTA.');
 assert.match(rssSource, /product\.pinImage \?\? product\.image/, 'RSS must use the custom pin when available.');
 assert.match(pageSource, /AffiliateLink/, 'Landing pages must use the tracked affiliate CTA.');
 assert.match(pageSource, /affiliateDestinationVerified/, 'Landing pages must disable unverified affiliate destinations.');

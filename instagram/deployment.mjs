@@ -11,10 +11,10 @@ export async function deployInstagramChanges(){
   // Only Instagram assets are staged. An isolated committed snapshot preserves
   // unrelated in-progress Pinterest work without deploying it.
   if(git(['diff','--cached','--name-only']))throw new Error('Existing staged work; refusing unattended commit');
-  run(process.execPath,['--test','instagram/tests/instagram.test.mjs','instagram/tests/oauth.test.mjs','instagram/tests/store-experience.test.mjs','instagram/tests/schedule.test.mjs']);
+  run(process.execPath,['--test','media/tests/media.test.mjs','instagram/tests/instagram.test.mjs','instagram/tests/oauth.test.mjs','instagram/tests/store-experience.test.mjs','instagram/tests/schedule.test.mjs']);
   run(process.execPath,['--test','--test-skip-pattern=missing external credentials','product-intelligence/tests/performance.test.mjs']);
   run(process.execPath,['product-intelligence/self-test.mjs']);
-  run('git',['add','--','app/instagram-publications.json','public/instagram']);
+  run('git',['add','--','app/instagram-publications.json','public/instagram','app/product-media.json','public/products/verified']);
   if(git(['diff','--cached','--name-only']))run('git',['commit','-m','Update Instagram creative and hub']);
   const local=resolve('product-intelligence/.local');await mkdir(local,{recursive:true});
   const stage=await mkdtemp(join(local,'instagram-deploy-'));

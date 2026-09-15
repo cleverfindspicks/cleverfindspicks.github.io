@@ -3,6 +3,10 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { checkedAt, getProduct, products } from '../../products';
 import { AffiliateLink, ProductView } from '@/components/affiliate-link';
+import {categoryLabel,discoveryEligible,matchesDiscovery,discoveryMetadata} from '../../../lib/catalog-discovery';
+import {isVisibleRecommendation} from '../../catalog-visibility';
+import {ProductCard} from '@/components/product-discovery';
+import {titleSimilarity} from '../../../product-intelligence/similarity.mjs';
 
 export function generateStaticParams() {
   return products.map(({ slug }) => ({ slug }));
@@ -17,6 +21,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const product = getProduct((await params).slug);
   if (!product) notFound();
+  const category=discoveryMetadata(product).primaryCategory;
+  const related=products.filter(p=>p.slug!==product.slug&&p.productId!==product.productId&&titleSimilarity(p.shortName,product.shortName)<0.72&&discoveryEligible(p)&&isVisibleRecommendation(p.slug)&&(matchesDiscovery(p,{category})||p.cluster===product.cluster)).sort((a,b)=>b.publishedAt.localeCompare(a.publishedAt)).filter((p,i,rows)=>rows.findIndex(r=>r.productId===p.productId)===i&&!rows.slice(0,i).some(r=>titleSimilarity(r.shortName,p.shortName)>=0.72)).slice(0,3);
   const identity = {
     productId: product.productId!, productSlug: product.slug, cluster: product.cluster!,
     pinTrackingId: product.pinTrackingId!, publicationId: product.publicationId!,
@@ -31,8 +37,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <a className="brand-lockup" href="/"><img src="/clever-finds.png" alt="" width="42" height="42" /><span>Clever Finds</span></a>
         <a className="back-link" href="/#finds">← All finds</a>
       </header>
+      <nav className="category-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href={`/category/${category}/`}>{categoryLabel(category)}</a><span aria-hidden="true">/</span><span>{product.shortName}</span></nav>
       <article className="detail product-story">
-        <div className="detail-image"><img src={product.image} alt={product.name} width="900" height="900" /></div>
+        <div className="detail-image">{product.productImageVerified&&product.displayImage?<img src={product.displayImage} alt={product.name} width="900" height="900"/>:<p>Original product image temporarily unavailable.</p>}</div>
         <div className="detail-copy">
           <p className="eyebrow">{product.eyebrow} · SHORTLISTED PICK</p>
           <h1>{product.shortName}</h1>
@@ -83,6 +90,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div><p className="eyebrow">BEST FOR</p><ul>{product.bestFor.map((item) => <li key={item}>{item}</li>)}</ul></div>
         <div><p className="eyebrow">CHECK BEFORE BUYING</p><ul>{product.checks.map((item) => <li key={item}>{item}</li>)}</ul></div>
       </section>
+      <section className="related-finds"><h2>Related finds</h2><div className="product-grid">{related.map(p=><ProductCard key={p.slug} product={p}/>)}</div><p><a className="text-link" href={`/category/${category}/`}>← Back to {categoryLabel(category)}</a></p></section>
       <section className="newsletter-panel" aria-labelledby="newsletter-title">
         <div><p className="eyebrow">THE NEXT CLEVER FIND</p><h2 id="newsletter-title">Get new small-space picks by email.</h2></div>
         <p>One useful roundup, no clutter. The signup form will open here as soon as our mailing list is connected.</p>

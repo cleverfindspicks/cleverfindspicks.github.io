@@ -1,5 +1,7 @@
 import generatedProducts from './generated-products.json' with { type: 'json' };
 import affiliateDestinations from './affiliate-destinations.json' with { type: 'json' };
+import productMedia from './product-media.json' with {type:'json'};
+import {discoveryMetadata} from '../lib/catalog-discovery.ts';
 
 export type Product = {
   slug: string;
@@ -27,6 +29,20 @@ export type Product = {
   publishedAt: string;
   bestFor: string[];
   checks: string[];
+  displayImage?:string;
+  productImageVerified?:boolean;
+  ctaDisabled?:boolean;
+  primaryCategory?:string;
+  secondaryCategories?:string[];
+  room?:string;
+  tags?:string[];
+  keywords?:string[];
+  problemSolved?:string;
+  renterFriendly?:boolean;
+  noDrill?:boolean;
+  smallSpace?:boolean;
+  currencyVerified?:boolean;
+  verifiedPriceGbp?:number|null;
 };
 
 export const checkedAt = '11 September 2026';
@@ -261,9 +277,16 @@ const destinationBySlug = new Map((affiliateDestinations.records as DestinationR
 export const products: Product[] = [...existingProducts, ...(generatedProducts as Product[])].map((product) => {
   const destination = destinationBySlug.get(product.slug);
   const stableProductId = String(destination?.productId ?? product.productId ?? `legacy:${product.slug}`);
+  const media = productMedia.records.find(record=>record.slug===product.slug&&String(record.productId)===stableProductId&&record.sourceImageUrl===product.image) as {productImageVerified?:boolean;localPublicPath?:string;verifiedPriceGbp?:number;currencyVerified?:boolean;priceVerifiedAt?:string}|undefined;
+  const priceVerified=media?.currencyVerified===true&&!!media.priceVerifiedAt&&Date.now()-Date.parse(media.priceVerifiedAt)<86400000&&Date.parse(media.priceVerifiedAt)<=Date.now();
   const publishedDate = product.publishedAt.slice(0, 10);
   return {
     ...product,
+    ...discoveryMetadata(product),
+    displayImage:media?.productImageVerified&&media.localPublicPath?media.localPublicPath:undefined,
+    productImageVerified:media?.productImageVerified===true,
+    currencyVerified:priceVerified,
+    verifiedPriceGbp:priceVerified?media?.verifiedPriceGbp:null,
     productId: stableProductId,
     canonicalProductUrl: destination?.canonicalProductUrl ?? product.canonicalProductUrl ?? null,
     affiliateUrl: destination?.affiliateUrl ?? product.affiliateUrl,

@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {visibleInstagramFinds,searchInstagramFinds} from '../hub-policy.mjs';
 import {motionTexts,motionSceneDurations} from '../motion-creative.mjs';
-const product={slug:'sink',productId:'123',shortName:'Sink organiser',summary:'Keep essentials together',cluster:'tiny-kitchen',image:'original',affiliateDestinationVerified:true};
+const product={slug:'sink',productId:'123',shortName:'Sink organiser',summary:'Keep essentials together',cluster:'tiny-kitchen',image:'original',displayImage:'/products/verified/sink.jpg',productImageVerified:true,affiliateDestinationVerified:true};
 const record={productSlug:'sink',productId:'123',mediaId:'m',publishedAt:'2026-09-15',currencyVerified:true,productApproved:true,publicationStatus:'LIVE',caption:'Sponge holder',trackingId:'ig-original'};
 test('hub excludes test/deleted/disabled and Pinterest-only products',()=>{for(const patch of [{publicationStatus:'TEST'},{publicationStatus:'DELETED'},{deleted:true},{test:true},{currencyVerified:false},{mediaId:null},{productId:'wrong'}])assert.equal(visibleInstagramFinds([{...record,...patch}],[product]).length,0);assert.equal(visibleInstagramFinds([record],[{...product,ctaDisabled:true}]).length,0);assert.equal(visibleInstagramFinds([],[product]).length,0);});
 test('latest ordering, deduplication and original tracking retained',()=>{const result=visibleInstagramFinds([{...record,publishedAt:'2026-01-01'},record],[product]);assert.equal(result.length,1);assert.equal(result[0].record.publishedAt,'2026-09-15');assert.equal(result[0].record.trackingId,'ig-original');});

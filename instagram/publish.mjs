@@ -4,6 +4,7 @@ import { validateFidelity } from './creative.mjs';
 import { transition,retryDelay } from './queue.mjs';
 import config from './config.json' with { type: 'json' };
 import {currencyGate} from '../product-intelligence/currency.mjs';
+import {imageGate} from '../media/image-validation.mjs';
 
 export async function publishQueued(db,row,api,{verifyDestination,fetcher=fetch}={}) {
   if(row.dry_run)return {status:'DRY_RUN_NO_API_CALL'};
@@ -12,6 +13,7 @@ export async function publishQueued(db,row,api,{verifyDestination,fetcher=fetch}
   if(!['READY','PUBLISHING','FAILED_RETRYABLE'].includes(row.state))return {status:'NOT_READY'};
   if(!currencyGate(JSON.parse(row.evidence_json||'{}').candidate||{}))return {status:'CURRENCY_VERIFICATION_REJECTED'};
   const meta=JSON.parse(row.creative_json || '{}');
+  if(!row.publish_uncertain&&!imageGate({...JSON.parse(row.evidence_json).candidate,productImageVerified:meta.productImageVerified,productImageVerification:meta.productImageVerification}))return {status:'SKIPPED_IMAGE_NOT_VERIFIED'};
   if(!validateFidelity(meta).ok || !row.caption?.startsWith('Ad / affiliate'))throw new Error('Creative/disclosure gate rejected');
   const localSha=createHash('sha256').update(await readFile(row.asset_path)).digest('hex');
   if(localSha!==meta.reelSha256)throw new Error('Creative hash changed after validation');

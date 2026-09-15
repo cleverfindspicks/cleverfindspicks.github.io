@@ -2,10 +2,12 @@ import { copyFile, readFile, writeFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { basename, resolve } from 'node:path';
 import { validatePublicationBundle } from './publication-gate.mjs';
+import {prepareProductImage,recordProductMedia} from '../media/prepare-product-image.mjs';
 
 const bundlePath = process.argv[2];
 if (!bundlePath) throw new Error('Usage: node product-intelligence/publish-approved.mjs <approved-bundle.json>');
 const bundle = JSON.parse(await readFile(bundlePath, 'utf8'));
+bundle.candidate=await prepareProductImage(bundle.candidate);
 const gate = validatePublicationBundle(bundle);
 if (!gate.ok) {
   console.error(JSON.stringify({ ok: false, status: 'BLOCKED_BY_PUBLICATION_GATE', errors: gate.errors }, null, 2));
@@ -15,6 +17,8 @@ const target = new URL('../app/generated-products.json', import.meta.url);
 const before = await readFile(target, 'utf8');
 const products = JSON.parse(before);
 if (products.some((item) => item.slug === bundle.landingPage.slug)) throw new Error('Generated product slug already exists.');
+const mediaBefore=await readFile(new URL('../app/product-media.json',import.meta.url),'utf8');
+await recordProductMedia(bundle.landingPage.slug,bundle.candidate);
 const creativeSource = resolve(bundle.candidate.pinCreative.path);
 const creativeName = basename(creativeSource);
 await copyFile(creativeSource, new URL(`../public/pinterest/${creativeName}`, import.meta.url));
@@ -41,6 +45,7 @@ const build = process.platform === 'win32'
   : spawnSync('pnpm', ['build'], { cwd: new URL('..', import.meta.url), stdio: 'inherit' });
 if (build.status !== 0) {
   await writeFile(target, before);
+  await writeFile(new URL('../app/product-media.json',import.meta.url),mediaBefore);
   throw new Error('Build failed; generated-products.json was rolled back.');
 }
 console.log(JSON.stringify({ ok: true, status: 'BUILT_AWAITING_GIT_PUBLISH', slug: bundle.landingPage.slug }));
