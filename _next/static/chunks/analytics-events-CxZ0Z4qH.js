@@ -1,0 +1,1 @@
+import{r as e}from"./tracking-CJCH7q7Q.js";function t(t,n){let r=e(window.location.search);window.gtag?.(`event`,t,{...n,...r,pin_tracking_id:r.utm_source===`instagram`?null:r.pin_tracking_id||n.pin_tracking_id||null,transport_type:`beacon`})}export{t};
