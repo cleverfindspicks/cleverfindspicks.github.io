@@ -12,7 +12,7 @@ export function creativeCopy(candidate, history = []) {
   return {
     concept: concepts[(history.length)%concepts.length], hook, benefits,
     solution: vacuum ? 'Vacuum storage bags' : sink ? 'Sink organisation' : bin ? 'A compact desktop bin' : 'Practical home organisation',
-    cta: 'Find it at Clever Finds — link in bio',
+    cta: 'See today’s find — link in bio',
     caption: `Ad / affiliate. ${hook}\n\n${vacuum ? 'Vacuum storage bags offer another way to organise bulky clothes and bedding in a small home.' : sink ? 'Bring sink essentials together with a compact organisation option. Check the dimensions and selected variant for your kitchen.' : 'A practical organisation find for compact homes. Check the dimensions and exact option before ordering.'}\n\nSee this find through the link in our bio. Check the current price and UK delivery on the listing.\n\nWe earn a commission from qualifying purchases at no extra cost to you.\n\n${vacuum ? '#HomeOrganisation #WardrobeStorage #SmallSpaceLiving #UKHomes' : sink ? '#SmallKitchen #HomeOrganisation #StorageIdeas #UKHomes' : '#HomeOrganisation #SpaceSaving #SmallSpaceLiving'}`,
     disclosure: 'Ad / affiliate', claimsSource: 'Existing qualified product title; no price, delivery-time, pack-count or unverified performance claims.',
   };

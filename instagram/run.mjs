@@ -10,6 +10,8 @@ import {publishQueued} from './publish.mjs';
 import {resolveAffiliateDestination} from '../product-intelligence/affiliate-destination.mjs';
 import {exportHub} from './export-hub.mjs';
 import {deployInstagramChanges} from './deployment.mjs';
+import {activationDecision} from './activation.mjs';
+import {refreshProductEvidence} from './product-evidence.mjs';
 
 export async function runInstagram({force=false,deploy=deployInstagramChanges}={}) {
   const db=openInstagramStore();
@@ -35,6 +37,10 @@ export async function runInstagram({force=false,deploy=deployInstagramChanges}={
     if(hubRepair.status!==0)await deploy();
     // Complete/reconcile an earlier job independently of today's schedule.
     let row=db.prepare("SELECT * FROM instagram_queue WHERE dry_run=0 AND state IN ('PENDING','CREATIVE_GENERATING','READY','PUBLISHING','FAILED_RETRYABLE') ORDER BY scheduled_day LIMIT 1").get();
+    const publishedCount=db.prepare("SELECT COUNT(*) n FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED'").get().n;
+    const approved=db.prepare("SELECT status FROM instagram_health WHERE name='INSTAGRAM_DAILY_APPROVAL'").get()?.status==='APPROVED';
+    const activation=activationDecision({publishedCount,approved,force,uncertain:!!row?.publish_uncertain});
+    if(['TRIAL_PENDING','TRIAL_REVIEW_REQUIRED'].includes(activation))return {status:activation,pinterestUnaffected:true};
     if(!row && !force && !isScheduleDue())return {status:'OUTSIDE_LONDON_SLOT',pinterestUnaffected:true};
     const day=londonClock().day;
     const alreadyPublishedToday=db.prepare("SELECT instagram_publication_id,published_at FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED'").all().filter(p=>londonClock(new Date(p.published_at)).day===day);
@@ -58,7 +64,10 @@ export async function runInstagram({force=false,deploy=deployInstagramChanges}={
     // checked against the local validated hash. Propagation simply retries.
     if(!row.container_id&&!row.publish_uncertain)await deploy();
     const publicationOptions={verifyDestination:async r=>{
-      const {product}=JSON.parse(r.evidence_json);return resolveAffiliateDestination(product.affiliateUrl,r.product_id);
+      const {product,candidate}=JSON.parse(r.evidence_json);
+      const [fresh]=await refreshProductEvidence([{product,candidate}]);
+      if(!fresh?.currencyPassed||fresh.candidate.decision!=='keep'||Math.abs(fresh.candidate.metrics.priceGbp-candidate.metrics.priceGbp)/candidate.metrics.priceGbp>0.08||fresh.candidate.image!==candidate.image)return {pass:false,reason:'CURRENT_PRODUCT_CURRENCY_PRICE_OR_IMAGE_GATE_FAILED'};
+      return resolveAffiliateDestination(product.affiliateUrl,r.product_id);
     }};
     let result=await publishQueued(db,row,api,publicationOptions);
     for(let attempt=0;result.status==='CONTAINER_PROCESSING' && attempt<3;attempt++){

@@ -25,6 +25,7 @@ try{
   const shortToken=await hiddenQuestion('Official Instagram dashboard access token (hidden, local only): ');
   const credentials=await exchangeLongLived(shortToken.trim(),appSecret.trim());
   const profile=await new InstagramApi({...credentials,userId:'me'}).profile();
+  if(profile.username?.toLowerCase()!=='cleverfindspicks')throw new Error('Authorized account is not cleverfindspicks; credentials were not saved.');
   const userId=String(profile.user_id||profile.id||'');if(!/^\d+$/.test(userId))throw new Error('Official API did not return an Instagram user ID');
   await saveCredentials({...credentials,userId});
   console.log(JSON.stringify({ok:true,status:'CONNECTED',expiresAt:credentials.expiresAt,credentialsSaved:'private-local-only'}));

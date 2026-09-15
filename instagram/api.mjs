@@ -42,6 +42,7 @@ export function tokenHealth(credentials,now=Date.now()) {
   if(!credentials?.token || !credentials?.userId)return 'NOT_CONFIGURED';
   if(!credentials.expiresAt)return 'TOKEN_EXPIRING';
   const remaining=new Date(credentials.expiresAt).getTime()-now;
+  if(!Number.isFinite(remaining))return 'TOKEN_EXPIRING';
   if(remaining<=0)return 'TOKEN_EXPIRED';
   return remaining<7*86400000?'TOKEN_EXPIRING':'CONNECTED';
 }

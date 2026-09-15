@@ -3,19 +3,21 @@ import { createHash } from 'node:crypto';
 import { validateFidelity } from './creative.mjs';
 import { transition,retryDelay } from './queue.mjs';
 import config from './config.json' with { type: 'json' };
+import {currencyGate} from '../product-intelligence/currency.mjs';
 
 export async function publishQueued(db,row,api,{verifyDestination,fetcher=fetch}={}) {
   if(row.dry_run)return {status:'DRY_RUN_NO_API_CALL'};
   if(row.state==='PUBLISHED')return {status:'ALREADY_PUBLISHED',mediaId:row.media_id};
   if(row.next_attempt_at&&new Date(row.next_attempt_at)>new Date())return {status:'WAITING_BACKOFF'};
   if(!['READY','PUBLISHING','FAILED_RETRYABLE'].includes(row.state))return {status:'NOT_READY'};
+  if(!currencyGate(JSON.parse(row.evidence_json||'{}').candidate||{}))return {status:'CURRENCY_VERIFICATION_REJECTED'};
   const meta=JSON.parse(row.creative_json || '{}');
   if(!validateFidelity(meta).ok || !row.caption?.startsWith('Ad / affiliate'))throw new Error('Creative/disclosure gate rejected');
   const localSha=createHash('sha256').update(await readFile(row.asset_path)).digest('hex');
   if(localSha!==meta.reelSha256)throw new Error('Creative hash changed after validation');
   if(!row.publish_uncertain){
     const destination=await verifyDestination(row);
-    if(!destination.pass){transition(db,row.instagram_publication_id,'FAILED_PERMANENT',{last_error:'BROKEN_AFFILIATE_DESTINATION'});return {status:'DESTINATION_REJECTED'};}
+    if(!destination.pass){transition(db,row.instagram_publication_id,'FAILED_PERMANENT',{last_error:destination.reason||'BROKEN_AFFILIATE_DESTINATION'});return {status:'DESTINATION_REJECTED'};}
     const response=await fetcher(row.public_asset_url,{signal:AbortSignal.timeout(30000)});
     if(!response.ok || !response.headers.get('content-type')?.includes('video/mp4'))throw new Error('Public Reel asset not ready');
     const remoteSha=createHash('sha256').update(Buffer.from(await response.arrayBuffer())).digest('hex');

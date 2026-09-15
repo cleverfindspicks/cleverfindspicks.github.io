@@ -4,6 +4,7 @@ import { products } from '../app/products.ts';
 import { isVisibleRecommendation } from '../app/catalog-visibility.ts';
 import { instagramSuitability } from './suitability.mjs';
 import config from './config.json' with { type: 'json' };
+import {refreshProductEvidence} from './product-evidence.mjs';
 
 export async function qualifiedCatalogue(db) {
   const bundles = [];
@@ -22,8 +23,11 @@ export async function qualifiedCatalogue(db) {
   const cooldown = new Date(Date.now() - config.selection.repeatCooldownDays * 86400000).toISOString();
   const recent = db.prepare("SELECT product_id FROM instagram_queue WHERE dry_run=0 AND state IN ('PUBLISHED','PENDING','CREATIVE_GENERATING','READY','PUBLISHING','FAILED_RETRYABLE','FAILED_PERMANENT') AND created_at>=?").all(cooldown).map((row) => row.product_id);
   const last = db.prepare("SELECT cluster FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED' ORDER BY published_at DESC LIMIT ?").all(config.selection.maximumConsecutiveClusterWins);
-  return products.filter((p) => isVisibleRecommendation(p.slug) && p.affiliateDestinationVerified).flatMap((product) => {
-    const candidate = receipts.get(product.slug);
+  const current=await refreshProductEvidence(products.filter((p) => isVisibleRecommendation(p.slug) && p.affiliateDestinationVerified).flatMap(product=>{
+    const candidate=receipts.get(product.slug);
+    return candidate&&String(candidate.productId)===String(product.productId)?[{product,candidate}]:[];
+  }));
+  return current.flatMap(({product,candidate}) => {
     const required = candidate?.evidence?.requiredForPublication;
     if (!candidate || candidate.decision !== 'keep' || !required || Object.values(required).some((value) => value !== true) || String(candidate.productId) !== String(product.productId)) return [];
     const suitability = instagramSuitability(candidate, { recentProductIds: recent });

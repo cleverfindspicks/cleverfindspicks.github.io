@@ -42,6 +42,9 @@
     "instagram:import": "node instagram/import-metrics.mjs",
     "instagram:report": "node instagram/report.mjs",
     "instagram:connect": "node instagram/connect.mjs",
+    "instagram:oauth": "node instagram/oauth-connect.mjs",
+    "instagram:trial": "node instagram/run.mjs --force",
+    "instagram:approve-trial": "node instagram/approve-trial.mjs",
     "instagram:test": "node --test instagram/tests/*.test.mjs",
     "lint": "oxlint",
     "format": "oxfmt"
