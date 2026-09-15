@@ -46,8 +46,8 @@ export function tokenHealth(credentials,now=Date.now()) {
   if(remaining<=0)return 'TOKEN_EXPIRED';
   return remaining<7*86400000?'TOKEN_EXPIRING':'CONNECTED';
 }
-export function oauthAuthorizeUrl({appId,redirectUri,state}) {
+export function oauthAuthorizeUrl({appId,redirectUri,state,scopes=config.requestedScopes}) {
   const url=new URL('https://www.instagram.com/oauth/authorize');
-  for(const [k,v] of Object.entries({client_id:appId,redirect_uri:redirectUri,response_type:'code',scope:config.requestedScopes.join(','),state,enable_fb_login:'0',force_authentication:'1'}))url.searchParams.set(k,v);
+  for(const [k,v] of Object.entries({client_id:appId,redirect_uri:redirectUri,response_type:'code',scope:scopes.join(','),state,enable_fb_login:'0',force_authentication:'1'}))url.searchParams.set(k,v);
   return url.toString();
 }

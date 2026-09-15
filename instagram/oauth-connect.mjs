@@ -7,7 +7,7 @@ try{
   const existing=await loadCredentials();
   const appId=existing.appId||await hiddenQuestion('Instagram App ID (local): ');
   const appSecret=existing.appSecret||await hiddenQuestion('Instagram App Secret (hidden, local only): ');
-  const {session,url}=beginOAuth(appId);
+  const {session,url}=beginOAuth(appId,Date.now(),{includeInsights:process.argv.includes('--insights')});
   console.log('Open this official consent URL yourself. Sign in as cleverfindspicks:\n'+url);
   const callback=await hiddenQuestion('Paste the full returned callback URL (hidden, never into chat): ');
   const credentials=await completeOAuth(callback,session,appSecret);

@@ -2,9 +2,9 @@ import {randomBytes,timingSafeEqual} from 'node:crypto';
 import {oauthAuthorizeUrl,InstagramApi} from './api.mjs';
 import {exchangeLongLived} from './credentials.mjs';
 export const redirectUri='https://cleverfindspicks.github.io/instagram-connect/';
-export function beginOAuth(appId,now=Date.now()){
+export function beginOAuth(appId,now=Date.now(),{includeInsights=false}={}){
   if(!/^\d+$/.test(appId||''))throw new Error('Enter the Instagram App ID from API setup with Instagram login.');
-  const session={appId,redirectUri,state:randomBytes(32).toString('hex'),createdAt:now};
+  const session={appId,redirectUri,state:randomBytes(32).toString('hex'),createdAt:now,scopes:['instagram_business_basic','instagram_business_content_publish',...(includeInsights?['instagram_business_manage_insights']:[])]};
   return {session,url:oauthAuthorizeUrl(session)};
 }
 export function validateCallback(value,session,now=Date.now()){
