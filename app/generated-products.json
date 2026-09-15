@@ -187,5 +187,40 @@
     "searchQuery": "wardrobe space saving",
     "cluster": "wardrobe-storage",
     "publishedAt": "2026-09-14T19:11:17.953Z"
+  },
+  {
+    "slug": "kitchen-countertop-storage-rack",
+    "eyebrow": "TINY KITCHEN STORAGE",
+    "name": "New Kitchen Shelf Countertop Multi-functional Electrical Storage Rack Multi-layer Cup Holder Household Storage Rack Plat",
+    "shortName": "Kitchen countertop storage rack",
+    "summary": "A freestanding kitchen storage rack for keeping countertop essentials together. Check the exact dimensions, shelf layout and selected option against your available space.",
+    "price": "From £22.36",
+    "positiveFeedback": "100%",
+    "recentVolume": "90",
+    "image": "https://ae-pic-a1.aliexpress-media.com/kf/Sf6f14d5a14db457abef13f058f86c766J.jpg",
+    "affiliateUrl": "https://s.click.aliexpress.com/e/_c4UX1Ppj",
+    "productId": "1005009902905133",
+    "canonicalProductUrl": "https://www.aliexpress.com/item/1005009902905133.html",
+    "affiliateDestinationVerified": true,
+    "affiliateDestinationStatus": "PASS_EXACT_PRODUCT_ID",
+    "affiliateDestinationCheckedAt": "2026-09-15T19:06:42.104Z",
+    "bestFor": [
+      "Keeping kitchen essentials together",
+      "Organising countertop items",
+      "Checking fit in a compact kitchen"
+    ],
+    "checks": [
+      "Check the exact dimensions against your available space.",
+      "Confirm the selected option and quantity on AliExpress.",
+      "Check the current delivered price before ordering."
+    ],
+    "pinImage": "https://cleverfindspicks.github.io/pinterest/kitchen-countertop-storage-rack-pin.png",
+    "publicationId": "pub:kitchen-countertop-storage-rack:2026-09-15",
+    "pinTrackingId": "pin-cfp-5eb274aba5c1-2026-09-15",
+    "pinterestPinId": null,
+    "automationRunId": "cf-run-20260915T190311-35d503e2",
+    "searchQuery": "narrow kitchen storage",
+    "cluster": "tiny-kitchen-storage",
+    "publishedAt": "2026-09-15T19:04:52.510Z"
   }
 ]
