@@ -12,6 +12,8 @@ import { canonicalProductUrl, classifyDestination, extractProductId } from './af
 assert.equal(Object.values(config.weights).reduce((sum, value) => sum + value, 0), 100, 'Weights must total 100.');
 
 const strong = {
+  currencyVerified:true,
+  currencyVerification:{currency_verified:true,verified_price_gbp:24},
   productId: '1005000000000001',
   trackingId: 'cfp-example-1',
   pinId: 'pin-cfp-example-1-2026-09-13',

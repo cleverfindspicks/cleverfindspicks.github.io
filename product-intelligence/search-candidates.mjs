@@ -6,6 +6,7 @@ import { scoreCandidates } from './scoring.mjs';
 import { maximumSimilarity } from './similarity.mjs';
 import { products as publishedProducts } from '../app/products.ts';
 import { classifyEvidence, enrichCandidate, priceBenchmarks } from './enrichment.mjs';
+import {verifyCurrency,commissionMetrics,currencyFields} from './currency.mjs';
 
 const env = parseEnv(await readFile(new URL('../.env.local', import.meta.url), 'utf8'));
 const key = env.ALIEXPRESS_APP_KEY?.trim();
@@ -35,7 +36,7 @@ async function search(query, pageNo, sortMode) {
     ship_to_country: config.market.country,
     target_currency: config.market.currency,
     target_language: config.market.language,
-    fields: 'product_id,product_title,product_main_image_url,product_detail_url,promotion_link,sale_price,original_price,commission_rate,commission_amount,evaluate_rate,lastest_volume,shop_url,ship_to_days',
+    fields: 'product_id,product_title,product_main_image_url,product_detail_url,promotion_link,evaluate_rate,lastest_volume,shop_url,ship_to_days,'+currencyFields,
   };
   if (sortMode === 'LAST_VOLUME_DESC') params.sort = sortMode;
   const canonical = Object.keys(params).sort().map((name) => name + params[name]).join('');
@@ -50,16 +51,16 @@ async function search(query, pageNo, sortMode) {
   const products = result?.result?.products?.product;
   if (!response.ok || Number(result?.resp_code) !== 200 || !Array.isArray(products)) return [];
   return products.map((item) => {
-    const priceGbp = Number(item.sale_price) || null;
-    const commissionRatePct = Number.parseFloat(item.commission_rate) || null;
-    const apiCommissionAmount = Number(item.commission_amount) || null;
-    const commissionAmountGbp = apiCommissionAmount ?? (priceGbp && commissionRatePct ? Number((priceGbp * commissionRatePct / 100).toFixed(2)) : null);
+    const priceVerification=verifyCurrency(item,{source:'AliExpress Affiliate Product Query'});
+    const priceMetrics=commissionMetrics(item,priceVerification);
     const title = String(item.product_title || '');
     const trackingId = `cfp-${createHash('sha256').update(String(item.product_id)).digest('hex').slice(0, 12)}`;
     const commercialTerms = /(organiser|organizer|storage|rack|shelf|drawer|hanger|basket|hook|foldable|space saving)/i;
     const intent = commercialTerms.test(`${query} ${title}`) ? 0.75 : 0.45;
     return ({
     productId: String(item.product_id),
+    ...priceVerification,
+    currencyVerification:priceVerification,
     trackingId,
     pinId: `pin-${trackingId}-${new Date().toISOString().slice(0, 10)}`,
     runId,
@@ -73,12 +74,9 @@ async function search(query, pageNo, sortMode) {
     affiliateUrl: item.promotion_link || null,
     cluster: config.queryClusters[query] || 'unclassified',
     metrics: {
-      priceGbp,
+      ...priceMetrics,
       feedbackPct: Number.parseFloat(item.evaluate_rate) || null,
       recentVolume: Number(item.lastest_volume) || 0,
-      commissionRatePct,
-      commissionAmountGbp,
-      commissionAmountSource: apiCommissionAmount ? 'api' : commissionAmountGbp ? 'calculated-from-price-and-rate' : 'unknown'
     },
     expectedPriceBandGbp: null,
     shipping: {
@@ -124,7 +122,7 @@ async function detail(products) {
     target_currency: config.market.currency,
     target_language: config.market.language,
     tracking_id: trackingId,
-    fields: 'product_id,product_title,product_main_image_url,product_detail_url,promotion_link,sale_price,commission_rate,commission_amount,evaluate_rate,lastest_volume,ship_to_days',
+    fields: 'product_id,product_title,product_main_image_url,product_detail_url,promotion_link,evaluate_rate,lastest_volume,ship_to_days,'+currencyFields,
   };
   const canonical = Object.keys(params).sort().map((name) => name + params[name]).join('');
   const sign = createHmac('sha256', secret).update(canonical, 'utf8').digest('hex').toUpperCase();
@@ -157,20 +155,23 @@ const detailById = new Map(details.map((item) => [String(item.product_id), item]
 const detailed = deduped.map((candidate) => {
   const item = detailById.get(candidate.productId);
   if (!item) return { ...candidate, detailVerification: { productIdMatched: false, checkedAt: new Date().toISOString(), source: 'AliExpress Affiliate Product Detail API (GB)' } };
-  const detailPrice = Number(item.sale_price) || null;
+  const priceVerification=verifyCurrency(item,{source:'AliExpress Affiliate Product Detail'});
+  const priceMetrics=commissionMetrics(item,priceVerification);
+  const detailPrice = priceMetrics.priceGbp;
   const queryPrice = Number(candidate.metrics.priceGbp) || null;
   const priceMatched = Boolean(detailPrice && queryPrice && Math.abs(detailPrice - queryPrice) / Math.max(detailPrice, queryPrice) <= 0.08);
   return {
     ...candidate,
+    ...priceVerification,
+    currencyVerification:priceVerification,
+    queryCurrencyVerification:candidate.currencyVerification,
     affiliateUrl: item.promotion_link || candidate.affiliateUrl,
     productUrl: item.product_detail_url || candidate.productUrl,
     metrics: {
       ...candidate.metrics,
-      priceGbp: detailPrice || queryPrice,
+      ...priceMetrics,
       feedbackPct: Number.parseFloat(item.evaluate_rate) || candidate.metrics.feedbackPct,
       recentVolume: Number(item.lastest_volume) || candidate.metrics.recentVolume,
-      commissionRatePct: Number.parseFloat(item.commission_rate) || candidate.metrics.commissionRatePct,
-      commissionAmountGbp: Number(item.commission_amount) || candidate.metrics.commissionAmountGbp,
     },
     shipping: {
       available: true,

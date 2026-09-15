@@ -27,7 +27,7 @@ export function priceBenchmarks(candidates) {
 }
 
 export function enrichCandidate(candidate, benchmark) {
-  const price = Number(candidate.metrics?.priceGbp);
+  const price = candidate.metrics?.priceGbp > 0 ? Number(candidate.metrics.priceGbp) : NaN;
   const title = String(candidate.title || '');
   const ratio = benchmark?.median && price ? price / benchmark.median : null;
   const extremeLow = benchmark?.p10 && price < benchmark.p10 * 0.55;
@@ -79,6 +79,7 @@ export function classifyEvidence(candidate) {
       detailProductIdMatched: candidate.detailVerification?.productIdMatched === true,
       gbMarketAvailability: candidate.shipping?.available === true && candidate.shipping?.marketAvailabilityVerified === true,
       currentGbpPrice: Number(candidate.metrics?.priceGbp) > 0 && candidate.detailVerification?.priceMatched === true,
+      currencyVerified: candidate.currencyVerified === true,
       commission: Number(candidate.metrics?.commissionRatePct) > 0 || Number(candidate.metrics?.commissionAmountGbp) > 0,
       feedback: Number(candidate.metrics?.feedbackPct) > 0,
       demand: Number(candidate.metrics?.recentVolume) > 0,

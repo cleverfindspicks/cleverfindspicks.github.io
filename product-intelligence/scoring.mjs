@@ -1,4 +1,5 @@
 import config from './config.json' with { type: 'json' };
+import {currencyGate} from './currency.mjs';
 
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 const round = (value, digits = 1) => Number(value.toFixed(digits));
@@ -140,6 +141,8 @@ export function scoreCandidate(candidate, options = {}) {
   const optionalEvidence = [known(candidate.shipping?.costGbp), known(candidate.shipping?.daysMax), Boolean(candidate.shipping?.method), candidate.seller?.verified === true, known(candidate.factors?.competitionSaturation)].filter(Boolean).length / 5;
   const confidence = options.existingProduct ? round(knownWeight / 100, 2) : round(requiredConfidence * 0.85 + editorialEvidence * 0.1 + optionalEvidence * 0.05, 2);
   const filters = hardFilters(candidate, totalScore, confidence, options);
+  // Independent currency evidence gate; unchanged weights and existing hard filters.
+  if(!options.existingProduct&&!currencyGate(candidate))filters.reject.unshift('CURRENCY_VERIFICATION_FAILED');
   let decision = filters.reject.length ? 'reject' : filters.review.length ? 'questionable' : 'keep';
   if (options.existingProduct && !filters.reject.length && totalScore >= 55) decision = 'keep';
   return {

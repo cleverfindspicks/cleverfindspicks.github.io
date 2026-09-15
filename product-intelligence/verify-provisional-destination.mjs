@@ -1,10 +1,12 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { parseEnv } from 'node:util';
 import { canonicalProductUrl, generateAffiliateLink, resolveAffiliateDestination } from './affiliate-destination.mjs';
+import {priceConflict,currencyGate} from './currency.mjs';
 
 const report = JSON.parse(await readFile(new URL('./data/dry-run-report.json', import.meta.url), 'utf8'));
 const winner = report.winner;
 if (!winner?.productId) throw new Error('No provisional winner is available for affiliate destination verification.');
+if(!currencyGate(winner))throw new Error('Currency Verification Gate blocks unverified GBP price.');
 const env = parseEnv(await readFile(new URL('../.env.local', import.meta.url), 'utf8'));
 if (!env.ALIEXPRESS_APP_KEY || !env.ALIEXPRESS_APP_SECRET || !env.ALIEXPRESS_TRACKING_ID) throw new Error('Missing AliExpress Affiliate credentials.');
 
@@ -48,6 +50,7 @@ const record = {
   affiliateUrl,
   affiliateDestinationVerified: validation.pass,
   affiliateDestination: validation,
+  currencyDestinationComparison:priceConflict(winner.metrics.priceGbp,validation.finalDestination),
 };
 if (index >= 0) records[index] = record; else records.push(record);
 await writeFile(evidenceUrl, JSON.stringify({ ...evidence, schemaVersion: 1, records, note: 'Only verified, timestamped evidence belongs here. Unknown values must remain null.' }, null, 2));

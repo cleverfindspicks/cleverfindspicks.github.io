@@ -47,3 +47,15 @@ next-env.d.ts
 /product-intelligence/reports/instagram-performance.json
 /product-intelligence/reports/cross-platform-performance.json
 /product-intelligence/reports/instagram-dry-run.json
+# Private candidate/verification/analytics reports: never force-add.
+/product-intelligence/data/*.json
+/product-intelligence/data/candidate-pool.json
+/product-intelligence/data/dry-run-report.json
+/product-intelligence/data/run-log.json
+/product-intelligence/data/verification-evidence.json
+/product-intelligence/data/cluster-performance.json
+/product-intelligence/data/analytics-health.json
+/product-intelligence/data/affiliate-destination-audit.json
+/product-intelligence/data/provisional-publication-bundle.json
+/product-intelligence/reports/*.json
+/product-intelligence/reports/*.md
