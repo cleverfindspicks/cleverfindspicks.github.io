@@ -1,0 +1,11 @@
+/* oxlint-disable nextjs/no-html-link-for-pages, nextjs/no-img-element */
+import type { Metadata } from 'next';
+import { visibleInstagramFinds } from '../instagram-hub';
+import { instagramDestination } from '@/lib/tracking';
+import { InstagramHubAttribution } from '@/components/instagram-attribution';
+import './style.css';
+export const metadata: Metadata = {title:'Instagram finds',description:'The real home organisation finds featured on Clever Finds Instagram.',alternates:{canonical:'/instagram/'}};
+export default function InstagramHub(){
+  const finds=visibleInstagramFinds();
+  return <main className="site-shell ig-hub"><InstagramHubAttribution/><div className="brand-rule"/><header className="site-header"><a className="brand-lockup" href="/"><img src="/clever-finds.png" width="42" height="42" alt=""/><span>Clever Finds</span></a><a className="back-link" href="/">All finds →</a></header><section className="ig-intro"><p className="eyebrow">FROM OUR INSTAGRAM</p><h1>Small homes.<br/><em>Clever finds.</em></h1><p className="lead">Seen something useful in a Reel? Find the details here, then check the exact option and current price.</p><p className="affiliate-note">Ad / affiliate. We earn commission from qualifying purchases at no extra cost to you.</p></section>{finds.length?<div className="ig-grid">{finds.map(({record,product})=><article className="product-card" key={record.instagramPublicationId}><a className="ig-image" href={instagramDestination('https://cleverfindspicks.github.io',product.slug,record.trackingId)}><img src={product.image} alt={product.shortName} loading="lazy" width="600" height="600"/></a><div className="product-body"><p className="eyebrow">{product.eyebrow}</p><h2>{product.shortName}</h2><p>{product.summary}</p><a className="primary-link" href={instagramDestination('https://cleverfindspicks.github.io',product.slug,record.trackingId)}>See this find <span aria-hidden="true">→</span></a></div></article>)}</div>:<div className="ig-empty"><h2>Our first Instagram finds are on the way.</h2><p>Only successfully published Reels with verified product links appear here.</p><a className="primary-link" href="/">Explore Clever Finds →</a></div>}<footer><p>Clever Finds · Practical organisation for small UK homes.</p><a href="/affiliate-disclosure">How we choose & affiliate disclosure</a></footer></main>;
+}

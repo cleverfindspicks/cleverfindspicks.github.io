@@ -1,0 +1,79 @@
+import {mkdir,readFile,writeFile,unlink} from 'node:fs/promises';
+import {spawnSync} from 'node:child_process';
+import {openInstagramStore,setHealth} from './store.mjs';
+import {qualifiedCatalogue} from './catalogue.mjs';
+import {enqueue,transition,isScheduleDue,londonClock} from './queue.mjs';
+import {generateReel} from './creative.mjs';
+import {InstagramApi,tokenHealth} from './api.mjs';
+import {loadCredentials,refreshIfNeeded} from './credentials.mjs';
+import {publishQueued} from './publish.mjs';
+import {resolveAffiliateDestination} from '../product-intelligence/affiliate-destination.mjs';
+import {exportHub} from './export-hub.mjs';
+import {deployInstagramChanges} from './deployment.mjs';
+
+export async function runInstagram({force=false,deploy=deployInstagramChanges}={}) {
+  const db=openInstagramStore();
+  const lock=new URL('../product-intelligence/.local/instagram-worker.lock',import.meta.url);
+  await mkdir(new URL('../product-intelligence/.local/',import.meta.url),{recursive:true});
+  try{await writeFile(lock,String(process.pid),{flag:'wx'});}catch{
+    const pid=Number(await readFile(lock,'utf8').catch(()=>0));let alive=false;
+    try{if(pid){process.kill(pid,0);alive=true;}}catch{/* crashed worker */}
+    if(alive){db.close();return {status:'WORKER_ALREADY_RUNNING'};}
+    await unlink(lock).catch(()=>{});await writeFile(lock,String(process.pid),{flag:'wx'});
+  }
+  try{
+    let credentials=await loadCredentials();
+    const initial=tokenHealth(credentials);setHealth(db,'INSTAGRAM',initial);
+    if(['NOT_CONFIGURED','TOKEN_EXPIRED'].includes(initial))return {status:initial,pinterestUnaffected:true};
+    try{credentials=await refreshIfNeeded(credentials);}catch{setHealth(db,'INSTAGRAM','TOKEN_EXPIRING','REFRESH_FAILED');}
+    const api=new InstagramApi(credentials);
+    const profile=await api.profile();
+    if(String(profile.user_id||profile.id)!==String(credentials.userId))throw new Error('Instagram authorized user ID mismatch');
+    setHealth(db,'INSTAGRAM',tokenHealth(credentials));
+    await exportHub(db);
+    const hubRepair=spawnSync('git',['diff','--quiet','--','app/instagram-publications.json']);
+    if(hubRepair.status!==0)await deploy();
+    // Complete/reconcile an earlier job independently of today's schedule.
+    let row=db.prepare("SELECT * FROM instagram_queue WHERE dry_run=0 AND state IN ('PENDING','CREATIVE_GENERATING','READY','PUBLISHING','FAILED_RETRYABLE') ORDER BY scheduled_day LIMIT 1").get();
+    if(!row && !force && !isScheduleDue())return {status:'OUTSIDE_LONDON_SLOT',pinterestUnaffected:true};
+    const day=londonClock().day;
+    const alreadyPublishedToday=db.prepare("SELECT instagram_publication_id,published_at FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED'").all().filter(p=>londonClock(new Date(p.published_at)).day===day);
+    if(alreadyPublishedToday.length>=1 && !row?.publish_uncertain)return {status:'DAILY_LIMIT_REACHED',pinterestUnaffected:true};
+    if(!row){
+      if(db.prepare("SELECT 1 FROM instagram_queue WHERE scheduled_day=? AND dry_run=0 AND state='PUBLISHED'").get(day))return {status:'DAILY_LIMIT_REACHED'};
+      const [choice]=await qualifiedCatalogue(db);if(!choice)return {status:'SKIPPED_NO_INSTAGRAM_QUALIFIED_PRODUCT'};
+      row=enqueue(db,choice,day);
+    }
+    if(row.next_attempt_at&&new Date(row.next_attempt_at)>new Date())return {status:'WAITING_BACKOFF'};
+    if(row.state==='CREATIVE_GENERATING')row=transition(db,row.instagram_publication_id,'FAILED_RETRYABLE',{last_error:'RECOVERED_CRASHED_CREATIVE_WORKER'});
+    if(row.state==='PENDING'||(row.state==='FAILED_RETRYABLE'&&!row.asset_path)){
+      row=transition(db,row.instagram_publication_id,'CREATIVE_GENERATING');
+      try{
+        row.recentHooks=db.prepare("SELECT hook FROM instagram_queue WHERE state='PUBLISHED' ORDER BY published_at DESC LIMIT 10").all().map(r=>r.hook);
+        const creative=await generateReel(row);
+        row=transition(db,row.instagram_publication_id,'READY',{creative_id:creative.creativeId,creative_json:JSON.stringify(creative),hook:creative.hook,caption:creative.caption,asset_path:creative.assetPath,public_asset_url:creative.publicAssetUrl});
+      }catch(error){transition(db,row.instagram_publication_id,'FAILED_PERMANENT',{last_error:'CREATIVE_FIDELITY_OR_SOURCE_REJECTED'});return {status:'CREATIVE_REJECTED',detail:String(error.message).slice(0,120)};}
+    }
+    // Deploy the real MP4 first. API consumes only an HTTPS URL whose bytes are
+    // checked against the local validated hash. Propagation simply retries.
+    if(!row.container_id&&!row.publish_uncertain)await deploy();
+    const publicationOptions={verifyDestination:async r=>{
+      const {product}=JSON.parse(r.evidence_json);return resolveAffiliateDestination(product.affiliateUrl,r.product_id);
+    }};
+    let result=await publishQueued(db,row,api,publicationOptions);
+    for(let attempt=0;result.status==='CONTAINER_PROCESSING' && attempt<3;attempt++){
+      await new Promise(resolve=>setTimeout(resolve,15000));
+      row=db.prepare('SELECT * FROM instagram_queue WHERE instagram_publication_id=?').get(row.instagram_publication_id);
+      result=await publishQueued(db,row,api,publicationOptions);
+    }
+    if(['PUBLISHED','RECOVERED_PUBLISHED'].includes(result.status)){await exportHub(db);await deploy();}
+    // If media publication succeeded but deployment failed, repair the hub on
+    // the next run without submitting media again.
+    await exportHub(db);
+    const dirty=spawnSync('git',['diff','--quiet','--','app/instagram-publications.json']);
+    if(dirty.status!==0)await deploy();
+    return {...result,pinterestUnaffected:true};
+  }catch(error){setHealth(db,'INSTAGRAM',error.tokenExpired?'TOKEN_EXPIRED':'ERROR',String(error.message).slice(0,180));return {status:'ERROR',detail:String(error.message).slice(0,180),pinterestUnaffected:true};}
+  finally{db.close();await unlink(lock).catch(()=>{});}
+}
+if(process.argv[1]?.endsWith('run.mjs'))console.log(JSON.stringify(await runInstagram({force:process.argv.includes('--force')})));

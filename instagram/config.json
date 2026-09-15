@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "apiVersion": "v26.0",
+  "loginMode": "instagram-login",
+  "graphHost": "https://graph.instagram.com",
+  "schedule": { "timezone": "Europe/London", "time": "19:30", "maximumPostsPerDay": 1, "catchUpMinutes": 45 },
+  "selection": { "minimumSuitabilityScore": 70, "repeatCooldownDays": 90, "maximumConsecutiveClusterWins": 2 },
+  "creative": { "width": 1080, "height": 1920, "durationSeconds": 12, "fps": 30, "commercialMusic": false },
+  "retry": { "maximumAttempts": 6, "initialBackoffSeconds": 60, "maximumBackoffSeconds": 3600 },
+  "performance": { "minimumPosts": 5, "minimumViews": 3000, "minimumAttributedVisits": 25, "minimumAliExpressClicks": 25, "minimumMultiplier": 0.9, "maximumMultiplier": 1.1 },
+  "bioUrl": "https://cleverfindspicks.github.io/instagram/?utm_source=instagram&utm_medium=organic&utm_campaign=clever_finds",
+  "requestedScopes": ["instagram_business_basic", "instagram_business_content_publish", "instagram_business_manage_insights"],
+  "insightMetrics": ["views", "reach", "likes", "comments", "saved", "shares"]
+}

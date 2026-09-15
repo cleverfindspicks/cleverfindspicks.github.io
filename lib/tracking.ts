@@ -15,11 +15,15 @@ export function readAttribution(search = '', stored: string | null = null) {
   let previous: Record<string, string | null> = {};
   try { previous = stored ? JSON.parse(stored) : {}; } catch { previous = {}; }
   const currentPin = params.get('cf_pin') || params.get('pin_id');
+  const currentSource = params.get('utm_source');
+  const changedSource = Boolean(currentSource && currentSource !== previous.utm_source);
+  const currentInstagram = params.get('cf_ig');
   const result = {
     utm_source: params.get('utm_source') || previous.utm_source || null,
     utm_medium: params.get('utm_medium') || previous.utm_medium || null,
     utm_campaign: params.get('utm_campaign') || previous.utm_campaign || null,
-    pin_tracking_id: currentPin || previous.cf_pin || previous.pin_tracking_id || null,
+    pin_tracking_id: currentSource === 'instagram' ? null : currentPin || (!changedSource && (previous.cf_pin || previous.pin_tracking_id)) || null,
+    ...(currentInstagram || (!changedSource && previous.cf_ig) || currentSource === 'instagram' ? { instagram_tracking_id: currentInstagram || (!changedSource && previous.cf_ig) || null } : {}),
   };
   return result;
 }
@@ -33,9 +37,19 @@ export function captureAttribution(search = '', storage?: Pick<Storage, 'getItem
       utm_medium: attribution.utm_medium,
       utm_campaign: attribution.utm_campaign,
       cf_pin: attribution.pin_tracking_id,
+      cf_ig: 'instagram_tracking_id' in attribution ? attribution.instagram_tracking_id : null,
     }));
   }
   return attribution;
+}
+
+export function instagramDestination(origin: string, slug: string, trackingId: string) {
+  const url = new URL(`/finds/${slug}/`, origin);
+  url.searchParams.set('utm_source', 'instagram');
+  url.searchParams.set('utm_medium', 'organic');
+  url.searchParams.set('utm_campaign', 'clever_finds');
+  url.searchParams.set('cf_ig', trackingId);
+  return url.toString();
 }
 
 export const sourceAttribution = (search = '') => typeof window === 'undefined'

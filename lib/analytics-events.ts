@@ -8,7 +8,7 @@ export function sendAnalyticsEvent(name: string, payload: Record<string, unknown
   window.gtag?.('event', name, {
     ...payload,
     ...attribution,
-    pin_tracking_id: attribution.pin_tracking_id || payload.pin_tracking_id || null,
+    pin_tracking_id: attribution.utm_source === 'instagram' ? null : attribution.pin_tracking_id || payload.pin_tracking_id || null,
     transport_type: 'beacon',
   });
 }

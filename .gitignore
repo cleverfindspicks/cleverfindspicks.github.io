@@ -44,3 +44,6 @@ next-env.d.ts
 /product-intelligence/imports/
 /product-intelligence/reports/performance-dashboard.html
 /product-intelligence/reports/performance-export.*
+/product-intelligence/reports/instagram-performance.json
+/product-intelligence/reports/cross-platform-performance.json
+/product-intelligence/reports/instagram-dry-run.json
