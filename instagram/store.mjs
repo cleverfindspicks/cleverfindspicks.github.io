@@ -2,13 +2,14 @@ import { DatabaseSync } from 'node:sqlite';
 import { existsSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { defaultDatabasePath, openPerformanceStore } from '../product-intelligence/performance-store.mjs';
+export const livePublicationSql = "NOT EXISTS (SELECT 1 FROM instagram_publication_lifecycle l WHERE l.instagram_publication_id=instagram_queue.instagram_publication_id AND (l.kind!='LIVE' OR l.availability!='ACTIVE'))";
 
 export function openInstagramStore(path = defaultDatabasePath) {
   // Back up the existing DB (including committed WAL contents) before the first
   // additive migration. Never copy a live main DB while omitting its WAL.
   if (existsSync(path)) {
     const probe = new DatabaseSync(path);
-    const migrated = probe.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='instagram_publication_lifecycle'").get();
+    const migrated = probe.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='instagram_schedule_slots'").get();
     if (!migrated) {
       mkdirSync(join(dirname(path), 'backups'), { recursive: true });
       const backup = join(dirname(path), 'backups', `pre-instagram-${Date.now()}.sqlite`).replaceAll("'", "''");
@@ -31,7 +32,13 @@ export function openInstagramStore(path = defaultDatabasePath) {
       publish_uncertain INTEGER NOT NULL DEFAULT 0, last_error TEXT, dry_run INTEGER NOT NULL DEFAULT 0,
       created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(product_id, scheduled_day, dry_run)
     );
-    CREATE UNIQUE INDEX IF NOT EXISTS idx_ig_one_live_day ON instagram_queue(scheduled_day) WHERE dry_run=0 AND state NOT IN ('SKIPPED','FAILED_PERMANENT');
+    DROP INDEX IF EXISTS idx_ig_one_live_day;
+    CREATE TABLE IF NOT EXISTS instagram_schedule_slots (
+      scheduled_day TEXT NOT NULL, scheduled_time TEXT NOT NULL,
+      publication_id TEXT UNIQUE REFERENCES instagram_queue(instagram_publication_id),
+      status TEXT NOT NULL, updated_at TEXT NOT NULL,
+      PRIMARY KEY(scheduled_day,scheduled_time)
+    );
     CREATE TABLE IF NOT EXISTS instagram_metrics (
       metric_key TEXT PRIMARY KEY, media_id TEXT NOT NULL, product_id TEXT REFERENCES products(product_id),
       instagram_tracking_id TEXT, metric_date TEXT NOT NULL, metric_name TEXT NOT NULL,

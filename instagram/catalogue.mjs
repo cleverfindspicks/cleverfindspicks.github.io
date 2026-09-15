@@ -5,6 +5,7 @@ import { isVisibleRecommendation } from '../app/catalog-visibility.ts';
 import { instagramSuitability } from './suitability.mjs';
 import config from './config.json' with { type: 'json' };
 import {refreshProductEvidence} from './product-evidence.mjs';
+import {livePublicationSql} from './store.mjs';
 
 export async function qualifiedCatalogue(db) {
   const bundles = [];
@@ -21,8 +22,8 @@ export async function qualifiedCatalogue(db) {
     if (slug && candidate && !receipts.has(slug)) receipts.set(slug, candidate);
   }
   const cooldown = new Date(Date.now() - config.selection.repeatCooldownDays * 86400000).toISOString();
-  const recent = db.prepare("SELECT product_id FROM instagram_queue WHERE dry_run=0 AND state IN ('PUBLISHED','PENDING','CREATIVE_GENERATING','READY','PUBLISHING','FAILED_RETRYABLE','FAILED_PERMANENT') AND created_at>=?").all(cooldown).map((row) => row.product_id);
-  const last = db.prepare("SELECT cluster FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED' ORDER BY published_at DESC LIMIT ?").all(config.selection.maximumConsecutiveClusterWins);
+  const recent = db.prepare(`SELECT product_id FROM instagram_queue WHERE dry_run=0 AND state IN ('PUBLISHED','PENDING','CREATIVE_GENERATING','READY','PUBLISHING','FAILED_RETRYABLE','FAILED_PERMANENT') AND created_at>=? AND ${livePublicationSql}`).all(cooldown).map((row) => row.product_id);
+  const last = db.prepare(`SELECT cluster FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED' AND ${livePublicationSql} ORDER BY published_at DESC LIMIT ?`).all(config.selection.maximumConsecutiveClusterWins);
   const current=await refreshProductEvidence(products.filter((p) => isVisibleRecommendation(p.slug) && p.affiliateDestinationVerified).flatMap(product=>{
     const candidate=receipts.get(product.slug);
     return candidate&&String(candidate.productId)===String(product.productId)?[{product,candidate}]:[];
@@ -34,5 +35,5 @@ export async function qualifiedCatalogue(db) {
     const diversified = last.length < config.selection.maximumConsecutiveClusterWins || !last.every((r) => r.cluster === product.cluster);
     const learned = db.prepare('SELECT performance_multiplier FROM instagram_cluster_performance WHERE cluster=? AND window_days=30').get(product.cluster)?.performance_multiplier || 1;
     return [{ product, candidate, suitability, diversified, selectionScore: Number(((candidate.totalScore * 0.4 + suitability.totalScore * 0.6) * learned).toFixed(2)) }];
-  }).filter((row) => row.suitability.qualified && row.diversified).sort((a, b) => b.selectionScore - a.selectionScore);
+  }).filter((row) => row.suitability.qualified).sort((a, b) => Number(b.diversified)-Number(a.diversified)||b.selectionScore-a.selectionScore);
 }

@@ -2,9 +2,10 @@ import {writeFile} from 'node:fs/promises';
 import {instagramMultiplier} from './suitability.mjs';
 import {importInstagramMetrics} from './import-metrics.mjs';
 import config from './config.json' with { type:'json' };
+import {livePublicationSql} from './store.mjs';
 export async function syncInstagramInsights(db,api){
   let successes=0;let unavailable=0;
-  const rows=db.prepare("SELECT * FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED'").all();
+  const rows=db.prepare(`SELECT * FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED' AND ${livePublicationSql}`).all();
   for(const row of rows){
     if(!row.permalink){try{const m=await api.media(row.media_id);db.prepare('UPDATE instagram_queue SET permalink=? WHERE media_id=?').run(m.permalink||null,row.media_id);}catch{/* metadata stays unknown */}}
     for(const name of config.insightMetrics){
@@ -18,7 +19,7 @@ export async function syncInstagramInsights(db,api){
 }
 export function instagramReport(db,windowDays=30){
   const cutoff=new Date(Date.now()-windowDays*86400000).toISOString().slice(0,10);
-  const pubs=db.prepare("SELECT * FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED' AND published_at>=?").all(cutoff);
+  const pubs=db.prepare(`SELECT * FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED' AND published_at>=? AND ${livePublicationSql}`).all(cutoff);
   const rows=pubs.map(pub=>{
     // API snapshots are lifetime counters, not daily deltas. Take the newest
     // counter per media/metric; NEVER sum repeated lifetime snapshots.

@@ -1,8 +1,9 @@
 import {mkdir,readFile,writeFile,unlink} from 'node:fs/promises';
 import {spawnSync} from 'node:child_process';
-import {openInstagramStore,setHealth} from './store.mjs';
+import {openInstagramStore,setHealth,livePublicationSql} from './store.mjs';
 import {qualifiedCatalogue} from './catalogue.mjs';
-import {enqueue,transition,isScheduleDue,londonClock} from './queue.mjs';
+import {enqueue,transition,scheduleSlot,londonClock} from './queue.mjs';
+import config from './config.json' with {type:'json'};
 import {generateReel} from './creative.mjs';
 import {InstagramApi,tokenHealth} from './api.mjs';
 import {loadCredentials,refreshIfNeeded} from './credentials.mjs';
@@ -24,6 +25,8 @@ export async function runInstagram({force=false,deploy=deployInstagramChanges}={
     await unlink(lock).catch(()=>{});await writeFile(lock,String(process.pid),{flag:'wx'});
   }
   try{
+    const pending=db.prepare("SELECT 1 FROM instagram_queue WHERE dry_run=0 AND state IN ('PENDING','CREATIVE_GENERATING','READY','PUBLISHING','FAILED_RETRYABLE') LIMIT 1").get();
+    if(!force&&!pending&&!scheduleSlot())return {status:'OUTSIDE_LONDON_SLOT',pinterestUnaffected:true};
     let credentials=await loadCredentials();
     const initial=tokenHealth(credentials);setHealth(db,'INSTAGRAM',initial);
     if(['NOT_CONFIGURED','TOKEN_EXPIRED'].includes(initial))return {status:initial,pinterestUnaffected:true};
@@ -41,14 +44,21 @@ export async function runInstagram({force=false,deploy=deployInstagramChanges}={
     const approved=db.prepare("SELECT status FROM instagram_health WHERE name='INSTAGRAM_DAILY_APPROVAL'").get()?.status==='APPROVED';
     const activation=activationDecision({publishedCount,approved,force,uncertain:!!row?.publish_uncertain});
     if(['TRIAL_PENDING','TRIAL_REVIEW_REQUIRED'].includes(activation))return {status:activation,pinterestUnaffected:true};
-    if(!row && !force && !isScheduleDue())return {status:'OUTSIDE_LONDON_SLOT',pinterestUnaffected:true};
+    const slot=scheduleSlot();
+    if(!row && !force && !slot)return {status:'OUTSIDE_LONDON_SLOT',pinterestUnaffected:true};
     const day=londonClock().day;
-    const alreadyPublishedToday=db.prepare("SELECT instagram_publication_id,published_at FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED'").all().filter(p=>londonClock(new Date(p.published_at)).day===day);
-    if(alreadyPublishedToday.length>=1 && !row?.publish_uncertain)return {status:'DAILY_LIMIT_REACHED',pinterestUnaffected:true};
+    const alreadyPublishedToday=db.prepare(`SELECT instagram_publication_id,published_at FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED' AND ${livePublicationSql}`).all().filter(p=>londonClock(new Date(p.published_at)).day===day);
+    if(alreadyPublishedToday.length>=config.schedule.maximumPostsPerDay && !row?.publish_uncertain)return {status:'DAILY_LIMIT_REACHED',pinterestUnaffected:true};
     if(!row){
-      if(db.prepare("SELECT 1 FROM instagram_queue WHERE scheduled_day=? AND dry_run=0 AND state='PUBLISHED'").get(day))return {status:'DAILY_LIMIT_REACHED'};
-      const [choice]=await qualifiedCatalogue(db);if(!choice)return {status:'SKIPPED_NO_INSTAGRAM_QUALIFIED_PRODUCT'};
-      row=enqueue(db,choice,day);
+      const scheduledTime=slot||'trial';
+      if(db.prepare('SELECT 1 FROM instagram_schedule_slots WHERE scheduled_day=? AND scheduled_time=?').get(day,scheduledTime))return {status:'SLOT_ALREADY_PROCESSED',pinterestUnaffected:true};
+      const choices=await qualifiedCatalogue(db);
+      const used=db.prepare(`SELECT product_id FROM instagram_queue WHERE scheduled_day=? AND dry_run=0 AND ${livePublicationSql}`).all(day).map(r=>r.product_id);
+      const todayClusters=db.prepare(`SELECT cluster FROM instagram_queue WHERE scheduled_day=? AND dry_run=0 AND state='PUBLISHED' AND ${livePublicationSql}`).all(day).map(r=>r.cluster);
+      const eligible=choices.filter(c=>!used.includes(c.product.productId));
+      const choice=eligible.find(c=>!todayClusters.includes(c.product.cluster))||eligible[0];
+      if(!choice){const status='SKIPPED_NO_QUALIFIED_INSTAGRAM_PRODUCT';db.prepare('INSERT INTO instagram_schedule_slots VALUES(?,?,?,?,?)').run(day,scheduledTime,null,status,new Date().toISOString());setHealth(db,'INSTAGRAM_LAST_SLOT',status,day+' '+scheduledTime);return {status,pinterestUnaffected:true};}
+      row=enqueue(db,choice,day,false,scheduledTime);
     }
     if(row.next_attempt_at&&new Date(row.next_attempt_at)>new Date())return {status:'WAITING_BACKOFF'};
     if(row.state==='CREATIVE_GENERATING')row=transition(db,row.instagram_publication_id,'FAILED_RETRYABLE',{last_error:'RECOVERED_CRASHED_CREATIVE_WORKER'});

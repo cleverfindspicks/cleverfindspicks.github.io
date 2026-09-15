@@ -3,7 +3,7 @@
   "apiVersion": "v26.0",
   "loginMode": "instagram-login",
   "graphHost": "https://graph.instagram.com",
-  "schedule": { "timezone": "Europe/London", "time": "19:30", "maximumPostsPerDay": 1, "catchUpMinutes": 45 },
+  "schedule": { "timezone": "Europe/London", "times": ["09:00", "14:00", "19:30"], "maximumPostsPerDay": 3, "catchUpMinutes": 45 },
   "selection": { "minimumSuitabilityScore": 70, "repeatCooldownDays": 90, "maximumConsecutiveClusterWins": 2 },
   "creative": { "width": 1080, "height": 1920, "durationSeconds": 12, "fps": 30, "commercialMusic": false },
   "retry": { "maximumAttempts": 6, "initialBackoffSeconds": 60, "maximumBackoffSeconds": 3600 },
