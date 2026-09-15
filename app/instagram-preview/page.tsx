@@ -9,7 +9,7 @@ export default function Preview(){
   const product=getProduct(data.productSlug||'');
   return <main className="site-shell ig-hub"><header><a href="/">Clever Finds</a></header>
     <section className="ig-intro"><p className="eyebrow">DRY RUN · NOT PUBLISHED</p><h1>Instagram preview</h1>
-      <p>No live Instagram API publication has occurred. This is not an Instagram performance result.</p>
+      <p>This new creative is a preview only and has not been published. It is not an Instagram performance result.</p>
       {product&&<><h2>{product.shortName}</h2><p>Instagram suitability: {data.score}/100</p>
         <video controls playsInline preload="metadata" poster={`/instagram/${data.creativeId}.png`} style={{width:'100%',maxWidth:390,borderRadius:12}} src={`/instagram/${data.creativeId}.mp4`}>
           <track kind="captions" srcLang="en" label="English" src={`/instagram/${data.creativeId}.vtt`}/>

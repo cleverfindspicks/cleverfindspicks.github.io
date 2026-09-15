@@ -26,7 +26,8 @@ async function runFfmpeg(args) {
     child.on('error',no); child.on('exit',code=>code===0?yes():no(new Error(`FFmpeg failed (${code}): ${errors}`)));
   });
 }
-export async function generateReel(queueRow, { sourceBytes = null, fetcher = fetch } = {}) {
+export {generateMotionReel as generateReel} from './motion-creative.mjs';
+export async function generateLegacyReel(queueRow, { sourceBytes = null, fetcher = fetch } = {}) {
   const { candidate } = JSON.parse(queueRow.evidence_json);
   const url = new URL(candidate.image);
   if (!url.hostname.endsWith('.aliexpress-media.com') || url.protocol !== 'https:') throw new Error('Unapproved product image host');

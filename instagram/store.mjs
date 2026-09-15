@@ -8,7 +8,7 @@ export function openInstagramStore(path = defaultDatabasePath) {
   // additive migration. Never copy a live main DB while omitting its WAL.
   if (existsSync(path)) {
     const probe = new DatabaseSync(path);
-    const migrated = probe.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='instagram_schema_migrations'").get();
+    const migrated = probe.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='instagram_publication_lifecycle'").get();
     if (!migrated) {
       mkdirSync(join(dirname(path), 'backups'), { recursive: true });
       const backup = join(dirname(path), 'backups', `pre-instagram-${Date.now()}.sqlite`).replaceAll("'", "''");
@@ -56,6 +56,12 @@ export function openInstagramStore(path = defaultDatabasePath) {
     );
     CREATE TABLE IF NOT EXISTS instagram_health (
       name TEXT PRIMARY KEY, status TEXT NOT NULL, checked_at TEXT NOT NULL, detail TEXT
+    );
+    CREATE TABLE IF NOT EXISTS instagram_publication_lifecycle (
+      instagram_publication_id TEXT PRIMARY KEY REFERENCES instagram_queue(instagram_publication_id),
+      kind TEXT NOT NULL CHECK(kind IN ('LIVE','TEST')),
+      availability TEXT NOT NULL CHECK(availability IN ('ACTIVE','DELETION_PENDING','DELETED','UNAVAILABLE')),
+      updated_at TEXT NOT NULL, reason TEXT
     );
     INSERT OR IGNORE INTO instagram_schema_migrations VALUES(1,datetime('now'));
     COMMIT;
