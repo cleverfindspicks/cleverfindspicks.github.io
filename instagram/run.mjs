@@ -42,33 +42,37 @@ export async function runInstagram({force=false,deploy=deployInstagramChanges}={
     let row=db.prepare("SELECT * FROM instagram_queue WHERE dry_run=0 AND state IN ('PENDING','CREATIVE_GENERATING','READY','PUBLISHING','FAILED_RETRYABLE') ORDER BY scheduled_day LIMIT 1").get();
     const publishedCount=db.prepare("SELECT COUNT(*) n FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED'").get().n;
     const approved=db.prepare("SELECT status FROM instagram_health WHERE name='INSTAGRAM_DAILY_APPROVAL'").get()?.status==='APPROVED';
-    const activation=activationDecision({publishedCount,approved,force,uncertain:!!row?.publish_uncertain});
+    const activation=activationDecision({publishedCount,approved,force,uncertain:!!row?.publish_uncertain,scheduled:!force&&config.production.mode==='FULL_AUTO'&&!config.production.manualCreativeApprovalScheduled});
     if(['TRIAL_PENDING','TRIAL_REVIEW_REQUIRED'].includes(activation))return {status:activation,pinterestUnaffected:true};
     const slot=scheduleSlot();
     if(!row && !force && !slot)return {status:'OUTSIDE_LONDON_SLOT',pinterestUnaffected:true};
     const day=londonClock().day;
     const alreadyPublishedToday=db.prepare(`SELECT instagram_publication_id,published_at FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED' AND ${livePublicationSql}`).all().filter(p=>londonClock(new Date(p.published_at)).day===day);
     if(alreadyPublishedToday.length>=config.schedule.maximumPostsPerDay && !row?.publish_uncertain)return {status:'DAILY_LIMIT_REACHED',pinterestUnaffected:true};
-    if(!row){
-      const scheduledTime=slot||'trial';
-      if(db.prepare('SELECT 1 FROM instagram_schedule_slots WHERE scheduled_day=? AND scheduled_time=?').get(day,scheduledTime))return {status:'SLOT_ALREADY_PROCESSED',pinterestUnaffected:true};
-      const choices=await qualifiedCatalogue(db);
+    const scheduledTime=slot||(row&&db.prepare('SELECT scheduled_time FROM instagram_schedule_slots WHERE publication_id=?').get(row.instagram_publication_id)?.scheduled_time)||'trial';
+    const claimed=db.prepare('SELECT publication_id,status FROM instagram_schedule_slots WHERE scheduled_day=? AND scheduled_time=?').get(day,scheduledTime);
+    const claimedState=claimed?.publication_id&&db.prepare('SELECT state FROM instagram_queue WHERE instagram_publication_id=?').get(claimed.publication_id)?.state;
+    if(!row&&claimed&&!['FAILED_PERMANENT','SKIPPED'].includes(claimedState))return {status:'SLOT_ALREADY_PROCESSED',pinterestUnaffected:true};
+    let choices=null;let creativeFailures=0;
+    const nextChoice=async()=>{
+      choices||=await qualifiedCatalogue(db);
       const used=db.prepare(`SELECT product_id FROM instagram_queue WHERE scheduled_day=? AND dry_run=0 AND ${livePublicationSql}`).all(day).map(r=>r.product_id);
       const todayClusters=db.prepare(`SELECT cluster FROM instagram_queue WHERE scheduled_day=? AND dry_run=0 AND state='PUBLISHED' AND ${livePublicationSql}`).all(day).map(r=>r.cluster);
       const eligible=choices.filter(c=>!used.includes(c.product.productId));
-      const choice=eligible.find(c=>!todayClusters.includes(c.product.cluster))||eligible[0];
-      if(!choice){const status='SKIPPED_NO_QUALIFIED_INSTAGRAM_PRODUCT';db.prepare('INSERT INTO instagram_schedule_slots VALUES(?,?,?,?,?)').run(day,scheduledTime,null,status,new Date().toISOString());setHealth(db,'INSTAGRAM_LAST_SLOT',status,day+' '+scheduledTime);return {status,pinterestUnaffected:true};}
-      row=enqueue(db,choice,day,false,scheduledTime);
-    }
+      return eligible.find(c=>!todayClusters.includes(c.product.cluster))||eligible[0]||null;
+    };
+    if(!row){const choice=await nextChoice();if(choice)row=enqueue(db,choice,day,false,scheduledTime);}
+    if(!row){const status='SKIPPED_NO_QUALIFIED_INSTAGRAM_PRODUCT';db.prepare('INSERT INTO instagram_schedule_slots VALUES(?,?,?,?,?) ON CONFLICT(scheduled_day,scheduled_time) DO UPDATE SET publication_id=NULL,status=excluded.status,updated_at=excluded.updated_at').run(day,scheduledTime,null,status,new Date().toISOString());setHealth(db,'INSTAGRAM_LAST_SLOT',status,day+' '+scheduledTime);return {status,pinterestUnaffected:true};}
     if(row.next_attempt_at&&new Date(row.next_attempt_at)>new Date())return {status:'WAITING_BACKOFF'};
     if(row.state==='CREATIVE_GENERATING')row=transition(db,row.instagram_publication_id,'FAILED_RETRYABLE',{last_error:'RECOVERED_CRASHED_CREATIVE_WORKER'});
-    if(row.state==='PENDING'||(row.state==='FAILED_RETRYABLE'&&!row.asset_path)){
+    while(row&&(row.state==='PENDING'||(row.state==='FAILED_RETRYABLE'&&!row.asset_path))){
       row=transition(db,row.instagram_publication_id,'CREATIVE_GENERATING');
-      try{
-        row.recentHooks=db.prepare("SELECT hook FROM instagram_queue WHERE state='PUBLISHED' ORDER BY published_at DESC LIMIT 10").all().map(r=>r.hook);
-        const creative=await generateReel(row);
-        row=transition(db,row.instagram_publication_id,'READY',{creative_id:creative.creativeId,creative_json:JSON.stringify(creative),hook:creative.hook,caption:creative.caption,asset_path:creative.assetPath,public_asset_url:creative.publicAssetUrl});
-      }catch(error){transition(db,row.instagram_publication_id,'FAILED_PERMANENT',{last_error:'CREATIVE_FIDELITY_OR_SOURCE_REJECTED'});return {status:'CREATIVE_REJECTED',detail:String(error.message).slice(0,120)};}
+      let creative=null,lastError=null;
+      for(let attempt=0;attempt<config.production.creativeGenerationAttempts&&!creative;attempt++)try{row.recentHooks=db.prepare("SELECT hook FROM instagram_queue WHERE state='PUBLISHED' ORDER BY published_at DESC LIMIT 10").all().map(r=>r.hook);creative=await generateReel(row);}catch(error){lastError=error;}
+      if(creative){row=transition(db,row.instagram_publication_id,'READY',{creative_id:creative.creativeId,creative_json:JSON.stringify(creative),hook:creative.hook,caption:creative.caption,asset_path:creative.assetPath,public_asset_url:creative.publicAssetUrl});break;}
+      transition(db,row.instagram_publication_id,'FAILED_PERMANENT',{last_error:'SKIPPED_CREATIVE_GENERATION_FAILED'});creativeFailures++;
+      const choice=await nextChoice();row=choice?enqueue(db,choice,day,false,scheduledTime):null;
+      if(!row){const status='SKIPPED_NO_QUALIFIED_INSTAGRAM_PRODUCT';db.prepare('UPDATE instagram_schedule_slots SET publication_id=NULL,status=?,updated_at=? WHERE scheduled_day=? AND scheduled_time=?').run(status,new Date().toISOString(),day,scheduledTime);setHealth(db,'INSTAGRAM_LAST_SLOT',status,`creative failures ${creativeFailures}; ${String(lastError?.message||'').slice(0,80)}`);return {status,creativeFailures,pinterestUnaffected:true};}
     }
     // Deploy the real MP4 first. API consumes only an HTTPS URL whose bytes are
     // checked against the local validated hash. Propagation simply retries.

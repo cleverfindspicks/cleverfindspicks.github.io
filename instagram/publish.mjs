@@ -14,7 +14,7 @@ export async function publishQueued(db,row,api,{verifyDestination,fetcher=fetch}
   if(!currencyGate(JSON.parse(row.evidence_json||'{}').candidate||{}))return {status:'CURRENCY_VERIFICATION_REJECTED'};
   const meta=JSON.parse(row.creative_json || '{}');
   if(!row.publish_uncertain&&!imageGate({...JSON.parse(row.evidence_json).candidate,productImageVerified:meta.productImageVerified,productImageVerification:meta.productImageVerification}))return {status:'SKIPPED_IMAGE_NOT_VERIFIED'};
-  if(!validateFidelity(meta).ok || !row.caption?.startsWith('Ad / affiliate'))throw new Error('Creative/disclosure gate rejected');
+  if(meta.creativeVerified!==true||!validateFidelity(meta).ok || !row.caption?.startsWith('Ad / affiliate'))throw new Error('Creative/disclosure gate rejected');
   const localSha=createHash('sha256').update(await readFile(row.asset_path)).digest('hex');
   if(localSha!==meta.reelSha256)throw new Error('Creative hash changed after validation');
   if(!row.publish_uncertain){

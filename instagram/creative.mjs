@@ -16,7 +16,18 @@ export function validateFidelity(meta) {
   if (meta?.productImageFit !== 'contain' || meta?.productMorphing !== false || meta?.fabricatedBeforeAfter !== false || meta?.variantAltered !== false) errors.push('PRODUCT_FIDELITY_NOT_PRESERVED');
   if (meta?.rightsBasis !== 'CURRENT_AFFILIATE_WORKFLOW_PRODUCT_IMAGE_ONLY' || meta?.listingVideoUsed !== false || meta?.commercialMusicUsed !== false) errors.push('UNAPPROVED_SOURCE_OR_AUDIO');
   if (!/^[a-f0-9]{64}$/.test(meta?.reelSha256 || '') || meta?.width !== 1080 || meta?.height !== 1920 || meta?.durationSeconds < 8 || meta?.durationSeconds > 15) errors.push('INVALID_REEL_ASSET');
+  const visibleText=[meta?.disclosure,...(meta?.scenes||[]).flatMap(scene=>scene.text||[])].join(' ');
+  if(!/Ad\s*\/\s*affiliate/i.test(visibleText))errors.push('MISSING_AFFILIATE_DISCLOSURE');
+  if(!/See today[’']s find\s*[—-]\s*link in bio/i.test(visibleText))errors.push('MISSING_LINK_IN_BIO_CTA');
+  if(/https?:\/\/|www\.|cleverfindspicks\.github\.io/i.test(visibleText))errors.push('LONG_URL_IN_VIDEO');
+  if(/[£$€]\s*\d|\d+(?:[.,]\d{2})?\s*(?:GBP|USD|EUR)/i.test(visibleText))errors.push('PRICE_IN_VIDEO');
   return { ok: !errors.length, errors };
+}
+export function validateAutomatedCreative(meta,bytes){
+  const errors=[...validateFidelity(meta).errors];const content=Buffer.isBuffer(bytes)?bytes:Buffer.from(bytes||[]);
+  if(content.length<10000||!content.subarray(0,64).includes(Buffer.from('ftyp'))||!content.includes(Buffer.from('moov')))errors.push('CORRUPT_OR_UNREADABLE_MP4');
+  if(meta?.productImageVerified!==true||meta?.productImageVerification?.productId!==meta?.productId)errors.push('PRODUCT_IMAGE_NOT_VERIFIED');
+  return {ok:errors.length===0,errors,creativeVerified:errors.length===0};
 }
 async function runFfmpeg(args) {
   await new Promise((yes,no) => {

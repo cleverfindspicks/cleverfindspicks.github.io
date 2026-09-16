@@ -27,14 +27,15 @@ export function enqueue(db, choice, day, dryRun = false, slot = 'trial') {
   db.exec('BEGIN IMMEDIATE');
   try {
   const claimed=!dryRun&&db.prepare('SELECT publication_id FROM instagram_schedule_slots WHERE scheduled_day=? AND scheduled_time=?').get(day,slot);
-  if(claimed && claimed.publication_id!==id)throw new Error('Instagram slot already claimed');
+  const claimedState=claimed?.publication_id&&db.prepare('SELECT state FROM instagram_queue WHERE instagram_publication_id=?').get(claimed.publication_id)?.state;
+  if(claimed && claimed.publication_id!==id&&!['FAILED_PERMANENT','SKIPPED'].includes(claimedState))throw new Error('Instagram slot already claimed');
   if(!dryRun&&db.prepare('SELECT 1 FROM instagram_schedule_slots WHERE publication_id=? AND scheduled_time!=?').get(id,slot))throw new Error('Instagram product already assigned to another slot');
   db.prepare(`INSERT OR IGNORE INTO instagram_queue
     (instagram_publication_id,internal_instagram_tracking_id,product_id,product_slug,cluster,state,scheduled_day,suitability_score,suitability_json,product_score,evidence_json,dry_run,created_at,updated_at)
     VALUES(?,?,?,?,?,'PENDING',?,?,?,?,?,?,?,?)`).run(id,tracking,choice.product.productId,choice.product.slug,choice.product.cluster,day,choice.suitability.totalScore,JSON.stringify(choice.suitability),choice.candidate.totalScore,JSON.stringify({ candidate:choice.candidate, product:choice.product }),Number(dryRun),now,now);
   const row=db.prepare('SELECT * FROM instagram_queue WHERE instagram_publication_id=?').get(id);
   if(!row)throw new Error('Daily Instagram queue slot already claimed by another product');
-  if(!dryRun)db.prepare('INSERT OR IGNORE INTO instagram_schedule_slots VALUES(?,?,?,?,?)').run(day,slot,id,'CLAIMED',now);
+  if(!dryRun)db.prepare('INSERT INTO instagram_schedule_slots VALUES(?,?,?,?,?) ON CONFLICT(scheduled_day,scheduled_time) DO UPDATE SET publication_id=excluded.publication_id,status=excluded.status,updated_at=excluded.updated_at').run(day,slot,id,'CLAIMED',now);
   db.exec('COMMIT');
   return row;
   } catch(error){db.exec('ROLLBACK');throw error;}
