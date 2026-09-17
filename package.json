@@ -46,6 +46,9 @@
     "instagram:trial": "node instagram/run.mjs --force",
     "instagram:approve-trial": "node instagram/approve-trial.mjs",
     "instagram:test": "node --test instagram/tests/*.test.mjs",
+    "scheduler:instagram": "node operations/scheduler-worker.mjs instagram",
+    "scheduler:pinterest": "node operations/scheduler-worker.mjs pinterest",
+    "scheduler:register": "powershell -ExecutionPolicy Bypass -File operations/register-windows-scheduler.ps1",
     "lint": "oxlint",
     "format": "oxfmt"
   },
