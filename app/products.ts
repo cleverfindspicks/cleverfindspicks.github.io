@@ -42,6 +42,7 @@ export type Product = {
   noDrill?:boolean;
   smallSpace?:boolean;
   currencyVerified?:boolean;
+  catalogueCurrencyVerified?:boolean;
   verifiedPriceGbp?:number|null;
 };
 
@@ -278,7 +279,8 @@ export const products: Product[] = [...existingProducts, ...(generatedProducts a
   const destination = destinationBySlug.get(product.slug);
   const stableProductId = String(destination?.productId ?? product.productId ?? `legacy:${product.slug}`);
   const media = productMedia.records.find(record=>record.slug===product.slug&&String(record.productId)===stableProductId&&record.sourceImageUrl===product.image) as {productImageVerified?:boolean;localPublicPath?:string;verifiedPriceGbp?:number;currencyVerified?:boolean;priceVerifiedAt?:string}|undefined;
-  const priceVerified=media?.currencyVerified===true&&!!media.priceVerifiedAt&&Date.now()-Date.parse(media.priceVerifiedAt)<86400000&&Date.parse(media.priceVerifiedAt)<=Date.now();
+  const catalogueCurrencyVerified=media?.currencyVerified===true&&!!media.priceVerifiedAt&&Number.isFinite(Date.parse(media.priceVerifiedAt))&&Date.parse(media.priceVerifiedAt)<=Date.now();
+  const priceVerified=catalogueCurrencyVerified&&Date.now()-Date.parse(media!.priceVerifiedAt!)<86400000;
   const publishedDate = product.publishedAt.slice(0, 10);
   return {
     ...product,
@@ -286,6 +288,7 @@ export const products: Product[] = [...existingProducts, ...(generatedProducts a
     displayImage:media?.productImageVerified&&media.localPublicPath?media.localPublicPath:undefined,
     productImageVerified:media?.productImageVerified===true,
     currencyVerified:priceVerified,
+    catalogueCurrencyVerified,
     verifiedPriceGbp:priceVerified?media?.verifiedPriceGbp:null,
     productId: stableProductId,
     canonicalProductUrl: destination?.canonicalProductUrl ?? product.canonicalProductUrl ?? null,

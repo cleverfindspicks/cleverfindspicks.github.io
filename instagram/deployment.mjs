@@ -31,7 +31,7 @@ export async function deployInstagramChanges(){
   const rss=await readFile(join(output,'rss.xml'),'utf8');
   if((rss.match(/<item>/g)||[]).length!==products.length)throw new Error('Instagram deployment RSS regression');
   const hub=await readFile(join(output,'instagram/index.html'),'utf8');
-  if(!hub.includes('Latest Instagram Find')||!hub.includes('Search the find you saw'))throw new Error('Instagram hub missing');
+  if(!(hub.includes('Latest Instagram Find')||hub.includes('Latest Clever Finds'))||!hub.includes('Search the find you saw')||!hub.includes('Browse by category'))throw new Error('Instagram hub missing');
   const c=await loadCredentials(),env=await localEnvironment();
   const secrets=[c.token,c.appSecret,...Object.entries(env).filter(([k])=>/SECRET|TOKEN|PASSWORD|API_KEY|APP_KEY/.test(k)).map(([,v])=>v)].filter(v=>typeof v==='string'&&v.length>=12);
   async function scan(dir){for(const e of await readdir(dir,{withFileTypes:true})){const p=join(dir,e.name);if(e.isDirectory())await scan(p);else if(!/\.(mp4|png|jpe?g|ico|woff2?)$/i.test(p)){const body=await readFile(p,'utf8');if(secrets.some(s=>body.includes(s)))throw new Error('Secret found in deployment artifact');}}}

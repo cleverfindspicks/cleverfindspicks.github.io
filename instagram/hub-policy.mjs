@@ -6,4 +6,7 @@ export function visibleInstagramFinds(records,catalogue){
     return product&&discoveryEligible(product)&&isVisibleRecommendation(product.slug)?[{record,product}]:[];
   }).filter((row,index,rows)=>rows.findIndex(r=>r.product.slug===row.product.slug)===index).slice(0,20);
 }
+export function visibleCatalogueFinds(catalogue){
+  return catalogue.filter(product=>discoveryEligible(product)&&product.catalogueCurrencyVerified===true&&product.rejected!==true&&product.deleted!==true&&isVisibleRecommendation(product.slug)).sort((a,b)=>String(b.publishedAt||'').localeCompare(String(a.publishedAt||'')));
+}
 export function searchInstagramFinds(rows,query){return rows.filter(({record,product})=>matchesDiscovery(product,{query},[record.caption,record.hook].join(' ')));}
