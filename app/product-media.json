@@ -493,6 +493,23 @@
       "verifiedPriceGbp": 22.36,
       "priceVerifiedAt": "2026-09-15T19:04:19.600Z",
       "priceCurrencySource": "AliExpress Affiliate Product Detail.target_sale_price_currency"
+    },
+    {
+      "slug": "15cm-narrow-gap-drawer-storage-cabinet-multi-layer-rolling-organiz",
+      "productId": "1005012402360589",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S243c17f952104a3bbd26efdecab0e93dv.jpg",
+      "localPublicPath": "/products/verified/1005012402360589.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012402360589.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012402360589.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "dba4f17cb7d04e4efa5b10b3e363f7e5c80650321dcd3dbec6d82614732dcfba",
+      "localSha256": "5586b4c5048258c8bd2cb4a6b21e10b7761a8e9d05d62b3096ded17121d81ba0",
+      "verifiedAt": "2026-09-17T23:03:34.288Z",
+      "cached": true
     }
   ]
 }
