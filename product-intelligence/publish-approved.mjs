@@ -3,11 +3,15 @@ import { spawnSync } from 'node:child_process';
 import { basename, resolve } from 'node:path';
 import { validatePublicationBundle } from './publication-gate.mjs';
 import {prepareProductImage,recordProductMedia} from '../media/prepare-product-image.mjs';
+import {imageGate} from '../media/image-validation.mjs';
 
 const bundlePath = process.argv[2];
 if (!bundlePath) throw new Error('Usage: node product-intelligence/publish-approved.mjs <approved-bundle.json>');
 const bundle = JSON.parse(await readFile(bundlePath, 'utf8'));
-bundle.candidate=await prepareProductImage(bundle.candidate);
+// The production worker already verifies and caches the exact official image
+// immediately before creating the Pin. Reuse that fresh signed evidence so a
+// second transient AliExpress request cannot reject an already verified image.
+if(!imageGate(bundle.candidate))bundle.candidate=await prepareProductImage(bundle.candidate);
 const gate = validatePublicationBundle(bundle);
 if (!gate.ok) {
   console.error(JSON.stringify({ ok: false, status: 'BLOCKED_BY_PUBLICATION_GATE', errors: gate.errors }, null, 2));
