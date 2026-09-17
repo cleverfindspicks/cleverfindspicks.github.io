@@ -4,6 +4,7 @@ import { basename, resolve } from 'node:path';
 import { validatePublicationBundle } from './publication-gate.mjs';
 import {prepareProductImage,recordProductMedia} from '../media/prepare-product-image.mjs';
 import {imageGate} from '../media/image-validation.mjs';
+import { affiliateAuditRecord, upsertAffiliateAudit } from './publication-records.mjs';
 
 const bundlePath = process.argv[2];
 if (!bundlePath) throw new Error('Usage: node product-intelligence/publish-approved.mjs <approved-bundle.json>');
@@ -22,6 +23,8 @@ const before = await readFile(target, 'utf8');
 const products = JSON.parse(before);
 if (products.some((item) => item.slug === bundle.landingPage.slug)) throw new Error('Generated product slug already exists.');
 const mediaBefore=await readFile(new URL('../app/product-media.json',import.meta.url),'utf8');
+const affiliateTarget = new URL('../app/affiliate-destinations.json', import.meta.url);
+const affiliateBefore = await readFile(affiliateTarget, 'utf8');
 await recordProductMedia(bundle.landingPage.slug,bundle.candidate);
 const creativeSource = resolve(bundle.candidate.pinCreative.path);
 const creativeName = basename(creativeSource);
@@ -44,12 +47,18 @@ products.push({
   publishedAt: bundle.publishedAt,
 });
 await writeFile(target, JSON.stringify(products, null, 2));
+const affiliateRuntime = JSON.parse(affiliateBefore);
+await writeFile(
+  affiliateTarget,
+  JSON.stringify(upsertAffiliateAudit(affiliateRuntime, affiliateAuditRecord(bundle)), null, 2),
+);
 const build = process.platform === 'win32'
   ? spawnSync(process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', 'pnpm build'], { cwd: new URL('..', import.meta.url), stdio: 'inherit' })
   : spawnSync('pnpm', ['build'], { cwd: new URL('..', import.meta.url), stdio: 'inherit' });
 if (build.status !== 0) {
   await writeFile(target, before);
   await writeFile(new URL('../app/product-media.json',import.meta.url),mediaBefore);
+  await writeFile(affiliateTarget, affiliateBefore);
   throw new Error('Build failed; generated-products.json was rolled back.');
 }
 console.log(JSON.stringify({ ok: true, status: 'BUILT_AWAITING_GIT_PUBLISH', slug: bundle.landingPage.slug }));
