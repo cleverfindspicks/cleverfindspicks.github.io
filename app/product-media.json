@@ -337,28 +337,6 @@
       "reviewBasis": "Original product photo reviewed against product title; cached copy retains source product without reconstruction"
     },
     {
-      "slug": "two-tier-storage-side-table",
-      "productId": "1005008660091954",
-      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sdf83b3abb93d4745854064c850e64274g.jpg",
-      "localPublicPath": "/products/verified/1005008660091954.jpg",
-      "buildOutputPath": "dist/client/products/verified/1005008660091954.jpg",
-      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008660091954.jpg",
-      "remoteOnly": true,
-      "productImageVerified": true,
-      "beforeValid": true,
-      "httpStatus": 200,
-      "contentType": "image/webp",
-      "width": 800,
-      "height": 800,
-      "sourceSha256": "e96cd3f7ec4c33d250b1a2b9e8253211e45a6ff6056704d2f75ec5b7e3b621bd",
-      "cached": true,
-      "placeholder": false,
-      "sameProductConfirmed": true,
-      "verifiedAt": "2026-09-15T19:59:45.930Z",
-      "reviewedAt": "2026-09-15T20:01:31.161Z",
-      "reviewBasis": "Original product photo reviewed against product title; cached copy retains source product without reconstruction"
-    },
-    {
       "slug": "magnetic-aerosol-can-holder-spray-can-rack-wall-mount-tool-free-inst",
       "productId": "1005011587179676",
       "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S29f4e512c37545d7bb98695838de3345V.jpg",
@@ -509,6 +487,23 @@
       "sourceSha256": "dba4f17cb7d04e4efa5b10b3e363f7e5c80650321dcd3dbec6d82614732dcfba",
       "localSha256": "5586b4c5048258c8bd2cb4a6b21e10b7761a8e9d05d62b3096ded17121d81ba0",
       "verifiedAt": "2026-09-17T23:03:34.288Z",
+      "cached": true
+    },
+    {
+      "slug": "two-tier-storage-side-table",
+      "productId": "1005008660091954",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sdf83b3abb93d4745854064c850e64274g.jpg",
+      "localPublicPath": "/products/verified/1005008660091954.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005008660091954.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008660091954.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "e96cd3f7ec4c33d250b1a2b9e8253211e45a6ff6056704d2f75ec5b7e3b621bd",
+      "localSha256": "b6db821f8f9bf17717b92a14f99ef5ca8b5564914123bbffc7eeaf1beb0c61ca",
+      "verifiedAt": "2026-09-18T08:05:02.854Z",
       "cached": true
     }
   ]
