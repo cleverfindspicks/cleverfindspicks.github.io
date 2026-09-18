@@ -359,28 +359,6 @@
       "reviewBasis": "Original product photo reviewed against product title; cached copy retains source product without reconstruction"
     },
     {
-      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
-      "productId": "1005008077357865",
-      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
-      "localPublicPath": "/products/verified/1005008077357865.jpg",
-      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
-      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
-      "remoteOnly": true,
-      "productImageVerified": true,
-      "beforeValid": true,
-      "httpStatus": 200,
-      "contentType": "image/webp",
-      "width": 1000,
-      "height": 1000,
-      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
-      "cached": true,
-      "placeholder": false,
-      "sameProductConfirmed": true,
-      "verifiedAt": "2026-09-15T19:59:46.317Z",
-      "reviewedAt": "2026-09-15T20:01:31.161Z",
-      "reviewBasis": "Original product photo reviewed against product title; cached copy retains source product without reconstruction"
-    },
-    {
       "slug": "mini-desktop-bin-small-trash-can-tube-with-cover-bedroom-trash-can-g",
       "productId": "1005010560281600",
       "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa7b68c2c8c79475bac73d7d078830cbbJ.jpg",
@@ -504,6 +482,23 @@
       "sourceSha256": "e96cd3f7ec4c33d250b1a2b9e8253211e45a6ff6056704d2f75ec5b7e3b621bd",
       "localSha256": "b6db821f8f9bf17717b92a14f99ef5ca8b5564914123bbffc7eeaf1beb0c61ca",
       "verifiedAt": "2026-09-18T08:05:02.854Z",
+      "cached": true
+    },
+    {
+      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
+      "productId": "1005008077357865",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
+      "localPublicPath": "/products/verified/1005008077357865.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
+      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
+      "verifiedAt": "2026-09-18T13:05:01.994Z",
       "cached": true
     }
   ]
