@@ -11,21 +11,23 @@ const root = resolve('product-intelligence/.local/creative-platform-preview');
 const work = join(root, 'work');
 await mkdir(work, { recursive: true });
 const db = openInstagramStore();
-const row = db.prepare("SELECT * FROM instagram_queue WHERE state='PUBLISHED' AND media_id IS NOT NULL ORDER BY published_at DESC LIMIT 1").get();
+const affected = db.prepare('SELECT p.product_id,p.product_slug,pr.name,pr.cluster FROM publications p JOIN products pr ON pr.product_id=p.product_id ORDER BY p.published_at DESC LIMIT 1').get();
 db.close();
-if (!row) throw new Error('No live Instagram product is available for the shared-product preview.');
+if (!affected) throw new Error('No published Pinterest product is available for the visual-regression preview.');
 
-const evidence = JSON.parse(row.evidence_json);
-const media = JSON.parse(await readFile('app/product-media.json', 'utf8')).records.find((item) => String(item.productId) === String(row.product_id));
+const generated = JSON.parse(await readFile('app/generated-products.json', 'utf8')).find((item) => String(item.productId) === String(affected.product_id));
+const media = JSON.parse(await readFile('app/product-media.json', 'utf8')).records.find((item) => String(item.productId) === String(affected.product_id));
 if (!media?.productImageVerified || !media.localSha256 || !media.sourceSha256) throw new Error('Selected product has no verified local image evidence.');
-evidence.candidate.productImageVerified = true;
-evidence.candidate.productImageVerification = {
-  productId: String(row.product_id), sourceUrl: media.sourceImageUrl, sameProductConfirmed: true, placeholder: false,
+const candidate = {
+  productId: String(affected.product_id), title: generated?.name || affected.name, cluster: generated?.cluster || affected.cluster,
+  image: media.sourceImageUrl, trackingId: 'preview-platform-separation', productImageVerified: true,
+  productImageVerification: {
+  productId: String(affected.product_id), sourceUrl: media.sourceImageUrl, sameProductConfirmed: true, placeholder: false,
   httpStatus: media.httpStatus, contentType: media.contentType, sha256: media.sourceSha256, localSha256: media.localSha256,
   localPublicPath: media.localPublicPath, verifiedAt: media.verifiedAt,
+  },
 };
-row.evidence_json = JSON.stringify(evidence);
-const candidate = { ...evidence.candidate, trackingId: 'preview-platform-separation' };
+const row = { product_id: affected.product_id, product_slug: affected.product_slug, internal_instagram_tracking_id: 'preview-platform-separation', recentHooks: [], evidence_json: JSON.stringify({ candidate }) };
 
 const pinterestPath = join(root, 'pinterest-preview.png');
 const pinterest = await new PinterestCreativeRenderer().render(candidate, { outputPath: pinterestPath });
@@ -40,7 +42,7 @@ const ffmpegResult = spawnSync(process.env.CF_FFMPEG_PATH || ffmpeg, ['-y', '-hi
 if (ffmpegResult.status !== 0) throw new Error('Unable to render Reel QA contact sheet.');
 const reelBytes = await readFile(reelPath);
 const report = {
-  productId: String(row.product_id), productSlug: row.product_slug,
+  productId: String(affected.product_id), productSlug: affected.product_slug,
   outputs: { pinterest: pinterestPath, instagramCover: coverPath, instagramReel: reelPath },
   internalQaContactSheet: contactSheet,
   validation: { pinterest: validatePinterestCreative(pinterest), instagram: validateAutomatedCreative(instagram, reelBytes) },
