@@ -35,7 +35,7 @@ export async function publishQueued(db,row,api,{verifyDestination,fetcher=fetch}
       transition(db,id,'FAILED_RETRYABLE',{last_error:'PUBLISH_OUTCOME_UNKNOWN_RECONCILE_ONLY',next_attempt_at:new Date(Date.now()+retryDelay(row.attempts)*1000).toISOString()});return {status:'RECONCILIATION_REQUIRED'};
     }
     if(!row.container_id){
-      const container=await api.createReel(row.public_asset_url,row.caption);
+      const container=await api.createReel(row.public_asset_url,row.caption,{coverUrl:meta.publicCoverUrl});
       if(!container.id)throw new Error('No official container ID');
       db.prepare('UPDATE instagram_queue SET container_id=? WHERE instagram_publication_id=?').run(container.id,id);
       row.container_id=container.id;

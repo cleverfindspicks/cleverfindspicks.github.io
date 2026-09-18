@@ -40,7 +40,7 @@ const strong = {
   priceSanity: { status: 'PASS' },
   factors: { valueForMoney: 0.9, ukSuitability: 0.9, smallSpaceRelevance: 0.95, visualAppeal: 0.9, impulsePurchase: 0.8, obviousProblem: 0.95, buyerIntent: 0.9, competitionSaturation: 0.35 },
   duplicateSimilarity: 0.15,
-  pinCreative: { path: 'public/pinterest/example-pin.png', width: 1000, height: 1500, reviewedNonClickbait: true },
+  pinCreative: { path: 'public/pinterest/example-pin.png', width: 1000, height: 1500, reviewedNonClickbait: true, renderer: 'PinterestCreativeRenderer', platform: 'pinterest', format: 'static-2:3', layoutFamily: 'pinterest-editorial-v3', videoFrameStyling: false, sourceProductId: '1005000000000001', sourceImageSha256: 'a'.repeat(64), productAreaRatio: 0.535, visibleText: ['CLEVER FINDS', 'Make sink space work', 'Keep essentials within reach'] },
 };
 
 assert.equal(scoreCandidate(strong).decision, 'keep', 'A complete strong candidate should pass.');

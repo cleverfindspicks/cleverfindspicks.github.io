@@ -17,7 +17,7 @@ export class InstagramApi {
     return data;
   }
   profile(){return this.request('me',{params:{fields:'user_id,username'}});}
-  createReel(videoUrl,caption){return this.request(`${this.userId}/media`,{method:'POST',params:{media_type:'REELS',video_url:videoUrl,caption,share_to_feed:true}});}
+  createReel(videoUrl,caption,{coverUrl}={}){return this.request(`${this.userId}/media`,{method:'POST',params:{media_type:'REELS',video_url:videoUrl,caption,share_to_feed:true,...(coverUrl?{cover_url:coverUrl}:{})}});}
   container(id){return this.request(id,{params:{fields:'status_code,status'}});}
   publish(id){return this.request(`${this.userId}/media_publish`,{method:'POST',params:{creation_id:id}});}
   media(id){return this.request(id,{params:{fields:'id,permalink,timestamp,caption,media_type'}});}

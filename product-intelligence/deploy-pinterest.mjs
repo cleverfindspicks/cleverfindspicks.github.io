@@ -18,6 +18,7 @@ export async function deployPinterestChanges() {
   if (git(['diff', '--cached', '--name-only'])) throw new Error('Existing staged work; refusing unattended commit');
   run(process.execPath, ['product-intelligence/self-test.mjs']);
   run(process.execPath, ['--test', 'product-intelligence/tests/publication-records.test.mjs']);
+  run(process.execPath, ['--test', 'product-intelligence/tests/creative-platform-separation.test.mjs']);
   run(process.execPath, ['product-intelligence/validate-production.mjs']);
   run('git', ['add', '--', 'app/generated-products.json', 'app/product-media.json', 'app/affiliate-destinations.json', 'public/products/verified', 'public/pinterest']);
   if (git(['diff', '--cached', '--name-only'])) run('git', ['commit', '-m', 'Publish scheduled Pinterest find']);

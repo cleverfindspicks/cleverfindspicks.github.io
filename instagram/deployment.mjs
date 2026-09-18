@@ -11,7 +11,7 @@ export async function deployInstagramChanges(){
   // Only Instagram assets are staged. An isolated committed snapshot preserves
   // unrelated in-progress Pinterest work without deploying it.
   if(git(['diff','--cached','--name-only']))throw new Error('Existing staged work; refusing unattended commit');
-  run(process.execPath,['--test','media/tests/media.test.mjs','instagram/tests/instagram.test.mjs','instagram/tests/oauth.test.mjs','instagram/tests/store-experience.test.mjs','instagram/tests/schedule.test.mjs']);
+  run(process.execPath,['--test','media/tests/media.test.mjs','instagram/tests/instagram.test.mjs','instagram/tests/oauth.test.mjs','instagram/tests/store-experience.test.mjs','instagram/tests/schedule.test.mjs','product-intelligence/tests/creative-platform-separation.test.mjs']);
   run(process.execPath,['--test','--test-skip-pattern=missing external credentials','product-intelligence/tests/performance.test.mjs']);
   run(process.execPath,['product-intelligence/self-test.mjs']);
   run('git',['add','--','app/instagram-publications.json','public/instagram','app/product-media.json','public/products/verified']);

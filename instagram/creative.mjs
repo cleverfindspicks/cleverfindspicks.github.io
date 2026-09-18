@@ -11,7 +11,7 @@ const sha = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const esc = (s) => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 export function validateFidelity(meta) {
   const errors = [];
-  if (meta?.sourceType !== 'ORIGINAL_ALIEXPRESS_IMAGE' || !meta?.sourceUrl || !/^[a-f0-9]{64}$/.test(meta?.sourceSha256 || '')) errors.push('MISSING_ORIGINAL_SOURCE_PROVENANCE');
+  if (!['ORIGINAL_ALIEXPRESS_IMAGE','VERIFIED_ALIEXPRESS_PRODUCT_CACHE'].includes(meta?.sourceType) || !meta?.sourceUrl || !/^[a-f0-9]{64}$/.test(meta?.sourceSha256 || '')) errors.push('MISSING_ORIGINAL_SOURCE_PROVENANCE');
   if (meta?.productId !== meta?.expectedProductId) errors.push('PRODUCT_ID_MISMATCH');
   if (meta?.productImageFit !== 'contain' || meta?.productMorphing !== false || meta?.fabricatedBeforeAfter !== false || meta?.variantAltered !== false) errors.push('PRODUCT_FIDELITY_NOT_PRESERVED');
   if (meta?.rightsBasis !== 'CURRENT_AFFILIATE_WORKFLOW_PRODUCT_IMAGE_ONLY' || meta?.listingVideoUsed !== false || meta?.commercialMusicUsed !== false) errors.push('UNAPPROVED_SOURCE_OR_AUDIO');
@@ -27,6 +27,13 @@ export function validateAutomatedCreative(meta,bytes){
   const errors=[...validateFidelity(meta).errors];const content=Buffer.isBuffer(bytes)?bytes:Buffer.from(bytes||[]);
   if(content.length<10000||!content.subarray(0,64).includes(Buffer.from('ftyp'))||!content.includes(Buffer.from('moov')))errors.push('CORRUPT_OR_UNREADABLE_MP4');
   if(meta?.productImageVerified!==true||meta?.productImageVerification?.productId!==meta?.productId)errors.push('PRODUCT_IMAGE_NOT_VERIFIED');
+  if(meta?.renderer!=='InstagramReelRenderer'||meta?.platform!=='instagram'||meta?.layoutFamily!=='instagram-reel-premium-v3'||meta?.pinterestLayoutReused!==false)errors.push('INSTAGRAM_RENDERER_OR_LAYOUT_INVALID');
+  if(meta?.cover?.renderer!=='InstagramReelCoverRenderer'||meta?.cover?.productId!==meta?.productId)errors.push('INSTAGRAM_COVER_INVALID');
+  const qa=meta?.visualQA||{};
+  if(qa.firstFrameNotBlack!==true||qa.coverNotBlank!==true||!(qa.firstFrameMean>=80)||!(qa.firstFrameEntropy>=2))errors.push('BLACK_OR_BLANK_REEL_COVER');
+  if(qa.productClearlyVisible!==true||!(qa.productAreaRatio>=0.5&&qa.productAreaRatio<=0.7))errors.push('PRODUCT_NOT_VISUALLY_PRIMARY');
+  if(qa.mobileTextReadable!==true||qa.textClipped!==false||qa.visibleCharacterCount>260)errors.push('MOBILE_TEXT_VISUAL_QA_FAILED');
+  if(qa.duplicatedOverlays!==false||qa.disclosureUnobtrusive!==true||qa.disclosureFontSize>28)errors.push('OVERLAY_VISUAL_QA_FAILED');
   return {ok:errors.length===0,errors,creativeVerified:errors.length===0};
 }
 async function runFfmpeg(args) {

@@ -70,7 +70,8 @@ export async function runInstagram({force=false,deploy=deployInstagramChanges}={
       let creative=null,lastError=null;
       for(let attempt=0;attempt<config.production.creativeGenerationAttempts&&!creative;attempt++)try{row.recentHooks=db.prepare("SELECT hook FROM instagram_queue WHERE state='PUBLISHED' ORDER BY published_at DESC LIMIT 10").all().map(r=>r.hook);creative=await generateReel(row);}catch(error){lastError=error;}
       if(creative){row=transition(db,row.instagram_publication_id,'READY',{creative_id:creative.creativeId,creative_json:JSON.stringify(creative),hook:creative.hook,caption:creative.caption,asset_path:creative.assetPath,public_asset_url:creative.publicAssetUrl});break;}
-      transition(db,row.instagram_publication_id,'FAILED_PERMANENT',{last_error:'SKIPPED_CREATIVE_GENERATION_FAILED'});creativeFailures++;
+      const creativeFailure=String(lastError?.message||'').includes('SKIPPED_CREATIVE_VISUAL_QA_FAILED')?'SKIPPED_CREATIVE_VISUAL_QA_FAILED':'SKIPPED_CREATIVE_GENERATION_FAILED';
+      transition(db,row.instagram_publication_id,'FAILED_PERMANENT',{last_error:creativeFailure});creativeFailures++;
       const choice=await nextChoice();row=choice?enqueue(db,choice,day,false,scheduledTime):null;
       if(!row){const status='SKIPPED_NO_QUALIFIED_INSTAGRAM_PRODUCT';db.prepare('UPDATE instagram_schedule_slots SET publication_id=NULL,status=?,updated_at=? WHERE scheduled_day=? AND scheduled_time=?').run(status,new Date().toISOString(),day,scheduledTime);setHealth(db,'INSTAGRAM_LAST_SLOT',status,`creative failures ${creativeFailures}; ${String(lastError?.message||'').slice(0,80)}`);return {status,creativeFailures,pinterestUnaffected:true};}
     }
