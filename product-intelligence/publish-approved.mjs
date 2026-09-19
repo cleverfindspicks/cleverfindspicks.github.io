@@ -1,6 +1,7 @@
 import { copyFile, readFile, writeFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { basename, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { validatePublicationBundle } from './publication-gate.mjs';
 import {prepareProductImage,recordProductMedia} from '../media/prepare-product-image.mjs';
 import {imageGate} from '../media/image-validation.mjs';
@@ -52,9 +53,12 @@ await writeFile(
   affiliateTarget,
   JSON.stringify(upsertAffiliateAudit(affiliateRuntime, affiliateAuditRecord(bundle)), null, 2),
 );
-const build = process.platform === 'win32'
-  ? spawnSync(process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', 'pnpm build'], { cwd: new URL('..', import.meta.url), stdio: 'inherit' })
-  : spawnSync('pnpm', ['build'], { cwd: new URL('..', import.meta.url), stdio: 'inherit' });
+// Do not invoke pnpm here: Scheduled Tasks commonly have a minimal PATH and
+// previously failed after publishing the bundle with "pnpm not recognized".
+// The local Node/Vinext build is deterministic and inherits the worker's Node.
+const build = spawnSync(process.execPath, [fileURLToPath(new URL('../scripts/build-production.mjs', import.meta.url))], {
+  cwd: new URL('..', import.meta.url), stdio: 'inherit', windowsHide: true,
+});
 if (build.status !== 0) {
   await writeFile(target, before);
   await writeFile(new URL('../app/product-media.json',import.meta.url),mediaBefore);
