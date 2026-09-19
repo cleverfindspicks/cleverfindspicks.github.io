@@ -1,4 +1,5 @@
 import {createHmac} from 'node:crypto';
+import {aliExpressFetch,isAliExpressDeferred,rememberDeferred,completeDeferred} from '../product-intelligence/aliexpress-recovery.mjs';
 import {localEnvironment} from '../product-intelligence/local-env.mjs';
 import {verifyCurrency,commissionMetrics,currencyFields,currencyGate} from '../product-intelligence/currency.mjs';
 import {enrichCandidate,priceBenchmarks,classifyEvidence} from '../product-intelligence/enrichment.mjs';
@@ -15,12 +16,13 @@ export async function refreshProductEvidence(choices,{fetcher=fetch}={}){
     const params={app_key:env.ALIEXPRESS_APP_KEY.trim(),method:'aliexpress.affiliate.productdetail.get',timestamp:String(Date.now()),sign_method:'sha256',format:'json',v:'2.0',product_ids:choices.slice(i,i+20).map(c=>c.product.productId).join(','),country:'GB',target_currency:'GBP',target_language:'EN',tracking_id:env.ALIEXPRESS_TRACKING_ID.trim(),fields:'product_id,product_title,product_main_image_url,product_detail_url,evaluate_rate,lastest_volume,ship_to_days,'+currencyFields};
     const sign=createHmac('sha256',env.ALIEXPRESS_APP_SECRET.trim()).update(Object.keys(params).sort().map(k=>k+params[k]).join('')).digest('hex').toUpperCase();
     try{
-      const response=await fetcher('https://api-sg.aliexpress.com/sync',{method:'POST',body:new URLSearchParams({...params,sign}),signal:AbortSignal.timeout(25000)});
+      const response=await aliExpressFetch('https://api-sg.aliexpress.com/sync',{method:'POST',body:new URLSearchParams({...params,sign}),signal:AbortSignal.timeout(25000)},fetcher);
       const data=await response.json();const result=data.aliexpress_affiliate_productdetail_get_response?.resp_result;
       if(response.ok&&Number(result?.resp_code)===200)rows.push(...(result.result?.products?.product||[]));
-    }catch{/* Unknown official evidence makes the product ineligible. */}
+    }catch(error){if(isAliExpressDeferred(error)){rememberDeferred('instagram',choices.map(c=>c.candidate));throw error;}/* Unknown official evidence makes the product ineligible. */}
   }
   const byId=new Map(rows.map(r=>[String(r.product_id),r]));
+  completeDeferred('instagram',[...byId.keys()]);
   const evidence=await loadVerificationEvidence();
   const fresh=choices.flatMap(({product,candidate})=>{
     const item=byId.get(String(product.productId));if(!item)return [];

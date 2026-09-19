@@ -1,4 +1,5 @@
 import { mkdir, readFile, writeFile, unlink } from 'node:fs/promises';
+import {assertAliExpressReady,isAliExpressDeferred,DEFERRED} from './aliexpress-recovery.mjs';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { buildContentCandidate } from './content.mjs';
@@ -10,6 +11,7 @@ import { deployPinterestChanges } from './deploy-pinterest.mjs';
 const root = new URL('..', import.meta.url);
 function run(script, args = []) {
   const result = spawnSync(process.execPath, [script, ...args], { cwd: root, stdio: 'inherit', windowsHide: true });
+  assertAliExpressReady();
   if (result.status !== 0) throw new Error(`${script} failed with exit ${result.status}`);
 }
 
@@ -22,6 +24,7 @@ export async function runPinterestProduction() {
     try { if (pid) process.kill(pid, 0); return { status: 'WORKER_ALREADY_RUNNING' }; } catch { await unlink(lock).catch(() => {}); await writeFile(lock, String(process.pid), { flag: 'wx' }); }
   }
   try {
+  assertAliExpressReady();
   run('product-intelligence/automation-run.mjs');
   const report = JSON.parse(await readFile(new URL('./data/dry-run-report.json', import.meta.url), 'utf8'));
   if (!report.winner) return { status: 'SKIPPED_NO_QUALIFIED_PINTEREST_PRODUCT' };
@@ -44,7 +47,7 @@ export async function runPinterestProduction() {
   run('product-intelligence/publish-approved.mjs', [fileURLToPath(bundlePath)]);
   await deployPinterestChanges();
   return { status: 'PUBLISHED_TO_RSS', productId: candidate.productId, slug: content.landingPage.slug };
-  } finally { await unlink(lock).catch(() => {}); }
+  } catch(error) { if(isAliExpressDeferred(error))return {status:DEFERRED,nextAttemptAt:error.nextAttemptAt};throw error; } finally { await unlink(lock).catch(() => {}); }
 }
 
 if (process.argv[1]?.endsWith('production-run.mjs')) {

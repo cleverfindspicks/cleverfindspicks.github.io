@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import {isAliExpressDeferred} from './aliexpress-recovery.mjs';
 import { parseEnv } from 'node:util';
 import { canonicalProductUrl, generateAffiliateLink, resolveAffiliateDestination } from './affiliate-destination.mjs';
 import {priceConflict,currencyGate} from './currency.mjs';
@@ -22,6 +23,7 @@ try {
   affiliateUrl = generated.affiliateUrl;
   validation = await resolveAffiliateDestination(affiliateUrl, winner.productId);
 } catch (error) {
+  if(isAliExpressDeferred(error))throw error;
   validation = {
     checkedAt: new Date().toISOString(),
     expectedProductId: String(winner.productId),

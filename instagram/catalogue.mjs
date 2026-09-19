@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import {deferredCandidates} from '../product-intelligence/aliexpress-recovery.mjs';
 import { spawnSync } from 'node:child_process';
 import { products } from '../app/products.ts';
 import { isVisibleRecommendation } from '../app/catalog-visibility.ts';
@@ -16,6 +17,7 @@ export async function qualifiedCatalogue(db) {
     try { bundles.push(JSON.parse(raw.stdout)); } catch { /* An unavailable historic receipt is not eligibility evidence. */ }
   }
   const receipts = new Map();
+  for(const candidate of deferredCandidates('instagram')){const p=products.find(p=>String(p.productId)===String(candidate.productId));if(p)receipts.set(p.slug,candidate);}
   for (const bundle of bundles) {
     const candidate = bundle.candidate;
     const slug = bundle.landingPage?.slug;

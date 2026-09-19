@@ -1,4 +1,5 @@
 import {createHmac,createHash} from 'node:crypto';
+import {aliExpressFetch,isAliExpressDeferred} from '../product-intelligence/aliexpress-recovery.mjs';
 import {writeFile,mkdir,readFile} from 'node:fs/promises';
 import sharp from 'sharp';
 import {localEnvironment} from '../product-intelligence/local-env.mjs';
@@ -11,7 +12,7 @@ export async function prepareProductImage(candidate,{fetcher=fetch,officialLooku
     else{const env=await localEnvironment();if(!env.ALIEXPRESS_APP_KEY||!env.ALIEXPRESS_APP_SECRET)throw new Error('IMAGE_OFFICIAL_SOURCE_UNAVAILABLE');
       const params={app_key:env.ALIEXPRESS_APP_KEY.trim(),method:'aliexpress.affiliate.productdetail.get',timestamp:String(Date.now()),sign_method:'sha256',format:'json',v:'2.0',product_ids:id,country:'GB',target_currency:'GBP',target_language:'EN',fields:'product_id,product_main_image_url'};
       const sign=createHmac('sha256',env.ALIEXPRESS_APP_SECRET.trim()).update(Object.keys(params).sort().map(k=>k+params[k]).join('')).digest('hex').toUpperCase();
-      const response=await fetcher('https://api-sg.aliexpress.com/sync',{method:'POST',body:new URLSearchParams({...params,sign}),signal:AbortSignal.timeout(30000)});const json=await response.json();
+      const response=await aliExpressFetch('https://api-sg.aliexpress.com/sync',{method:'POST',body:new URLSearchParams({...params,sign}),signal:AbortSignal.timeout(30000)},fetcher);const json=await response.json();
       source=json.aliexpress_affiliate_productdetail_get_response?.resp_result?.result?.products?.product?.find(p=>String(p.product_id)===id);
     }
     if(!source||String(source.product_id)!==id||source.product_main_image_url!==candidate.image)throw new Error('IMAGE_OFFICIAL_PRODUCT_OR_SOURCE_MISMATCH');
@@ -20,7 +21,7 @@ export async function prepareProductImage(candidate,{fetcher=fetch,officialLooku
     if(writeCache){await mkdir('public/products/verified',{recursive:true});await writeFile('public'+localPath,bytes);}
     const proof={productId:id,sourceUrl:candidate.image,sameProductConfirmed:true,placeholder:false,httpStatus:200,contentType:image.contentType,sha256:image.sha256,localSha256:createHash('sha256').update(bytes).digest('hex'),localPublicPath:localPath,verifiedAt:new Date().toISOString(),identitySource:'Official AliExpress Product Detail: exact product_id and product_main_image_url'};
     const result={...candidate,productImageVerified:true,productImageVerification:proof};if(!imageGate(result))throw new Error('IMAGE_PROOF_REJECTED');return result;
-  }catch{return {...candidate,productImageVerified:false,productImageVerification:null,imageRejectionReason:'SKIPPED_IMAGE_NOT_VERIFIED'};}
+  }catch(error){if(isAliExpressDeferred(error))throw error;return {...candidate,productImageVerified:false,productImageVerification:null,imageRejectionReason:'SKIPPED_IMAGE_NOT_VERIFIED'};}
 }
 export async function recordProductMedia(slug,candidate){
  if(!imageGate(candidate))throw new Error('SKIPPED_IMAGE_NOT_VERIFIED');

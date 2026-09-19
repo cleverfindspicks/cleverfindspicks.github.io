@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import {isAliExpressDeferred} from './aliexpress-recovery.mjs';
 import { parseEnv } from 'node:util';
 import { products } from '../app/products.ts';
 import { canonicalProductUrl, generateAffiliateLink, resolveAffiliateDestination } from './affiliate-destination.mjs';
@@ -39,7 +40,8 @@ for (const product of products) {
       } else {
         action = 'REGENERATION_FAILED_CTA_DISABLED';
       }
-    } catch {
+    } catch(error) {
+      if(isAliExpressDeferred(error))throw error;
       action = 'REGENERATION_FAILED_CTA_DISABLED';
     }
   } else if (!validation.pass && !expectedProductId) {

@@ -1,4 +1,5 @@
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {aliExpressFetch,isAliExpressDeferred} from './aliexpress-recovery.mjs';
 import {createHmac} from 'node:crypto';
 import {parseEnv} from 'node:util';
 import {verifyCurrency,commissionMetrics,currencyFields} from './currency.mjs';
@@ -12,7 +13,7 @@ async function fetchDetails(ids){
  fields:'product_id,product_title,product_main_image_url,product_detail_url,promotion_link,evaluate_rate,lastest_volume,ship_to_days,'+currencyFields};
  const canonical=Object.keys(params).sort().map(k=>k+params[k]).join('');
  const sign=createHmac('sha256',env.ALIEXPRESS_APP_SECRET.trim()).update(canonical).digest('hex').toUpperCase();
- const response=await fetch('https://api-sg.aliexpress.com/sync',{method:'POST',body:new URLSearchParams({...params,sign}),signal:AbortSignal.timeout(25000)});
+ const response=await aliExpressFetch('https://api-sg.aliexpress.com/sync',{method:'POST',body:new URLSearchParams({...params,sign}),signal:AbortSignal.timeout(25000)});
  const data=await response.json();const result=data.aliexpress_affiliate_productdetail_get_response?.resp_result;
  if(!response.ok||Number(result?.resp_code)!==200)throw Error('Official GBP detail request failed');
  return result.result?.products?.product||[];
@@ -26,7 +27,7 @@ const ids=[...new Set([...pool.candidates.map(c=>c.productId),...publishedIds.ma
 const raw=retry?JSON.parse(await readFile(new URL('.local/currency-api.json',root),'utf8')):[];let failedBatches=0;
 const cached=new Set(raw.map(r=>String(r.product_id)));
 const pending=ids.filter(id=>!cached.has(String(id)));
-for(let i=0;i<pending.length;i+=20){try{raw.push(...await fetchDetails(pending.slice(i,i+20)));}catch{failedBatches++;}}
+for(let i=0;i<pending.length;i+=20){try{raw.push(...await fetchDetails(pending.slice(i,i+20)));}catch(error){if(isAliExpressDeferred(error))throw error;failedBatches++;}}
 await writeFile(new URL('.local/currency-api.json',root),JSON.stringify(raw));
 const byId=new Map(raw.map(r=>[String(r.product_id),r]));
 const fresh=pool.candidates.map(old=>{

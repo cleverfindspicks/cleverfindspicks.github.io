@@ -1,4 +1,5 @@
 import { createHmac } from 'node:crypto';
+import {aliExpressFetch} from './aliexpress-recovery.mjs';
 
 const BROWSER_HEADERS = {
   'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140.0 Safari/537.36',
@@ -84,7 +85,7 @@ export async function generateAffiliateLink({ productId, appKey, appSecret, trac
   };
   const canonical = Object.keys(params).sort().map((name) => name + params[name]).join('');
   const sign = createHmac('sha256', appSecret).update(canonical, 'utf8').digest('hex').toUpperCase();
-  const response = await fetch('https://api-sg.aliexpress.com/sync', { method: 'POST', body: new URLSearchParams({ ...params, sign }), signal: AbortSignal.timeout(30000) });
+  const response = await aliExpressFetch('https://api-sg.aliexpress.com/sync', { method: 'POST', body: new URLSearchParams({ ...params, sign }), signal: AbortSignal.timeout(30000) });
   const data = await response.json();
   const result = data.aliexpress_affiliate_link_generate_response?.resp_result;
   const links = result?.result?.promotion_links?.promotion_link;

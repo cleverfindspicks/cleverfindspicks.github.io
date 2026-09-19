@@ -1,4 +1,5 @@
 import { createHash, createHmac, randomUUID } from 'node:crypto';
+import {aliExpressFetch,isAliExpressDeferred,rememberDeferred,deferredCandidates,completeDeferred} from './aliexpress-recovery.mjs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { parseEnv } from 'node:util';
 import config from './config.json' with { type: 'json' };
@@ -41,7 +42,7 @@ async function search(query, pageNo, sortMode) {
   if (sortMode === 'LAST_VOLUME_DESC') params.sort = sortMode;
   const canonical = Object.keys(params).sort().map((name) => name + params[name]).join('');
   const sign = createHmac('sha256', secret).update(canonical, 'utf8').digest('hex').toUpperCase();
-  const response = await fetch('https://api-sg.aliexpress.com/sync', {
+  const response = await aliExpressFetch('https://api-sg.aliexpress.com/sync', {
     method: 'POST',
     body: new URLSearchParams({ ...params, sign }),
     signal: AbortSignal.timeout(25000),
@@ -126,7 +127,7 @@ async function detail(products) {
   };
   const canonical = Object.keys(params).sort().map((name) => name + params[name]).join('');
   const sign = createHmac('sha256', secret).update(canonical, 'utf8').digest('hex').toUpperCase();
-  const response = await fetch('https://api-sg.aliexpress.com/sync', { method: 'POST', body: new URLSearchParams({ ...params, sign }), signal: AbortSignal.timeout(25000) });
+  const response = await aliExpressFetch('https://api-sg.aliexpress.com/sync', { method: 'POST', body: new URLSearchParams({ ...params, sign }), signal: AbortSignal.timeout(25000) });
   const data = await response.json();
   const result = data.aliexpress_affiliate_productdetail_get_response?.resp_result;
   const rows = result?.result?.products?.product;
@@ -134,10 +135,10 @@ async function detail(products) {
   return rows;
 }
 
-const batches = [];
+const batches = deferredCandidates('pinterest');
 for (const item of searchPlan) {
   for (let page = 1; page <= item.pages; page += 1) {
-    for (const sortMode of item.sortModes) batches.push(...await search(item.query, page, sortMode));
+    for (const sortMode of item.sortModes) {try{batches.push(...await search(item.query, page, sortMode));}catch(error){if(isAliExpressDeferred(error))rememberDeferred('pinterest',batches);throw error;}}
   }
 }
 const deduped = [...Map.groupBy(batches, (item) => item.productId).values()].map((rows) => ({
@@ -149,7 +150,7 @@ const deduped = [...Map.groupBy(batches, (item) => item.productId).values()].map
 }));
 const details = [];
 for (let index = 0; index < deduped.length; index += 20) {
-  try { details.push(...await detail(deduped.slice(index, index + 20))); } catch { /* Missing detail evidence safely blocks that batch. */ }
+  try { details.push(...await detail(deduped.slice(index, index + 20))); } catch(error) { if(isAliExpressDeferred(error)){rememberDeferred('pinterest',deduped);throw error;} /* Missing detail evidence safely blocks that batch. */ }
 }
 const detailById = new Map(details.map((item) => [String(item.product_id), item]));
 const detailed = deduped.map((candidate) => {
@@ -211,4 +212,5 @@ const runLogUrl = new URL('./data/run-log.json', import.meta.url);
 const runLog = await readFile(runLogUrl, 'utf8').then(JSON.parse).catch(() => ({ runs: [] }));
 runLog.runs = [...(runLog.runs || []), { runId, generatedAt: new Date().toISOString(), queryCount: config.queries.length, candidateCount: evaluated.length, publishableCount: evaluated.filter((item) => item.decision === 'keep').length }].slice(-config.retention.maximumRunSummaries);
 await writeFile(runLogUrl, JSON.stringify(runLog, null, 2));
+completeDeferred('pinterest',details.map(item=>String(item.product_id)));
 console.log(JSON.stringify({ ok: true, queries: config.queries.length, candidates: evaluated.length, publishable: evaluated.filter((item) => item.decision === 'keep').length }));

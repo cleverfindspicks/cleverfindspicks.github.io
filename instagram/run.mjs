@@ -1,4 +1,5 @@
 import {mkdir,readFile,writeFile,unlink} from 'node:fs/promises';
+import {assertAliExpressReady,isAliExpressDeferred,DEFERRED} from '../product-intelligence/aliexpress-recovery.mjs';
 import {spawnSync} from 'node:child_process';
 import {openInstagramStore,setHealth,livePublicationSql} from './store.mjs';
 import {qualifiedCatalogue} from './catalogue.mjs';
@@ -25,6 +26,7 @@ export async function runInstagram({force=false,deploy=deployInstagramChanges}={
     await unlink(lock).catch(()=>{});await writeFile(lock,String(process.pid),{flag:'wx'});
   }
   try{
+    assertAliExpressReady();
     const pending=db.prepare("SELECT 1 FROM instagram_queue WHERE dry_run=0 AND state IN ('PENDING','CREATIVE_GENERATING','READY','PUBLISHING','FAILED_RETRYABLE') LIMIT 1").get();
     if(!force&&!pending&&!scheduleSlot())return {status:'OUTSIDE_LONDON_SLOT',pinterestUnaffected:true};
     let credentials=await loadCredentials();
@@ -68,7 +70,7 @@ export async function runInstagram({force=false,deploy=deployInstagramChanges}={
     while(row&&(row.state==='PENDING'||(row.state==='FAILED_RETRYABLE'&&!row.asset_path))){
       row=transition(db,row.instagram_publication_id,'CREATIVE_GENERATING');
       let creative=null,lastError=null;
-      for(let attempt=0;attempt<config.production.creativeGenerationAttempts&&!creative;attempt++)try{row.recentHooks=db.prepare("SELECT hook FROM instagram_queue WHERE state='PUBLISHED' ORDER BY published_at DESC LIMIT 10").all().map(r=>r.hook);creative=await generateReel(row);}catch(error){lastError=error;}
+      for(let attempt=0;attempt<config.production.creativeGenerationAttempts&&!creative;attempt++)try{row.recentHooks=db.prepare("SELECT hook FROM instagram_queue WHERE state='PUBLISHED' ORDER BY published_at DESC LIMIT 10").all().map(r=>r.hook);creative=await generateReel(row);}catch(error){if(isAliExpressDeferred(error)){transition(db,row.instagram_publication_id,'FAILED_RETRYABLE',{last_error:DEFERRED,next_attempt_at:error.nextAttemptAt});throw error;}lastError=error;}
       if(creative){row=transition(db,row.instagram_publication_id,'READY',{creative_id:creative.creativeId,creative_json:JSON.stringify(creative),hook:creative.hook,caption:creative.caption,asset_path:creative.assetPath,public_asset_url:creative.publicAssetUrl});break;}
       const creativeFailure=String(lastError?.message||'').includes('SKIPPED_CREATIVE_VISUAL_QA_FAILED')?'SKIPPED_CREATIVE_VISUAL_QA_FAILED':'SKIPPED_CREATIVE_GENERATION_FAILED';
       transition(db,row.instagram_publication_id,'FAILED_PERMANENT',{last_error:creativeFailure});creativeFailures++;
@@ -97,7 +99,7 @@ export async function runInstagram({force=false,deploy=deployInstagramChanges}={
     const dirty=spawnSync('git',['diff','--quiet','--','app/instagram-publications.json']);
     if(dirty.status!==0)await deploy();
     return {...result,pinterestUnaffected:true};
-  }catch(error){setHealth(db,'INSTAGRAM',error.tokenExpired?'TOKEN_EXPIRED':'ERROR',String(error.message).slice(0,180));return {status:'ERROR',detail:String(error.message).slice(0,180),pinterestUnaffected:true};}
+  }catch(error){if(isAliExpressDeferred(error)){setHealth(db,'INSTAGRAM_LAST_SLOT',DEFERRED,error.nextAttemptAt);return {status:DEFERRED,nextAttemptAt:error.nextAttemptAt,pinterestUnaffected:true};}setHealth(db,'INSTAGRAM',error.tokenExpired?'TOKEN_EXPIRED':'ERROR',String(error.message).slice(0,180));return {status:'ERROR',detail:String(error.message).slice(0,180),pinterestUnaffected:true};}
   finally{db.close();await unlink(lock).catch(()=>{});}
 }
 if(process.argv[1]?.endsWith('run.mjs'))console.log(JSON.stringify(await runInstagram({force:process.argv.includes('--force')})));
