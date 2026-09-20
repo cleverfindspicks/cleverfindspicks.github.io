@@ -425,32 +425,6 @@
       "reviewBasis": "Original product photo reviewed against product title; cached copy retains source product without reconstruction"
     },
     {
-      "slug": "kitchen-countertop-storage-rack",
-      "productId": "1005009902905133",
-      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sf6f14d5a14db457abef13f058f86c766J.jpg",
-      "localPublicPath": "/products/verified/1005009902905133.jpg",
-      "buildOutputPath": "dist/client/products/verified/1005009902905133.jpg",
-      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005009902905133.jpg",
-      "remoteOnly": true,
-      "productImageVerified": true,
-      "beforeValid": true,
-      "httpStatus": 200,
-      "contentType": "image/webp",
-      "width": 800,
-      "height": 800,
-      "sourceSha256": "8e451d93adcabaeee85e1432cba2da1215a86807eb601f409f2f3100c0f79b99",
-      "cached": true,
-      "placeholder": false,
-      "sameProductConfirmed": true,
-      "verifiedAt": "2026-09-15T19:59:47.407Z",
-      "reviewedAt": "2026-09-15T20:01:31.161Z",
-      "reviewBasis": "Original product photo reviewed against product title; cached copy retains source product without reconstruction",
-      "currencyVerified": true,
-      "verifiedPriceGbp": 22.36,
-      "priceVerifiedAt": "2026-09-15T19:04:19.600Z",
-      "priceCurrencySource": "AliExpress Affiliate Product Detail.target_sale_price_currency"
-    },
-    {
       "slug": "15cm-narrow-gap-drawer-storage-cabinet-multi-layer-rolling-organiz",
       "productId": "1005012402360589",
       "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S243c17f952104a3bbd26efdecab0e93dv.jpg",
@@ -500,6 +474,27 @@
       "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
       "verifiedAt": "2026-09-18T13:05:01.994Z",
       "cached": true
+    },
+    {
+      "slug": "kitchen-countertop-storage-rack",
+      "productId": "1005009902905133",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sf6f14d5a14db457abef13f058f86c766J.jpg",
+      "localPublicPath": "/products/verified/1005009902905133.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005009902905133.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005009902905133.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "8e451d93adcabaeee85e1432cba2da1215a86807eb601f409f2f3100c0f79b99",
+      "localSha256": "1e687d04cc30b217a5d6758032cd72a17231807dbfb41933df18e0fb0fb71ca3",
+      "verifiedAt": "2026-09-20T18:35:02.343Z",
+      "cached": true,
+      "currencyVerified": true,
+      "verifiedPriceGbp": 22.36,
+      "priceVerifiedAt": "2026-09-15T19:04:19.600Z",
+      "priceCurrencySource": "AliExpress Affiliate Product Detail.target_sale_price_currency"
     }
   ]
 }
