@@ -7,6 +7,7 @@ import { instagramSuitability } from './suitability.mjs';
 import config from './config.json' with { type: 'json' };
 import {refreshProductEvidence} from './product-evidence.mjs';
 import {livePublicationSql} from './store.mjs';
+import {AUTO_PROMOTION_ENABLED,canAutoPromote,recordPromotionFailure} from './catalogue-promotion.mjs';
 
 export async function qualifiedCatalogue(db) {
   const bundles = [];
@@ -47,6 +48,12 @@ export async function qualifiedCatalogue(db) {
     const suitability = instagramSuitability(candidate, { recentProductIds: recent });
     const diversified = last.length < config.selection.maximumConsecutiveClusterWins || !last.every((r) => r.cluster === product.cluster);
     const learned = db.prepare('SELECT performance_multiplier FROM instagram_cluster_performance WHERE cluster=? AND window_days=30').get(product.cluster)?.performance_multiplier || 1;
+    if (AUTO_PROMOTION_ENABLED && !canAutoPromote(candidate, suitability)) {
+      // No half-active product is created here. The existing production flow
+      // may promote only after image/affiliate/page deployment verification.
+      recordPromotionFailure(null, product.productId, 'VERIFICATION_GATE_NOT_SATISFIED').catch(() => {});
+      return [];
+    }
     return [{ product, candidate, suitability, diversified, selectionScore: Number(((candidate.totalScore * 0.4 + suitability.totalScore * 0.6) * learned).toFixed(2)) }];
   }).filter((row) => row.suitability.qualified).sort((a, b) => Number(b.diversified)-Number(a.diversified)||b.selectionScore-a.selectionScore);
 }
