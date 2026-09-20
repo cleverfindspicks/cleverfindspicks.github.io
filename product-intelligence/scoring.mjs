@@ -83,12 +83,14 @@ function hardFilters(candidate, totalScore, confidence, { existingProduct = fals
 
   if (!candidate.productId) reject.push('Product ID is missing; the exact listing cannot be re-queried.');
   if (!existingProduct && candidate.detailVerification?.productIdMatched !== true) reject.push('Product detail query did not verify the exact product ID.');
-  if (!known(candidate.metrics?.feedbackPct)) reject.push('Feedback is missing when expected from the Affiliate API.');
-  else if (Number(candidate.metrics.feedbackPct) < h.minimumFeedbackPct) reject.push(`Feedback is below ${h.minimumFeedbackPct}%.`);
+  // Missing feedback/demand is UNKNOWN, not verified poor performance. A
+  // reported value below the threshold remains a hard rejection.
+  if (known(candidate.metrics?.feedbackPct) && Number(candidate.metrics.feedbackPct) < h.minimumFeedbackPct) reject.push(`Feedback is below ${h.minimumFeedbackPct}%.`);
   if (known(price) && price < h.minimumPriceGbp && (!known(amount) || amount < h.minimumEstimatedCommissionGbp)) reject.push('Price is too low to produce a meaningful expected commission.');
   if (known(amount) && amount < h.minimumEstimatedCommissionGbp) reject.push(`Estimated commission is below £${h.minimumEstimatedCommissionGbp}.`);
-  if (!existingProduct && !known(rate) && !known(amount)) reject.push('Commission rate or amount is required.');
-  if (!existingProduct && !(Number(candidate.metrics?.recentVolume) > 0)) reject.push('A positive demand signal is required.');
+  // Commission and demand may be unavailable from the source. They remain
+  // explicit UNKNOWN states and reduce confidence, but are not silently scored
+  // as negative evidence. Verified low commission still fails above.
   if (!existingProduct && !known(price)) reject.push('A current GBP price is required.');
   if (!existingProduct && candidate.detailVerification?.priceMatched !== true) reject.push('Current GBP price was not confirmed by the product detail query.');
   if (candidate.priceSanity?.status === 'REJECT') reject.push(candidate.priceSanity.reason || 'Price sanity check failed.');
@@ -127,10 +129,12 @@ export function scoreCandidate(candidate, options = {}) {
   const breakdown = {};
   for (const [name, weight] of Object.entries(config.weights)) {
     const raw = factors[name];
-    const points = raw === null || raw === undefined ? 0 : clamp(Number(raw)) * weight;
+    // Cold-start prior: UNKNOWN contributes a neutral midpoint, never a bonus
+    // and never an artificial penalty. Confidence remains the separate guard.
+    const points = raw === null || raw === undefined ? 0.5 * weight : clamp(Number(raw)) * weight;
     if (raw !== null && raw !== undefined) knownWeight += weight;
     total += points;
-    breakdown[name] = { value: raw === null || raw === undefined ? 'unknown' : round(Number(raw), 3), weight, points: round(points) };
+    breakdown[name] = { value: raw === null || raw === undefined ? 'unknown' : round(Number(raw), 3), weight, points: round(points), evidence: raw === null || raw === undefined ? 'NEUTRAL_PRIOR' : 'VERIFIED' };
   }
   const variantRiskPenalty = candidate.listing?.variantRisk === 'HIGH' ? 10 : candidate.listing?.variantRisk === 'MEDIUM' ? 3 : 0;
   breakdown.variantRiskPenalty = { value: candidate.listing?.variantRisk || 'unknown', weight: 0, points: -variantRiskPenalty };

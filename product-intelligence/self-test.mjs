@@ -51,9 +51,12 @@ assert.equal(scoreCandidate({ ...strong, shipping: { verified: false } }).decisi
 assert.equal(scoreCandidate({ ...strong, duplicateSimilarity: 0.9 }).decision, 'reject', 'A near duplicate must be rejected.');
 assert.equal(scoreCandidate({ ...strong, pinCreative: null }).decision, 'reject', 'A missing custom vertical pin must be rejected.');
 assert.equal(scoreCandidate({ ...strong, pinCreative: null }, { stage: 'qualification' }).decision, 'keep', 'Creative is generated after product qualification.');
-assert.equal(scoreCandidate({ ...strong, metrics: { ...strong.metrics, feedbackPct: null } }, { stage: 'qualification' }).decision, 'reject', 'Missing expected feedback must block qualification.');
-assert.equal(scoreCandidate({ ...strong, metrics: { ...strong.metrics, commissionRatePct: null, commissionAmountGbp: null } }, { stage: 'qualification' }).decision, 'reject', 'Missing commission evidence must block qualification.');
-assert.equal(scoreCandidate({ ...strong, metrics: { ...strong.metrics, recentVolume: null } }, { stage: 'qualification' }).decision, 'reject', 'Missing expected demand must block qualification.');
+const coldStartFeedback = scoreCandidate({ ...strong, metrics: { ...strong.metrics, feedbackPct: null } }, { stage: 'qualification' });
+assert.equal(coldStartFeedback.scoreBreakdown.positiveFeedback.evidence, 'NEUTRAL_PRIOR', 'Missing feedback must use a neutral prior.');
+const coldStartCommission = scoreCandidate({ ...strong, metrics: { ...strong.metrics, commissionRatePct: null, commissionAmountGbp: null } }, { stage: 'qualification' });
+assert.equal(coldStartCommission.scoreBreakdown.estimatedCommission.evidence, 'NEUTRAL_PRIOR', 'Missing commission must use a neutral prior.');
+const coldStartDemand = scoreCandidate({ ...strong, metrics: { ...strong.metrics, recentVolume: null } }, { stage: 'qualification' });
+assert.equal(coldStartDemand.scoreBreakdown.recentDemand.evidence, 'NEUTRAL_PRIOR', 'Missing demand must use a neutral prior.');
 assert.equal(scoreCandidate({ ...strong, shipping: { ...strong.shipping, available: false, marketAvailabilityVerified: false } }, { stage: 'qualification' }).decision, 'reject', 'Unavailable GB offer must block qualification.');
 assert.equal(scoreCandidate({ ...strong, shipping: { available: true, marketAvailabilityVerified: true, costGbp: null, daysMax: null, method: null } }, { stage: 'qualification' }).decision, 'keep', 'Unavailable optional shipping details must not block a GB-verified offer.');
 assert.equal(scoreCandidate({ ...strong, listing: { variantRisk: 'LOW', variantClarity: true, priceVerifiedForShownVariant: true } }, { stage: 'qualification' }).decision, 'keep', 'Low-risk listings do not require SKU-level detail.');
