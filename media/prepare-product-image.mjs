@@ -14,7 +14,7 @@ export async function prepareProductImage(candidate,{fetcher=fetch,officialLooku
       const media = JSON.parse(await readFile(new URL('../app/product-media.json', import.meta.url), 'utf8'));
       const record = media.records?.find((row) => String(row.productId) === id && row.productImageVerified === true && row.sameProductConfirmed === true && row.localPublicPath);
       if (record) {
-        const localFile = new URL(`..${record.localPublicPath}`, import.meta.url);
+        const localFile = new URL(`../public${record.localPublicPath}`, import.meta.url);
         const bytes = await readFile(localFile);
         const digest = createHash('sha256').update(bytes).digest('hex');
         const meta = await sharp(bytes, { limitInputPixels: 40e6 }).metadata();
