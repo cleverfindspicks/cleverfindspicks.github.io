@@ -7,6 +7,29 @@ import {fetchVerifiedImage,imageGate} from './image-validation.mjs';
 export async function prepareProductImage(candidate,{fetcher=fetch,officialLookup=null,writeCache=true}={}){
   try{
     const id=String(candidate.productId||'');if(!/^\d{8,}$/.test(id))throw new Error('IMAGE_PRODUCT_ID_INVALID');
+    // Reuse a previously verified, immutable local asset before spending an
+    // AliExpress request. The record, Product ID, SHA and image decode must all
+    // agree; a file merely having the expected name is never sufficient.
+    try {
+      const media = JSON.parse(await readFile(new URL('../app/product-media.json', import.meta.url), 'utf8'));
+      const record = media.records?.find((row) => String(row.productId) === id && row.productImageVerified === true && row.sameProductConfirmed === true && row.localPublicPath);
+      if (record) {
+        const localFile = new URL(`..${record.localPublicPath}`, import.meta.url);
+        const bytes = await readFile(localFile);
+        const digest = createHash('sha256').update(bytes).digest('hex');
+        const meta = await sharp(bytes, { limitInputPixels: 40e6 }).metadata();
+        if (digest === record.localSha256 && meta.width >= 100 && meta.height >= 100 && ['jpeg','png','webp','avif','heif'].includes(meta.format)) {
+          const publicUrl = `https://cleverfindspicks.github.io${record.localPublicPath}`;
+          const cached = { ...candidate, image: publicUrl, productImageVerified: true, productImageVerification: {
+            productId: id, sourceUrl: publicUrl, sameProductConfirmed: true, placeholder: false,
+            httpStatus: 200, contentType: record.contentType || 'image/jpeg', sha256: digest,
+            localSha256: digest, localPublicPath: record.localPublicPath,
+            verifiedAt: new Date().toISOString(), identitySource: 'Previously verified local Product ID cache', cached: true,
+          }};
+          if (imageGate(cached)) return cached;
+        }
+      }
+    } catch { /* fall through to one fresh official verification attempt */ }
     let source;
     if(officialLookup)source=await officialLookup(id);
     else{const env=await localEnvironment();if(!env.ALIEXPRESS_APP_KEY||!env.ALIEXPRESS_APP_SECRET)throw new Error('IMAGE_OFFICIAL_SOURCE_UNAVAILABLE');

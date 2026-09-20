@@ -28,8 +28,18 @@ export async function runPinterestProduction() {
   run('product-intelligence/automation-run.mjs');
   const report = JSON.parse(await readFile(new URL('./data/dry-run-report.json', import.meta.url), 'utf8'));
   if (!report.winner) return { status: 'SKIPPED_NO_QUALIFIED_PINTEREST_PRODUCT' };
-  let candidate = await prepareProductImage(report.winner);
-  if (candidate.productImageVerified !== true) return { status: 'SKIPPED_IMAGE_NOT_VERIFIED', productId: candidate.productId };
+  // The winner is preferred, but an image-only failure must not cancel a slot
+  // when another already-qualified candidate has a verifiable local/original
+  // image. Hard gates remain unchanged; we only advance through the bounded
+  // qualified pool produced by Product Intelligence.
+  let candidate = null;
+  const pool = JSON.parse(await readFile(new URL('./data/candidate-pool.json', import.meta.url), 'utf8').catch(() => '{"candidates":[]}'));
+  const alternatives = [report.winner, ...(pool.candidates || []).filter((item) => item.decision === 'keep' && String(item.productId) !== String(report.winner.productId)).slice(0, 9)];
+  for (const option of alternatives) {
+    const checked = await prepareProductImage(option);
+    if (checked.productImageVerified === true) { candidate = checked; break; }
+  }
+  if (!candidate) return { status: 'SKIPPED_IMAGE_NOT_VERIFIED', imageRejectionReason: 'ALL_BOUNDED_QUALIFIED_CANDIDATES_FAILED_IMAGE_GATE' };
   candidate = { ...candidate, pinCreative: await generatePinterestCreative(candidate) };
   const content = buildContentCandidate(candidate);
   const bundle = {
