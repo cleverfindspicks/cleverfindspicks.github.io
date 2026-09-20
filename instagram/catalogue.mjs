@@ -17,6 +17,16 @@ export async function qualifiedCatalogue(db) {
     try { bundles.push(JSON.parse(raw.stdout)); } catch { /* An unavailable historic receipt is not eligibility evidence. */ }
   }
   const receipts = new Map();
+  // Instagram eligibility is platform-specific. Seed active catalogue rows
+  // from the latest Product Intelligence pool so a Pinterest-only publication
+  // (or a stale generated receipt) cannot starve Instagram.
+  try {
+    const pool = JSON.parse(await readFile(new URL('../product-intelligence/data/candidate-pool.json', import.meta.url), 'utf8'));
+    for (const candidate of pool.candidates || []) {
+      const product = products.find((p) => String(p.productId) === String(candidate.productId));
+      if (product && !receipts.has(product.slug) && candidate.currencyVerified === true) receipts.set(product.slug, candidate);
+    }
+  } catch { /* pool is optional; deferred/bundle receipts remain authoritative */ }
   for(const candidate of deferredCandidates('instagram')){const p=products.find(p=>String(p.productId)===String(candidate.productId));if(p)receipts.set(p.slug,candidate);}
   for (const bundle of bundles) {
     const candidate = bundle.candidate;
@@ -32,7 +42,8 @@ export async function qualifiedCatalogue(db) {
   }));
   return current.flatMap(({product,candidate}) => {
     const required = candidate?.evidence?.requiredForPublication;
-    if (!candidate || candidate.decision !== 'keep' || !required || Object.values(required).some((value) => value !== true) || String(candidate.productId) !== String(product.productId)) return [];
+    const duplicateOnly = candidate?.decision === 'reject' && /^Too similar to a recently published product\.?$/.test(String(candidate.rejectionReason || '').trim());
+    if (!candidate || (candidate.decision !== 'keep' && !duplicateOnly) || !required || Object.values(required).some((value) => value !== true) || String(candidate.productId) !== String(product.productId)) return [];
     const suitability = instagramSuitability(candidate, { recentProductIds: recent });
     const diversified = last.length < config.selection.maximumConsecutiveClusterWins || !last.every((r) => r.cluster === product.cluster);
     const learned = db.prepare('SELECT performance_multiplier FROM instagram_cluster_performance WHERE cluster=? AND window_days=30').get(product.cluster)?.performance_multiplier || 1;
