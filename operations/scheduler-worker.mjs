@@ -25,7 +25,14 @@ const configuration = platform === 'instagram'
   ? { timeZone: 'Europe/London', slots: ['09:00', '14:00', '19:30'], script: 'instagram/run.mjs' }
   : { timeZone: 'Asia/Riyadh', slots: ['15:00', '19:00', '22:00'], script: 'product-intelligence/production-run.mjs' };
 const due = runNow ? { ...zoned(new Date(), configuration.timeZone), slot: 'SAFE_REPAIR_TEST' } : dueSlot(new Date(), configuration.timeZone, configuration.slots);
-if (!due) process.exit(0);
+if (!due) {
+  // Stagger one bounded Instagram evidence refresh between publication slots.
+  // The maintenance script owns its two-hour cadence and AliExpress backoff.
+  if(platform==='instagram'){
+    await new Promise(resolveResult=>{const child=spawn(process.execPath,['instagram/fresh-buffer.mjs'],{cwd:root,windowsHide:true,stdio:'ignore'});child.on('close',resolveResult);child.on('error',resolveResult);});
+  }
+  process.exit(0);
+}
 
 const state = JSON.parse(await readFile(statePath, 'utf8').catch(() => '{}'));
 const key = `${platform}:${due.day}:${due.slot}`;

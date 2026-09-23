@@ -13,7 +13,7 @@ const FRESH_HOURS=24;
 const signature=({product,candidate})=>createHash('sha256').update(JSON.stringify({productId:String(product.productId),canonical:product.canonicalProductUrl||candidate.canonicalProductUrl||null,image:candidate.image||null,variant:candidate.listing||null})).digest('hex');
 async function loadCache(){try{return JSON.parse(await readFile(cacheUrl,'utf8'));}catch{return {records:{}};}}
 async function saveCache(cache){await mkdir(new URL('../product-intelligence/.local/',import.meta.url),{recursive:true});const temp=new URL(`../product-intelligence/.local/instagram-product-evidence-cache.${process.pid}.tmp`,import.meta.url);await writeFile(temp,JSON.stringify(cache));await rename(temp,cacheUrl);}
-const fresh=(row)=>row&&Date.now()-Date.parse(row.checkedAt)<=FRESH_HOURS*3600000&&Date.now()>=Date.parse(row.checkedAt)-60000;
+const cacheIsFresh=(row)=>row&&Date.now()-Date.parse(row.checkedAt)<=FRESH_HOURS*3600000&&Date.now()>=Date.parse(row.checkedAt)-60000;
 
 // Historic receipts supply editorial provenance, never today's price proof.
 export async function refreshProductEvidence(choices,{fetcher=fetch}={}){
@@ -22,7 +22,7 @@ export async function refreshProductEvidence(choices,{fetcher=fetch}={}){
   if(!env.ALIEXPRESS_APP_KEY||!env.ALIEXPRESS_APP_SECRET||!env.ALIEXPRESS_TRACKING_ID)return [];
   const cache=await loadCache();
   const rows=[];const missing=[];
-  for(const choice of choices){const cached=cache.records?.[String(choice.product.productId)];if(fresh(cached)&&cached.signature===signature(choice))rows.push(cached.item);else missing.push(choice);}
+  for(const choice of choices){const cached=cache.records?.[String(choice.product.productId)];if(cacheIsFresh(cached)&&cached.signature===signature(choice))rows.push(cached.item);else missing.push(choice);}
   for(let i=0;i<missing.length;i+=20){
     const batch=missing.slice(i,i+20);
     const params={app_key:env.ALIEXPRESS_APP_KEY.trim(),method:'aliexpress.affiliate.productdetail.get',timestamp:String(Date.now()),sign_method:'sha256',format:'json',v:'2.0',product_ids:batch.map(c=>c.product.productId).join(','),country:'GB',target_currency:'GBP',target_language:'EN',tracking_id:env.ALIEXPRESS_TRACKING_ID.trim(),fields:'product_id,product_title,product_main_image_url,product_detail_url,evaluate_rate,lastest_volume,ship_to_days,'+currencyFields};
