@@ -15,7 +15,7 @@ import {deployInstagramChanges} from './deployment.mjs';
 import {activationDecision} from './activation.mjs';
 import {refreshProductEvidence} from './product-evidence.mjs';
 
-export async function runInstagram({force=false,deploy=deployInstagramChanges}={}) {
+export async function runInstagram({force=false,productionNow=false,productId=null,deploy=deployInstagramChanges}={}) {
   const db=openInstagramStore();
   const lock=new URL('../product-intelligence/.local/instagram-worker.lock',import.meta.url);
   await mkdir(new URL('../product-intelligence/.local/',import.meta.url),{recursive:true});
@@ -44,7 +44,7 @@ export async function runInstagram({force=false,deploy=deployInstagramChanges}={
     let row=db.prepare("SELECT * FROM instagram_queue WHERE dry_run=0 AND state IN ('PENDING','CREATIVE_GENERATING','READY','PUBLISHING','FAILED_RETRYABLE') ORDER BY scheduled_day LIMIT 1").get();
     const publishedCount=db.prepare("SELECT COUNT(*) n FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED'").get().n;
     const approved=db.prepare("SELECT status FROM instagram_health WHERE name='INSTAGRAM_DAILY_APPROVAL'").get()?.status==='APPROVED';
-    const activation=activationDecision({publishedCount,approved,force,uncertain:!!row?.publish_uncertain,scheduled:!force&&config.production.mode==='FULL_AUTO'&&!config.production.manualCreativeApprovalScheduled});
+    const activation=activationDecision({publishedCount,approved,force:force&&!productionNow,uncertain:!!row?.publish_uncertain,scheduled:productionNow||(!force&&config.production.mode==='FULL_AUTO'&&!config.production.manualCreativeApprovalScheduled)});
     if(['TRIAL_PENDING','TRIAL_REVIEW_REQUIRED'].includes(activation))return {status:activation,pinterestUnaffected:true};
     const slot=scheduleSlot();
     if(!row && !force && !slot)return {status:'OUTSIDE_LONDON_SLOT',pinterestUnaffected:true};
@@ -58,6 +58,7 @@ export async function runInstagram({force=false,deploy=deployInstagramChanges}={
     let choices=null;let creativeFailures=0;
     const nextChoice=async()=>{
       choices||=await qualifiedCatalogue(db);
+      if(productId)choices=choices.filter(choice=>String(choice.product.productId)===String(productId));
       const used=db.prepare(`SELECT product_id FROM instagram_queue WHERE scheduled_day=? AND dry_run=0 AND ${livePublicationSql}`).all(day).map(r=>r.product_id);
       const todayClusters=db.prepare(`SELECT cluster FROM instagram_queue WHERE scheduled_day=? AND dry_run=0 AND state='PUBLISHED' AND ${livePublicationSql}`).all(day).map(r=>r.cluster);
       const eligible=choices.filter(c=>!used.includes(c.product.productId));
@@ -102,4 +103,4 @@ export async function runInstagram({force=false,deploy=deployInstagramChanges}={
   }catch(error){if(isAliExpressDeferred(error)){setHealth(db,'INSTAGRAM_LAST_SLOT',DEFERRED,error.nextAttemptAt);return {status:DEFERRED,nextAttemptAt:error.nextAttemptAt,pinterestUnaffected:true};}setHealth(db,'INSTAGRAM',error.tokenExpired?'TOKEN_EXPIRED':'ERROR',String(error.message).slice(0,180));return {status:'ERROR',detail:String(error.message).slice(0,180),pinterestUnaffected:true};}
   finally{db.close();await unlink(lock).catch(()=>{});}
 }
-if(process.argv[1]?.endsWith('run.mjs'))console.log(JSON.stringify(await runInstagram({force:process.argv.includes('--force')})));
+if(process.argv[1]?.endsWith('run.mjs')){const idIndex=process.argv.indexOf('--product-id');console.log(JSON.stringify(await runInstagram({force:process.argv.includes('--force')||process.argv.includes('--production-now'),productionNow:process.argv.includes('--production-now'),productId:idIndex>=0?process.argv[idIndex+1]:null})));}
