@@ -1,8 +1,11 @@
+import { generatePinterestSeo } from './pinterest-seo.mjs';
+
 function slugify(value) {
   return String(value).toLowerCase().replaceAll(/[^a-z0-9]+/g, '-').replaceAll(/^-|-$/g, '').slice(0, 72);
 }
 
 export function buildContentCandidate(candidate) {
+  const pinterestSeo = generatePinterestSeo(candidate);
   const isSideTable = /side.*table|coffee table|storage table/i.test(candidate.title);
   const shortName = isSideTable ? 'Two-tier storage side table' : String(candidate.title).replace(/^\d+\s*pcs?\s*/i, '').slice(0, 68);
   const summary = isSideTable
@@ -33,8 +36,14 @@ export function buildContentCandidate(candidate) {
     landingPage,
     rssItem: { title: shortName, link: `https://cleverfindspicks.github.io/finds/${slug}`, image: imageName ? `https://cleverfindspicks.github.io/pinterest/${imageName}` : 'PENDING_CREATIVE' },
     pin: {
-      title: isSideTable ? 'Two-Tier Side Table for Small Rooms' : `${shortName} for Small Homes`,
-      description: `${summary} Check the exact option, current price and UK availability before ordering. Affiliate link.`,
+      title: pinterestSeo.seoTitle,
+      description: pinterestSeo.seoDescription,
+      seoTitle: pinterestSeo.seoTitle,
+      seoDescription: pinterestSeo.seoDescription,
+      keywords: pinterestSeo.keywords,
+      hashtags: pinterestSeo.hashtags,
+      category: pinterestSeo.category,
+      cluster: pinterestSeo.cluster,
     },
   };
 }

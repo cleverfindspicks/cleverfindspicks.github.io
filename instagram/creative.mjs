@@ -6,6 +6,7 @@ import sharp from 'sharp';
 import ffmpeg from 'ffmpeg-static';
 import config from './config.json' with { type: 'json' };
 import { creativeCopy } from './templates.mjs';
+import { forbiddenGenericCopy } from './content-engine.mjs';
 
 const sha = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const esc = (s) => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
@@ -15,25 +16,30 @@ export function validateFidelity(meta) {
   if (meta?.productId !== meta?.expectedProductId) errors.push('PRODUCT_ID_MISMATCH');
   if (meta?.productImageFit !== 'contain' || meta?.productMorphing !== false || meta?.fabricatedBeforeAfter !== false || meta?.variantAltered !== false) errors.push('PRODUCT_FIDELITY_NOT_PRESERVED');
   if (meta?.rightsBasis !== 'CURRENT_AFFILIATE_WORKFLOW_PRODUCT_IMAGE_ONLY' || meta?.listingVideoUsed !== false || meta?.commercialMusicUsed !== false) errors.push('UNAPPROVED_SOURCE_OR_AUDIO');
-  if (!/^[a-f0-9]{64}$/.test(meta?.reelSha256 || '') || meta?.width !== 1080 || meta?.height !== 1920 || meta?.durationSeconds < 8 || meta?.durationSeconds > 15) errors.push('INVALID_REEL_ASSET');
-  const visibleText=[meta?.disclosure,...(meta?.scenes||[]).flatMap(scene=>scene.text||[])].join(' ');
-  if(!/Ad\s*\/\s*affiliate/i.test(visibleText))errors.push('MISSING_AFFILIATE_DISCLOSURE');
-  if(!/See today[’']s find\s*[—-]\s*link in bio/i.test(visibleText))errors.push('MISSING_LINK_IN_BIO_CTA');
+  if (!/^[a-f0-9]{64}$/.test(meta?.reelSha256 || '') || meta?.width !== 1080 || meta?.height !== 1920 || meta?.durationSeconds < 7 || meta?.durationSeconds > 11) errors.push('INVALID_REEL_ASSET');
+  const visibleText=(meta?.scenes||[]).flatMap(scene=>scene.text||[]).join(' ');
+  if(/Ad\s*\/\s*affiliate/i.test(visibleText)||meta?.visualAffiliateLabel!==false)errors.push('BLOCKED_VISUAL_AFFILIATE_LABEL');
+  if(!String(meta?.caption||'').startsWith('Ad / affiliate.'))errors.push('MISSING_CAPTION_AFFILIATE_DISCLOSURE');
+  if(!/(?:See today[’']s find\s*[—-]\s*link in bio|Want the exact one\?\s*Link in bio)/i.test(visibleText))errors.push('MISSING_LINK_IN_BIO_CTA');
   if(/https?:\/\/|www\.|cleverfindspicks\.github\.io/i.test(visibleText))errors.push('LONG_URL_IN_VIDEO');
   if(/[£$€]\s*\d|\d+(?:[.,]\d{2})?\s*(?:GBP|USD|EUR)/i.test(visibleText))errors.push('PRICE_IN_VIDEO');
+  if(forbiddenGenericCopy.some(copy=>visibleText.toLowerCase().includes(copy)))errors.push('BLOCKED_GENERIC_CREATIVE_COPY');
   return { ok: !errors.length, errors };
 }
 export function validateAutomatedCreative(meta,bytes){
   const errors=[...validateFidelity(meta).errors];const content=Buffer.isBuffer(bytes)?bytes:Buffer.from(bytes||[]);
   if(content.length<10000||!content.subarray(0,64).includes(Buffer.from('ftyp'))||!content.includes(Buffer.from('moov')))errors.push('CORRUPT_OR_UNREADABLE_MP4');
   if(meta?.productImageVerified!==true||meta?.productImageVerification?.productId!==meta?.productId)errors.push('PRODUCT_IMAGE_NOT_VERIFIED');
-  if(meta?.renderer!=='InstagramReelRenderer'||meta?.platform!=='instagram'||meta?.layoutFamily!=='instagram-reel-premium-v3'||meta?.pinterestLayoutReused!==false)errors.push('INSTAGRAM_RENDERER_OR_LAYOUT_INVALID');
-  if(meta?.cover?.renderer!=='InstagramReelCoverRenderer'||meta?.cover?.productId!==meta?.productId)errors.push('INSTAGRAM_COVER_INVALID');
+  if(meta?.renderer!=='InstagramReelRendererV2'||meta?.platform!=='instagram'||!['problem-solution','product-spotlight','space-use-organisation','feature-benefit'].includes(meta?.layoutFamily)||meta?.pinterestLayoutReused!==false)errors.push('INSTAGRAM_RENDERER_OR_LAYOUT_INVALID');
+  if(meta?.cover?.renderer!=='InstagramReelCoverRendererV2'||meta?.cover?.productId!==meta?.productId)errors.push('INSTAGRAM_COVER_INVALID');
   const qa=meta?.visualQA||{};
   if(qa.firstFrameNotBlack!==true||qa.coverNotBlank!==true||!(qa.firstFrameMean>=80)||!(qa.firstFrameEntropy>=2))errors.push('BLACK_OR_BLANK_REEL_COVER');
   if(qa.productClearlyVisible!==true||!(qa.productAreaRatio>=0.5&&qa.productAreaRatio<=0.7))errors.push('PRODUCT_NOT_VISUALLY_PRIMARY');
-  if(qa.mobileTextReadable!==true||qa.textClipped!==false||qa.visibleCharacterCount>260)errors.push('MOBILE_TEXT_VISUAL_QA_FAILED');
-  if(qa.duplicatedOverlays!==false||qa.disclosureUnobtrusive!==true||qa.disclosureFontSize>28)errors.push('OVERLAY_VISUAL_QA_FAILED');
+  if(qa.mobileTextReadable!==true||qa.textClipped!==false||qa.visibleCharacterCount>220)errors.push('MOBILE_TEXT_VISUAL_QA_FAILED');
+  if(qa.duplicatedOverlays!==false||qa.excessiveEmptySpace!==false)errors.push('OVERLAY_VISUAL_QA_FAILED');
+  if(qa.firstSecondProductVisible!==true||qa.singleImageZoomOnly!==false||qa.layoutReuseTooFrequent!==false||!(qa.compositionCount>=3))errors.push('BLOCKED_LOW_EFFORT_REEL');
+  if(qa.genericHeadline!==false||qa.genericRepeatedFooter!==false)errors.push('BLOCKED_GENERIC_CREATIVE_COPY');
+  if(qa.visualAffiliateLabel!==false)errors.push('BLOCKED_VISUAL_AFFILIATE_LABEL');
   return {ok:errors.length===0,errors,creativeVerified:errors.length===0};
 }
 async function runFfmpeg(args) {

@@ -14,10 +14,10 @@ export function GET() {
     const destination = pinterestDestination(baseUrl, product.slug, product.pinTrackingId!);
     return `
     <item>
-      <title>${escapeXml(product.shortName)}</title>
+      <title>${escapeXml(product.pinterestSeoTitle ?? product.shortName)}</title>
       <link>${escapeXml(destination)}</link>
       <guid isPermaLink="true">${canonical}</guid>
-      <description>${escapeXml(`${product.summary} Affiliate disclosure: we may earn a commission from qualifying purchases.`)}</description>
+      <description>${escapeXml(`${product.pinterestSeoDescription ?? product.summary}${product.pinterestHashtags?.length ? ` ${product.pinterestHashtags.join(' ')}` : ''} Affiliate disclosure: we may earn a commission from qualifying purchases.`)}</description>
       <pubDate>${new Date(product.publishedAt).toUTCString()}</pubDate>
       <media:content url="${escapeXml(image)}" medium="image" />
       <enclosure url="${escapeXml(image)}" type="${imageType(image)}" length="0" />

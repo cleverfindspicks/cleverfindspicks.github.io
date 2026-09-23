@@ -45,6 +45,13 @@ products.push({
   automationRunId: bundle.candidate.runId,
   searchQuery: Array.isArray(bundle.candidate.searchQuery) ? bundle.candidate.searchQuery.join(' | ') : bundle.candidate.searchQuery,
   cluster: bundle.candidate.cluster,
+  pinterestSeoTitle: bundle.pin?.seoTitle || bundle.pin?.title || null,
+  pinterestSeoDescription: bundle.pin?.seoDescription || bundle.pin?.description || null,
+  pinterestKeywords: bundle.pin?.keywords || [],
+  pinterestHashtags: bundle.pin?.hashtags || [],
+  pinterestLayoutFamily: bundle.candidate.pinCreative?.layoutFamily || null,
+  pinterestHook: bundle.candidate.pinCreative?.hook || null,
+  pinterestCategory: bundle.pin?.category || null,
   publishedAt: bundle.publishedAt,
 });
 await writeFile(target, JSON.stringify(products, null, 2));

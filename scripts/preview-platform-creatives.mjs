@@ -24,7 +24,9 @@ const candidate = {
   productImageVerification: {
   productId: String(affected.product_id), sourceUrl: media.sourceImageUrl, sameProductConfirmed: true, placeholder: false,
   httpStatus: media.httpStatus, contentType: media.contentType, sha256: media.sourceSha256, localSha256: media.localSha256,
-  localPublicPath: media.localPublicPath, verifiedAt: media.verifiedAt,
+  // Preview-only proof reuses the immutable, SHA-checked local source. It is
+  // never written back to catalogue evidence or accepted for publication.
+  localPublicPath: media.localPublicPath, verifiedAt: new Date().toISOString(), previewOnly: true,
   },
 };
 const row = { product_id: affected.product_id, product_slug: affected.product_slug, internal_instagram_tracking_id: 'preview-platform-separation', recentHooks: [], evidence_json: JSON.stringify({ candidate }) };

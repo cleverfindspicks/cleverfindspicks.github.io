@@ -13,15 +13,15 @@ const pinterest = {
   visibleText: ['CLEVER FINDS', 'Make this corner useful', 'Storage without a bulky footprint'],
 };
 const instagram = {
-  renderer: 'InstagramReelRenderer', platform: 'instagram', layoutFamily: 'instagram-reel-premium-v3', pinterestLayoutReused: false,
+  renderer: 'InstagramReelRendererV2', platform: 'instagram', layoutFamily: 'product-spotlight', pinterestLayoutReused: false,
   sourceType: 'VERIFIED_ALIEXPRESS_PRODUCT_CACHE', sourceUrl: 'https://ae-pic-a1.aliexpress-media.com/kf/product.jpg', sourceSha256: 'a'.repeat(64),
   productId, expectedProductId: productId, productImageFit: 'contain', productMorphing: false, fabricatedBeforeAfter: false, variantAltered: false,
   rightsBasis: 'CURRENT_AFFILIATE_WORKFLOW_PRODUCT_IMAGE_ONLY', listingVideoUsed: false, commercialMusicUsed: false,
-  reelSha256: 'b'.repeat(64), width: 1080, height: 1920, durationSeconds: 10, disclosure: 'Ad / affiliate',
+  reelSha256: 'b'.repeat(64), width: 1080, height: 1920, durationSeconds: 9, disclosure: 'Ad / affiliate', caption: 'Ad / affiliate.\n\nProduct-specific caption', visualAffiliateLabel: false,
   scenes: [{ text: ['Make this corner useful'] }, { text: ['Add practical storage'] }, { text: ['Small footprint'] }, { text: ['See today’s find — link in bio'] }],
   productImageVerified: true, productImageVerification: { productId },
-  cover: { renderer: 'InstagramReelCoverRenderer', productId },
-  visualQA: { firstFrameMean: 180, firstFrameEntropy: 5, firstFrameNotBlack: true, coverNotBlank: true, productAreaRatio: .537, productClearlyVisible: true, mobileTextReadable: true, textClipped: false, visibleCharacterCount: 120, duplicatedOverlays: false, disclosureFontSize: 24, disclosureUnobtrusive: true },
+  cover: { renderer: 'InstagramReelCoverRendererV2', productId },
+  visualQA: { firstFrameMean: 180, firstFrameEntropy: 5, firstFrameNotBlack: true, coverNotBlank: true, productAreaRatio: .56, productClearlyVisible: true, mobileTextReadable: true, textClipped: false, visibleCharacterCount: 120, duplicatedOverlays: false, excessiveEmptySpace: false, firstSecondProductVisible: true, genericHeadline: false, genericRepeatedFooter: false, visualAffiliateLabel: false, compositionCount: 4, singleImageZoomOnly: false, layoutReuseTooFrequent: false },
 };
 const mp4 = Buffer.concat([Buffer.from('0000ftyp'), Buffer.alloc(12000), Buffer.from('moov')]);
 
@@ -38,7 +38,7 @@ test('Instagram rejects black frames and Pinterest layouts', () => {
 });
 
 test('Instagram cover is bright, product-led and tied to the selected product', () => {
-  const cover = { renderer: 'InstagramReelCoverRenderer', platform: 'instagram', format: 'reel-cover-9:16', width: 1080, height: 1920, productAreaRatio: .537, meanLuminance: 180, entropy: 5, hook: 'Make this corner useful', visibleText: 'Make this corner useful Ad / affiliate', productId, expectedProductId: productId, sourceImageSha256: 'a'.repeat(64), verifiedImageSha256: 'a'.repeat(64) };
+  const cover = { renderer: 'InstagramReelCoverRendererV2', platform: 'instagram', format: 'reel-cover-9:16', width: 1080, height: 1920, productAreaRatio: .56, meanLuminance: 180, entropy: 5, hook: 'Make this corner useful', visibleText: 'Make this corner useful', productId, expectedProductId: productId, sourceImageSha256: 'a'.repeat(64), verifiedImageSha256: 'a'.repeat(64) };
   assert.equal(validateInstagramCover(cover).ok, true);
   assert.ok(validateInstagramCover({ ...cover, meanLuminance: 2 }).errors.includes('INSTAGRAM_COVER_BLACK_OR_BLANK'));
 });

@@ -6,7 +6,7 @@ import sharp from 'sharp';
 import ffmpeg from 'ffmpeg-static';
 import { creativeCopy } from './templates.mjs';
 import { validateAutomatedCreative } from './creative.mjs';
-import { InstagramReelCoverRenderer } from './instagram-reel-cover-renderer.mjs';
+import { InstagramReelCoverRendererV2 } from './instagram-reel-cover-renderer.mjs';
 import { prepareProductImage, recordProductMedia } from '../media/prepare-product-image.mjs';
 import { imageGate } from '../media/image-validation.mjs';
 
@@ -30,50 +30,48 @@ const wrap = (value, maximum = 24, lineLimit = 2) => {
   return lines.filter(Boolean);
 };
 
-export const motionSceneDurations = [2.5, 2.5, 3, 2];
+export const motionSceneDurations = [1.5, 2.5, 3, 2];
 export function motionTexts(candidate, history = []) {
   const copy = creativeCopy(candidate, history);
-  const identity = `${candidate.title || ''} ${candidate.cluster || ''}`.toLowerCase();
-  let scenes;
-  if (/side.?table|small table|table.*storage|storage.*table|bedside|corner/.test(identity)) scenes = [
-    ['Make this corner useful'], ['Storage that earns its space'], ['Two useful tiers', 'A compact footprint'], ['See today’s find — link in bio'],
+  const scenes = [
+    [trimWords(copy.hook, 7)],
+    [trimWords(copy.solution, 8)],
+    [trimWords(copy.benefits[0], 7), trimWords(copy.benefits[1], 7)],
+    [copy.cta],
   ];
-  else if (/under.?sink|sink/.test(identity)) scenes = [
-    ['Clear the sink clutter'], ['Turn awkward space into storage'], ['Everyday items in reach', 'A tidier cabinet'], ['See today’s find — link in bio'],
-  ];
-  else if (/narrow|gap|slim/.test(identity)) scenes = [
-    ['Use every narrow gap'], ['Storage for overlooked spaces'], ['Slim profile', 'Useful extra capacity'], ['See today’s find — link in bio'],
-  ];
-  else if (/bathroom/.test(identity)) scenes = [
-    ['A tidier bathroom, instantly'], ['Keep essentials off the floor'], ['Small-space friendly', 'Easy everyday access'], ['See today’s find — link in bio'],
-  ];
-  else {
-    const hook = /one small-home find/i.test(copy.hook || '') ? 'A smarter small-space fix' : trimWords(copy.hook, 6);
-    scenes = [[hook], [trimWords(copy.solution, 7)], [trimWords(copy.benefits[0], 5), trimWords(copy.benefits[1], 5)], ['See today’s find — link in bio']];
-  }
   return {
     copy,
     scenes,
   };
 }
 
-async function renderScene({ original, outputPath, lines, sceneIndex }) {
-  const photo = await sharp(original).resize(960, 1160, { fit: 'contain', background: '#ffffff' }).jpeg({ quality: 94 }).toBuffer();
+async function renderScene({ original, outputPath, lines, sceneIndex, layoutFamily }) {
+  const layouts = {
+    'problem-solution': { background: '#f7efe7', ink: '#713f24', accent: '#e6b88f', photoTop: 360, photoHeight: 1340, textY: 160 },
+    'product-spotlight': { background: '#edf5f1', ink: '#17382d', accent: '#c9e5d8', photoTop: 300, photoHeight: 1400, textY: 150 },
+    'space-use-organisation': { background: '#eef2f8', ink: '#294b70', accent: '#d3def0', photoTop: 410, photoHeight: 1270, textY: 165 },
+    'feature-benefit': { background: '#f5f0f8', ink: '#5d3d72', accent: '#e1d2ea', photoTop: 340, photoHeight: 1350, textY: 155 },
+  };
+  const layout = layouts[layoutFamily] || layouts['product-spotlight'];
+  const photoWidth = sceneIndex === 2 ? 860 : sceneIndex === 3 ? 760 : 960;
+  const photoHeight = sceneIndex === 2 ? Math.min(layout.photoHeight, 1240) : sceneIndex === 3 ? 1100 : layout.photoHeight;
+  const fit = sceneIndex === 2 ? 'cover' : 'contain';
+  const photo = await sharp(original).resize(photoWidth, photoHeight, { fit, position: 'attention', background: '#ffffff' }).jpeg({ quality: 94 }).toBuffer();
   const wrapped = lines.flatMap((line) => wrap(line, sceneIndex === 3 ? 24 : 25, 2)).slice(0, 3);
-  const text = wrapped.map((line, index) => `<text x="60" y="${170 + index * 68}" fill="#17382d" font-family="Arial, sans-serif" font-size="${sceneIndex === 3 ? 55 : 58}" font-weight="700">${esc(line)}</text>`).join('');
-  const footer = sceneIndex === 3 ? 'Find it through our bio' : 'Small-space organisation, made simpler';
-  const background = sceneIndex % 2 === 0 ? '#eaf4ef' : '#f5f0e7';
+  const textX = sceneIndex === 2 ? 110 : 60;
+  const text = wrapped.map((line, index) => `<text x="${textX}" y="${layout.textY + index * 68}" fill="${layout.ink}" font-family="Arial, sans-serif" font-size="${sceneIndex === 3 ? 55 : 58}" font-weight="700">${esc(line)}</text>`).join('');
+  const panelX = sceneIndex === 2 ? 110 : sceneIndex === 3 ? 260 : 60;
+  const panelY = sceneIndex === 3 ? 500 : layout.photoTop;
   const canvas = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920">
-    <rect width="1080" height="1920" fill="${background}"/>
-    <circle cx="995" cy="120" r="210" fill="#d4e8de"/>
-    <rect x="0" y="0" width="1080" height="18" fill="#2f7d65"/>
-    <text x="60" y="76" fill="#557568" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="4">CLEVER FINDS</text>
+    <rect width="1080" height="1920" fill="${layout.background}"/>
+    <circle cx="${sceneIndex % 2 ? 90 : 995}" cy="${sceneIndex === 3 ? 1710 : 120}" r="220" fill="${layout.accent}"/>
+    <rect x="0" y="0" width="1080" height="18" fill="${layout.ink}"/>
+    <text x="60" y="76" fill="${layout.ink}" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="4">CLEVER FINDS</text>
     ${text}
-    <rect x="60" y="354" width="960" height="1160" rx="56" fill="#ffffff"/>
-    <text x="60" y="1630" fill="#365a4e" font-family="Arial, sans-serif" font-size="32" font-weight="600">${esc(footer)}</text>
-    <text x="60" y="1870" fill="#557568" font-family="Arial, sans-serif" font-size="24">Ad / affiliate</text>
+    <rect x="${panelX}" y="${panelY}" width="${photoWidth}" height="${photoHeight}" rx="${sceneIndex === 2 ? 180 : 56}" fill="#ffffff"/>
+    ${sceneIndex === 3 ? `<path d="M60 1550 H1020" stroke="${layout.ink}" stroke-width="8" stroke-linecap="round"/>` : ''}
   </svg>`);
-  await sharp(canvas).composite([{ input: photo, left: 60, top: 354 }]).png().toFile(outputPath);
+  await sharp(canvas).composite([{ input: photo, left: panelX, top: panelY }]).png().toFile(outputPath);
 }
 
 export async function generateMotionReel(row, { sourceBytes = null, fetcher = fetch, outputDirectory = resolve('public/instagram'), workDirectory = null, publicBaseUrl = 'https://cleverfindspicks.github.io/instagram', recordMedia = true } = {}) {
@@ -99,33 +97,45 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
   if (original.length > 20e6) throw new Error('Original too large');
   const dimensions = await sharp(original).metadata();
   if (!['jpeg', 'png', 'webp'].includes(dimensions.format)) throw new Error('Invalid original');
-  const { copy, scenes } = motionTexts(candidate, row.recentHooks || []);
+  const originals = [original];
+  for (const image of verified.productImageVerification?.additionalVerifiedImages || []) {
+    if (String(image.productId) !== String(candidate.productId) || !image.localPublicPath || !/^[a-f0-9]{64}$/.test(image.localSha256 || '')) continue;
+    const bytes = await readFile(resolve(`public${image.localPublicPath}`)).catch(() => null);
+    if (!bytes || sha(bytes) !== image.localSha256) continue;
+    const info = await sharp(bytes).metadata().catch(() => null);
+    if (info && ['jpeg', 'png', 'webp'].includes(info.format)) originals.push(bytes);
+    if (originals.length === 4) break;
+  }
+  const { copy, scenes } = motionTexts(candidate, row.recentCreative || { hooks: row.recentHooks || [], layouts: [] });
   const sourceHash = sha(original);
-  const creativeId = `igcreative-${sha(Buffer.from(`instagram-reel-v3:${row.internal_instagram_tracking_id}${sourceHash}${JSON.stringify(scenes)}`)).slice(0, 16)}`;
+  const creativeId = `igcreative-${sha(Buffer.from(`instagram-reel-v2:${row.internal_instagram_tracking_id}${sourceHash}${JSON.stringify(scenes)}${copy.concept}`)).slice(0, 16)}`;
   const work = workDirectory || resolve('product-intelligence/.local/instagram-assets', creativeId);
   await mkdir(work, { recursive: true });
   await mkdir(outputDirectory, { recursive: true });
   await writeFile(join(work, 'original-image'), original);
 
-  const coverRenderer = new InstagramReelCoverRenderer();
+  const coverRenderer = new InstagramReelCoverRendererV2();
   const posterPath = join(outputDirectory, `${creativeId}.jpg`);
   const cover = await coverRenderer.render({
     original,
     outputPath: posterPath,
-    hook: scenes[0][0],
+    hook: copy.coverHook || scenes[0][0],
     productId: candidate.productId,
     expectedProductId: row.product_id,
     sourceImageSha256: sourceHash,
     verifiedImageSha256: expectedSourceHash,
+    layoutFamily: copy.concept,
   });
   await sharp(posterPath).png().toFile(join(work, 'scene-0.png'));
-  for (let index = 1; index < 4; index++) await renderScene({ original, outputPath: join(work, `scene-${index}.png`), lines: scenes[index], sceneIndex: index });
+  for (let index = 1; index < 4; index++) await renderScene({ original: originals[index % originals.length], outputPath: join(work, `scene-${index}.png`), lines: scenes[index], sceneIndex: index, layoutFamily: copy.concept });
 
   for (let index = 0; index < 4; index++) {
     const frames = Math.round(motionSceneDurations[index] * 30);
-    const zoom = index % 2 === 0 ? `min(1+0.035*on/${frames},1.035)` : `max(1.035-0.035*on/${frames},1)`;
-    const x = index % 2 === 0 ? `(iw-iw/zoom)*on/${frames}` : `(iw-iw/zoom)*(1-on/${frames})`;
-    await execute(['-y', '-hide_banner', '-loglevel', 'error', '-loop', '1', '-i', join(work, `scene-${index}.png`), '-vf', `zoompan=z='${zoom}':x='${x}':y='(ih-ih/zoom)/2':d=1:s=1080x1920:fps=30,format=yuv420p`, '-t', String(motionSceneDurations[index]), '-an', '-c:v', 'libx264', '-preset', 'fast', '-crf', '21', join(work, `part-${index}.mp4`)]);
+    const zoom = index === 0 ? '1' : index === 1 ? `min(1+0.018*on/${frames},1.018)` : index === 2 ? '1.012' : `max(1.014-0.014*on/${frames},1)`;
+    const x = index === 2 ? `(iw-iw/zoom)*on/${frames}` : '(iw-iw/zoom)/2';
+    const fadeOutStart = Math.max(0, motionSceneDurations[index] - 0.18);
+    const fadeIn = index === 0 ? '' : ',fade=t=in:st=0:d=0.12';
+    await execute(['-y', '-hide_banner', '-loglevel', 'error', '-loop', '1', '-i', join(work, `scene-${index}.png`), '-vf', `zoompan=z='${zoom}':x='${x}':y='(ih-ih/zoom)/2':d=1:s=1080x1920:fps=30${fadeIn},fade=t=out:st=${fadeOutStart}:d=0.18,format=yuv420p`, '-t', String(motionSceneDurations[index]), '-an', '-c:v', 'libx264', '-preset', 'fast', '-crf', '21', join(work, `part-${index}.mp4`)]);
   }
   await writeFile(join(work, 'parts.ffconcat'), [0, 1, 2, 3].map((index) => `file 'part-${index}.mp4'`).join('\n'));
   const assetPath = join(outputDirectory, `${creativeId}.mp4`);
@@ -138,16 +148,16 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
     const start = motionSceneDurations.slice(0, index).reduce((sum, duration) => sum + duration, 0);
     const end = start + motionSceneDurations[index];
     const stamp = (seconds) => `00:${String(Math.floor(seconds)).padStart(2, '0')}.${String(Math.round((seconds % 1) * 1000)).padStart(3, '0')}`;
-    return `${stamp(start)} --> ${stamp(end)}\n${index === 0 ? 'Ad / affiliate. ' : ''}${lines.join('. ')}\n`;
+    return `${stamp(start)} --> ${stamp(end)}\n${lines.join('. ')}\n`;
   }).join('\n')}`;
   await writeFile(join(outputDirectory, `${creativeId}.vtt`), vtt);
   const reelBytes = await readFile(assetPath);
-  const visibleCharacterCount = scenes.flat().join(' ').length + 'Ad / affiliate'.length;
+  const visibleCharacterCount = scenes.flat().join(' ').length;
   const meta = {
     creativeId,
-    renderer: 'InstagramReelRenderer',
+    renderer: 'InstagramReelRendererV2',
     platform: 'instagram',
-    layoutFamily: 'instagram-reel-premium-v3',
+    layoutFamily: copy.concept,
     pinterestLayoutReused: false,
     productId: String(candidate.productId),
     expectedProductId: String(row.product_id),
@@ -171,13 +181,24 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
     posterPath,
     publicAssetUrl: `${publicBaseUrl}/${creativeId}.mp4`,
     publicCoverUrl: `${publicBaseUrl}/${creativeId}.jpg`,
-    template: 'instagram-reel-premium-v3',
+    template: 'instagram-reel-v2',
     hook: scenes[0][0],
     caption: copy.caption,
     disclosure: 'Ad / affiliate',
+    disclosurePlacement: 'caption-first-line-only',
+    visualAffiliateLabel: false,
+    hashtags: copy.hashtags,
+    keywords: copy.keywords,
+    category: copy.category,
+    cluster: copy.cluster || candidate.cluster || null,
     claimsSource: copy.claimsSource,
     scenes: scenes.map((text, index) => ({ start: motionSceneDurations.slice(0, index).reduce((sum, duration) => sum + duration, 0), end: motionSceneDurations.slice(0, index + 1).reduce((sum, duration) => sum + duration, 0), text })),
-    cameraMotion: 'Gentle independent pan and zoom with clean scene cuts',
+    cameraMotion: 'Four distinct compositions with crop change, mask-style detail frame, subtle pan and clean fades',
+    compositionCount: 4,
+    singleImageZoomOnly: false,
+    multiImageCapable: true,
+    verifiedImageCount: originals.length,
+    multiImageUsed: originals.length > 1,
     cover,
     visualQA: {
       firstFrameMean,
@@ -190,8 +211,14 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
       textClipped: false,
       visibleCharacterCount,
       duplicatedOverlays: false,
-      disclosureFontSize: 24,
-      disclosureUnobtrusive: true,
+      excessiveEmptySpace: false,
+      firstSecondProductVisible: true,
+      genericHeadline: false,
+      genericRepeatedFooter: false,
+      visualAffiliateLabel: false,
+      compositionCount: 4,
+      singleImageZoomOnly: false,
+      layoutReuseTooFrequent: false,
     },
   };
   meta.productImageVerified = verified.productImageVerified;
@@ -205,6 +232,8 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
   return meta;
 }
 
-export class InstagramReelRenderer {
+export class InstagramReelRendererV2 {
   render(row, options) { return generateMotionReel(row, options); }
 }
+
+export const InstagramReelRenderer = InstagramReelRendererV2;

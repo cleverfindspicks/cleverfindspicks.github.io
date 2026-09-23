@@ -44,6 +44,13 @@ export type Product = {
   currencyVerified?:boolean;
   catalogueCurrencyVerified?:boolean;
   verifiedPriceGbp?:number|null;
+  pinterestSeoTitle?:string|null;
+  pinterestSeoDescription?:string|null;
+  pinterestKeywords?:string[];
+  pinterestHashtags?:string[];
+  pinterestLayoutFamily?:string|null;
+  pinterestHook?:string|null;
+  pinterestCategory?:string|null;
 };
 
 export const checkedAt = '11 September 2026';

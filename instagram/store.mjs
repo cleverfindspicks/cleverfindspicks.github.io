@@ -73,6 +73,14 @@ export function openInstagramStore(path = defaultDatabasePath) {
     INSERT OR IGNORE INTO instagram_schema_migrations VALUES(1,datetime('now'));
     COMMIT;
   `);
+  const queueColumns = new Set(db.prepare('PRAGMA table_info(instagram_queue)').all().map((column) => column.name));
+  for (const [name, definition] of [
+    ['hashtags_json', 'TEXT'],
+    ['keywords_json', 'TEXT'],
+    ['layout_family', 'TEXT'],
+    ['category', 'TEXT'],
+  ]) if (!queueColumns.has(name)) db.exec(`ALTER TABLE instagram_queue ADD COLUMN ${name} ${definition}`);
+  db.prepare('INSERT OR IGNORE INTO instagram_schema_migrations VALUES(2,?)').run(new Date().toISOString());
   return db;
 }
 
