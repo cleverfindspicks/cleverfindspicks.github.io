@@ -495,6 +495,23 @@
       "verifiedPriceGbp": 22.36,
       "priceVerifiedAt": "2026-09-15T19:04:19.600Z",
       "priceCurrencySource": "AliExpress Affiliate Product Detail.target_sale_price_currency"
+    },
+    {
+      "slug": "extremely-narrow-kitchen-spice-rack-seasoning-storage-organizer-do",
+      "productId": "1005011942838529",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sb3ee1ae2402a4aedafca8d86f2341c9aP.jpg",
+      "localPublicPath": "/products/verified/1005011942838529.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005011942838529.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005011942838529.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "6d5202f544e2e921a5817e0597ec030a8d6e207e9b81d5a85944b2c11a6e1ad8",
+      "localSha256": "8f9c2732873931e0c538a51d578b0111f0d87aa0fa428fd40a103ab1baba91d3",
+      "verifiedAt": "2026-09-22T23:22:41.951Z",
+      "cached": true
     }
   ]
 }
