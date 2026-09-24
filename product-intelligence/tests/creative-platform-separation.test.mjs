@@ -10,6 +10,7 @@ const pinterest = {
   renderer: 'PinterestCreativeRenderer', platform: 'pinterest', format: 'static-2:3', width: 1000, height: 1500,
   layoutFamily: 'pinterest-editorial-v3', videoFrameStyling: false, sourceProductId: productId,
   sourceImageSha256: 'a'.repeat(64), productAreaRatio: .535,
+  rawProductImageAsPin: false,
   visibleText: ['CLEVER FINDS', 'Make this corner useful', 'Storage without a bulky footprint'],
 };
 const instagram = {
@@ -20,6 +21,7 @@ const instagram = {
   reelSha256: 'b'.repeat(64), width: 1080, height: 1920, durationSeconds: 9, disclosure: 'Ad / affiliate', caption: 'Ad / affiliate.\n\nProduct-specific caption', visualAffiliateLabel: false,
   scenes: [{ text: ['Make this corner useful'] }, { text: ['Add practical storage'] }, { text: ['Small footprint'] }, { text: ['See today’s find — link in bio'] }],
   productImageVerified: true, productImageVerification: { productId },
+  hashtagValidation: { ok: true, errors: [], productSpecificCount: 5 },
   cover: { renderer: 'InstagramReelCoverRendererV2', productId },
   visualQA: { firstFrameMean: 180, firstFrameEntropy: 5, firstFrameNotBlack: true, coverNotBlank: true, productAreaRatio: .56, productClearlyVisible: true, mobileTextReadable: true, textClipped: false, visibleCharacterCount: 120, duplicatedOverlays: false, excessiveEmptySpace: false, firstSecondProductVisible: true, genericHeadline: false, genericRepeatedFooter: false, visualAffiliateLabel: false, compositionCount: 4, singleImageZoomOnly: false, layoutReuseTooFrequent: false },
 };
@@ -29,12 +31,19 @@ test('Pinterest accepts only its static editorial renderer', () => {
   assert.equal(validatePinterestCreative(pinterest).ok, true);
   assert.deepEqual(validatePinterestCreative({ ...pinterest, renderer: 'InstagramReelRenderer' }).errors, ['BLOCKED_CROSS_PLATFORM_CREATIVE_CONTAMINATION']);
   assert.ok(validatePinterestCreative({ ...pinterest, visibleText: ['See today’s find — link in bio'] }).errors.includes('BLOCKED_CROSS_PLATFORM_CREATIVE_CONTAMINATION'));
+  assert.ok(validatePinterestCreative({ ...pinterest, rawProductImageAsPin: true }).errors.includes('RAW_PRODUCT_IMAGE_AS_PIN'));
 });
 
 test('Instagram rejects black frames and Pinterest layouts', () => {
   assert.equal(validateAutomatedCreative(instagram, mp4).ok, true);
   assert.ok(validateAutomatedCreative({ ...instagram, visualQA: { ...instagram.visualQA, firstFrameNotBlack: false, firstFrameMean: 2 } }, mp4).errors.includes('BLACK_OR_BLANK_REEL_COVER'));
   assert.ok(validateAutomatedCreative({ ...instagram, renderer: 'PinterestCreativeRenderer', layoutFamily: 'pinterest-editorial-v3' }, mp4).errors.includes('INSTAGRAM_RENDERER_OR_LAYOUT_INVALID'));
+});
+
+test('Instagram accepts only a verified official muted product video source', () => {
+  const video = { ...instagram, layoutFamily: 'product-video-demonstration', listingVideoUsed: true, mediaType: 'VIDEO', videoSourceType: 'ALIEXPRESS_OFFICIAL_PRODUCT_VIDEO', productVideoVerified: true, originalAudioUsed: false, rightsBasis: 'ALIEXPRESS_OFFICIAL_PRODUCT_DETAIL' };
+  assert.equal(validateAutomatedCreative(video, mp4).ok, true);
+  assert.ok(validateAutomatedCreative({ ...video, originalAudioUsed: true }, mp4).errors.includes('UNAPPROVED_SOURCE_OR_AUDIO'));
 });
 
 test('Instagram cover is bright, product-led and tied to the selected product', () => {

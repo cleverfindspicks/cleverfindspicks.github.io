@@ -10,6 +10,11 @@ import {livePublicationSql} from './store.mjs';
 import {AUTO_PROMOTION_ENABLED,canAutoPromote,recordPromotionFailure} from './catalogue-promotion.mjs';
 
 export async function qualifiedCatalogue(db) {
+  const verifiedVideos = new Set();
+  try {
+    const registry = JSON.parse(await readFile(new URL('../app/product-videos.json', import.meta.url), 'utf8'));
+    for (const record of registry.records || []) if (record.productVideoVerified === true) verifiedVideos.add(String(record.productId));
+  } catch { /* Video is a ranking bonus only, never an eligibility gate. */ }
   const bundles = [];
   try { bundles.push(JSON.parse(await readFile(new URL('../product-intelligence/data/provisional-publication-bundle.json', import.meta.url), 'utf8'))); } catch { /* No current receipt. */ }
   const commits = spawnSync('git', ['log', '-40', '--format=%H', '--', 'product-intelligence/data/provisional-publication-bundle.json'], { encoding: 'utf8' }).stdout?.trim().split(/\r?\n/) || [];
@@ -54,6 +59,7 @@ export async function qualifiedCatalogue(db) {
       recordPromotionFailure(null, product.productId, 'VERIFICATION_GATE_NOT_SATISFIED').catch(() => {});
       return [];
     }
-    return [{ product, candidate, suitability, diversified, selectionScore: Number(((candidate.totalScore * 0.4 + suitability.totalScore * 0.6) * learned).toFixed(2)) }];
+    const verifiedVideoBonus = verifiedVideos.has(String(product.productId)) ? 1 : 0;
+    return [{ product, candidate, suitability, diversified, productVideoVerified: verifiedVideoBonus === 1, selectionScore: Number((((candidate.totalScore * 0.4 + suitability.totalScore * 0.6) * learned) + verifiedVideoBonus).toFixed(2)) }];
   }).filter((row) => row.suitability.qualified).sort((a, b) => Number(b.diversified)-Number(a.diversified)||b.selectionScore-a.selectionScore);
 }

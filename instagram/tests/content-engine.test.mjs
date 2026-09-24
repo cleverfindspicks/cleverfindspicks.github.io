@@ -1,7 +1,7 @@
 /* oxlint-disable typescript/no-floating-promises -- node:test owns registered tests. */
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { generateInstagramCreativePlan, generateInstagramHashtags, forbiddenGenericCopy } from '../content-engine.mjs';
+import { generateInstagramCreativePlan, generateInstagramHashtags, validateProductSpecificHashtags, forbiddenGenericCopy } from '../content-engine.mjs';
 import { generatePinterestSeo } from '../../product-intelligence/pinterest-seo.mjs';
 
 const kitchen = { productId: '1', title: 'Expandable kitchen countertop spice storage rack', cluster: 'tiny-kitchen-organisation' };
@@ -16,6 +16,13 @@ test('Instagram copy is product-specific, disclosed first and dynamically tagged
   assert.ok(plan.hashtags.includes('#KitchenStorage'));
   assert.equal(plan.hashtags.includes('#fyp'), false);
   assert.notDeepEqual(generateInstagramHashtags(kitchen), generateInstagramHashtags(wardrobe));
+  assert.equal(plan.hashtagValidation.ok, true);
+});
+
+test('duplicate cross-product hashtag sets are blocked while broad filler is rejected', () => {
+  const kitchenTags = generateInstagramHashtags(kitchen);
+  assert.ok(validateProductSpecificHashtags(wardrobe, kitchenTags, [{ productId: kitchen.productId, hashtags: kitchenTags }]).errors.includes('DUPLICATE_HASHTAG_SET_ACROSS_DIFFERENT_PRODUCTS'));
+  assert.ok(validateProductSpecificHashtags(kitchen, ['#fyp', '#viral', '#trending', '#UKHomes', '#SmallSpaceLiving']).errors.includes('PRODUCT_SPECIFIC_HASHTAGS_REQUIRED'));
 });
 
 test('four V2 layout families are recognised and consecutive reuse is avoided', () => {

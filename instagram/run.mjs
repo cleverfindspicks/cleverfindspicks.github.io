@@ -72,11 +72,11 @@ export async function runInstagram({force=false,productionNow=false,productId=nu
       row=transition(db,row.instagram_publication_id,'CREATIVE_GENERATING');
       let creative=null,lastError=null;
       for(let attempt=0;attempt<config.production.creativeGenerationAttempts&&!creative;attempt++)try{
-        const recent=db.prepare("SELECT hook,creative_json FROM instagram_queue WHERE state='PUBLISHED' ORDER BY published_at DESC LIMIT 10").all();
-        row.recentCreative={hooks:recent.map(r=>r.hook).filter(Boolean),layouts:recent.map(r=>{try{return JSON.parse(r.creative_json||'{}').layoutFamily;}catch{return null;}}).filter(Boolean)};
+        const recent=db.prepare("SELECT product_id,hook,creative_json,hashtags_json FROM instagram_queue WHERE state='PUBLISHED' ORDER BY published_at DESC LIMIT 10").all();
+        row.recentCreative={hooks:recent.map(r=>r.hook).filter(Boolean),layouts:recent.map(r=>{try{return JSON.parse(r.creative_json||'{}').layoutFamily;}catch{return null;}}).filter(Boolean),hashtagSets:recent.map(r=>({productId:r.product_id,hashtags:JSON.parse(r.hashtags_json||'[]')}))};
         creative=await generateReel(row);
       }catch(error){if(isAliExpressDeferred(error)){transition(db,row.instagram_publication_id,'FAILED_RETRYABLE',{last_error:DEFERRED,next_attempt_at:error.nextAttemptAt});throw error;}lastError=error;}
-      if(creative){row=transition(db,row.instagram_publication_id,'READY',{creative_id:creative.creativeId,creative_json:JSON.stringify(creative),hook:creative.hook,caption:creative.caption,asset_path:creative.assetPath,public_asset_url:creative.publicAssetUrl,hashtags_json:JSON.stringify(creative.hashtags||[]),keywords_json:JSON.stringify(creative.keywords||[]),layout_family:creative.layoutFamily,category:creative.category});break;}
+      if(creative){row=transition(db,row.instagram_publication_id,'READY',{creative_id:creative.creativeId,creative_json:JSON.stringify(creative),hook:creative.hook,caption:creative.caption,asset_path:creative.assetPath,public_asset_url:creative.publicAssetUrl,hashtags_json:JSON.stringify(creative.hashtags||[]),keywords_json:JSON.stringify(creative.keywords||[]),layout_family:creative.layoutFamily,category:creative.category,media_type:creative.mediaType,video_source_type:creative.videoSourceType,platform:'instagram'});break;}
       const failureMessage=String(lastError?.message||'');
       const creativeFailure=['BLOCKED_LOW_EFFORT_REEL','BLOCKED_GENERIC_CREATIVE_COPY','BLOCKED_VISUAL_AFFILIATE_LABEL'].find(code=>failureMessage.includes(code))||(failureMessage.includes('SKIPPED_CREATIVE_VISUAL_QA_FAILED')?'SKIPPED_CREATIVE_VISUAL_QA_FAILED':'SKIPPED_CREATIVE_GENERATION_FAILED');
       transition(db,row.instagram_publication_id,'FAILED_PERMANENT',{last_error:creativeFailure});creativeFailures++;

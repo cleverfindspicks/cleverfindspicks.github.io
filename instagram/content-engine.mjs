@@ -5,6 +5,9 @@ const identity = (product) => `${product?.title || product?.name || ''} ${produc
 const unique = (values) => [...new Set(values.filter(Boolean))];
 const titleCase = (value) => clean(value).replace(/\b\w/g, (letter) => letter.toUpperCase());
 const stableIndex = (product, size) => Number.parseInt(createHash('sha256').update(String(product?.productId || product?.title || '')).digest('hex').slice(0, 8), 16) % size;
+const broadHashtags = new Set(['homeorganisation', 'smallspaceliving', 'ukhomes', 'storageideas', 'spacesaving']);
+const blockedHashtags = new Set(['fyp', 'viral', 'trending']);
+const normaliseHashtag = (value) => String(value || '').replace(/^#/, '').replace(/[^a-z0-9]/gi, '').toLowerCase();
 
 const profiles = [
   { match: /under.?sink|sink organiser|sink organizer|sponge|soap dispenser/, category: 'Kitchen Storage', room: 'Kitchen', subject: 'sink space', hooks: ['Sink area always cluttered?', 'Make sink space work', 'Clear the sink corner'], solution: 'Keep sink essentials together', benefits: ['Uses awkward sink-side space', 'Keeps daily essentials within reach'], hashtags: ['KitchenStorage', 'SinkOrganisation', 'SmallKitchenIdeas'], layouts: ['problem-solution', 'space-use-organisation'] },
@@ -26,6 +29,47 @@ export const forbiddenGenericCopy = [
   'practical home organisation',
 ];
 
+function productTypeHashtags(product) {
+  const text = identity(product);
+  const groups = [
+    [/spice/, ['SpiceRack', 'SpiceStorage', 'CountertopStorage']],
+    [/cutlery|utensil/, ['CutleryOrganiser', 'KitchenDrawerStorage', 'DrawerOrganisation']],
+    [/under.?sink|sink organiser|sink organizer/, ['UnderSinkStorage', 'SinkOrganiser', 'SinkStorage']],
+    [/hanger/, ['ClothesHangers', 'HangingStorage', 'ClothesStorage']],
+    [/wardrobe|closet/, ['WardrobeStorage', 'ClosetOrganisation', 'ClothesStorage']],
+    [/shoe/, ['ShoeStorage', 'ShoeOrganisation', 'WardrobeStorage']],
+    [/cap|hat/, ['CapStorage', 'HatOrganiser', 'WardrobeStorage']],
+    [/bathroom|shower|toilet/, ['BathroomStorage', 'BathroomOrganisation', 'SmallBathroomIdeas']],
+    [/over.?door|behind.?door/, ['OverDoorStorage', 'DoorStorage', 'VerticalStorage']],
+    [/no.?drill|adhesive/, ['NoDrillStorage', 'RenterFriendly', 'WallStorage']],
+    [/laundry/, ['LaundryStorage', 'LaundryOrganisation', 'SmallLaundryRoom']],
+    [/vacuum bag/, ['VacuumStorageBags', 'BeddingStorage', 'CupboardOrganisation']],
+    [/side.?table|bedside/, ['StorageSideTable', 'BedsideStorage', 'SmallSpaceFurniture']],
+    [/desk|desktop|workspace/, ['DeskOrganisation', 'WorkspaceStorage', 'SmallWorkspace']],
+    [/narrow|slim|gap/, ['NarrowStorage', 'SlimStorage', 'UnusedSpaceIdeas']],
+    [/fold|collaps/, ['FoldableStorage', 'CompactStorage', 'SpaceSavingStorage']],
+  ];
+  return unique(groups.filter(([pattern]) => pattern.test(text)).flatMap(([, tags]) => tags));
+}
+
+export function validateProductSpecificHashtags(product, hashtags, recentSets = []) {
+  const tags = unique((hashtags || []).map(normaliseHashtag));
+  const errors = [];
+  if (tags.length < 5 || tags.length > 10 || tags.some((tag) => blockedHashtags.has(tag)) || tags.filter((tag) => !broadHashtags.has(tag)).length < 3) {
+    errors.push('PRODUCT_SPECIFIC_HASHTAGS_REQUIRED');
+  }
+  for (const recent of recentSets || []) {
+    if (!recent || String(recent.productId) === String(product?.productId)) continue;
+    const other = unique((recent.hashtags || recent).map(normaliseHashtag));
+    const overlap = tags.filter((tag) => other.includes(tag)).length / Math.max(1, Math.min(tags.length, other.length));
+    if (overlap >= 0.7) {
+      errors.push('DUPLICATE_HASHTAG_SET_ACROSS_DIFFERENT_PRODUCTS');
+      break;
+    }
+  }
+  return { ok: errors.length === 0, errors, productSpecificCount: tags.filter((tag) => !broadHashtags.has(tag)).length };
+}
+
 export function productContentProfile(product) {
   const text = identity(product);
   const profile = profiles.find((entry) => entry.match.test(text));
@@ -43,18 +87,31 @@ export function productContentProfile(product) {
   };
 }
 
-export function generateInstagramHashtags(product) {
+export function generateInstagramHashtags(product, recentSets = []) {
   const profile = productContentProfile(product);
   const text = identity(product);
-  const tags = [
+  const contextOptions = [
+    `${profile.room.replace(/[^a-z0-9]/gi, '')}Organisation`,
+    `${profile.room.replace(/[^a-z0-9]/gi, '')}StorageIdeas`,
+    'SpaceSavingStorage',
+    'CompactHomeIdeas',
+  ];
+  const tags = unique([
+    ...productTypeHashtags(product),
     ...profile.hashtags,
-    'HomeOrganisation',
-    'SmallSpaceLiving',
     text.match(/renter|removable|adhesive|no.?drill/) ? 'RenterFriendly' : null,
     text.match(/no.?drill/) ? 'NoDrillStorage' : null,
-    profile.room !== 'Home' ? `${profile.room.replace(/[^a-z0-9]/gi, '')}Ideas` : 'UKHomes',
-  ];
-  return unique(tags).slice(0, 9).map((tag) => `#${tag.replace(/^#/, '')}`);
+    contextOptions[stableIndex(product, contextOptions.length)],
+    profile.room !== 'Home' ? `${profile.room.replace(/[^a-z0-9]/gi, '')}Ideas` : null,
+    'SmallSpaceLiving',
+    stableIndex(product, 2) ? 'HomeOrganisation' : 'UKHomes',
+  ]).slice(0, 9).map((tag) => `#${tag.replace(/^#/, '')}`);
+  const validation = validateProductSpecificHashtags(product, tags, recentSets);
+  if (!validation.errors.includes('DUPLICATE_HASHTAG_SET_ACROSS_DIFFERENT_PRODUCTS')) return tags;
+  // Rotate only through relevant contextual tags; never manufacture an ID tag.
+  const alternatives = unique([...productTypeHashtags(product), ...profile.hashtags, ...contextOptions, `${profile.room.replace(/[^a-z0-9]/gi, '')}Ideas`, 'SmallSpaceLiving']);
+  const rotated = alternatives.map((_, index) => alternatives[(index + stableIndex(product, alternatives.length)) % alternatives.length]).slice(0, 8).map((tag) => `#${tag}`);
+  return validateProductSpecificHashtags(product, rotated, recentSets).ok ? rotated : tags;
 }
 
 export function generateInstagramCreativePlan(product, recent = {}) {
@@ -67,7 +124,9 @@ export function generateInstagramCreativePlan(product, recent = {}) {
   const latestLayout = (Array.isArray(recent.layouts) ? recent.layouts : [])[0];
   const layoutFamily = profile.layouts.find((value) => value !== latestLayout) || profile.layouts[stableIndex(product, profile.layouts.length)];
   const benefits = profile.benefits.slice(0, 2);
-  const hashtags = generateInstagramHashtags(product);
+  const hashtagSets = Array.isArray(recent.hashtagSets) ? recent.hashtagSets : [];
+  const hashtags = generateInstagramHashtags(product, hashtagSets);
+  const hashtagValidation = validateProductSpecificHashtags(product, hashtags, hashtagSets);
   const reminder = /\b(?:pcs?|pack|set|size|adjustable|expandable|variant|colour|color)\b/i.test(identity(product))
     ? 'Check the selected size, quantity and option before ordering.'
     : 'Check the dimensions and selected option before ordering.';
@@ -93,6 +152,7 @@ export function generateInstagramCreativePlan(product, recent = {}) {
     room: profile.room,
     cluster: product?.cluster || null,
     hashtags,
+    hashtagValidation,
     keywords: unique([profile.subject, profile.category.toLowerCase(), profile.room.toLowerCase(), 'small-space organisation']),
     caption,
     claimsSource: 'Verified product title, category and selected variant evidence; no price, delivery, performance or before/after claims.',

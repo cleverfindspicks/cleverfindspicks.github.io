@@ -43,7 +43,7 @@ export function enqueue(db, choice, day, dryRun = false, slot = 'trial') {
 export function transition(db, id, state, fields = {}) {
   const row = db.prepare('SELECT * FROM instagram_queue WHERE instagram_publication_id=?').get(id);
   if (!row || !transitions[row.state]?.includes(state)) throw new Error(`Invalid queue transition ${row?.state} -> ${state}`);
-  const allowed = ['creative_id','creative_json','caption','hook','asset_path','public_asset_url','container_id','media_id','permalink','published_at','attempts','next_attempt_at','publish_attempt_at','publish_uncertain','last_error','hashtags_json','keywords_json','layout_family','category'];
+  const allowed = ['creative_id','creative_json','caption','hook','asset_path','public_asset_url','container_id','media_id','permalink','published_at','attempts','next_attempt_at','publish_attempt_at','publish_uncertain','last_error','hashtags_json','keywords_json','layout_family','category','media_type','video_source_type','platform'];
   if (Object.keys(fields).some((key) => !allowed.includes(key))) throw new Error('Unknown queue field');
   const keys = Object.keys(fields);
   const changed = db.prepare(`UPDATE instagram_queue SET state=?,updated_at=?${keys.map(k=>`,${k}=?`).join('')} WHERE instagram_publication_id=? AND state=?`).run(state,new Date().toISOString(),...keys.map(k=>fields[k]),id,row.state);

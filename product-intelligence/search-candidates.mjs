@@ -37,7 +37,7 @@ async function search(query, pageNo, sortMode) {
     ship_to_country: config.market.country,
     target_currency: config.market.currency,
     target_language: config.market.language,
-    fields: 'product_id,product_title,product_main_image_url,product_detail_url,promotion_link,evaluate_rate,lastest_volume,shop_url,ship_to_days,'+currencyFields,
+    fields: 'product_id,product_title,product_main_image_url,product_video_url,product_detail_url,promotion_link,evaluate_rate,lastest_volume,shop_url,ship_to_days,'+currencyFields,
   };
   if (sortMode === 'LAST_VOLUME_DESC') params.sort = sortMode;
   const canonical = Object.keys(params).sort().map((name) => name + params[name]).join('');
@@ -71,6 +71,9 @@ async function search(query, pageNo, sortMode) {
     searchSortMode: sortMode,
     title,
     image: item.product_main_image_url || null,
+    officialProductVideoUrl: item.product_video_url || null,
+    productVideoProductId: item.product_video_url ? String(item.product_id) : null,
+    productVideoSourceBasis: item.product_video_url ? 'ALIEXPRESS_OFFICIAL_PRODUCT_MEDIA_API' : null,
     productUrl: item.product_detail_url || null,
     affiliateUrl: item.promotion_link || null,
     cluster: config.queryClusters[query] || 'unclassified',
@@ -123,7 +126,7 @@ async function detail(products) {
     target_currency: config.market.currency,
     target_language: config.market.language,
     tracking_id: trackingId,
-    fields: 'product_id,product_title,product_main_image_url,product_detail_url,promotion_link,evaluate_rate,lastest_volume,ship_to_days,'+currencyFields,
+    fields: 'product_id,product_title,product_main_image_url,product_video_url,product_detail_url,promotion_link,evaluate_rate,lastest_volume,ship_to_days,'+currencyFields,
   };
   const canonical = Object.keys(params).sort().map((name) => name + params[name]).join('');
   const sign = createHmac('sha256', secret).update(canonical, 'utf8').digest('hex').toUpperCase();
@@ -168,6 +171,9 @@ const detailed = deduped.map((candidate) => {
     queryCurrencyVerification:candidate.currencyVerification,
     affiliateUrl: item.promotion_link || candidate.affiliateUrl,
     productUrl: item.product_detail_url || candidate.productUrl,
+    officialProductVideoUrl: item.product_video_url || candidate.officialProductVideoUrl || null,
+    productVideoProductId: item.product_video_url ? String(item.product_id) : candidate.productVideoProductId || null,
+    productVideoSourceBasis: item.product_video_url ? 'ALIEXPRESS_OFFICIAL_PRODUCT_DETAIL' : candidate.productVideoSourceBasis || null,
     metrics: {
       ...candidate.metrics,
       ...priceMetrics,

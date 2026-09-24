@@ -15,6 +15,7 @@ export function creativeCopy(candidate, history = []) {
     disclosure: 'Ad / affiliate',
     claimsSource: plan.claimsSource,
     hashtags: plan.hashtags,
+    hashtagValidation: plan.hashtagValidation,
     keywords: plan.keywords,
     category: plan.category,
     cluster: plan.cluster,

@@ -15,7 +15,9 @@ export function validateFidelity(meta) {
   if (!['ORIGINAL_ALIEXPRESS_IMAGE','VERIFIED_ALIEXPRESS_PRODUCT_CACHE'].includes(meta?.sourceType) || !meta?.sourceUrl || !/^[a-f0-9]{64}$/.test(meta?.sourceSha256 || '')) errors.push('MISSING_ORIGINAL_SOURCE_PROVENANCE');
   if (meta?.productId !== meta?.expectedProductId) errors.push('PRODUCT_ID_MISMATCH');
   if (meta?.productImageFit !== 'contain' || meta?.productMorphing !== false || meta?.fabricatedBeforeAfter !== false || meta?.variantAltered !== false) errors.push('PRODUCT_FIDELITY_NOT_PRESERVED');
-  if (meta?.rightsBasis !== 'CURRENT_AFFILIATE_WORKFLOW_PRODUCT_IMAGE_ONLY' || meta?.listingVideoUsed !== false || meta?.commercialMusicUsed !== false) errors.push('UNAPPROVED_SOURCE_OR_AUDIO');
+  const approvedVideo = meta?.productVideoVerified === true && meta?.videoSourceType === 'ALIEXPRESS_OFFICIAL_PRODUCT_VIDEO' && ['ALIEXPRESS_OFFICIAL_PRODUCT_MEDIA_API', 'ALIEXPRESS_OFFICIAL_PRODUCT_DETAIL'].includes(meta?.rightsBasis) && meta?.originalAudioUsed === false;
+  const approvedImage = meta?.rightsBasis === 'CURRENT_AFFILIATE_WORKFLOW_PRODUCT_IMAGE_ONLY' && meta?.listingVideoUsed === false;
+  if ((!approvedVideo && !approvedImage) || meta?.commercialMusicUsed !== false) errors.push('UNAPPROVED_SOURCE_OR_AUDIO');
   if (!/^[a-f0-9]{64}$/.test(meta?.reelSha256 || '') || meta?.width !== 1080 || meta?.height !== 1920 || meta?.durationSeconds < 7 || meta?.durationSeconds > 11) errors.push('INVALID_REEL_ASSET');
   const visibleText=(meta?.scenes||[]).flatMap(scene=>scene.text||[]).join(' ');
   if(/Ad\s*\/\s*affiliate/i.test(visibleText)||meta?.visualAffiliateLabel!==false)errors.push('BLOCKED_VISUAL_AFFILIATE_LABEL');
@@ -30,7 +32,9 @@ export function validateAutomatedCreative(meta,bytes){
   const errors=[...validateFidelity(meta).errors];const content=Buffer.isBuffer(bytes)?bytes:Buffer.from(bytes||[]);
   if(content.length<10000||!content.subarray(0,64).includes(Buffer.from('ftyp'))||!content.includes(Buffer.from('moov')))errors.push('CORRUPT_OR_UNREADABLE_MP4');
   if(meta?.productImageVerified!==true||meta?.productImageVerification?.productId!==meta?.productId)errors.push('PRODUCT_IMAGE_NOT_VERIFIED');
-  if(meta?.renderer!=='InstagramReelRendererV2'||meta?.platform!=='instagram'||!['problem-solution','product-spotlight','space-use-organisation','feature-benefit'].includes(meta?.layoutFamily)||meta?.pinterestLayoutReused!==false)errors.push('INSTAGRAM_RENDERER_OR_LAYOUT_INVALID');
+  if(meta?.renderer!=='InstagramReelRendererV2'||meta?.platform!=='instagram'||!['problem-solution','product-spotlight','space-use-organisation','feature-benefit','product-video-demonstration'].includes(meta?.layoutFamily)||meta?.pinterestLayoutReused!==false)errors.push('INSTAGRAM_RENDERER_OR_LAYOUT_INVALID');
+  for(const code of meta?.hashtagValidation?.errors||[])errors.push(code);
+  if(meta?.hashtagValidation?.ok!==true)errors.push('PRODUCT_SPECIFIC_HASHTAGS_REQUIRED');
   if(meta?.cover?.renderer!=='InstagramReelCoverRendererV2'||meta?.cover?.productId!==meta?.productId)errors.push('INSTAGRAM_COVER_INVALID');
   const qa=meta?.visualQA||{};
   if(qa.firstFrameNotBlack!==true||qa.coverNotBlank!==true||!(qa.firstFrameMean>=80)||!(qa.firstFrameEntropy>=2))errors.push('BLACK_OR_BLANK_REEL_COVER');

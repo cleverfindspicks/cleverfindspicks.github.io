@@ -79,6 +79,9 @@ export function openInstagramStore(path = defaultDatabasePath) {
     ['keywords_json', 'TEXT'],
     ['layout_family', 'TEXT'],
     ['category', 'TEXT'],
+    ['media_type', 'TEXT'],
+    ['video_source_type', 'TEXT'],
+    ['platform', "TEXT DEFAULT 'instagram'"],
   ]) if (!queueColumns.has(name)) db.exec(`ALTER TABLE instagram_queue ADD COLUMN ${name} ${definition}`);
   db.prepare('INSERT OR IGNORE INTO instagram_schema_migrations VALUES(2,?)').run(new Date().toISOString());
   return db;

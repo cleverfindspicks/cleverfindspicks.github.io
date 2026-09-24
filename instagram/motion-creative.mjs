@@ -9,6 +9,7 @@ import { validateAutomatedCreative } from './creative.mjs';
 import { InstagramReelCoverRendererV2 } from './instagram-reel-cover-renderer.mjs';
 import { prepareProductImage, recordProductMedia } from '../media/prepare-product-image.mjs';
 import { imageGate } from '../media/image-validation.mjs';
+import { prepareProductVideo } from '../media/product-video.mjs';
 
 const sha = (bytes) => createHash('sha256').update(bytes).digest('hex');
 const esc = (value) => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
@@ -107,8 +108,11 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
     if (originals.length === 4) break;
   }
   const { copy, scenes } = motionTexts(candidate, row.recentCreative || { hooks: row.recentHooks || [], layouts: [] });
+  const videoCandidate = await prepareProductVideo(verified, { fetcher }).catch(() => ({ ...verified, productVideoVerified: false }));
+  const productVideo = videoCandidate.productVideoVerified === true ? videoCandidate.productVideoVerification : null;
+  const sceneDurations = productVideo ? [1.5, 4.5, 2, 1.5] : motionSceneDurations;
   const sourceHash = sha(original);
-  const creativeId = `igcreative-${sha(Buffer.from(`instagram-reel-v2:${row.internal_instagram_tracking_id}${sourceHash}${JSON.stringify(scenes)}${copy.concept}`)).slice(0, 16)}`;
+  const creativeId = `igcreative-${sha(Buffer.from(`instagram-reel-v2:${row.internal_instagram_tracking_id}${sourceHash}${productVideo?.sha256 || ''}${JSON.stringify(scenes)}${copy.concept}`)).slice(0, 16)}`;
   const work = workDirectory || resolve('product-intelligence/.local/instagram-assets', creativeId);
   await mkdir(work, { recursive: true });
   await mkdir(outputDirectory, { recursive: true });
@@ -127,15 +131,19 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
     layoutFamily: copy.concept,
   });
   await sharp(posterPath).png().toFile(join(work, 'scene-0.png'));
-  for (let index = 1; index < 4; index++) await renderScene({ original: originals[index % originals.length], outputPath: join(work, `scene-${index}.png`), lines: scenes[index], sceneIndex: index, layoutFamily: copy.concept });
+  for (let index = productVideo ? 2 : 1; index < 4; index++) await renderScene({ original: originals[index % originals.length], outputPath: join(work, `scene-${index}.png`), lines: scenes[index], sceneIndex: index, layoutFamily: copy.concept });
 
   for (let index = 0; index < 4; index++) {
-    const frames = Math.round(motionSceneDurations[index] * 30);
+    if (productVideo && index === 1) {
+      await execute(['-y', '-hide_banner', '-loglevel', 'error', '-i', resolve(`public${productVideo.localPublicPath}`), '-t', String(sceneDurations[index]), '-an', '-vf', 'scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:color=white,fps=30,fade=t=in:st=0:d=0.12,fade=t=out:st=4.32:d=0.18,format=yuv420p', '-c:v', 'libx264', '-preset', 'fast', '-crf', '21', join(work, `part-${index}.mp4`)]);
+      continue;
+    }
+    const frames = Math.round(sceneDurations[index] * 30);
     const zoom = index === 0 ? '1' : index === 1 ? `min(1+0.018*on/${frames},1.018)` : index === 2 ? '1.012' : `max(1.014-0.014*on/${frames},1)`;
     const x = index === 2 ? `(iw-iw/zoom)*on/${frames}` : '(iw-iw/zoom)/2';
-    const fadeOutStart = Math.max(0, motionSceneDurations[index] - 0.18);
+    const fadeOutStart = Math.max(0, sceneDurations[index] - 0.18);
     const fadeIn = index === 0 ? '' : ',fade=t=in:st=0:d=0.12';
-    await execute(['-y', '-hide_banner', '-loglevel', 'error', '-loop', '1', '-i', join(work, `scene-${index}.png`), '-vf', `zoompan=z='${zoom}':x='${x}':y='(ih-ih/zoom)/2':d=1:s=1080x1920:fps=30${fadeIn},fade=t=out:st=${fadeOutStart}:d=0.18,format=yuv420p`, '-t', String(motionSceneDurations[index]), '-an', '-c:v', 'libx264', '-preset', 'fast', '-crf', '21', join(work, `part-${index}.mp4`)]);
+    await execute(['-y', '-hide_banner', '-loglevel', 'error', '-loop', '1', '-i', join(work, `scene-${index}.png`), '-vf', `zoompan=z='${zoom}':x='${x}':y='(ih-ih/zoom)/2':d=1:s=1080x1920:fps=30${fadeIn},fade=t=out:st=${fadeOutStart}:d=0.18,format=yuv420p`, '-t', String(sceneDurations[index]), '-an', '-c:v', 'libx264', '-preset', 'fast', '-crf', '21', join(work, `part-${index}.mp4`)]);
   }
   await writeFile(join(work, 'parts.ffconcat'), [0, 1, 2, 3].map((index) => `file 'part-${index}.mp4'`).join('\n'));
   const assetPath = join(outputDirectory, `${creativeId}.mp4`);
@@ -145,8 +153,8 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
   const firstStats = await sharp(firstFramePath).stats();
   const firstFrameMean = firstStats.channels.slice(0, 3).reduce((sum, channel) => sum + channel.mean, 0) / 3;
   const vtt = `WEBVTT\n\n${scenes.map((lines, index) => {
-    const start = motionSceneDurations.slice(0, index).reduce((sum, duration) => sum + duration, 0);
-    const end = start + motionSceneDurations[index];
+    const start = sceneDurations.slice(0, index).reduce((sum, duration) => sum + duration, 0);
+    const end = start + sceneDurations[index];
     const stamp = (seconds) => `00:${String(Math.floor(seconds)).padStart(2, '0')}.${String(Math.round((seconds % 1) * 1000)).padStart(3, '0')}`;
     return `${stamp(start)} --> ${stamp(end)}\n${lines.join('. ')}\n`;
   }).join('\n')}`;
@@ -157,7 +165,7 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
     creativeId,
     renderer: 'InstagramReelRendererV2',
     platform: 'instagram',
-    layoutFamily: copy.concept,
+    layoutFamily: productVideo ? 'product-video-demonstration' : copy.concept,
     pinterestLayoutReused: false,
     productId: String(candidate.productId),
     expectedProductId: String(row.product_id),
@@ -169,12 +177,17 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
     productMorphing: false,
     fabricatedBeforeAfter: false,
     variantAltered: false,
-    rightsBasis: 'CURRENT_AFFILIATE_WORKFLOW_PRODUCT_IMAGE_ONLY',
-    listingVideoUsed: false,
+    rightsBasis: productVideo ? productVideo.rightsSourceBasis : 'CURRENT_AFFILIATE_WORKFLOW_PRODUCT_IMAGE_ONLY',
+    listingVideoUsed: Boolean(productVideo),
+    mediaType: productVideo ? 'VIDEO' : 'IMAGE',
+    videoSourceType: productVideo?.sourceType || null,
+    productVideoVerified: Boolean(productVideo),
+    productVideoVerification: productVideo,
+    originalAudioUsed: false,
     commercialMusicUsed: false,
     width: 1080,
     height: 1920,
-    durationSeconds: motionSceneDurations.reduce((sum, duration) => sum + duration, 0),
+    durationSeconds: sceneDurations.reduce((sum, duration) => sum + duration, 0),
     fps: 30,
     reelSha256: sha(reelBytes),
     assetPath,
@@ -188,12 +201,13 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
     disclosurePlacement: 'caption-first-line-only',
     visualAffiliateLabel: false,
     hashtags: copy.hashtags,
+    hashtagValidation: copy.hashtagValidation,
     keywords: copy.keywords,
     category: copy.category,
     cluster: copy.cluster || candidate.cluster || null,
     claimsSource: copy.claimsSource,
-    scenes: scenes.map((text, index) => ({ start: motionSceneDurations.slice(0, index).reduce((sum, duration) => sum + duration, 0), end: motionSceneDurations.slice(0, index + 1).reduce((sum, duration) => sum + duration, 0), text })),
-    cameraMotion: 'Four distinct compositions with crop change, mask-style detail frame, subtle pan and clean fades',
+    scenes: scenes.map((text, index) => ({ start: sceneDurations.slice(0, index).reduce((sum, duration) => sum + duration, 0), end: sceneDurations.slice(0, index + 1).reduce((sum, duration) => sum + duration, 0), text })),
+    cameraMotion: productVideo ? 'Designed cover, real muted product demonstration, benefit composition and CTA' : 'Four distinct compositions with crop change, mask-style detail frame, subtle pan and clean fades',
     compositionCount: 4,
     singleImageZoomOnly: false,
     multiImageCapable: true,

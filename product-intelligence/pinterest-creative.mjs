@@ -34,6 +34,7 @@ export function validatePinterestCreative(meta) {
   if (meta?.layoutFamily !== 'pinterest-editorial-v3' || meta?.videoFrameStyling !== false) errors.push('BLOCKED_CROSS_PLATFORM_CREATIVE_CONTAMINATION');
   if (/link in bio|reel|instagram|ad\s*\/\s*affiliate/i.test(visible)) errors.push('BLOCKED_CROSS_PLATFORM_CREATIVE_CONTAMINATION');
   if (meta?.sourceProductId == null || !/^[a-f0-9]{64}$/.test(meta?.sourceImageSha256 || '')) errors.push('PINTEREST_PRODUCT_PROVENANCE_MISSING');
+  if (meta?.rawProductImageAsPin !== false) errors.push('RAW_PRODUCT_IMAGE_AS_PIN');
   if (!(meta?.productAreaRatio >= 0.5 && meta?.productAreaRatio <= 0.72)) errors.push('PINTEREST_PRODUCT_NOT_PRIMARY');
   return { ok: errors.length === 0, errors };
 }
@@ -68,6 +69,9 @@ export class PinterestCreativeRenderer {
       reviewedNonClickbait: true,
       renderer: 'PinterestCreativeRenderer',
       platform: 'pinterest',
+      mediaType: 'IMAGE',
+      videoSourceType: null,
+      rawProductImageAsPin: false,
       format: 'static-2:3',
       layoutFamily: 'pinterest-editorial-v3',
       videoFrameStyling: false,
