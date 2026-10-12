@@ -24,7 +24,19 @@ function dueSlot(now, timeZone, slots, catchUp = 14) {
 const configuration = platform === 'instagram'
   ? { timeZone: 'Europe/London', slots: ['09:00', '14:00', '19:30'], script: 'instagram/run.mjs' }
   : { timeZone: 'Asia/Riyadh', slots: ['15:00', '19:00', '22:00'], script: 'product-intelligence/production-run.mjs' };
-const due = runNow ? { ...zoned(new Date(), configuration.timeZone), slot: 'SAFE_REPAIR_TEST' } : dueSlot(new Date(), configuration.timeZone, configuration.slots);
+const state = JSON.parse(await readFile(statePath, 'utf8').catch(() => '{}'));
+function deferredRetry(now, maximumAgeMinutes = 45) {
+  const clock = zoned(now, configuration.timeZone);
+  const toMinutes = (value) => value.split(':').reduce((hours, minute) => hours * 60 + Number(minute), 0);
+  for (const slot of [...configuration.slots].reverse()) {
+    const elapsed = toMinutes(clock.time) - toMinutes(slot);
+    const previous = state[`${platform}:${clock.day}:${slot}`];
+    if (elapsed >= 0 && elapsed <= maximumAgeMinutes && previous?.status === 'DEFERRED_ALIEXPRESS_API_LIMIT' && Date.parse(previous.nextAttemptAt || 0) <= now.getTime()) return { ...clock, slot };
+  }
+  return null;
+}
+const now=new Date();
+const due = runNow ? { ...zoned(now, configuration.timeZone), slot: 'SAFE_REPAIR_TEST' } : dueSlot(now, configuration.timeZone, configuration.slots) || deferredRetry(now);
 if (!due) {
   // Stagger one bounded Instagram evidence refresh between publication slots.
   // The maintenance script owns its two-hour cadence and AliExpress backoff.
@@ -34,9 +46,9 @@ if (!due) {
   process.exit(0);
 }
 
-const state = JSON.parse(await readFile(statePath, 'utf8').catch(() => '{}'));
 const key = `${platform}:${due.day}:${due.slot}`;
-if (!runNow && state[key]) process.exit(0);
+if (!runNow && state[key] && state[key].status !== 'DEFERRED_ALIEXPRESS_API_LIMIT') process.exit(0);
+if (!runNow && state[key]?.status === 'DEFERRED_ALIEXPRESS_API_LIMIT' && Date.parse(state[key].nextAttemptAt || 0) > Date.now()) process.exit(0);
 state[key] = { status: 'RUNNING', startedAt: new Date().toISOString(), pid: process.pid };
 const temporary = `${statePath}.${process.pid}.tmp`;
 await writeFile(temporary, JSON.stringify(state, null, 2));
@@ -56,6 +68,7 @@ for (const line of result.stdout.trim().split(/\r?\n/).reverse()) try { parsed =
 const entry = {
   platform, slotDay: due.day, slotTime: due.slot, startedAt: startedAt.toISOString(), completedAt: new Date().toISOString(),
   status: result.code === 0 ? (parsed?.status || 'COMPLETED') : 'ERROR', exitCode: result.code,
+  nextAttemptAt: parsed?.nextAttemptAt || null,
   detail: parsed?.detail || parsed?.errors || result.stderr.trim().slice(-1000) || null,
 };
 state[key] = entry;
