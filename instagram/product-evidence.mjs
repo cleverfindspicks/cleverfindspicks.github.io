@@ -10,7 +10,7 @@ import {createHash} from 'node:crypto';
 
 const cacheUrl=new URL('../product-intelligence/.local/instagram-product-evidence-cache.json',import.meta.url);
 const FRESH_HOURS=24;
-const signature=({product,candidate})=>createHash('sha256').update(JSON.stringify({productId:String(product.productId),canonical:product.canonicalProductUrl||candidate.canonicalProductUrl||null,image:candidate.image||null,variant:candidate.listing||null})).digest('hex');
+const signature=({product,candidate})=>createHash('sha256').update(JSON.stringify({productId:String(product.productId),canonical:product.canonicalProductUrl||candidate.canonicalProductUrl||null,image:candidate.productImageVerification?.originalSourceUrl||candidate.image||null,variant:candidate.listing||null})).digest('hex');
 async function loadCache(){try{return JSON.parse(await readFile(cacheUrl,'utf8'));}catch{return {records:{}};}}
 async function saveCache(cache){await mkdir(new URL('../product-intelligence/.local/',import.meta.url),{recursive:true});const temp=new URL(`../product-intelligence/.local/instagram-product-evidence-cache.${process.pid}.tmp`,import.meta.url);await writeFile(temp,JSON.stringify(cache));await rename(temp,cacheUrl);}
 const cacheIsFresh=(row)=>row&&Date.now()-Date.parse(row.checkedAt)<=FRESH_HOURS*3600000&&Date.now()>=Date.parse(row.checkedAt)-60000;
@@ -31,7 +31,17 @@ export async function refreshProductEvidence(choices,{fetcher=fetch}={}){
       const response=await aliExpressFetch('https://api-sg.aliexpress.com/sync',{method:'POST',body:new URLSearchParams({...params,sign}),signal:AbortSignal.timeout(25000)},fetcher);
       const data=await response.json();const result=data.aliexpress_affiliate_productdetail_get_response?.resp_result;
       if(response.ok&&Number(result?.resp_code)===200){const received=result.result?.products?.product||[];rows.push(...received);for(const item of received){const choice=batch.find(c=>String(c.product.productId)===String(item.product_id));if(choice){cache.records[String(item.product_id)]={checkedAt:new Date().toISOString(),signature:signature(choice),item};}}await saveCache(cache);}
-    }catch(error){if(isAliExpressDeferred(error)){rememberDeferred('instagram',choices.map(c=>c.candidate));throw error;}/* Unknown official evidence makes the product ineligible. */}
+    }catch(error){
+      if(isAliExpressDeferred(error)){
+        rememberDeferred('instagram',batch.map(c=>c.candidate));
+        // A stale/missing candidate must not discard other candidates whose
+        // exact-product evidence is still inside the 24-hour freshness window.
+        // Publish only from those cached rows; defer the missing batch.
+        if(!rows.length)throw error;
+        break;
+      }
+      /* Unknown official evidence makes only that batch ineligible. */
+    }
   }
   const byId=new Map(rows.map(r=>[String(r.product_id),r]));
   completeDeferred('instagram',[...byId.keys()]);

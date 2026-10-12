@@ -8,7 +8,7 @@ import config from './config.json' with { type: 'json' };
 import {refreshProductEvidence} from './product-evidence.mjs';
 import {livePublicationSql} from './store.mjs';
 import {AUTO_PROMOTION_ENABLED,canAutoPromote,recordPromotionFailure} from './catalogue-promotion.mjs';
-import {prepareProductImage,recordProductMedia} from '../media/prepare-product-image.mjs';
+import {prepareProductImage} from '../media/prepare-product-image.mjs';
 
 export async function qualifiedCatalogue(db) {
   const verifiedVideos = new Set();
@@ -51,7 +51,6 @@ export async function qualifiedCatalogue(db) {
   for(const row of refreshed){
     const candidate=await prepareProductImage(row.candidate);
     if(candidate.productImageVerified!==true)continue;
-    await recordProductMedia(row.product.slug,candidate);
     current.push({...row,candidate});
   }
   return current.flatMap(({product,candidate}) => {

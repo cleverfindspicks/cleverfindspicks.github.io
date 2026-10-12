@@ -14,6 +14,7 @@ import {exportHub} from './export-hub.mjs';
 import {deployInstagramChanges} from './deployment.mjs';
 import {activationDecision} from './activation.mjs';
 import {refreshProductEvidence} from './product-evidence.mjs';
+import {promoteNextCandidate} from './promote-single-candidate.mjs';
 
 export async function runInstagram({force=false,productionNow=false,productId=null,deploy=deployInstagramChanges}={}) {
   const db=openInstagramStore();
@@ -64,7 +65,22 @@ export async function runInstagram({force=false,productionNow=false,productId=nu
       const eligible=choices.filter(c=>!used.includes(c.product.productId));
       return eligible.find(c=>!todayClusters.includes(c.product.cluster))||eligible[0]||null;
     };
-    if(!row){const choice=await nextChoice();if(choice)row=enqueue(db,choice,day,false,scheduledTime);}
+    if(!row){
+      let choice=await nextChoice();
+      if(!choice){
+        const recentProductIds=db.prepare(`SELECT product_id FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED' AND ${livePublicationSql}`).all().map(record=>String(record.product_id));
+        const promoted=await promoteNextCandidate({recentProductIds,limit:3});
+        if(promoted.status==='ACTIVE_CATALOGUE_PROMOTED'){
+          // The product page and verified local image must be deployed before
+          // the Reel can direct anyone to the site. Catalogue promotion itself
+          // is not an Instagram/Pinterest publication and does not consume cooldown.
+          await deploy();
+          choice=promoted;
+          choices=[promoted];
+        }
+      }
+      if(choice)row=enqueue(db,choice,day,false,scheduledTime);
+    }
     if(!row){const status='SKIPPED_NO_QUALIFIED_INSTAGRAM_PRODUCT';db.prepare('INSERT INTO instagram_schedule_slots VALUES(?,?,?,?,?) ON CONFLICT(scheduled_day,scheduled_time) DO UPDATE SET publication_id=NULL,status=excluded.status,updated_at=excluded.updated_at').run(day,scheduledTime,null,status,new Date().toISOString());setHealth(db,'INSTAGRAM_LAST_SLOT',status,day+' '+scheduledTime);return {status,pinterestUnaffected:true};}
     if(row.next_attempt_at&&new Date(row.next_attempt_at)>new Date())return {status:'WAITING_BACKOFF'};
     if(row.state==='CREATIVE_GENERATING')row=transition(db,row.instagram_publication_id,'FAILED_RETRYABLE',{last_error:'RECOVERED_CRASHED_CREATIVE_WORKER'});

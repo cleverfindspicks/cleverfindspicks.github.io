@@ -18,11 +18,14 @@ export async function prepareProductImage(candidate,{fetcher=fetch,officialLooku
         const bytes = await readFile(localFile);
         const digest = createHash('sha256').update(bytes).digest('hex');
         const meta = await sharp(bytes, { limitInputPixels: 40e6 }).metadata();
-        if (digest === record.localSha256 && meta.width >= 100 && meta.height >= 100 && ['jpeg','png','webp','avif','heif'].includes(meta.format)) {
+        const legacyReviewedCache = !record.localSha256 && record.cached === true && Number.isFinite(Date.parse(record.reviewedAt)) &&
+          typeof record.reviewBasis === 'string' && record.reviewBasis.length > 20 && /^[a-f0-9]{64}$/.test(record.sourceSha256 || '') &&
+          record.localPublicPath === `/products/verified/${id}.jpg`;
+        if ((digest === record.localSha256 || legacyReviewedCache) && meta.width >= 100 && meta.height >= 100 && ['jpeg','png','webp','avif','heif'].includes(meta.format)) {
           const publicUrl = `https://cleverfindspicks.github.io${record.localPublicPath}`;
           const cached = { ...candidate, image: publicUrl, productImageVerified: true, productImageVerification: {
-            productId: id, sourceUrl: publicUrl, originalSourceUrl: record.sourceImageUrl, sameProductConfirmed: true, placeholder: false,
-            httpStatus: 200, contentType: record.contentType || 'image/jpeg', sha256: digest,
+            productId: id, sourceUrl: publicUrl, originalSourceUrl: record.sourceImageUrl, originalSourceSha256: record.sourceSha256, sameProductConfirmed: true, placeholder: false,
+            httpStatus: 200, contentType: meta.format === 'png' ? 'image/png' : meta.format === 'webp' ? 'image/webp' : meta.format === 'avif' ? 'image/avif' : 'image/jpeg', sha256: digest,
             localSha256: digest, localPublicPath: record.localPublicPath,
             verifiedAt: new Date().toISOString(), identitySource: 'Previously verified local Product ID cache', cached: true,
           }};
@@ -49,7 +52,7 @@ export async function prepareProductImage(candidate,{fetcher=fetch,officialLooku
 export async function recordProductMedia(slug,candidate){
  if(!imageGate(candidate))throw new Error('SKIPPED_IMAGE_NOT_VERIFIED');
  const path='app/product-media.json';const data=JSON.parse(await readFile(path,'utf8'));const proof=candidate.productImageVerification;
- const row={slug,productId:candidate.productId,sourceImageUrl:proof.originalSourceUrl||candidate.image,localPublicPath:proof.localPublicPath,buildOutputPath:'dist/client'+proof.localPublicPath,publicAssetUrl:'https://cleverfindspicks.github.io'+proof.localPublicPath,productImageVerified:true,sameProductConfirmed:true,placeholder:false,httpStatus:200,contentType:proof.contentType,sourceSha256:proof.sha256,localSha256:proof.localSha256,verifiedAt:proof.verifiedAt,cached:true};
+ const row={slug,productId:candidate.productId,sourceImageUrl:proof.originalSourceUrl||candidate.image,localPublicPath:proof.localPublicPath,buildOutputPath:'dist/client'+proof.localPublicPath,publicAssetUrl:'https://cleverfindspicks.github.io'+proof.localPublicPath,productImageVerified:true,sameProductConfirmed:true,placeholder:false,httpStatus:200,contentType:proof.contentType,sourceSha256:proof.originalSourceSha256||proof.sha256,localSha256:proof.localSha256,verifiedAt:proof.verifiedAt,cached:true};
  const previous=data.records.find(r=>r.slug===slug&&String(r.productId)===String(candidate.productId)&&r.sourceImageUrl===candidate.image);
  if(previous?.currencyVerified){for(const key of ['currencyVerified','verifiedPriceGbp','priceVerifiedAt','priceCurrencySource'])if(previous[key]!==undefined)row[key]=previous[key];}
  data.records=data.records.filter(r=>r.slug!==slug);data.records.push(row);await writeFile(path,JSON.stringify(data,null,2)+'\n');
