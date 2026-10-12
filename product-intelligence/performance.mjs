@@ -7,7 +7,8 @@ export const epmi = (commission, impressions) => safeRate(commission, impression
 
 export function normalizeOrderStatus(value) {
   const status = String(value || 'pending').toLowerCase();
-  if (['completed', 'confirmed', 'validated'].includes(status)) return 'completed';
+  if (['completed', 'confirmed', 'validated', 'settlement completed', 'commission paid'].includes(status)) return 'completed';
+  if (['payment completed', 'buyer confirmed receipt'].includes(status)) return 'pending';
   if (['cancelled', 'refunded', 'invalid'].includes(status)) return status;
   return 'pending';
 }

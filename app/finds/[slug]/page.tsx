@@ -50,8 +50,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div><dt>Positive feedback</dt><dd>{product.positiveFeedback}</dd></div>
             <div><dt>Recent volume</dt><dd>{product.recentVolume}</dd></div>
           </dl>
+          <ul className="verification-strip" aria-label="Verified listing checks">
+            {product.affiliateDestinationVerified&&<li>Exact product link checked</li>}
+            {product.currencyVerified&&<li>GBP price evidence checked</li>}
+            {product.productImageVerified&&<li>Original product image verified</li>}
+          </ul>
           {product.affiliateDestinationVerified ? (
-            <><AffiliateLink href={product.affiliateUrl} identity={identity}>Check current price on AliExpress <span aria-hidden="true">↗</span></AffiliateLink><p className="affiliate-note">Affiliate link: we may earn a commission if you buy, at no extra cost to you.</p></>
+            <><AffiliateLink href={product.affiliateUrl} identity={identity}>See current price &amp; options <span aria-hidden="true">↗</span></AffiliateLink><p className="affiliate-note">Affiliate link: we may earn a commission if you buy, at no extra cost to you.</p></>
           ) : (
             <><span className="buy-link buy-link-disabled" aria-disabled="true">Listing temporarily unavailable</span><p className="affiliate-note">We disabled this link because its exact AliExpress destination could not be verified.</p></>
           )}
@@ -79,7 +84,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <h2>See the live listing</h2>
             <p>Confirm the current variant, delivery date and final price directly on AliExpress.</p>
             {product.affiliateDestinationVerified ? (
-              <><AffiliateLink href={product.affiliateUrl} identity={identity}>View on AliExpress <span aria-hidden="true">↗</span></AffiliateLink><p className="affiliate-note">Sponsored affiliate link. You pay no extra; we may receive a commission.</p></>
+              <><AffiliateLink href={product.affiliateUrl} identity={identity}>See current price &amp; options <span aria-hidden="true">↗</span></AffiliateLink><p className="affiliate-note">Affiliate link. You pay no extra; we may receive a commission.</p></>
             ) : (
               <><span className="buy-link buy-link-disabled" aria-disabled="true">Listing temporarily unavailable</span><p className="affiliate-note">The exact product destination is under review, so this CTA is disabled.</p></>
             )}
@@ -97,6 +102,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
       <p className="price-note">*AliExpress data checked {checkedAt} for delivery to Great Britain. Price, variant, tax, shipping, feedback and availability can change. We have not physically tested this item.</p>
       <footer><div><span className="brand-name">Clever Finds</span></div><div className="footer-links"><a href="/affiliate-disclosure">How we choose</a><a href="mailto:cleverfindspicks@gmail.com">Contact</a></div></footer>
+      {product.affiliateDestinationVerified&&<div className="mobile-buy-bar"><div><small>Current listed price*</small><strong>{product.price}</strong></div><AffiliateLink href={product.affiliateUrl} identity={identity} className="mobile-buy-link">See options <span aria-hidden="true">↗</span></AffiliateLink></div>}
     </main>
   );
 }
