@@ -15,7 +15,10 @@ run('product-intelligence/audit-affiliate-destinations.mjs');
 run('product-intelligence/search-candidates.mjs');
 run('product-intelligence/dry-run.mjs');
 let report = JSON.parse(await readFile(new URL('./data/dry-run-report.json', import.meta.url), 'utf8'));
-for (let attempt = 0; report.winner && report.winner.affiliateDestinationVerified !== true && attempt < 10; attempt += 1) {
+// Bound official link-generation calls per slot. A failed destination still
+// advances to the next qualified candidate, but cannot exhaust the shared
+// AliExpress quota and starve later Pinterest/Instagram schedules.
+for (let attempt = 0; report.winner && report.winner.affiliateDestinationVerified !== true && attempt < 3; attempt += 1) {
   try { run('product-intelligence/verify-provisional-destination.mjs'); } catch { assertAliExpressReady(); /* The failed ID is recorded and the next qualified candidate is tried. */ }
   run('product-intelligence/dry-run.mjs');
   report = JSON.parse(await readFile(new URL('./data/dry-run-report.json', import.meta.url), 'utf8'));
