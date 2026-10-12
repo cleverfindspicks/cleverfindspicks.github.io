@@ -13,5 +13,5 @@ try{
   const credentials=await completeOAuth(callback,session,appSecret);
   await saveCredentials(credentials);
   console.log(JSON.stringify({status:'CONNECTED',username:credentials.username,expiresAt:credentials.expiresAt,next:'One trial Reel only; daily publishing still requires review.'}));
-}catch{console.error('OAuth did not complete. Nothing was published. Check the App ID, redirect URI, consent and account; retry locally.');process.exitCode=1;}
+}catch(error){console.error('OAuth did not complete. Nothing was published.');console.error(error?.message||'Unknown OAuth error');process.exitCode=1;}
 finally{stdin.pause();}

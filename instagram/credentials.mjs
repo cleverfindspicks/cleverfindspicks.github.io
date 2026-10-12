@@ -12,7 +12,11 @@ export async function exchangeLongLived(shortToken,appSecret,fetcher=fetch) {
   const url=new URL('https://graph.instagram.com/access_token');
   for(const [k,v] of Object.entries({grant_type:'ig_exchange_token',client_secret:appSecret,access_token:shortToken}))url.searchParams.set(k,v);
   const response=await fetcher(url,{signal:AbortSignal.timeout(30000)});const data=await response.json();
-  if(!response.ok||!data.access_token)throw new Error('Official Instagram long-lived token exchange failed; credentials were not saved.');
+  if(!response.ok||!data.access_token){
+    const error=data?.error||data||{};
+    const safe={stage:'LONG_LIVED_TOKEN_EXCHANGE',httpStatus:response.status,type:error.type||error.error_type||null,code:error.code||error.error_code||null,subcode:error.error_subcode||null,message:error.message||error.error_message||null,fbtraceId:error.fbtrace_id||null};
+    throw new Error(`Official Instagram OAuth failed: ${JSON.stringify(safe)}`);
+  }
   return {token:data.access_token,issuedAt:new Date().toISOString(),expiresAt:new Date(Date.now()+data.expires_in*1000).toISOString()};
 }
 export async function refreshIfNeeded(credentials,fetcher=fetch) {

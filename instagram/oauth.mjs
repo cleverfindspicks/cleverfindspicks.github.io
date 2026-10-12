@@ -19,7 +19,12 @@ export function validateCallback(value,session,now=Date.now()){
 export async function completeOAuth(value,session,appSecret,{fetcher=fetch}={}){
   const code=validateCallback(value,session);
   const response=await fetcher('https://api.instagram.com/oauth/access_token',{method:'POST',body:new URLSearchParams({client_id:session.appId,client_secret:appSecret,grant_type:'authorization_code',redirect_uri:session.redirectUri,code}),signal:AbortSignal.timeout(30000)});
-  const data=await response.json();if(!response.ok||!data.access_token)throw new Error('Official Instagram authorization-code exchange failed.');
+  const data=await response.json();
+  if(!response.ok||!data.access_token){
+    const error=data?.error||data||{};
+    const safe={stage:'AUTHORIZATION_CODE_EXCHANGE',httpStatus:response.status,type:error.type||error.error_type||null,code:error.code||error.error_code||null,subcode:error.error_subcode||null,message:error.message||error.error_message||null,fbtraceId:error.fbtrace_id||null};
+    throw new Error(`Official Instagram OAuth failed: ${JSON.stringify(safe)}`);
+  }
   const credentials=await exchangeLongLived(data.access_token,appSecret,fetcher);
   const profile=await new InstagramApi({...credentials,userId:'me',fetcher}).profile();
   const userId=String(profile.user_id||profile.id||'');
