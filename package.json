@@ -34,7 +34,7 @@
     "performance:report": "node product-intelligence/generate-performance-report.mjs",
     "performance:export": "node product-intelligence/export-performance.mjs",
     "performance:health": "node product-intelligence/analytics-health.mjs",
-    "performance:test": "node --test product-intelligence/tests/performance.test.mjs product-intelligence/tests/aliexpress-orders.test.mjs",
+    "performance:test": "node --test product-intelligence/tests/performance.test.mjs product-intelligence/tests/aliexpress-orders.test.mjs product-intelligence/tests/ga4-data.test.mjs product-intelligence/tests/pinterest-analytics.test.mjs",
     "performance:dry-run": "node product-intelligence/performance-dry-run.mjs",
     "instagram:init": "node instagram/health.mjs",
     "instagram:health": "node instagram/health.mjs --verify",

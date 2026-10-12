@@ -10,7 +10,7 @@ const health = {
   ga4: has('NEXT_PUBLIC_GA_MEASUREMENT_ID') ? 'CONNECTED' : 'NOT_CONFIGURED',
   ga4Reporting: has('GA4_PROPERTY_ID') && has('GOOGLE_APPLICATION_CREDENTIALS') ? 'CONNECTED' : 'NOT_CONFIGURED',
   aliexpressOrders: orderSync.status==='CONNECTED' ? 'CONNECTED' : has('ALIEXPRESS_APP_KEY')&&has('ALIEXPRESS_APP_SECRET')&&has('ALIEXPRESS_TRACKING_ID') ? 'READY' : 'NOT_CONFIGURED',
-  websiteOutboundTracking: 'ACTIVE',
+  websiteOutboundTracking: has('NEXT_PUBLIC_GA_MEASUREMENT_ID') ? 'CONNECTED' : 'NOT_CONFIGURED',
   productionPublishing: 'INDEPENDENT',
 };
 await writeFile(new URL('./data/analytics-health.json', import.meta.url), JSON.stringify(health, null, 2));

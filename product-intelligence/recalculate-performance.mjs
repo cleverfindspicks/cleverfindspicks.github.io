@@ -1,4 +1,4 @@
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import config from './config.json' with { type: 'json' };
 import { openPerformanceStore } from './performance-store.mjs';
 import { aggregateClusters, performanceMetrics } from './performance.mjs';
@@ -11,15 +11,17 @@ const sourceAvailable = {
   clicks: db.prepare('SELECT COUNT(*) count FROM aliexpress_clicks').get().count > 0,
   orders: db.prepare('SELECT COUNT(*) count FROM aliexpress_orders').get().count > 0,
 };
+const orderSync=JSON.parse(await readFile(new URL('./.local/aliexpress-order-sync.json',import.meta.url),'utf8').catch(()=>'{}'));
 const clustersByWindow = new Map();
 for (const windowDays of windows) {
   const cutoff = windowDays ? new Date(Date.now() - windowDays * 86400000).toISOString().slice(0, 10) : '0000-01-01';
+  const orderEvidenceAvailable=sourceAvailable.orders||(orderSync.status==='CONNECTED'&&windowDays!==null&&windowDays<=Number(orderSync.coverageDays||0));
   const rows = productRows.map((product) => {
     const pin = db.prepare('SELECT pin_tracking_id FROM pins WHERE product_id=? ORDER BY published_at LIMIT 1').get(product.productId);
     const pinterest = db.prepare('SELECT SUM(impressions) impressions, SUM(saves) saves, SUM(pin_clicks) pinClicks, SUM(outbound_clicks) pinterestOutboundClicks FROM pinterest_metrics WHERE product_id=? AND metric_date>=?').get(product.productId, cutoff);
     const site = db.prepare('SELECT SUM(product_views) productViews, SUM(qualified_visits) qualifiedVisits FROM website_metrics WHERE product_id=? AND metric_date>=?').get(product.productId, cutoff);
     const clicks = sourceAvailable.clicks ? db.prepare('SELECT COUNT(*) aliexpressClicks FROM aliexpress_clicks WHERE product_id=? AND date(clicked_at)>=?').get(product.productId, cutoff) : { aliexpressClicks: null };
-    const orders = sourceAvailable.orders ? db.prepare("SELECT COUNT(*) orders, SUM(CASE WHEN status='pending' THEN pending_commission_gbp ELSE 0 END) pendingCommissionGbp, SUM(CASE WHEN status='completed' THEN confirmed_commission_gbp ELSE 0 END) confirmedCommissionGbp FROM aliexpress_orders WHERE product_id=? AND date(ordered_at)>=? AND status NOT IN ('cancelled','refunded','invalid')").get(product.productId, cutoff) : { orders: null, pendingCommissionGbp: null, confirmedCommissionGbp: null };
+    const orders = orderEvidenceAvailable ? db.prepare("SELECT COUNT(*) orders, SUM(CASE WHEN status='pending' THEN pending_commission_gbp ELSE 0 END) pendingCommissionGbp, SUM(CASE WHEN status='completed' THEN confirmed_commission_gbp ELSE 0 END) confirmedCommissionGbp FROM aliexpress_orders WHERE product_id=? AND date(ordered_at)>=? AND status NOT IN ('cancelled','refunded','invalid')").get(product.productId, cutoff) : { orders: null, pendingCommissionGbp: null, confirmedCommissionGbp: null };
     return performanceMetrics({ ...product, pinTrackingId: pin?.pin_tracking_id || null, ...pinterest, ...site, ...clicks, ...orders });
   });
   const clusters = aggregateClusters(rows);

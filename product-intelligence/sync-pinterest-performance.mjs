@@ -1,10 +1,13 @@
 import { openPerformanceStore } from './performance-store.mjs';
 import { localEnvironment } from './local-env.mjs';
+import {hydrateOfficialPinIds,listOwnedPins} from './pinterest-analytics.mjs';
 
 const env = await localEnvironment();
 const token = env.PINTEREST_ACCESS_TOKEN;
 if (!token) { console.log(JSON.stringify({ ok: true, status: 'NOT_CONFIGURED', imported: 0 })); process.exit(0); }
 const db = openPerformanceStore();
+const discovered=await listOwnedPins(token);
+const matched=hydrateOfficialPinIds(db,discovered);
 const pins = db.prepare('SELECT pin_tracking_id, official_pin_id, product_id FROM pins WHERE official_pin_id IS NOT NULL').all();
 const end = new Date().toISOString().slice(0, 10);
 const start = new Date(Date.now() - 89 * 86400000).toISOString().slice(0, 10);
@@ -27,5 +30,5 @@ for (const pin of pins) {
     summary.OUTBOUND_CLICK ?? null, summary.ENGAGEMENT ?? null, 'pinterest-api-v5', new Date().toISOString(), JSON.stringify(raw));
   imported += 1;
 }
-console.log(JSON.stringify({ ok: true, status: 'CONNECTED', pins: pins.length, imported }));
+console.log(JSON.stringify({ ok: true, status: 'CONNECTED', discovered:discovered.length,matched,pins: pins.length, imported }));
 db.close();

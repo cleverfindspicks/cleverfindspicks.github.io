@@ -11,6 +11,8 @@ export async function deployInstagramChanges(){
   // Only Instagram assets are staged. An isolated committed snapshot preserves
   // unrelated in-progress Pinterest work without deploying it.
   if(git(['diff','--cached','--name-only']))throw new Error('Existing staged work; refusing unattended commit');
+  const env=await localEnvironment();
+  if(/^G-[A-Z0-9]+$/i.test(env.NEXT_PUBLIC_GA_MEASUREMENT_ID||''))process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID=env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
   run(process.execPath,['--test','media/tests/media.test.mjs','instagram/tests/instagram.test.mjs','instagram/tests/oauth.test.mjs','instagram/tests/store-experience.test.mjs','instagram/tests/schedule.test.mjs','product-intelligence/tests/creative-platform-separation.test.mjs']);
   run(process.execPath,['--test','--test-skip-pattern=missing external credentials','product-intelligence/tests/performance.test.mjs']);
   run(process.execPath,['product-intelligence/self-test.mjs']);
@@ -32,7 +34,7 @@ export async function deployInstagramChanges(){
   if((rss.match(/<item>/g)||[]).length!==products.length)throw new Error('Instagram deployment RSS regression');
   const hub=await readFile(join(output,'instagram/index.html'),'utf8');
   if(!(hub.includes('Latest Instagram Find')||hub.includes('Latest Clever Finds'))||!hub.includes('Search the find you saw')||!hub.includes('Browse by category'))throw new Error('Instagram hub missing');
-  const c=await loadCredentials(),env=await localEnvironment();
+  const c=await loadCredentials();
   const secrets=[c.token,c.appSecret,...Object.entries(env).filter(([k])=>/SECRET|TOKEN|PASSWORD|API_KEY|APP_KEY/.test(k)).map(([,v])=>v)].filter(v=>typeof v==='string'&&v.length>=12);
   async function scan(dir){for(const e of await readdir(dir,{withFileTypes:true})){const p=join(dir,e.name);if(e.isDirectory())await scan(p);else if(!/\.(mp4|png|jpe?g|ico|woff2?)$/i.test(p)){const body=await readFile(p,'utf8');if(secrets.some(s=>body.includes(s)))throw new Error('Secret found in deployment artifact');}}}
   await scan(output);

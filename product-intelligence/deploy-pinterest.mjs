@@ -16,6 +16,8 @@ const git = (args) => {
 
 export async function deployPinterestChanges() {
   if (git(['diff', '--cached', '--name-only'])) throw new Error('Existing staged work; refusing unattended commit');
+  const env = await localEnvironment();
+  if (/^G-[A-Z0-9]+$/i.test(env.NEXT_PUBLIC_GA_MEASUREMENT_ID || '')) process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID = env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
   run(process.execPath, ['product-intelligence/self-test.mjs']);
   run(process.execPath, ['--test', 'product-intelligence/tests/publication-records.test.mjs']);
   run(process.execPath, ['--test', 'product-intelligence/tests/creative-platform-separation.test.mjs']);
@@ -39,7 +41,6 @@ export async function deployPinterestChanges() {
   const currentProducts = (await import(`../app/products.ts?scheduled=${Date.now()}`)).products;
   if ((rss.match(/<item>/g) || []).length !== currentProducts.length) throw new Error('Pinterest deployment RSS item count mismatch');
 
-  const env = await localEnvironment();
   const secrets = Object.entries(env).filter(([key]) => /SECRET|TOKEN|PASSWORD|API_KEY|APP_KEY/.test(key)).map(([, value]) => value).filter((value) => typeof value === 'string' && value.length >= 12);
   async function scan(dir) {
     for (const entry of await readdir(dir, { withFileTypes: true })) {

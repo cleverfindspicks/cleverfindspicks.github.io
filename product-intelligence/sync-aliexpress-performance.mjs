@@ -21,7 +21,7 @@ if(!credentials.appKey||!credentials.appSecret||!credentials.trackingId){
 const db=openPerformanceStore();
 try{
   const result=await syncAffiliateOrders(db,{credentials});
-  const next={status:'CONNECTED',lastSuccessAt:new Date().toISOString(),orders:result.fetched,imported:result.imported,unmatched:result.unmatched};
+  const next={status:'CONNECTED',lastSuccessAt:new Date().toISOString(),coverageDays:30,orders:result.fetched,imported:result.imported,unmatched:result.unmatched};
   const temporary=new URL(`aliexpress-order-sync.${process.pid}.tmp`,local);
   await writeFile(temporary,JSON.stringify(next,null,2));await rename(temporary,stateUrl);
   console.log(JSON.stringify({ok:true,...next}));
