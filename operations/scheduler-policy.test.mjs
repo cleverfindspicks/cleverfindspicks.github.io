@@ -21,3 +21,9 @@ test('only AliExpress deferrals are retryable',()=>{
   const state={'instagram:2026-10-12:19:30':{status:'ERROR',nextAttemptAt:'2026-10-12T18:32:00Z'}};
   assert.equal(deferredRetry(new Date('2026-10-12T18:49:00Z'),configuration,state,'instagram'),null);
 });
+
+test('Pinterest Riyadh slot can be detected while London has no normal slot',()=>{
+  const now=new Date('2026-10-12T19:09:00Z');
+  assert.equal(dueSlot(now,'Europe/London',configuration.slots),null);
+  assert.equal(dueSlot(now,'Asia/Riyadh',['15:00','19:00','22:00'])?.slot,'22:00');
+});

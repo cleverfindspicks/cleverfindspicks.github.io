@@ -17,7 +17,12 @@ const configuration = platform === 'instagram'
   : { timeZone: 'Asia/Riyadh', slots: ['15:00', '19:00', '22:00'], script: 'product-intelligence/production-run.mjs' };
 const state = JSON.parse(await readFile(statePath, 'utf8').catch(() => '{}'));
 const now=new Date();
-const due = runNow ? { ...zoned(now, configuration.timeZone), slot: 'SAFE_REPAIR_TEST' } : dueSlot(now, configuration.timeZone, configuration.slots) || deferredRetry(now,configuration,state,platform);
+const normalDue=dueSlot(now, configuration.timeZone, configuration.slots);
+// Both platforms are independent, but they share one AliExpress quota. Do not
+// let an old Instagram backoff retry race a currently due Pinterest slot.
+const pinterestDueNow=platform==='instagram'&&dueSlot(now,'Asia/Riyadh',['15:00','19:00','22:00']);
+const retryDue=pinterestDueNow?null:deferredRetry(now,configuration,state,platform);
+const due = runNow ? { ...zoned(now, configuration.timeZone), slot: 'SAFE_REPAIR_TEST' } : normalDue || retryDue;
 if (!due) {
   // Stagger one bounded Instagram evidence refresh between publication slots.
   // The maintenance script owns its two-hour cadence and AliExpress backoff.
