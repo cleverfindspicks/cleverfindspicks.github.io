@@ -485,6 +485,23 @@
       "localSha256": "b9987944ce1ed2129bd6e64689c93ef429f501f065ce0038a99a82a2bda001b3",
       "verifiedAt": "2026-10-12T18:51:39.390Z",
       "cached": true
+    },
+    {
+      "slug": "triangular-space-saving-suction-cup-bathroom-storage-shelf-no-drill",
+      "productId": "1005012541002451",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S832a22cf31a84840b228a083af49327f1.jpg",
+      "localPublicPath": "/products/verified/1005012541002451.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012541002451.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012541002451.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "c5429b4f67272be66d870bcdb995259f988ac36278b14f7dcb519fa8b1d5552e",
+      "localSha256": "c71b37f698b8baac8bd4e642918a687ed5d36585cb4fca8873a9227d6a82e6c9",
+      "verifiedAt": "2026-10-12T19:09:52.432Z",
+      "cached": true
     }
   ]
 }
