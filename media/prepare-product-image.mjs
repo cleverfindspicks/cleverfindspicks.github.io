@@ -21,7 +21,7 @@ export async function prepareProductImage(candidate,{fetcher=fetch,officialLooku
         if (digest === record.localSha256 && meta.width >= 100 && meta.height >= 100 && ['jpeg','png','webp','avif','heif'].includes(meta.format)) {
           const publicUrl = `https://cleverfindspicks.github.io${record.localPublicPath}`;
           const cached = { ...candidate, image: publicUrl, productImageVerified: true, productImageVerification: {
-            productId: id, sourceUrl: publicUrl, sameProductConfirmed: true, placeholder: false,
+            productId: id, sourceUrl: publicUrl, originalSourceUrl: record.sourceImageUrl, sameProductConfirmed: true, placeholder: false,
             httpStatus: 200, contentType: record.contentType || 'image/jpeg', sha256: digest,
             localSha256: digest, localPublicPath: record.localPublicPath,
             verifiedAt: new Date().toISOString(), identitySource: 'Previously verified local Product ID cache', cached: true,
@@ -42,14 +42,14 @@ export async function prepareProductImage(candidate,{fetcher=fetch,officialLooku
     const image=await fetchVerifiedImage(candidate.image,{fetcher});const localPath='/products/verified/'+id+'.jpg';
     const bytes=await sharp(image.bytes).rotate().jpeg({quality:92}).toBuffer();
     if(writeCache){await mkdir('public/products/verified',{recursive:true});await writeFile('public'+localPath,bytes);}
-    const proof={productId:id,sourceUrl:candidate.image,sameProductConfirmed:true,placeholder:false,httpStatus:200,contentType:image.contentType,sha256:image.sha256,localSha256:createHash('sha256').update(bytes).digest('hex'),localPublicPath:localPath,verifiedAt:new Date().toISOString(),identitySource:'Official AliExpress Product Detail: exact product_id and product_main_image_url'};
+    const proof={productId:id,sourceUrl:candidate.image,originalSourceUrl:candidate.image,sameProductConfirmed:true,placeholder:false,httpStatus:200,contentType:image.contentType,sha256:image.sha256,localSha256:createHash('sha256').update(bytes).digest('hex'),localPublicPath:localPath,verifiedAt:new Date().toISOString(),identitySource:'Official AliExpress Product Detail: exact product_id and product_main_image_url'};
     const result={...candidate,productImageVerified:true,productImageVerification:proof};if(!imageGate(result))throw new Error('IMAGE_PROOF_REJECTED');return result;
   }catch(error){if(isAliExpressDeferred(error))throw error;return {...candidate,productImageVerified:false,productImageVerification:null,imageRejectionReason:'SKIPPED_IMAGE_NOT_VERIFIED'};}
 }
 export async function recordProductMedia(slug,candidate){
  if(!imageGate(candidate))throw new Error('SKIPPED_IMAGE_NOT_VERIFIED');
  const path='app/product-media.json';const data=JSON.parse(await readFile(path,'utf8'));const proof=candidate.productImageVerification;
- const row={slug,productId:candidate.productId,sourceImageUrl:candidate.image,localPublicPath:proof.localPublicPath,buildOutputPath:'dist/client'+proof.localPublicPath,publicAssetUrl:'https://cleverfindspicks.github.io'+proof.localPublicPath,productImageVerified:true,sameProductConfirmed:true,placeholder:false,httpStatus:200,contentType:proof.contentType,sourceSha256:proof.sha256,localSha256:proof.localSha256,verifiedAt:proof.verifiedAt,cached:true};
+ const row={slug,productId:candidate.productId,sourceImageUrl:proof.originalSourceUrl||candidate.image,localPublicPath:proof.localPublicPath,buildOutputPath:'dist/client'+proof.localPublicPath,publicAssetUrl:'https://cleverfindspicks.github.io'+proof.localPublicPath,productImageVerified:true,sameProductConfirmed:true,placeholder:false,httpStatus:200,contentType:proof.contentType,sourceSha256:proof.sha256,localSha256:proof.localSha256,verifiedAt:proof.verifiedAt,cached:true};
  const previous=data.records.find(r=>r.slug===slug&&String(r.productId)===String(candidate.productId)&&r.sourceImageUrl===candidate.image);
  if(previous?.currencyVerified){for(const key of ['currencyVerified','verifiedPriceGbp','priceVerifiedAt','priceCurrencySource'])if(previous[key]!==undefined)row[key]=previous[key];}
  data.records=data.records.filter(r=>r.slug!==slug);data.records.push(row);await writeFile(path,JSON.stringify(data,null,2)+'\n');
