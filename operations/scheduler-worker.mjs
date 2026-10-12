@@ -25,8 +25,8 @@ const retryDue=pinterestDueNow?null:deferredRetry(now,configuration,state,platfo
 const due = runNow ? { ...zoned(now, configuration.timeZone), slot: 'SAFE_REPAIR_TEST' } : normalDue || retryDue;
 if (!due) {
   // Stagger one bounded Instagram evidence refresh between publication slots.
-  // The maintenance script owns its two-hour cadence and AliExpress backoff.
-  if(platform==='instagram'){
+  // The maintenance script owns its cadence and AliExpress backoff.
+  if(platform==='instagram'&&!pinterestDueNow){
     await new Promise(resolveResult=>{const child=spawn(process.execPath,['instagram/fresh-buffer.mjs'],{cwd:root,windowsHide:true,stdio:'ignore'});child.on('close',resolveResult);child.on('error',resolveResult);});
   }
   process.exit(0);
