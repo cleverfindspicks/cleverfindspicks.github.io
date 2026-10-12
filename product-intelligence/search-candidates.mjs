@@ -1,6 +1,6 @@
 import { createHash, createHmac, randomUUID } from 'node:crypto';
 import {aliExpressFetch,isAliExpressDeferred,rememberDeferred,deferredCandidates,completeDeferred} from './aliexpress-recovery.mjs';
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { parseEnv } from 'node:util';
 import config from './config.json' with { type: 'json' };
 import { scoreCandidates } from './scoring.mjs';
@@ -8,6 +8,7 @@ import { maximumSimilarity } from './similarity.mjs';
 import { products as publishedProducts } from '../app/products.ts';
 import { classifyEvidence, enrichCandidate, priceBenchmarks } from './enrichment.mjs';
 import {verifyCurrency,commissionMetrics,currencyFields} from './currency.mjs';
+import {mergeDiscoveryRows,selectDetailCandidates,selectDiscoveryPlan} from './discovery-budget.mjs';
 
 const env = parseEnv(await readFile(new URL('../.env.local', import.meta.url), 'utf8'));
 const key = env.ALIEXPRESS_APP_KEY?.trim();
@@ -17,11 +18,16 @@ if (!key || !secret || !trackingId) throw new Error('Missing required AliExpress
 const clusterPerformance = JSON.parse(await readFile(new URL('./data/cluster-performance.json', import.meta.url), 'utf8'));
 const priorityByCluster = new Map((clusterPerformance.clusters || []).map((cluster) => [cluster.cluster, cluster.searchPriorityMultiplier]));
 const runId = `cf-run-${new Date().toISOString().replaceAll(/[-:.]/g, '').slice(0, 15)}-${randomUUID().slice(0, 8)}`;
-const searchPlan = config.queries.map((query) => {
+const fullSearchPlan = config.queries.map((query) => {
   const cluster = config.queryClusters[query] || 'unclassified';
   const priorityMultiplier = priorityByCluster.get(cluster) || 1;
   return { query, cluster, priorityMultiplier, pages: priorityMultiplier >= 1.15 ? 2 : 1, sortModes: ['LAST_VOLUME_DESC', 'RELEVANCE'] };
 }).sort((a, b) => b.priorityMultiplier - a.priorityMultiplier);
+const localUrl=new URL('./.local/',import.meta.url);
+const discoveryStateUrl=new URL('discovery-budget.json',localUrl);
+await mkdir(localUrl,{recursive:true});
+const discoveryState=await readFile(discoveryStateUrl,'utf8').then(JSON.parse).catch(()=>({cursor:0,cycle:0}));
+const {selected:searchPlan,nextState:nextDiscoveryState}=selectDiscoveryPlan(fullSearchPlan,discoveryState,{queriesPerRun:1});
 
 async function search(query, pageNo, sortMode) {
   const params = {
@@ -138,19 +144,13 @@ async function detail(products) {
   return rows;
 }
 
-const batches = deferredCandidates('pinterest');
+const batches = deferredCandidates('pinterest',{limit:8});
 for (const item of searchPlan) {
   for (let page = 1; page <= item.pages; page += 1) {
     for (const sortMode of item.sortModes) {try{batches.push(...await search(item.query, page, sortMode));}catch(error){if(isAliExpressDeferred(error))rememberDeferred('pinterest',batches);throw error;}}
   }
 }
-const deduped = [...Map.groupBy(batches, (item) => item.productId).values()].map((rows) => ({
-  ...rows[0],
-  searchQuery: rows.map((row) => row.searchQuery),
-  searchPages: [...new Set(rows.map((row) => row.searchPage))],
-  searchSortModes: [...new Set(rows.map((row) => row.searchSortMode))],
-  matchedClusters: [...new Set(rows.map((row) => row.cluster))],
-}));
+const deduped = selectDetailCandidates(mergeDiscoveryRows(batches),{limit:16});
 const details = [];
 for (let index = 0; index < deduped.length; index += 20) {
   try { details.push(...await detail(deduped.slice(index, index + 20))); } catch(error) { if(isAliExpressDeferred(error)){rememberDeferred('pinterest',deduped);throw error;} /* Missing detail evidence safely blocks that batch. */ }
@@ -208,15 +208,19 @@ await writeFile(new URL('./data/candidate-pool.json', import.meta.url), JSON.str
   generatedAt: new Date().toISOString(),
   runId,
   market: config.market,
-  queryCount: config.queries.length,
+  queryCount: searchPlan.length,
+  discoveryQueryTotal: config.queries.length,
   searchPlan,
   candidateCount: evaluated.length,
-  note: 'Objective API metrics are stored. Editorial, shipping, seller, variant and creative fields remain unknown until verified; unknowns never receive invented points.',
+  note: 'Budgeted rotating discovery keeps AliExpress usage bounded. Objective API metrics are stored; unknown evidence never receives invented points.',
   candidates: evaluated,
 }, null, 2));
 const runLogUrl = new URL('./data/run-log.json', import.meta.url);
 const runLog = await readFile(runLogUrl, 'utf8').then(JSON.parse).catch(() => ({ runs: [] }));
-runLog.runs = [...(runLog.runs || []), { runId, generatedAt: new Date().toISOString(), queryCount: config.queries.length, candidateCount: evaluated.length, publishableCount: evaluated.filter((item) => item.decision === 'keep').length }].slice(-config.retention.maximumRunSummaries);
+runLog.runs = [...(runLog.runs || []), { runId, generatedAt: new Date().toISOString(), queryCount: searchPlan.length, discoveryQueryTotal: config.queries.length, candidateCount: evaluated.length, publishableCount: evaluated.filter((item) => item.decision === 'keep').length }].slice(-config.retention.maximumRunSummaries);
 await writeFile(runLogUrl, JSON.stringify(runLog, null, 2));
 completeDeferred('pinterest',details.map(item=>String(item.product_id)));
-console.log(JSON.stringify({ ok: true, queries: config.queries.length, candidates: evaluated.length, publishable: evaluated.filter((item) => item.decision === 'keep').length }));
+const stateTemp=new URL(`discovery-budget.${process.pid}.tmp`,localUrl);
+await writeFile(stateTemp,JSON.stringify(nextDiscoveryState,null,2));
+await rename(stateTemp,discoveryStateUrl);
+console.log(JSON.stringify({ ok: true, queries: searchPlan.length, discoveryQueryTotal:config.queries.length, detailCandidates:deduped.length, candidates: evaluated.length, publishable: evaluated.filter((item) => item.decision === 'keep').length }));

@@ -8,7 +8,12 @@ export function instagramSuitability(candidate, { recentProductIds = [] } = {}) 
   // No fabricated visual analysis: use existing evidence and conservative values.
   const clear = clamp(factors.obviousProblem);
   const visual = clamp(factors.visualAppeal);
-  const supportedSource = /^https:\/\/[^/]+\.aliexpress-media\.com\//.test(candidate.image || '') || /^https:\/\/ae-pic[^/]*\.aliexpress-media\.com\//.test(candidate.image || '');
+  const verifiedLocalSource = candidate.productImageVerified === true &&
+    candidate.productImageVerification?.productId === String(candidate.productId) &&
+    candidate.productImageVerification?.sameProductConfirmed === true &&
+    candidate.productImageVerification?.cached === true &&
+    /^https:\/\/cleverfindspicks\.github\.io\/products\/verified\/\d+\.jpg$/.test(candidate.image || '');
+  const supportedSource = verifiedLocalSource || /^https:\/\/[^/]+\.aliexpress-media\.com\//.test(candidate.image || '') || /^https:\/\/ae-pic[^/]*\.aliexpress-media\.com\//.test(candidate.image || '');
   const values = {
     visualAppeal: visual, problemSolutionClarity: clear, twoSecondClarity: Math.min(clear, visual + 0.08),
     creativeFeasibility: supportedSource ? 0.9 : 0,

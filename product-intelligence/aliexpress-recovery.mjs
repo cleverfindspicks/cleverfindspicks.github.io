@@ -46,14 +46,28 @@ function deferredStore(){
   const path=process.env.CF_ALIEXPRESS_RECOVERY_DB||defaultPath;
   mkdirSync(dirname(path),{recursive:true});
   const db=new DatabaseSync(path);
-  db.exec('PRAGMA busy_timeout=5000; CREATE TABLE IF NOT EXISTS deferred_candidates(platform TEXT, product_id TEXT, candidate_json TEXT, PRIMARY KEY(platform,product_id))');
+  db.exec('PRAGMA busy_timeout=5000; CREATE TABLE IF NOT EXISTS deferred_candidates(platform TEXT, product_id TEXT, candidate_json TEXT, updated_at INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(platform,product_id))');
+  const columns=new Set(db.prepare('PRAGMA table_info(deferred_candidates)').all().map(column=>column.name));
+  if(!columns.has('updated_at'))db.exec('ALTER TABLE deferred_candidates ADD COLUMN updated_at INTEGER NOT NULL DEFAULT 0');
   return db;
 }
-export function rememberDeferred(platform,candidates){
-  const db=deferredStore();try{const insert=db.prepare('INSERT OR REPLACE INTO deferred_candidates VALUES(?,?,?)');for(const c of candidates)insert.run(platform,String(c.productId),JSON.stringify(c));}finally{db.close();}
+function normaliseDeferredCandidate(candidate){
+  const queries=[candidate.searchQuery,candidate.searchQueries].flat(6).filter(value=>typeof value==='string'&&value.trim());
+  return {...candidate,searchQuery:queries.at(0)||null,searchQueries:[...new Set(queries)].slice(0,12)};
 }
-export function deferredCandidates(platform){
-  const db=deferredStore();try{return db.prepare('SELECT candidate_json FROM deferred_candidates WHERE platform=?').all(platform).map(r=>JSON.parse(r.candidate_json));}finally{db.close();}
+export function rememberDeferred(platform,candidates){
+  const db=deferredStore();try{
+    const insert=db.prepare('INSERT OR REPLACE INTO deferred_candidates(platform,product_id,candidate_json,updated_at) VALUES(?,?,?,?)');
+    const now=Date.now();
+    for(const c of candidates.slice(0,100)){if(c?.productId)insert.run(platform,String(c.productId),JSON.stringify(normaliseDeferredCandidate(c)),now);}
+    db.prepare('DELETE FROM deferred_candidates WHERE platform=? AND product_id NOT IN (SELECT product_id FROM deferred_candidates WHERE platform=? ORDER BY updated_at DESC LIMIT 200)').run(platform,platform);
+  }finally{db.close();}
+}
+export function deferredCandidates(platform,{limit=50}={}){
+  const db=deferredStore();try{
+    db.prepare('DELETE FROM deferred_candidates WHERE platform=? AND product_id NOT IN (SELECT product_id FROM deferred_candidates WHERE platform=? ORDER BY updated_at DESC LIMIT 200)').run(platform,platform);
+    return db.prepare('SELECT candidate_json FROM deferred_candidates WHERE platform=? ORDER BY updated_at DESC LIMIT ?').all(platform,Math.max(0,Math.min(200,Number(limit)||50))).map(r=>normaliseDeferredCandidate(JSON.parse(r.candidate_json)));
+  }finally{db.close();}
 }
 export function completeDeferred(platform,ids){
   const db=deferredStore();try{const remove=db.prepare('DELETE FROM deferred_candidates WHERE platform=? AND product_id=?');for(const id of ids)remove.run(platform,String(id));}finally{db.close();}

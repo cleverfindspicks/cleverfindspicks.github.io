@@ -8,6 +8,7 @@ import config from './config.json' with { type: 'json' };
 import {refreshProductEvidence} from './product-evidence.mjs';
 import {livePublicationSql} from './store.mjs';
 import {AUTO_PROMOTION_ENABLED,canAutoPromote,recordPromotionFailure} from './catalogue-promotion.mjs';
+import {prepareProductImage,recordProductMedia} from '../media/prepare-product-image.mjs';
 
 export async function qualifiedCatalogue(db) {
   const verifiedVideos = new Set();
@@ -42,10 +43,17 @@ export async function qualifiedCatalogue(db) {
   const cooldown = new Date(Date.now() - config.selection.repeatCooldownDays * 86400000).toISOString();
   const recent = db.prepare(`SELECT product_id FROM instagram_queue WHERE dry_run=0 AND state IN ('PUBLISHED','PENDING','CREATIVE_GENERATING','READY','PUBLISHING','FAILED_RETRYABLE','FAILED_PERMANENT') AND created_at>=? AND ${livePublicationSql}`).all(cooldown).map((row) => row.product_id);
   const last = db.prepare(`SELECT cluster FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED' AND ${livePublicationSql} ORDER BY published_at DESC LIMIT ?`).all(config.selection.maximumConsecutiveClusterWins);
-  const current=await refreshProductEvidence(products.filter((p) => isVisibleRecommendation(p.slug) && p.affiliateDestinationVerified).flatMap(product=>{
+  const refreshed=await refreshProductEvidence(products.filter((p) => isVisibleRecommendation(p.slug) && p.affiliateDestinationVerified).flatMap(product=>{
     const candidate=receipts.get(product.slug);
     return candidate&&String(candidate.productId)===String(product.productId)?[{product,candidate}]:[];
   }));
+  const current=[];
+  for(const row of refreshed){
+    const candidate=await prepareProductImage(row.candidate);
+    if(candidate.productImageVerified!==true)continue;
+    await recordProductMedia(row.product.slug,candidate);
+    current.push({...row,candidate});
+  }
   return current.flatMap(({product,candidate}) => {
     const required = candidate?.evidence?.requiredForPublication;
     const duplicateOnly = candidate?.decision === 'reject' && /^Too similar to a recently published product\.?$/.test(String(candidate.rejectionReason || '').trim());

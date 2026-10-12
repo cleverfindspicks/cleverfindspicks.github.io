@@ -9,7 +9,10 @@ await mkdir(local,{recursive:true});
 const state=JSON.parse(await readFile(stateUrl,'utf8').catch(()=>'{"lastAttemptAt":null}'));
 const now=Date.now();
 if(state.nextAttemptAt&&Date.parse(state.nextAttemptAt)>now){console.log(JSON.stringify({status:'FRESH_BUFFER_BACKOFF',nextAttemptAt:state.nextAttemptAt}));process.exit(0);}
-if(state.lastAttemptAt&&now-Date.parse(state.lastAttemptAt)<2*3600000){console.log(JSON.stringify({status:'FRESH_BUFFER_NOT_DUE'}));process.exit(0);}
+// Scheduled publication performs its own exact freshness verification. This
+// buffer is only a bounded warm-up, so one attempt per day is enough and
+// avoids competing with Pinterest discovery for the AliExpress quota.
+if(state.lastAttemptAt&&now-Date.parse(state.lastAttemptAt)<24*3600000){console.log(JSON.stringify({status:'FRESH_BUFFER_NOT_DUE'}));process.exit(0);}
 const pool=JSON.parse(await readFile(new URL('../product-intelligence/data/candidate-pool.json',import.meta.url),'utf8'));
 const cache=JSON.parse(await readFile(new URL('instagram-product-evidence-cache.json',local),'utf8').catch(()=>'{"records":{}}'));
 const eligible=(pool.candidates||[]).filter(candidate=>products.some(product=>String(product.productId)===String(candidate.productId))&&candidate.totalScore>=65&&candidate.confidence>=.75).sort((a,b)=>b.totalScore-a.totalScore);
