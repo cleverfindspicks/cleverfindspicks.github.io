@@ -1,6 +1,7 @@
 import { appendFile, mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 import { resolve } from 'node:path';
+import {deferredRetry,dueSlot,zoned} from './scheduler-policy.mjs';
 
 const platform = process.argv[2];
 if (!['instagram', 'pinterest'].includes(platform)) throw new Error('Usage: node operations/scheduler-worker.mjs <instagram|pinterest> [--run-now]');
@@ -11,32 +12,12 @@ const statePath = resolve(local, 'persistent-scheduler-state.json');
 const logPath = resolve(local, 'scheduler-runs.jsonl');
 await mkdir(local, { recursive: true });
 
-function zoned(date, timeZone) {
-  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(date).map((part) => [part.type, part.value]));
-  return { day: `${parts.year}-${parts.month}-${parts.day}`, time: `${parts.hour}:${parts.minute}` };
-}
-function dueSlot(now, timeZone, slots, catchUp = 14) {
-  const clock = zoned(now, timeZone);
-  const minutes = (value) => value.split(':').reduce((hours, minute) => hours * 60 + Number(minute), 0);
-  const slot = [...slots].reverse().find((value) => { const elapsed = minutes(clock.time) - minutes(value); return elapsed >= 0 && elapsed <= catchUp; });
-  return slot ? { ...clock, slot } : null;
-}
 const configuration = platform === 'instagram'
   ? { timeZone: 'Europe/London', slots: ['09:00', '14:00', '19:30'], script: 'instagram/run.mjs' }
   : { timeZone: 'Asia/Riyadh', slots: ['15:00', '19:00', '22:00'], script: 'product-intelligence/production-run.mjs' };
 const state = JSON.parse(await readFile(statePath, 'utf8').catch(() => '{}'));
-function deferredRetry(now, maximumAgeMinutes = 45) {
-  const clock = zoned(now, configuration.timeZone);
-  const toMinutes = (value) => value.split(':').reduce((hours, minute) => hours * 60 + Number(minute), 0);
-  for (const slot of [...configuration.slots].reverse()) {
-    const elapsed = toMinutes(clock.time) - toMinutes(slot);
-    const previous = state[`${platform}:${clock.day}:${slot}`];
-    if (elapsed >= 0 && elapsed <= maximumAgeMinutes && previous?.status === 'DEFERRED_ALIEXPRESS_API_LIMIT' && Date.parse(previous.nextAttemptAt || 0) <= now.getTime()) return { ...clock, slot };
-  }
-  return null;
-}
 const now=new Date();
-const due = runNow ? { ...zoned(now, configuration.timeZone), slot: 'SAFE_REPAIR_TEST' } : dueSlot(now, configuration.timeZone, configuration.slots) || deferredRetry(now);
+const due = runNow ? { ...zoned(now, configuration.timeZone), slot: 'SAFE_REPAIR_TEST' } : dueSlot(now, configuration.timeZone, configuration.slots) || deferredRetry(now,configuration,state,platform);
 if (!due) {
   // Stagger one bounded Instagram evidence refresh between publication slots.
   // The maintenance script owns its two-hour cadence and AliExpress backoff.
