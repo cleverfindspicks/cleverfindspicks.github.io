@@ -497,10 +497,27 @@
       "sameProductConfirmed": true,
       "placeholder": false,
       "httpStatus": 200,
-      "contentType": "image/webp",
+      "contentType": "image/jpeg",
       "sourceSha256": "c5429b4f67272be66d870bcdb995259f988ac36278b14f7dcb519fa8b1d5552e",
       "localSha256": "c71b37f698b8baac8bd4e642918a687ed5d36585cb4fca8873a9227d6a82e6c9",
-      "verifiedAt": "2026-10-12T19:09:52.432Z",
+      "verifiedAt": "2026-10-13T08:06:53.372Z",
+      "cached": true
+    },
+    {
+      "slug": "under-desk-drawer-slide-out-no-drilling-organizer-shelf-under-table",
+      "productId": "1005012849487027",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S52a10cda16e54c639bddd342024d8c1bL.jpg",
+      "localPublicPath": "/products/verified/1005012849487027.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012849487027.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012849487027.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "b11d2f345ca8214690f46efb0b9cdeb21f2c63e233add6c9b2265824583008ab",
+      "localSha256": "eb4e805bfa688eb4a4f0d1a4cd0d12116aafa519601c8add6c2ce7a49e8e0c28",
+      "verifiedAt": "2026-10-13T12:07:38.720Z",
       "cached": true
     }
   ]
