@@ -519,6 +519,23 @@
       "localSha256": "eb4e805bfa688eb4a4f0d1a4cd0d12116aafa519601c8add6c2ce7a49e8e0c28",
       "verifiedAt": "2026-10-13T12:07:38.720Z",
       "cached": true
+    },
+    {
+      "slug": "over-the-door-storage-organiser-5-shelves-door-organizer-hanging-ha",
+      "productId": "1005011681103196",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sd0d0a851ac254d77b895ce651f8e42e6x.jpg",
+      "localPublicPath": "/products/verified/1005011681103196.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005011681103196.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005011681103196.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "aed718f18603627dfece9da41baac68ee95bda3de130ce8cd8375291d656f087",
+      "localSha256": "4026fd7ffec5f8a3345a3b8e18d32020e614995a114499a48f547c542a4b91a2",
+      "verifiedAt": "2026-10-13T19:37:30.101Z",
+      "cached": true
     }
   ]
 }
