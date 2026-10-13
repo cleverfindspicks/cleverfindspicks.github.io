@@ -8,8 +8,8 @@ import { validateInstagramCover } from '../../instagram/instagram-reel-cover-ren
 const productId = '1005008660091954';
 const pinterest = {
   renderer: 'PinterestCreativeRenderer', platform: 'pinterest', format: 'static-2:3', width: 1000, height: 1500,
-  layoutFamily: 'pinterest-editorial-v3', videoFrameStyling: false, sourceProductId: productId,
-  sourceImageSha256: 'a'.repeat(64), productAreaRatio: .535,
+  layoutFamily: 'pinterest-product-media-v4', videoFrameStyling: false, sourceProductId: productId,
+  sourceImageSha256: 'a'.repeat(64), productAreaRatio: .768, framedProductImage: false, fullBleedProductMedia: true,
   rawProductImageAsPin: false,
   visibleText: ['CLEVER FINDS', 'Make this corner useful', 'Storage without a bulky footprint'],
 };
@@ -21,6 +21,7 @@ const instagram = {
   reelSha256: 'b'.repeat(64), width: 1080, height: 1920, durationSeconds: 9, disclosure: 'Ad / affiliate', caption: 'Ad / affiliate.\n\nProduct-specific caption', visualAffiliateLabel: false,
   scenes: [{ text: ['Make this corner useful'] }, { text: ['Add practical storage'] }, { text: ['Small footprint'] }, { text: ['See today’s find — link in bio'] }],
   productImageVerified: true, productImageVerification: { productId },
+  framedProductImage: false, fullBleedProductMedia: true,
   hashtagValidation: { ok: true, errors: [], productSpecificCount: 5 },
   cover: { renderer: 'InstagramReelCoverRendererV2', productId },
   visualQA: { firstFrameMean: 180, firstFrameEntropy: 5, firstFrameNotBlack: true, coverNotBlank: true, productAreaRatio: .56, productClearlyVisible: true, mobileTextReadable: true, textClipped: false, visibleCharacterCount: 120, duplicatedOverlays: false, excessiveEmptySpace: false, firstSecondProductVisible: true, genericHeadline: false, genericRepeatedFooter: false, visualAffiliateLabel: false, compositionCount: 4, singleImageZoomOnly: false, layoutReuseTooFrequent: false },
@@ -47,7 +48,7 @@ test('Instagram accepts only a verified official muted product video source', ()
 });
 
 test('Instagram cover is bright, product-led and tied to the selected product', () => {
-  const cover = { renderer: 'InstagramReelCoverRendererV2', platform: 'instagram', format: 'reel-cover-9:16', width: 1080, height: 1920, productAreaRatio: .56, meanLuminance: 180, entropy: 5, hook: 'Make this corner useful', visibleText: 'Make this corner useful', productId, expectedProductId: productId, sourceImageSha256: 'a'.repeat(64), verifiedImageSha256: 'a'.repeat(64) };
+  const cover = { renderer: 'InstagramReelCoverRendererV2', platform: 'instagram', format: 'reel-cover-9:16', width: 1080, height: 1920, productAreaRatio: .56, meanLuminance: 180, entropy: 5, hook: 'Make this corner useful', visibleText: 'Make this corner useful', productId, expectedProductId: productId, sourceImageSha256: 'a'.repeat(64), verifiedImageSha256: 'a'.repeat(64), framedProductImage: false, fullBleedProductMedia: true };
   assert.equal(validateInstagramCover(cover).ok, true);
   assert.ok(validateInstagramCover({ ...cover, meanLuminance: 2 }).errors.includes('INSTAGRAM_COVER_BLACK_OR_BLANK'));
 });

@@ -26,6 +26,7 @@ export function enqueue(db, choice, day, dryRun = false, slot = 'trial') {
   const now = new Date().toISOString();
   db.exec('BEGIN IMMEDIATE');
   try {
+  if(!dryRun&&db.prepare(`SELECT 1 FROM instagram_queue q WHERE q.product_id=? AND q.dry_run=0 AND q.state='PUBLISHED' AND q.media_id IS NOT NULL AND NOT EXISTS (SELECT 1 FROM instagram_publication_lifecycle l WHERE l.instagram_publication_id=q.instagram_publication_id AND (l.kind!='LIVE' OR l.availability!='ACTIVE')) LIMIT 1`).get(String(choice.product.productId)))throw new Error('SKIPPED_DUPLICATE_PRODUCT_HISTORY: product was already published as a live Instagram Reel');
   const claimed=!dryRun&&db.prepare('SELECT publication_id FROM instagram_schedule_slots WHERE scheduled_day=? AND scheduled_time=?').get(day,slot);
   const claimedState=claimed?.publication_id&&db.prepare('SELECT state FROM instagram_queue WHERE instagram_publication_id=?').get(claimed.publication_id)?.state;
   if(claimed && claimed.publication_id!==id&&!['FAILED_PERMANENT','SKIPPED'].includes(claimedState))throw new Error('Instagram slot already claimed');

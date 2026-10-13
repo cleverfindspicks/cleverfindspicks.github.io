@@ -53,26 +53,25 @@ async function renderScene({ original, outputPath, lines, sceneIndex, layoutFami
     'space-use-organisation': { background: '#eef2f8', ink: '#294b70', accent: '#d3def0', photoTop: 410, photoHeight: 1270, textY: 165 },
     'feature-benefit': { background: '#f5f0f8', ink: '#5d3d72', accent: '#e1d2ea', photoTop: 340, photoHeight: 1350, textY: 155 },
   };
-  const layout = layouts[layoutFamily] || layouts['product-spotlight'];
-  const photoWidth = sceneIndex === 2 ? 860 : sceneIndex === 3 ? 760 : 960;
-  const photoHeight = sceneIndex === 2 ? Math.min(layout.photoHeight, 1240) : sceneIndex === 3 ? 1100 : layout.photoHeight;
-  const fit = sceneIndex === 2 ? 'cover' : 'contain';
-  const photo = await sharp(original).resize(photoWidth, photoHeight, { fit, position: 'attention', background: '#ffffff' }).jpeg({ quality: 94 }).toBuffer();
+  const palette = layouts[layoutFamily] || layouts['product-spotlight'];
+  const photoWidth = sceneIndex === 3 ? 900 : 1040;
+  const photoHeight = sceneIndex === 3 ? 1320 : 1540;
+  const backgroundPhoto = await sharp(original).resize(1080, 1920, { fit: 'cover', position: 'attention' }).blur(34).modulate({ brightness: 0.66, saturation: 0.9 }).jpeg({ quality: 88 }).toBuffer();
+  const photo = await sharp(original).resize(photoWidth, photoHeight, { fit: 'contain', position: 'attention', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
   const wrapped = lines.flatMap((line) => wrap(line, sceneIndex === 3 ? 24 : 25, 2)).slice(0, 3);
-  const textX = sceneIndex === 2 ? 110 : 60;
-  const text = wrapped.map((line, index) => `<text x="${textX}" y="${layout.textY + index * 68}" fill="${layout.ink}" font-family="Arial, sans-serif" font-size="${sceneIndex === 3 ? 55 : 58}" font-weight="700">${esc(line)}</text>`).join('');
-  const panelX = sceneIndex === 2 ? 110 : sceneIndex === 3 ? 260 : 60;
-  const panelY = sceneIndex === 3 ? 500 : layout.photoTop;
-  const canvas = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920">
-    <rect width="1080" height="1920" fill="${layout.background}"/>
-    <circle cx="${sceneIndex % 2 ? 90 : 995}" cy="${sceneIndex === 3 ? 1710 : 120}" r="220" fill="${layout.accent}"/>
-    <rect x="0" y="0" width="1080" height="18" fill="${layout.ink}"/>
-    <text x="60" y="76" fill="${layout.ink}" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="4">CLEVER FINDS</text>
+  const textX = 54;
+  const textY = sceneIndex === 3 ? 1510 : 1550;
+  const text = wrapped.map((line, index) => `<text x="${textX}" y="${textY + index * 68}" fill="#ffffff" font-family="Arial, sans-serif" font-size="${sceneIndex === 3 ? 55 : 58}" font-weight="700">${esc(line)}</text>`).join('');
+  const panelX = sceneIndex === 3 ? 90 : 20;
+  const panelY = sceneIndex === 3 ? 120 : 80;
+  const overlay = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920">
+    <defs><linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#071424" stop-opacity=".48"/><stop offset=".22" stop-color="#071424" stop-opacity="0"/><stop offset=".65" stop-color="#071424" stop-opacity="0"/><stop offset="1" stop-color="#071424" stop-opacity=".84"/></linearGradient></defs>
+    <rect width="1080" height="1920" fill="url(#shade)"/>
+    <rect x="0" y="0" width="1080" height="10" fill="${palette.ink}"/>
+    <text x="54" y="70" fill="#ffffff" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="4">CLEVER FINDS</text>
     ${text}
-    <rect x="${panelX}" y="${panelY}" width="${photoWidth}" height="${photoHeight}" rx="${sceneIndex === 2 ? 180 : 56}" fill="#ffffff"/>
-    ${sceneIndex === 3 ? `<path d="M60 1550 H1020" stroke="${layout.ink}" stroke-width="8" stroke-linecap="round"/>` : ''}
   </svg>`);
-  await sharp(canvas).composite([{ input: photo, left: panelX, top: panelY }]).png().toFile(outputPath);
+  await sharp(backgroundPhoto).composite([{ input: photo, left: panelX, top: panelY }, { input: overlay, left: 0, top: 0 }]).png().toFile(outputPath);
 }
 
 export async function generateMotionReel(row, { sourceBytes = null, fetcher = fetch, outputDirectory = resolve('public/instagram'), workDirectory = null, publicBaseUrl = 'https://cleverfindspicks.github.io/instagram', recordMedia = true } = {}) {
@@ -110,7 +109,7 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
   const { copy, scenes } = motionTexts(candidate, row.recentCreative || { hooks: row.recentHooks || [], layouts: [] });
   const videoCandidate = await prepareProductVideo(verified, { fetcher }).catch(() => ({ ...verified, productVideoVerified: false }));
   const productVideo = videoCandidate.productVideoVerified === true ? videoCandidate.productVideoVerification : null;
-  const sceneDurations = productVideo ? [1.5, 4.5, 2, 1.5] : motionSceneDurations;
+  const sceneDurations = productVideo ? [0.6, 5.4, 2, 1.5] : motionSceneDurations;
   const sourceHash = sha(original);
   const creativeId = `igcreative-${sha(Buffer.from(`instagram-reel-v2:${row.internal_instagram_tracking_id}${sourceHash}${productVideo?.sha256 || ''}${JSON.stringify(scenes)}${copy.concept}`)).slice(0, 16)}`;
   const work = workDirectory || resolve('product-intelligence/.local/instagram-assets', creativeId);
@@ -135,7 +134,7 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
 
   for (let index = 0; index < 4; index++) {
     if (productVideo && index === 1) {
-      await execute(['-y', '-hide_banner', '-loglevel', 'error', '-i', resolve(`public${productVideo.localPublicPath}`), '-t', String(sceneDurations[index]), '-an', '-vf', 'scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:color=white,fps=30,fade=t=in:st=0:d=0.12,fade=t=out:st=4.32:d=0.18,format=yuv420p', '-c:v', 'libx264', '-preset', 'fast', '-crf', '21', join(work, `part-${index}.mp4`)]);
+      await execute(['-y', '-hide_banner', '-loglevel', 'error', '-i', resolve(`public${productVideo.localPublicPath}`), '-t', String(sceneDurations[index]), '-an', '-filter_complex', '[0:v]split=2[bg][fg];[bg]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=24:2,eq=brightness=-0.12:saturation=0.9[base];[fg]scale=1080:1920:force_original_aspect_ratio=decrease[front];[base][front]overlay=(W-w)/2:(H-h)/2,fps=30,fade=t=in:st=0:d=0.08,fade=t=out:st=5.18:d=0.18,format=yuv420p[out]', '-map', '[out]', '-c:v', 'libx264', '-preset', 'fast', '-crf', '21', join(work, `part-${index}.mp4`)]);
       continue;
     }
     const frames = Math.round(sceneDurations[index] * 30);
@@ -213,6 +212,8 @@ export async function generateMotionReel(row, { sourceBytes = null, fetcher = fe
     multiImageCapable: true,
     verifiedImageCount: originals.length,
     multiImageUsed: originals.length > 1,
+    framedProductImage: false,
+    fullBleedProductMedia: true,
     cover,
     visualQA: {
       firstFrameMean,

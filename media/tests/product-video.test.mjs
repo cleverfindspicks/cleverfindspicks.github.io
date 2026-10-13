@@ -24,3 +24,11 @@ test('video stays an image fallback when watermark, price and variant safety evi
   assert.equal(result.productVideoVerification.reason, 'VIDEO_VISUAL_SAFETY_EVIDENCE_MISSING');
   assert.equal(fetched, false);
 });
+
+test('exact Product ID alone cannot substitute for image-to-video product matching evidence', async () => {
+  let fetched = false;
+  const result = await prepareProductVideo({ ...candidate, productVideoSafety: { thirdPartyWatermarkAbsent: true, stalePriceClaimAbsent: true, sameVariantContext: true, sameProductImageConfirmed: false } }, { fetcher: async () => { fetched = true; throw new Error('must not fetch'); } });
+  assert.equal(result.productVideoVerified, false);
+  assert.equal(result.productVideoVerification.reason, 'VIDEO_VISUAL_SAFETY_EVIDENCE_MISSING');
+  assert.equal(fetched, false);
+});

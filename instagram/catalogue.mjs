@@ -9,6 +9,7 @@ import {refreshProductEvidence} from './product-evidence.mjs';
 import {livePublicationSql} from './store.mjs';
 import {AUTO_PROMOTION_ENABLED,canAutoPromote,recordPromotionFailure} from './catalogue-promotion.mjs';
 import {prepareProductImage} from '../media/prepare-product-image.mjs';
+import { instagramLivePublicationHistory, isPreviouslyPublishedProduct } from '../product-intelligence/platform-publication-history.mjs';
 
 export async function qualifiedCatalogue(db) {
   const verifiedVideos = new Set();
@@ -40,8 +41,12 @@ export async function qualifiedCatalogue(db) {
     const slug = bundle.landingPage?.slug;
     if (slug && candidate && !receipts.has(slug)) receipts.set(slug, candidate);
   }
-  const cooldown = new Date(Date.now() - config.selection.repeatCooldownDays * 86400000).toISOString();
-  const recent = db.prepare(`SELECT product_id FROM instagram_queue WHERE dry_run=0 AND state IN ('PUBLISHED','PENDING','CREATIVE_GENERATING','READY','PUBLISHING','FAILED_RETRYABLE','FAILED_PERMANENT') AND created_at>=? AND ${livePublicationSql}`).all(cooldown).map((row) => row.product_id);
+  // Exact products already published as a live Reel are never selected again.
+  // Tests, deleted posts, failures, previews, Pinterest publications and mere
+  // catalogue promotion do not enter this platform-specific history.
+  const publicationHistory = instagramLivePublicationHistory(db, livePublicationSql);
+  const publishedEver = publicationHistory.productIds;
+  const recent = [...publishedEver];
   const last = db.prepare(`SELECT cluster FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED' AND ${livePublicationSql} ORDER BY published_at DESC LIMIT ?`).all(config.selection.maximumConsecutiveClusterWins);
   const refreshed=await refreshProductEvidence(products.filter((p) => isVisibleRecommendation(p.slug) && p.affiliateDestinationVerified).flatMap(product=>{
     const candidate=receipts.get(product.slug);
@@ -51,9 +56,11 @@ export async function qualifiedCatalogue(db) {
   for(const row of refreshed){
     const candidate=await prepareProductImage(row.candidate);
     if(candidate.productImageVerified!==true)continue;
+    if(isPreviouslyPublishedProduct(candidate,publicationHistory))continue;
     current.push({...row,candidate});
   }
   return current.flatMap(({product,candidate}) => {
+    if (publishedEver.has(String(product.productId))) return [];
     const required = candidate?.evidence?.requiredForPublication;
     const duplicateOnly = candidate?.decision === 'reject' && /^Too similar to a recently published product\.?$/.test(String(candidate.rejectionReason || '').trim());
     if (!candidate || (candidate.decision !== 'keep' && !duplicateOnly) || !required || Object.values(required).some((value) => value !== true) || String(candidate.productId) !== String(product.productId)) return [];

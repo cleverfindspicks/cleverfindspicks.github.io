@@ -6,14 +6,18 @@ import { validatePublicationBundle } from './publication-gate.mjs';
 import {prepareProductImage,recordProductMedia} from '../media/prepare-product-image.mjs';
 import {imageGate} from '../media/image-validation.mjs';
 import { affiliateAuditRecord, upsertAffiliateAudit } from './publication-records.mjs';
+import { isPreviouslyPublishedProduct, pinterestPublicationHistory } from './platform-publication-history.mjs';
 
 const bundlePath = process.argv[2];
 if (!bundlePath) throw new Error('Usage: node product-intelligence/publish-approved.mjs <approved-bundle.json>');
 const bundle = JSON.parse(await readFile(bundlePath, 'utf8'));
+const publicationHistory = await pinterestPublicationHistory();
+if (publicationHistory.productIds.has(String(bundle.candidate?.productId || ''))) throw new Error('SKIPPED_DUPLICATE_PRODUCT_HISTORY: product was already published on Pinterest.');
 // The production worker already verifies and caches the exact official image
 // immediately before creating the Pin. Reuse that fresh signed evidence so a
 // second transient AliExpress request cannot reject an already verified image.
 if(!imageGate(bundle.candidate))bundle.candidate=await prepareProductImage(bundle.candidate);
+if (isPreviouslyPublishedProduct(bundle.candidate, publicationHistory)) throw new Error('SKIPPED_DUPLICATE_PRODUCT_HISTORY: product identity or verified image was already published on Pinterest.');
 const gate = validatePublicationBundle(bundle);
 if (!gate.ok) {
   console.error(JSON.stringify({ ok: false, status: 'BLOCKED_BY_PUBLICATION_GATE', errors: gate.errors }, null, 2));

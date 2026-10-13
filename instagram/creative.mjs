@@ -33,6 +33,7 @@ export function validateAutomatedCreative(meta,bytes){
   if(content.length<10000||!content.subarray(0,64).includes(Buffer.from('ftyp'))||!content.includes(Buffer.from('moov')))errors.push('CORRUPT_OR_UNREADABLE_MP4');
   if(meta?.productImageVerified!==true||meta?.productImageVerification?.productId!==meta?.productId)errors.push('PRODUCT_IMAGE_NOT_VERIFIED');
   if(meta?.renderer!=='InstagramReelRendererV2'||meta?.platform!=='instagram'||!['problem-solution','product-spotlight','space-use-organisation','feature-benefit','product-video-demonstration'].includes(meta?.layoutFamily)||meta?.pinterestLayoutReused!==false)errors.push('INSTAGRAM_RENDERER_OR_LAYOUT_INVALID');
+  if(meta?.framedProductImage!==false||meta?.fullBleedProductMedia!==true)errors.push('INSTAGRAM_FRAMED_TEMPLATE_FORBIDDEN');
   for(const code of meta?.hashtagValidation?.errors||[])errors.push(code);
   if(meta?.hashtagValidation?.ok!==true)errors.push('PRODUCT_SPECIFIC_HASHTAGS_REQUIRED');
   if(meta?.cover?.renderer!=='InstagramReelCoverRendererV2'||meta?.cover?.productId!==meta?.productId)errors.push('INSTAGRAM_COVER_INVALID');

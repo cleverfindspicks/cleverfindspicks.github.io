@@ -23,6 +23,7 @@ export function validateInstagramCover(meta) {
   if ((meta?.hook || '').trim().split(/\s+/).length < 3 || (meta?.hook || '').trim().split(/\s+/).length > 6) errors.push('INSTAGRAM_COVER_HOOK_LENGTH');
   if (/https?:|www\.|github\.io|[£$€]\s*\d|ad\s*\/\s*affiliate/i.test(meta?.visibleText || '')) errors.push('INSTAGRAM_COVER_FORBIDDEN_TEXT');
   if (meta?.productId !== meta?.expectedProductId || meta?.sourceImageSha256 !== meta?.verifiedImageSha256) errors.push('INSTAGRAM_COVER_PRODUCT_MISMATCH');
+  if (meta?.framedProductImage !== false || meta?.fullBleedProductMedia !== true) errors.push('INSTAGRAM_FRAMED_TEMPLATE_FORBIDDEN');
   return { ok: errors.length === 0, errors };
 }
 
@@ -31,25 +32,24 @@ export class InstagramReelCoverRendererV2 {
     await mkdir(dirname(outputPath), { recursive: true });
     const displayHook = shortHook(hook);
     const lines = wrap(displayHook);
-    const photo = await sharp(original).resize(960, 1350, { fit: 'contain', background: '#ffffff' }).jpeg({ quality: 94 }).toBuffer();
-    const text = lines.map((line, index) => `<text x="60" y="${170 + index * 74}" fill="#17382d" font-family="Arial, sans-serif" font-size="64" font-weight="700">${esc(line)}</text>`).join('');
+    const backgroundPhoto = await sharp(original).resize(1080, 1920, { fit: 'cover', position: 'attention' }).blur(32).modulate({ brightness: 0.68, saturation: 0.9 }).jpeg({ quality: 90 }).toBuffer();
+    const photo = await sharp(original).resize(1040, 1540, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+    const text = lines.map((line, index) => `<text x="54" y="${1570 + index * 74}" fill="#ffffff" font-family="Arial, sans-serif" font-size="64" font-weight="700">${esc(line)}</text>`).join('');
     const palettes = {
       'problem-solution': ['#f7efe7', '#edc9a8', '#8d4f29'],
       'product-spotlight': ['#edf5f1', '#c9e5d8', '#225f4d'],
       'space-use-organisation': ['#eef2f8', '#d3def0', '#34547a'],
       'feature-benefit': ['#f5f0f8', '#e1d2ea', '#67447d'],
     };
-    const [background, accent, ink] = palettes[layoutFamily] || palettes['product-spotlight'];
-    const canvas = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920">
-      <rect width="1080" height="1920" fill="${background}"/>
-      <circle cx="990" cy="120" r="220" fill="${accent}"/>
-      <rect x="0" y="0" width="1080" height="18" fill="${ink}"/>
-      <text x="60" y="76" fill="${ink}" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="4">CLEVER FINDS</text>
+    const [, , ink] = palettes[layoutFamily] || palettes['product-spotlight'];
+    const overlay = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920">
+      <defs><linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#071424" stop-opacity=".55"/><stop offset=".22" stop-color="#071424" stop-opacity="0"/><stop offset=".7" stop-color="#071424" stop-opacity="0"/><stop offset="1" stop-color="#071424" stop-opacity=".82"/></linearGradient></defs>
+      <rect width="1080" height="1920" fill="url(#shade)"/>
+      <rect x="0" y="0" width="1080" height="12" fill="${ink}"/>
+      <text x="54" y="70" fill="#ffffff" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="4">CLEVER FINDS</text>
       ${text}
-      <rect x="60" y="314" width="960" height="1350" rx="56" fill="#ffffff"/>
-      <rect x="60" y="1720" width="180" height="8" rx="4" fill="${ink}"/>
     </svg>`);
-    await sharp(canvas).composite([{ input: photo, left: 60, top: 314 }]).jpeg({ quality: 94, chromaSubsampling: '4:4:4' }).toFile(outputPath);
+    await sharp(backgroundPhoto).composite([{ input: photo, left: 20, top: 120 }, { input: overlay, left: 0, top: 0 }]).jpeg({ quality: 94, chromaSubsampling: '4:4:4' }).toFile(outputPath);
     const image = sharp(outputPath);
     const [metadata, stats] = await Promise.all([image.metadata(), image.stats()]);
     const meanLuminance = stats.channels.slice(0, 3).reduce((sum, channel) => sum + channel.mean, 0) / 3;
@@ -66,6 +66,8 @@ export class InstagramReelCoverRendererV2 {
       visibleText: `CLEVER FINDS ${displayHook}`,
       layoutFamily,
       affiliateLabelVisible: false,
+      framedProductImage: false,
+      fullBleedProductMedia: true,
       productId: String(productId),
       expectedProductId: String(expectedProductId),
       sourceImageSha256,

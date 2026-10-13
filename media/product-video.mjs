@@ -43,7 +43,7 @@ export function discoverOfficialProductVideo(candidate) {
 export async function verifiedVideoRecord(productId) {
   const registry = await readRegistry();
   const row = registry.records.find((record) => String(record.productId) === String(productId) && record.productVideoVerified === true);
-  if (!row?.localPublicPath || !row?.sha256) return null;
+  if (!row?.localPublicPath || !row?.sha256 || row.exactProductIdMatch !== true || row.sameProductImageConfirmed !== true) return null;
   const bytes = await readFile(resolve(`public${row.localPublicPath}`)).catch(() => null);
   if (!bytes || sha(bytes) !== row.sha256 || !bytes.subarray(0, 64).includes(Buffer.from('ftyp')) || !bytes.includes(Buffer.from('moov'))) return null;
   return row;
@@ -61,7 +61,7 @@ export async function prepareProductVideo(candidate, { fetcher = fetch } = {}) {
   // media candidate becomes publishable only when those explicit safety facts
   // are present from an approved verifier.
   const safety = candidate.productVideoSafety;
-  if (safety?.thirdPartyWatermarkAbsent !== true || safety?.stalePriceClaimAbsent !== true || safety?.sameVariantContext !== true) {
+  if (safety?.thirdPartyWatermarkAbsent !== true || safety?.stalePriceClaimAbsent !== true || safety?.sameVariantContext !== true || safety?.sameProductImageConfirmed !== true) {
     return { ...candidate, productVideoVerified: false, productVideoVerification: { ...discovered, reason: 'VIDEO_VISUAL_SAFETY_EVIDENCE_MISSING', checkedAt: new Date().toISOString() } };
   }
 
@@ -99,6 +99,7 @@ export async function prepareProductVideo(candidate, { fetcher = fetch } = {}) {
     rightsSourceBasis: discovered.rightsSourceBasis,
     productVideoVerified: true,
     exactProductIdMatch: true,
+    sameProductImageConfirmed: true,
     sameVariantContext: true,
     thirdPartyWatermarkAbsent: true,
     stalePriceClaimAbsent: true,

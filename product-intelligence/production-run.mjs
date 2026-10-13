@@ -7,6 +7,7 @@ import { prepareProductImage } from '../media/prepare-product-image.mjs';
 import { generatePinterestCreative } from './pinterest-creative.mjs';
 import { validatePublicationBundle } from './publication-gate.mjs';
 import { deployPinterestChanges } from './deploy-pinterest.mjs';
+import { filterNeverPublished, isPreviouslyPublishedProduct, pinterestPublicationHistory } from './platform-publication-history.mjs';
 
 const root = new URL('..', import.meta.url);
 function run(script, args = []) {
@@ -34,10 +35,12 @@ export async function runPinterestProduction() {
   // qualified pool produced by Product Intelligence.
   let candidate = null;
   const pool = JSON.parse(await readFile(new URL('./data/candidate-pool.json', import.meta.url), 'utf8').catch(() => '{"candidates":[]}'));
-  const alternatives = [report.winner, ...(pool.candidates || []).filter((item) => item.decision === 'keep' && String(item.productId) !== String(report.winner.productId)).slice(0, 9)];
+  const publicationHistory = await pinterestPublicationHistory();
+  const alternatives = filterNeverPublished([report.winner, ...(pool.candidates || []).filter((item) => item.decision === 'keep' && String(item.productId) !== String(report.winner.productId))], publicationHistory.productIds).slice(0, 10);
+  if (!alternatives.length) return { status: 'SKIPPED_DUPLICATE_PRODUCT_HISTORY', platform: 'pinterest' };
   for (const option of alternatives) {
     const checked = await prepareProductImage(option);
-    if (checked.productImageVerified === true) { candidate = checked; break; }
+    if (checked.productImageVerified === true && !isPreviouslyPublishedProduct(checked, publicationHistory)) { candidate = checked; break; }
   }
   if (!candidate) return { status: 'SKIPPED_IMAGE_NOT_VERIFIED', imageRejectionReason: 'ALL_BOUNDED_QUALIFIED_CANDIDATES_FAILED_IMAGE_GATE' };
   candidate = { ...candidate, pinCreative: await generatePinterestCreative(candidate) };

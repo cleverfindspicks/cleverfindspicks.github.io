@@ -31,11 +31,12 @@ export function validatePinterestCreative(meta) {
   const errors = [];
   if (meta?.renderer !== 'PinterestCreativeRenderer' || meta?.platform !== 'pinterest') errors.push('BLOCKED_CROSS_PLATFORM_CREATIVE_CONTAMINATION');
   if (meta?.format !== 'static-2:3' || meta?.width !== 1000 || meta?.height !== 1500) errors.push('PINTEREST_STATIC_2_3_REQUIRED');
-  if (meta?.layoutFamily !== 'pinterest-editorial-v3' || meta?.videoFrameStyling !== false) errors.push('BLOCKED_CROSS_PLATFORM_CREATIVE_CONTAMINATION');
+  if (meta?.layoutFamily !== 'pinterest-product-media-v4' || meta?.videoFrameStyling !== false) errors.push('BLOCKED_CROSS_PLATFORM_CREATIVE_CONTAMINATION');
   if (/link in bio|reel|instagram|ad\s*\/\s*affiliate/i.test(visible)) errors.push('BLOCKED_CROSS_PLATFORM_CREATIVE_CONTAMINATION');
   if (meta?.sourceProductId == null || !/^[a-f0-9]{64}$/.test(meta?.sourceImageSha256 || '')) errors.push('PINTEREST_PRODUCT_PROVENANCE_MISSING');
   if (meta?.rawProductImageAsPin !== false) errors.push('RAW_PRODUCT_IMAGE_AS_PIN');
-  if (!(meta?.productAreaRatio >= 0.5 && meta?.productAreaRatio <= 0.72)) errors.push('PINTEREST_PRODUCT_NOT_PRIMARY');
+  if (meta?.framedProductImage !== false || meta?.fullBleedProductMedia !== true) errors.push('PINTEREST_FRAMED_TEMPLATE_FORBIDDEN');
+  if (!(meta?.productAreaRatio >= 0.7 && meta?.productAreaRatio <= 0.92)) errors.push('PINTEREST_PRODUCT_NOT_PRIMARY');
   return { ok: errors.length === 0, errors };
 }
 
@@ -43,24 +44,22 @@ export class PinterestCreativeRenderer {
   async render(candidate, { outputPath } = {}) {
     if (!imageGate(candidate)) throw new Error('SKIPPED_IMAGE_NOT_VERIFIED');
     const local = resolve(`public${candidate.productImageVerification.localPublicPath}`);
-    const product = await sharp(await readFile(local)).resize(880, 900, { fit: 'contain', background: '#ffffff', withoutEnlargement: true }).png().toBuffer();
+    const original = await readFile(local);
+    const background = await sharp(original).resize(1000, 1500, { fit: 'cover', position: 'attention' }).blur(28).modulate({ brightness: 0.72, saturation: 0.9 }).png().toBuffer();
+    const product = await sharp(original).resize(960, 1200, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 }, withoutEnlargement: false }).png().toBuffer();
     const copy = pinterestCopy(candidate);
     const hook = wrap(copy.hook, 23, 2);
-    const benefit = wrap(copy.benefit, 42, 2);
-    const hookText = hook.map((line, index) => `<text x="64" y="${168 + index * 70}" font-family="Arial, sans-serif" font-size="62" font-weight="700" fill="#17382d">${escapeXml(line)}</text>`).join('');
-    const benefitText = benefit.map((line, index) => `<text x="64" y="${1328 + index * 43}" font-family="Arial, sans-serif" font-size="32" font-weight="500" fill="#365a4e">${escapeXml(line)}</text>`).join('');
-    const background = Buffer.from(`<svg width="1000" height="1500" xmlns="http://www.w3.org/2000/svg">
-      <rect width="1000" height="1500" fill="#f5f0e6"/>
-      <rect x="0" y="0" width="18" height="1500" fill="#d89b5b"/>
-      <text x="64" y="78" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="4" fill="#557568">CLEVER FINDS · SMALL-SPACE EDIT</text>
+    const hookText = hook.map((line, index) => `<text x="54" y="${1260 + index * 70}" font-family="Arial, sans-serif" font-size="62" font-weight="700" fill="#ffffff">${escapeXml(line)}</text>`).join('');
+    const overlay = Buffer.from(`<svg width="1000" height="1500" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#071424" stop-opacity=".55"/><stop offset=".24" stop-color="#071424" stop-opacity="0"/><stop offset=".7" stop-color="#071424" stop-opacity="0"/><stop offset="1" stop-color="#071424" stop-opacity=".78"/></linearGradient></defs>
+      <rect width="1000" height="1500" fill="url(#shade)"/>
+      <text x="54" y="72" font-family="Arial, sans-serif" font-size="25" font-weight="700" letter-spacing="4" fill="#ffffff">CLEVER FINDS</text>
       ${hookText}
-      <rect x="54" y="304" width="892" height="930" rx="42" fill="#ffffff"/>
-      ${benefitText}
-      <text x="64" y="1450" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="2" fill="#a36c3e">SEE THE FULL FIND</text>
+      <text x="54" y="1450" font-family="Arial, sans-serif" font-size="25" font-weight="700" letter-spacing="2" fill="#ffffff">SEE THE FIND</text>
     </svg>`);
     const path = outputPath || resolve('public/pinterest', `${candidate.trackingId}-pin.png`);
     await mkdir(dirname(path), { recursive: true });
-    await sharp(background).composite([{ input: product, left: 60, top: 320 }]).png({ quality: 94 }).toFile(path);
+    await sharp(background).composite([{ input: product, left: 20, top: 145 }, { input: overlay, left: 0, top: 0 }]).png({ quality: 94 }).toFile(path);
     const metadata = await sharp(path).metadata();
     const meta = {
       path,
@@ -73,12 +72,14 @@ export class PinterestCreativeRenderer {
       videoSourceType: null,
       rawProductImageAsPin: false,
       format: 'static-2:3',
-      layoutFamily: 'pinterest-editorial-v3',
+      layoutFamily: 'pinterest-product-media-v4',
       videoFrameStyling: false,
+      framedProductImage: false,
+      fullBleedProductMedia: true,
       sourceProductId: String(candidate.productId),
       sourceImageSha256: candidate.productImageVerification.localSha256,
-      productAreaRatio: 0.535,
-      visibleText: ['CLEVER FINDS', copy.hook, copy.benefit, 'SEE THE FULL FIND'],
+      productAreaRatio: 0.768,
+      visibleText: ['CLEVER FINDS', copy.hook, 'SEE THE FIND'],
       hook: copy.hook,
       benefit: copy.benefit,
     };
