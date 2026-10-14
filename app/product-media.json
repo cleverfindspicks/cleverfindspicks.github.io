@@ -419,23 +419,6 @@
       "cached": true
     },
     {
-      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
-      "productId": "1005008077357865",
-      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
-      "localPublicPath": "/products/verified/1005008077357865.jpg",
-      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
-      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
-      "productImageVerified": true,
-      "sameProductConfirmed": true,
-      "placeholder": false,
-      "httpStatus": 200,
-      "contentType": "image/jpeg",
-      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
-      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
-      "verifiedAt": "2026-10-12T18:51:39.383Z",
-      "cached": true
-    },
-    {
       "slug": "mini-desktop-bin-small-trash-can-tube-with-cover-bedroom-trash-can-g",
       "productId": "1005010560281600",
       "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa7b68c2c8c79475bac73d7d078830cbbJ.jpg",
@@ -535,6 +518,40 @@
       "sourceSha256": "aed718f18603627dfece9da41baac68ee95bda3de130ce8cd8375291d656f087",
       "localSha256": "4026fd7ffec5f8a3345a3b8e18d32020e614995a114499a48f547c542a4b91a2",
       "verifiedAt": "2026-10-13T19:37:30.101Z",
+      "cached": true
+    },
+    {
+      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
+      "productId": "1005008077357865",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
+      "localPublicPath": "/products/verified/1005008077357865.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/jpeg",
+      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
+      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
+      "verifiedAt": "2026-10-14T08:06:53.511Z",
+      "cached": true
+    },
+    {
+      "slug": "acrylic-16-grid-drawer-style-acrylic-bead-storage-box-large-capacit",
+      "productId": "1005010535871553",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S219a99d5f1994f9d8766ad62549e68d3t.jpg",
+      "localPublicPath": "/products/verified/1005010535871553.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005010535871553.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005010535871553.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "16cac268b59eb081104c15869104d6c6ce4319bd926d40e6bce023b9957e589e",
+      "localSha256": "399368dbdcb957a3aa5d19151a7cb391a16ca09fb45b98a0e359fed35545b5ae",
+      "verifiedAt": "2026-10-14T12:07:41.484Z",
       "cached": true
     }
   ]
