@@ -553,6 +553,23 @@
       "localSha256": "399368dbdcb957a3aa5d19151a7cb391a16ca09fb45b98a0e359fed35545b5ae",
       "verifiedAt": "2026-10-14T12:07:41.484Z",
       "cached": true
+    },
+    {
+      "slug": "laundry-pod-holder-with-lid-laundry-pod-container-sealed-and-automat",
+      "productId": "1005009488791154",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sbd8ffcc7e51148d6889bdf7c71ebd6333.jpg",
+      "localPublicPath": "/products/verified/1005009488791154.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005009488791154.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005009488791154.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "d042d039d664e6c2c5ff5188048f8e582dd2787719aa5b8359151f3438d2163f",
+      "localSha256": "2c62f4aabaa754e6ea3b400c2df14f0c7b71128a34c7f35b03fd2f277e922c49",
+      "verifiedAt": "2026-10-14T19:07:36.279Z",
+      "cached": true
     }
   ]
 }
