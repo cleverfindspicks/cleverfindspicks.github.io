@@ -565,10 +565,27 @@
       "sameProductConfirmed": true,
       "placeholder": false,
       "httpStatus": 200,
-      "contentType": "image/webp",
+      "contentType": "image/jpeg",
       "sourceSha256": "d042d039d664e6c2c5ff5188048f8e582dd2787719aa5b8359151f3438d2163f",
       "localSha256": "2c62f4aabaa754e6ea3b400c2df14f0c7b71128a34c7f35b03fd2f277e922c49",
-      "verifiedAt": "2026-10-14T19:07:36.279Z",
+      "verifiedAt": "2026-10-15T08:06:53.872Z",
+      "cached": true
+    },
+    {
+      "slug": "wooden-banana-rack-hanging-kitchen-rack-simulated-leaf-decorative-fr",
+      "productId": "1005009185170232",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sca47df0efbe04ea1b00379361de792111.png",
+      "localPublicPath": "/products/verified/1005009185170232.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005009185170232.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005009185170232.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "2db72a78239f55bf91d638ebec77bf9e4c727b00bcc6b27820fdd0cde48055fd",
+      "localSha256": "78da656010d000763350f0fadfa96a9be70e92ad01c01e1129e8d995d1ac4a4a",
+      "verifiedAt": "2026-10-15T12:07:44.249Z",
       "cached": true
     }
   ]
