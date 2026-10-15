@@ -521,23 +521,6 @@
       "cached": true
     },
     {
-      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
-      "productId": "1005008077357865",
-      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
-      "localPublicPath": "/products/verified/1005008077357865.jpg",
-      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
-      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
-      "productImageVerified": true,
-      "sameProductConfirmed": true,
-      "placeholder": false,
-      "httpStatus": 200,
-      "contentType": "image/jpeg",
-      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
-      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
-      "verifiedAt": "2026-10-14T08:06:53.511Z",
-      "cached": true
-    },
-    {
       "slug": "acrylic-16-grid-drawer-style-acrylic-bead-storage-box-large-capacit",
       "productId": "1005010535871553",
       "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S219a99d5f1994f9d8766ad62549e68d3t.jpg",
@@ -586,6 +569,40 @@
       "sourceSha256": "2db72a78239f55bf91d638ebec77bf9e4c727b00bcc6b27820fdd0cde48055fd",
       "localSha256": "78da656010d000763350f0fadfa96a9be70e92ad01c01e1129e8d995d1ac4a4a",
       "verifiedAt": "2026-10-15T12:07:44.249Z",
+      "cached": true
+    },
+    {
+      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
+      "productId": "1005008077357865",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
+      "localPublicPath": "/products/verified/1005008077357865.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/jpeg",
+      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
+      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
+      "verifiedAt": "2026-10-15T13:06:53.675Z",
+      "cached": true
+    },
+    {
+      "slug": "foldable-aluminum-alloy-handle-storage-basket-made-of-black-oxford",
+      "productId": "1005013148557122",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S14f3c619e759480fbd7765af42dd1cb3z.jpg",
+      "localPublicPath": "/products/verified/1005013148557122.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013148557122.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013148557122.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "c5eee2689f0c5415580fdcb17a8d8d0f8cea27418c1d89a1a967e19634312528",
+      "localSha256": "9aa851c2f7a52c9724f0e268de5dbf10e83d9320b7eb5906bf8e94a7b4575a80",
+      "verifiedAt": "2026-10-15T16:07:42.538Z",
       "cached": true
     }
   ]
