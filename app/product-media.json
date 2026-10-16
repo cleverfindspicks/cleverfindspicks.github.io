@@ -638,6 +638,23 @@
       "localSha256": "1bb9bfb33d109e3f58791f9204cfbc74d2760255243076130052f3ad5c632ef5",
       "verifiedAt": "2026-10-16T16:07:41.976Z",
       "cached": true
+    },
+    {
+      "slug": "bathroom-convenient-toilet-shower-rack-no-drilling-removable-rust-pr",
+      "productId": "1005007791894218",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S35a42cb31bef400b8d015383e2e6995fx.jpg",
+      "localPublicPath": "/products/verified/1005007791894218.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005007791894218.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005007791894218.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "d05b47d7999d6aaf918d52e567ff2a0773e770eb52839c5d6e96f7d6a5c759a3",
+      "localSha256": "f37b903d52cbccd3b9cb7e92c6e64d94939239b9e049eea3c64c34232a184b5d",
+      "verifiedAt": "2026-10-16T18:36:54.004Z",
+      "cached": true
     }
   ]
 }
