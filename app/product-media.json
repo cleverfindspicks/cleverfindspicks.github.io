@@ -572,23 +572,6 @@
       "cached": true
     },
     {
-      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
-      "productId": "1005008077357865",
-      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
-      "localPublicPath": "/products/verified/1005008077357865.jpg",
-      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
-      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
-      "productImageVerified": true,
-      "sameProductConfirmed": true,
-      "placeholder": false,
-      "httpStatus": 200,
-      "contentType": "image/jpeg",
-      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
-      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
-      "verifiedAt": "2026-10-15T13:06:53.675Z",
-      "cached": true
-    },
-    {
       "slug": "foldable-aluminum-alloy-handle-storage-basket-made-of-black-oxford",
       "productId": "1005013148557122",
       "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S14f3c619e759480fbd7765af42dd1cb3z.jpg",
@@ -620,6 +603,40 @@
       "sourceSha256": "e87df69f92fd3bc4533a88a30e2bcd0f612f3db49011f7ac106fc5a2220b1f77",
       "localSha256": "71ccb2dd333f31265dae3b74da5b1be1de31209cd8f961a8ed98ac5f98a39d05",
       "verifiedAt": "2026-10-15T19:08:47.322Z",
+      "cached": true
+    },
+    {
+      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
+      "productId": "1005008077357865",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
+      "localPublicPath": "/products/verified/1005008077357865.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/jpeg",
+      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
+      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
+      "verifiedAt": "2026-10-16T13:06:52.632Z",
+      "cached": true
+    },
+    {
+      "slug": "30-60cm-no-drill-suction-cup-adhesive-bathroom-shelf-punch-free-wall",
+      "productId": "1005008406367388",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S8fe8c9a8f3a547c38d5779dd847d6df80.jpg",
+      "localPublicPath": "/products/verified/1005008406367388.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005008406367388.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008406367388.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "f0957160670885a0324db55c0870f6d050c114c13a529b067768c4e4036a6a37",
+      "localSha256": "1bb9bfb33d109e3f58791f9204cfbc74d2760255243076130052f3ad5c632ef5",
+      "verifiedAt": "2026-10-16T16:07:41.976Z",
       "cached": true
     }
   ]
