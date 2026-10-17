@@ -606,23 +606,6 @@
       "cached": true
     },
     {
-      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
-      "productId": "1005008077357865",
-      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
-      "localPublicPath": "/products/verified/1005008077357865.jpg",
-      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
-      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
-      "productImageVerified": true,
-      "sameProductConfirmed": true,
-      "placeholder": false,
-      "httpStatus": 200,
-      "contentType": "image/jpeg",
-      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
-      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
-      "verifiedAt": "2026-10-16T13:06:52.632Z",
-      "cached": true
-    },
-    {
       "slug": "30-60cm-no-drill-suction-cup-adhesive-bathroom-shelf-punch-free-wall",
       "productId": "1005008406367388",
       "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S8fe8c9a8f3a547c38d5779dd847d6df80.jpg",
@@ -657,6 +640,23 @@
       "cached": true
     },
     {
+      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
+      "productId": "1005008077357865",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
+      "localPublicPath": "/products/verified/1005008077357865.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/jpeg",
+      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
+      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
+      "verifiedAt": "2026-10-17T18:36:54.197Z",
+      "cached": true
+    },
+    {
       "slug": "3-4-layer-narrow-storage-rack-movable-slim-shelf-behind-bathroom-doo",
       "productId": "1005012026015068",
       "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S0e0c3550e2c34db2a13a92e779022f73A.jpg",
@@ -667,10 +667,27 @@
       "sameProductConfirmed": true,
       "placeholder": false,
       "httpStatus": 200,
-      "contentType": "image/webp",
+      "contentType": "image/jpeg",
       "sourceSha256": "cf3460635a7c914f3cf489fa6171b6ffd6ef81169e658d81c2201c7015ba2501",
       "localSha256": "f345e22bd374fb2ae47659f8d134add01acb9744e4d7f5a6fbd00ee04428ce8b",
-      "verifiedAt": "2026-10-16T19:07:35.932Z",
+      "verifiedAt": "2026-10-17T18:36:54.202Z",
+      "cached": true
+    },
+    {
+      "slug": "heavy-duty-wall-mounted-folding-storage-rack-punch-free-no-trace-wal",
+      "productId": "1005012907130417",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sc81fdd50bc434155959ce5912bd207592.jpg",
+      "localPublicPath": "/products/verified/1005012907130417.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012907130417.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012907130417.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "62c53ad92d277904342c6bd3202131cb325b302a54d4bac3a0c28ebd7d7c7418",
+      "localSha256": "b46a2e7a8dd921aba293e849a69e7efb0705a15a4cc2540b418db374f93bce53",
+      "verifiedAt": "2026-10-17T19:07:47.761Z",
       "cached": true
     }
   ]
