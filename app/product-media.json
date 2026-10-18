@@ -640,23 +640,6 @@
       "cached": true
     },
     {
-      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
-      "productId": "1005008077357865",
-      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
-      "localPublicPath": "/products/verified/1005008077357865.jpg",
-      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
-      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
-      "productImageVerified": true,
-      "sameProductConfirmed": true,
-      "placeholder": false,
-      "httpStatus": 200,
-      "contentType": "image/jpeg",
-      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
-      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
-      "verifiedAt": "2026-10-17T18:36:54.197Z",
-      "cached": true
-    },
-    {
       "slug": "3-4-layer-narrow-storage-rack-movable-slim-shelf-behind-bathroom-doo",
       "productId": "1005012026015068",
       "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S0e0c3550e2c34db2a13a92e779022f73A.jpg",
@@ -688,6 +671,40 @@
       "sourceSha256": "62c53ad92d277904342c6bd3202131cb325b302a54d4bac3a0c28ebd7d7c7418",
       "localSha256": "b46a2e7a8dd921aba293e849a69e7efb0705a15a4cc2540b418db374f93bce53",
       "verifiedAt": "2026-10-17T19:07:47.761Z",
+      "cached": true
+    },
+    {
+      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
+      "productId": "1005008077357865",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
+      "localPublicPath": "/products/verified/1005008077357865.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/jpeg",
+      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
+      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
+      "verifiedAt": "2026-10-18T08:06:53.854Z",
+      "cached": true
+    },
+    {
+      "slug": "kitchen-retractable-under-sink-shelf-cabinet-inside-tiered-rack-kitc",
+      "productId": "1005011573344628",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S61c6c2a825844cc88ed47c7cfe9c4a19a.jpg",
+      "localPublicPath": "/products/verified/1005011573344628.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005011573344628.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005011573344628.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "31bc465914e21330fe67324c94c27092c1085bda569c185a2a90ecaefac24c76",
+      "localSha256": "ffa40de56c753af47f353bc6454fa641d8044dc4c636c10b35cee6ab94e4c545",
+      "verifiedAt": "2026-10-18T16:07:37.086Z",
       "cached": true
     }
   ]
