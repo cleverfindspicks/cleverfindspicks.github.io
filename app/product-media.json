@@ -570,6 +570,23 @@
       "localSha256": "525275a6b29c51018016a6b45005696d64f372b0fa031659d88d124e8b20ab24",
       "verifiedAt": "2026-10-19T16:07:37.168Z",
       "cached": true
+    },
+    {
+      "slug": "kitchen-seasoning-rack-narrow-slot-seasoning-tank-storage-rack-side",
+      "productId": "1005013119983921",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S8c4a03d865c648f1a737a46034b3f3c0W.jpg",
+      "localPublicPath": "/products/verified/1005013119983921.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013119983921.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013119983921.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "0df49388c29a1d4a91382d605e227aa0d5ac9cacc31efdf752709bf57f8587a9",
+      "localSha256": "660326a6dd107657b6b23c23af6c3115fd565546e96a5a8cfbc6b2ac5615c0c3",
+      "verifiedAt": "2026-10-19T18:36:53.874Z",
+      "cached": true
     }
   ]
 }
