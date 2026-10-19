@@ -419,23 +419,6 @@
       "cached": true
     },
     {
-      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
-      "productId": "1005008077357865",
-      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
-      "localPublicPath": "/products/verified/1005008077357865.jpg",
-      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
-      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
-      "productImageVerified": true,
-      "sameProductConfirmed": true,
-      "placeholder": false,
-      "httpStatus": 200,
-      "contentType": "image/jpeg",
-      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
-      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
-      "verifiedAt": "2026-10-12T18:51:39.383Z",
-      "cached": true
-    },
-    {
       "slug": "mini-desktop-bin-small-trash-can-tube-with-cover-bedroom-trash-can-g",
       "productId": "1005010560281600",
       "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa7b68c2c8c79475bac73d7d078830cbbJ.jpg",
@@ -535,6 +518,40 @@
       "sourceSha256": "aed718f18603627dfece9da41baac68ee95bda3de130ce8cd8375291d656f087",
       "localSha256": "4026fd7ffec5f8a3345a3b8e18d32020e614995a114499a48f547c542a4b91a2",
       "verifiedAt": "2026-10-13T19:37:30.101Z",
+      "cached": true
+    },
+    {
+      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
+      "productId": "1005008077357865",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
+      "localPublicPath": "/products/verified/1005008077357865.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/jpeg",
+      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
+      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
+      "verifiedAt": "2026-10-19T08:06:52.942Z",
+      "cached": true
+    },
+    {
+      "slug": "cute-anime-shopping-bag-foldable-eco-friendly-storage-bag-lightweigh",
+      "productId": "1005012572185268",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S6e8e61388d9f4232b6ef5267bcf3cdcae.jpg",
+      "localPublicPath": "/products/verified/1005012572185268.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012572185268.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012572185268.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "0e68dd4249d5bd7099d4bee134fab2dc13a3515db66026b8748d0fde72ac6eef",
+      "localSha256": "085fd62319825c1854b51f66ae288c9a261d070251452d6e947f2fdcd186eae0",
+      "verifiedAt": "2026-10-19T12:07:32.132Z",
       "cached": true
     }
   ]
