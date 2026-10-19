@@ -69,7 +69,17 @@ export async function runInstagram({force=false,productionNow=false,productId=nu
       let choice=await nextChoice();
       if(!choice){
         const recentProductIds=db.prepare(`SELECT product_id FROM instagram_queue WHERE dry_run=0 AND state='PUBLISHED' AND ${livePublicationSql}`).all().map(record=>String(record.product_id));
-        const promoted=await promoteNextCandidate({recentProductIds,limit:3});
+        let promoted=await promoteNextCandidate({recentProductIds,limit:3});
+        if(promoted.status!=='ACTIVE_CATALOGUE_PROMOTED'){
+          // Candidate pools age out between Pinterest discovery slots. One
+          // bounded Product Intelligence refresh prevents Instagram starvation
+          // while preserving every score, currency, shipping, variant,
+          // affiliate and image gate. Never loop or publish a weak fallback.
+          const discovery=spawnSync(process.execPath,['product-intelligence/automation-run.mjs'],{cwd:new URL('..',import.meta.url),windowsHide:true,stdio:'inherit'});
+          assertAliExpressReady();
+          if(discovery.status!==0)throw new Error(`INSTAGRAM_BOUNDED_DISCOVERY_FAILED:${discovery.status}`);
+          promoted=await promoteNextCandidate({recentProductIds,limit:5});
+        }
         if(promoted.status==='ACTIVE_CATALOGUE_PROMOTED'){
           // The product page and verified local image must be deployed before
           // the Reel can direct anyone to the site. Catalogue promotion itself
