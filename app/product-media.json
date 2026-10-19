@@ -587,6 +587,23 @@
       "localSha256": "660326a6dd107657b6b23c23af6c3115fd565546e96a5a8cfbc6b2ac5615c0c3",
       "verifiedAt": "2026-10-19T18:36:53.874Z",
       "cached": true
+    },
+    {
+      "slug": "silver-aluminum-alloy-metal-hangers-non-slip-shoulder-grooves-clothe",
+      "productId": "1005013141338315",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S4be9ea65642b41eb9d8eb92d09a27650x.jpeg",
+      "localPublicPath": "/products/verified/1005013141338315.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013141338315.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013141338315.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "c1bf14a6a4132d0f79cc15f7df11c0b3f4ccf731c8b95ee351662f0e69851e7e",
+      "localSha256": "f906a09b533785d93379a10f8b708047b478cb0ad85c519ce786492a829e39a1",
+      "verifiedAt": "2026-10-19T19:07:40.327Z",
+      "cached": true
     }
   ]
 }
