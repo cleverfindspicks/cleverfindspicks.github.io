@@ -548,10 +548,27 @@
       "sameProductConfirmed": true,
       "placeholder": false,
       "httpStatus": 200,
-      "contentType": "image/webp",
+      "contentType": "image/jpeg",
       "sourceSha256": "0e68dd4249d5bd7099d4bee134fab2dc13a3515db66026b8748d0fde72ac6eef",
       "localSha256": "085fd62319825c1854b51f66ae288c9a261d070251452d6e947f2fdcd186eae0",
-      "verifiedAt": "2026-10-19T12:07:32.132Z",
+      "verifiedAt": "2026-10-19T13:06:53.142Z",
+      "cached": true
+    },
+    {
+      "slug": "narrow-storage-rack-slim-shelf-space-saving-organizer-behind-door-ki",
+      "productId": "1005013300225190",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S901a121344bf45b5a0e7bcf0f039b6e43.jpg",
+      "localPublicPath": "/products/verified/1005013300225190.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013300225190.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013300225190.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "647b70e609b41d0d2b8704b6f81cc7221a38acf7ef2f838c975a58e0d0f57b99",
+      "localSha256": "525275a6b29c51018016a6b45005696d64f372b0fa031659d88d124e8b20ab24",
+      "verifiedAt": "2026-10-19T16:07:37.168Z",
       "cached": true
     }
   ]
