@@ -1,4 +1,4 @@
-import { mkdtemp, mkdir, readdir, readFile, symlink, unlink } from 'node:fs/promises';
+import { cp, mkdtemp, mkdir, readdir, readFile, symlink, unlink } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { localEnvironment } from './local-env.mjs';
@@ -22,9 +22,6 @@ export async function deployPinterestChanges() {
   run(process.execPath, ['--test', 'product-intelligence/tests/publication-records.test.mjs']);
   run(process.execPath, ['--test', 'product-intelligence/tests/creative-platform-separation.test.mjs']);
   run(process.execPath, ['product-intelligence/validate-production.mjs']);
-  run('git', ['add', '--', 'app/generated-products.json', 'app/product-media.json', 'app/affiliate-destinations.json', 'public/products/verified', 'public/pinterest']);
-  if (git(['diff', '--cached', '--name-only'])) run('git', ['commit', '-m', 'Publish scheduled Pinterest find']);
-
   const local = resolve('product-intelligence/.local');
   await mkdir(local, { recursive: true });
   const stage = await mkdtemp(join(local, 'pinterest-deploy-'));
@@ -32,14 +29,21 @@ export async function deployPinterestChanges() {
   run('git', ['archive', '--format=tar', `--output=${archive}`, 'HEAD']);
   run('tar', ['-xf', archive, '-C', stage]);
   await unlink(archive);
+  // Overlay the exact uncommitted publication payload on the committed code
+  // snapshot. This lets every build/RSS/secret check finish before a source
+  // commit is created, so a failed deployment cannot leave phantom products
+  // in Git history.
+  for (const relative of ['app/generated-products.json','app/product-media.json','app/affiliate-destinations.json','public/products/verified','public/pinterest']) {
+    await cp(join(root, relative), join(stage, relative), { recursive: true, force: true });
+  }
   await symlink(join(root, 'node_modules'), join(stage, 'node_modules'), process.platform === 'win32' ? 'junction' : 'dir');
   run(process.execPath, [join(root, 'node_modules/vinext/dist/cli.js'), 'build'], stage);
   run(process.execPath, ['scripts/prepare-github-pages.mjs'], stage);
   const output = join(stage, 'dist/client');
   for (const file of await readdir(join(output, 'pinterest'))) if (file.endsWith('-source.jpg')) await unlink(join(output, 'pinterest', file));
   const rss = await readFile(join(output, 'rss.xml'), 'utf8');
-  const currentProducts = (await import(`../app/products.ts?scheduled=${Date.now()}`)).products;
-  if ((rss.match(/<item>/g) || []).length !== currentProducts.length) throw new Error('Pinterest deployment RSS item count mismatch');
+  const productPageCount = (await readdir(join(output, 'finds'), { withFileTypes: true })).filter((entry) => entry.isDirectory()).length;
+  if ((rss.match(/<item>/g) || []).length !== productPageCount) throw new Error('Pinterest deployment RSS item count mismatch');
 
   const secrets = Object.entries(env).filter(([key]) => /SECRET|TOKEN|PASSWORD|API_KEY|APP_KEY/.test(key)).map(([, value]) => value).filter((value) => typeof value === 'string' && value.length >= 12);
   async function scan(dir) {
@@ -53,6 +57,8 @@ export async function deployPinterestChanges() {
     }
   }
   await scan(output);
+  run('git', ['add', '--', 'app/generated-products.json', 'app/product-media.json', 'app/affiliate-destinations.json', 'public/products/verified', 'public/pinterest']);
+  if (git(['diff', '--cached', '--name-only'])) run('git', ['commit', '-m', 'Publish scheduled Pinterest find']);
   run('git', ['push', 'github', 'codex/product-intelligence-production']);
   const gd = resolve('.publish-git');
   run('git', [`--git-dir=${gd}`, `--work-tree=${output}`, 'add', '-A']);

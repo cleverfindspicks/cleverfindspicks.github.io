@@ -26,6 +26,16 @@ export function enqueue(db, choice, day, dryRun = false, slot = 'trial') {
   const now = new Date().toISOString();
   db.exec('BEGIN IMMEDIATE');
   try {
+  // Auto-promoted catalogue products can reach the Instagram queue before the
+  // periodic catalogue import. Register the exact product atomically so the
+  // queue foreign key never depends on that unrelated sync job winning a race.
+  db.prepare(`INSERT INTO products
+    (product_id,product_slug,name,cluster,first_published_at,canonical_product_url,created_at,updated_at)
+    VALUES(?,?,?,?,?,?,?,?)
+    ON CONFLICT(product_id) DO UPDATE SET
+      product_slug=excluded.product_slug,name=excluded.name,cluster=excluded.cluster,
+      canonical_product_url=COALESCE(excluded.canonical_product_url,products.canonical_product_url),updated_at=excluded.updated_at`)
+    .run(String(choice.product.productId),choice.product.slug,choice.product.name||choice.product.shortName||choice.candidate?.title||choice.product.slug,choice.product.cluster||choice.candidate?.cluster||'uncategorised',choice.product.publishedAt||now,choice.product.canonicalProductUrl||choice.candidate?.canonicalProductUrl||null,now,now);
   if(!dryRun&&db.prepare(`SELECT 1 FROM instagram_queue q WHERE q.product_id=? AND q.dry_run=0 AND q.state='PUBLISHED' AND q.media_id IS NOT NULL AND NOT EXISTS (SELECT 1 FROM instagram_publication_lifecycle l WHERE l.instagram_publication_id=q.instagram_publication_id AND (l.kind!='LIVE' OR l.availability!='ACTIVE')) LIMIT 1`).get(String(choice.product.productId)))throw new Error('SKIPPED_DUPLICATE_PRODUCT_HISTORY: product was already published as a live Instagram Reel');
   const claimed=!dryRun&&db.prepare('SELECT publication_id FROM instagram_schedule_slots WHERE scheduled_day=? AND scheduled_time=?').get(day,slot);
   const claimedState=claimed?.publication_id&&db.prepare('SELECT state FROM instagram_queue WHERE instagram_publication_id=?').get(claimed.publication_id)?.state;

@@ -1,5 +1,4 @@
 import { readFile } from 'node:fs/promises';
-import { products } from '../app/products.ts';
 
 const generatedProductsUrl = new URL('../app/generated-products.json', import.meta.url);
 const affiliateDestinationsUrl = new URL('../app/affiliate-destinations.json', import.meta.url);
@@ -36,7 +35,11 @@ export async function pinterestPublicationHistory() {
   return {
     productIds: new Set([...pinterestGenerated.map((record) => String(record.productId || '')), ...legacyPinterestIds].filter(Boolean)),
     imageShas: new Set((media.records || []).filter((record) => publishedSlugs.has(record.slug) && record.productImageVerified === true).map((record) => record.localSha256).filter(Boolean)),
-    titleFingerprints: new Set(products.filter((record) => publishedSlugs.has(record.slug)).map((record) => productIdentityFingerprint(record.name || record.shortName)).filter(Boolean)),
+    // Read publication identity from the JSON source directly. Importing
+    // app/products.ts here made the catalogue module enter Node's cache before
+    // a scheduled product was appended, so deployment validation saw a stale
+    // product count in the same worker process.
+    titleFingerprints: new Set(pinterestGenerated.map((record) => productIdentityFingerprint(record.name || record.shortName || record.title)).filter(Boolean)),
   };
 }
 
