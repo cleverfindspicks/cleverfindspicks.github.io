@@ -604,6 +604,23 @@
       "localSha256": "f906a09b533785d93379a10f8b708047b478cb0ad85c519ce786492a829e39a1",
       "verifiedAt": "2026-10-19T19:07:40.327Z",
       "cached": true
+    },
+    {
+      "slug": "door-behind-hooks-storage-wall-hanging-bag-clothes-hook-punch-free-h",
+      "productId": "1005012097842852",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S130f8ea95ed74bf19f83f013dff260f3k.jpg",
+      "localPublicPath": "/products/verified/1005012097842852.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012097842852.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012097842852.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "b6585c26c28767ce2d9bb0ae0b353fdf6b8387838e9f611cebbffac13e1c425a",
+      "localSha256": "ebe47aa4eb7e28e037512e17a91092ae7c4d1158511475fc9a6f6f9d45ac5073",
+      "verifiedAt": "2026-10-20T12:07:40.320Z",
+      "cached": true
     }
   ]
 }
