@@ -650,10 +650,27 @@
       "sameProductConfirmed": true,
       "placeholder": false,
       "httpStatus": 200,
-      "contentType": "image/webp",
+      "contentType": "image/jpeg",
       "sourceSha256": "c151cb7af9cb6c155bea0a931742746252910b386b8cd49b6baf1e0c47cbe75d",
       "localSha256": "4e4a0e72ed2fc035bb65287eeea590dbc7ac526156e4dce06b57eb2e3bed34a1",
-      "verifiedAt": "2026-10-21T12:07:46.336Z",
+      "verifiedAt": "2026-10-21T13:06:53.714Z",
+      "cached": true
+    },
+    {
+      "slug": "electric-and-solar-water-heater-for-household-rv-hotel-vertical-ho",
+      "productId": "1005012235486939",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sc9a89bf8f3d14e408d2bfb51d3ad2162Z.jpg",
+      "localPublicPath": "/products/verified/1005012235486939.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012235486939.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012235486939.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "9e0322ed78362a499ef037d6928ffcde5ff477a28e1ae8485d0cb6211cd94341",
+      "localSha256": "7d9723b451812a084bd9314640900e60a4a2bb170d6cc08deadd9b5b1c8f2822",
+      "verifiedAt": "2026-10-21T16:07:45.915Z",
       "cached": true
     }
   ]
