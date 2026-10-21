@@ -672,6 +672,23 @@
       "localSha256": "7d9723b451812a084bd9314640900e60a4a2bb170d6cc08deadd9b5b1c8f2822",
       "verifiedAt": "2026-10-21T16:07:45.915Z",
       "cached": true
+    },
+    {
+      "slug": "shoe-storage-box-organizer-600d-oxford-cloth-foldable-clear-cover-zi",
+      "productId": "1005011967461983",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S75091c585a3d4e4fafdedca503123b46S.jpg",
+      "localPublicPath": "/products/verified/1005011967461983.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005011967461983.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005011967461983.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "7513d864f16f9908eec188fa6018b5f23febaf9e8d5f826ef86e0402c2c213b3",
+      "localSha256": "0fe8028ec954e9afc7a4f57cdbb7e6a74dba54662bc9daf9ef35c2d24ea790f8",
+      "verifiedAt": "2026-10-21T18:37:47.639Z",
+      "cached": true
     }
   ]
 }
