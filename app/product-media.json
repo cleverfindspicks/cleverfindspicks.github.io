@@ -689,6 +689,23 @@
       "localSha256": "0fe8028ec954e9afc7a4f57cdbb7e6a74dba54662bc9daf9ef35c2d24ea790f8",
       "verifiedAt": "2026-10-21T18:37:47.639Z",
       "cached": true
+    },
+    {
+      "slug": "modern-white-embossed-tall-storage-shelving-unit-6-custom-height-tie",
+      "productId": "1005012821697079",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S4b4bd0380f354561afc79080abdfe7868.jpg",
+      "localPublicPath": "/products/verified/1005012821697079.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012821697079.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012821697079.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "e87df69f92fd3bc4533a88a30e2bcd0f612f3db49011f7ac106fc5a2220b1f77",
+      "localSha256": "71ccb2dd333f31265dae3b74da5b1be1de31209cd8f961a8ed98ac5f98a39d05",
+      "verifiedAt": "2026-10-21T19:07:52.960Z",
+      "cached": true
     }
   ]
 }
