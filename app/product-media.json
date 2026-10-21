@@ -606,23 +606,6 @@
       "cached": true
     },
     {
-      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
-      "productId": "1005008077357865",
-      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
-      "localPublicPath": "/products/verified/1005008077357865.jpg",
-      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
-      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
-      "productImageVerified": true,
-      "sameProductConfirmed": true,
-      "placeholder": false,
-      "httpStatus": 200,
-      "contentType": "image/jpeg",
-      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
-      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
-      "verifiedAt": "2026-10-20T13:06:53.025Z",
-      "cached": true
-    },
-    {
       "slug": "pink-wooden-corner-wardrobe-small-single-door-storage-cabinet-with-l",
       "productId": "1005013098462715",
       "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S307126e3a2a5490baf8e24673652945cj.jpg",
@@ -637,6 +620,40 @@
       "sourceSha256": "21e2c6485b2cfad1d5672d031f40fe08f6b1921e5787d4371746721609456eb3",
       "localSha256": "75607c215814fc50ae47773f0fb990fd7af61150c8771e02f4d35f65c90c1303",
       "verifiedAt": "2026-10-20T16:07:47.486Z",
+      "cached": true
+    },
+    {
+      "slug": "3-in-1-kitchen-stainless-steel-tableware-soap-dispenser-sponge-hold",
+      "productId": "1005008077357865",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdcac102a4ce4944f0ac23a848c71n.jpg",
+      "localPublicPath": "/products/verified/1005008077357865.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005008077357865.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008077357865.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/jpeg",
+      "sourceSha256": "aebecabd015825c3378881d130ed555278c134249237affcf010d7d656bc3d16",
+      "localSha256": "98cbcfd5a55a2b6d08986a94cba04a11e18da3ff9d1b764f5915b619c963b80f",
+      "verifiedAt": "2026-10-21T08:06:53.542Z",
+      "cached": true
+    },
+    {
+      "slug": "hidden-storage-drawer-console-organizer-tray-for-2026-gwm-ora-5-unde",
+      "productId": "1005012870158115",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sfcd18035669244ccb34580a71f13de2ez.jpg",
+      "localPublicPath": "/products/verified/1005012870158115.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012870158115.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012870158115.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "c151cb7af9cb6c155bea0a931742746252910b386b8cd49b6baf1e0c47cbe75d",
+      "localSha256": "4e4a0e72ed2fc035bb65287eeea590dbc7ac526156e4dce06b57eb2e3bed34a1",
+      "verifiedAt": "2026-10-21T12:07:46.336Z",
       "cached": true
     }
   ]
