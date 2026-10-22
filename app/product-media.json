@@ -723,6 +723,23 @@
       "localSha256": "547bb449987a71190f1de9799f9a68327454fe977ef9e77c0d454bfe9d47522e",
       "verifiedAt": "2026-10-22T18:37:40.158Z",
       "cached": true
+    },
+    {
+      "slug": "heavy-duty-wall-mounted-folding-storage-rack-punch-free-no-trace-wal",
+      "productId": "1005012907130417",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sc81fdd50bc434155959ce5912bd207592.jpg",
+      "localPublicPath": "/products/verified/1005012907130417.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012907130417.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012907130417.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "62c53ad92d277904342c6bd3202131cb325b302a54d4bac3a0c28ebd7d7c7418",
+      "localSha256": "b46a2e7a8dd921aba293e849a69e7efb0705a15a4cc2540b418db374f93bce53",
+      "verifiedAt": "2026-10-22T19:07:40.850Z",
+      "cached": true
     }
   ]
 }
