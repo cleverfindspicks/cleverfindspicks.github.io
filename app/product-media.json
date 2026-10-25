@@ -757,6 +757,23 @@
       "localSha256": "2f766d6e2acefa99b9840f0191897bf1cbee0fbd519e1a6bb7de6fa4d0e7daca",
       "verifiedAt": "2026-10-23T19:08:33.273Z",
       "cached": true
+    },
+    {
+      "slug": "behind-the-door-storage-cabinet-bathroom-and-kitchen-storage-rack-mu",
+      "productId": "1005008248078560",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S58f50b396ffe4f9583ce46e5ecd74855P.jpg",
+      "localPublicPath": "/products/verified/1005008248078560.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005008248078560.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008248078560.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "1160216143e1fca215f0c81d77a95e59a1ef85c3463cdd03f8522376a043733e",
+      "localSha256": "ee2ffc08f4b407fe784f38fea60f7a4b817d20c0c825e28839b5251165e34dae",
+      "verifiedAt": "2026-10-25T12:07:46.007Z",
+      "cached": true
     }
   ]
 }
