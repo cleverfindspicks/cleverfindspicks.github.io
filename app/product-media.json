@@ -774,6 +774,23 @@
       "localSha256": "ee2ffc08f4b407fe784f38fea60f7a4b817d20c0c825e28839b5251165e34dae",
       "verifiedAt": "2026-10-25T12:07:46.007Z",
       "cached": true
+    },
+    {
+      "slug": "adjustable-shoe-rack-space-saving-layered-organizer-for-home-shoe",
+      "productId": "1005008406193611",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S0277154d2a9c4e7ba8ab768059193e0b7.jpg",
+      "localPublicPath": "/products/verified/1005008406193611.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005008406193611.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008406193611.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "11c2949da3cbe4386d7d58949762c8f8c97639acd177c250c605eee23c0d358b",
+      "localSha256": "aa2bde56ab8f8bbf1056ace9b069d0c97c6c1a8e0360a740caf976046ad56b2f",
+      "verifiedAt": "2026-10-25T16:07:43.809Z",
+      "cached": true
     }
   ]
 }
