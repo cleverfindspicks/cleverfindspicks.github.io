@@ -791,6 +791,23 @@
       "localSha256": "aa2bde56ab8f8bbf1056ace9b069d0c97c6c1a8e0360a740caf976046ad56b2f",
       "verifiedAt": "2026-10-25T16:07:43.809Z",
       "cached": true
+    },
+    {
+      "slug": "under-sink-storage-organizers-with-hanging-hooks-2-tier-pull-out-dra",
+      "productId": "1005012058149887",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S2d072ea842d648ac86d57bb531b01da2F.jpg",
+      "localPublicPath": "/products/verified/1005012058149887.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012058149887.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012058149887.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "afb75cfff0723215166dfd0701682f44fad65470428f2a47cebb6da0e9ccef6f",
+      "localSha256": "b94c5a0fe3abe1c76a840d9efcb7a6f5b4969f64bd7c208e448f4243cf3f18f8",
+      "verifiedAt": "2026-10-26T19:07:53.123Z",
+      "cached": true
     }
   ]
 }
