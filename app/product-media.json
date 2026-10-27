@@ -825,6 +825,23 @@
       "localSha256": "c569399369ef19b904c19600a7cfdb8d406f0eb65da6805dc0d4dcad6f42d9db",
       "verifiedAt": "2026-10-27T12:07:43.624Z",
       "cached": true
+    },
+    {
+      "slug": "foldable-pop-up-laundry-hamper-portable-large-capacity-laundry-baske",
+      "productId": "1005013255229760",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S1867afbab0d2423b86f768d6ac833c66w.jpeg",
+      "localPublicPath": "/products/verified/1005013255229760.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013255229760.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013255229760.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "7a5509f122b8efb13368f5a9cb47b6fce39fc3380df4c2663c7b235ee939732e",
+      "localSha256": "6ed7d92ba447d8f4ed131ae3c3b80e694e3f52144fb32c329e12cd20f7017ae6",
+      "verifiedAt": "2026-10-27T16:07:46.467Z",
+      "cached": true
     }
   ]
 }
