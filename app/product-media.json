@@ -842,6 +842,23 @@
       "localSha256": "6ed7d92ba447d8f4ed131ae3c3b80e694e3f52144fb32c329e12cd20f7017ae6",
       "verifiedAt": "2026-10-27T16:07:46.467Z",
       "cached": true
+    },
+    {
+      "slug": "heavy-duty-foldable-bed-with-mattress-13cm-memory-foam-204kg-capacit",
+      "productId": "1005013330940062",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sc4888329ed0244c19da2328dc157b1bfn.jpg",
+      "localPublicPath": "/products/verified/1005013330940062.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013330940062.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013330940062.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "97bf4f96dc4dbc02cc0471509befb0b9f3b5a96dbddeeaefd6d1656f710ebcee",
+      "localSha256": "fd0b1632f906ee20a2477de8a53f0dccc1b1848a99d7b624de4ff53402b0cde6",
+      "verifiedAt": "2026-10-27T19:07:45.977Z",
+      "cached": true
     }
   ]
 }
