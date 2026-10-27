@@ -808,6 +808,23 @@
       "localSha256": "b94c5a0fe3abe1c76a840d9efcb7a6f5b4969f64bd7c208e448f4243cf3f18f8",
       "verifiedAt": "2026-10-26T19:07:53.123Z",
       "cached": true
+    },
+    {
+      "slug": "14-inch-portable-hand-cosmetic-suitcase-hard-shell-abs-vertical-stri",
+      "productId": "1005013158454955",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S6a743736a421448c9fa4c08a0fa905bfA.png",
+      "localPublicPath": "/products/verified/1005013158454955.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013158454955.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013158454955.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "7ba416f6ee439bad45847552218ae456c7e22f7258763e00a96bd75b7612c981",
+      "localSha256": "c569399369ef19b904c19600a7cfdb8d406f0eb65da6805dc0d4dcad6f42d9db",
+      "verifiedAt": "2026-10-27T12:07:43.624Z",
+      "cached": true
     }
   ]
 }
