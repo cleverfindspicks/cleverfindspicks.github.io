@@ -859,6 +859,23 @@
       "localSha256": "fd0b1632f906ee20a2477de8a53f0dccc1b1848a99d7b624de4ff53402b0cde6",
       "verifiedAt": "2026-10-27T19:07:45.977Z",
       "cached": true
+    },
+    {
+      "slug": "304-stainless-rv-sink-concealed-flip-lid-foldable-hot-cold-faucet-sp",
+      "productId": "1005013452949962",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S2d6632450a144f61983f9505e6c9301by.jpg",
+      "localPublicPath": "/products/verified/1005013452949962.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013452949962.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013452949962.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "b7e46b50acec684227b21a99122409254182e604bc8a6b9b8fcc065e61798167",
+      "localSha256": "261c56c278dd36209167790c9d5bff4233d23bbade2b997742bd85e34cb519f6",
+      "verifiedAt": "2026-10-28T16:05:46.650Z",
+      "cached": true
     }
   ]
 }
