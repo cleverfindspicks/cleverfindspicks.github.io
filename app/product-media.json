@@ -876,6 +876,23 @@
       "localSha256": "261c56c278dd36209167790c9d5bff4233d23bbade2b997742bd85e34cb519f6",
       "verifiedAt": "2026-10-28T16:05:46.650Z",
       "cached": true
+    },
+    {
+      "slug": "2-3-layer-black-rust-proof-shower-storage-rack-on-door-no-drilling-r",
+      "productId": "1005008406399129",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S40d32b25272f4aaa80884f9853c1e5bfm.jpg",
+      "localPublicPath": "/products/verified/1005008406399129.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005008406399129.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005008406399129.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "0c529d5a60c366db8a58cd6bebea0e7297cd4fdf1b80564a32681951334273d9",
+      "localSha256": "e616e3a2a0c05193447fe6a05fc2ba7e76a57f128458b62d13e4b86bea339669",
+      "verifiedAt": "2026-10-29T12:05:45.732Z",
+      "cached": true
     }
   ]
 }
