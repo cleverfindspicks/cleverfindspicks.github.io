@@ -893,6 +893,23 @@
       "localSha256": "e616e3a2a0c05193447fe6a05fc2ba7e76a57f128458b62d13e4b86bea339669",
       "verifiedAt": "2026-10-29T12:05:45.732Z",
       "cached": true
+    },
+    {
+      "slug": "3-4-layer-narrow-storage-rack-movable-slim-shelf-behind-bathroom-doo",
+      "productId": "1005012026015068",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S0e0c3550e2c34db2a13a92e779022f73A.jpg",
+      "localPublicPath": "/products/verified/1005012026015068.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012026015068.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012026015068.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "cf3460635a7c914f3cf489fa6171b6ffd6ef81169e658d81c2201c7015ba2501",
+      "localSha256": "f345e22bd374fb2ae47659f8d134add01acb9744e4d7f5a6fbd00ee04428ce8b",
+      "verifiedAt": "2026-10-29T16:05:59.405Z",
+      "cached": true
     }
   ]
 }
