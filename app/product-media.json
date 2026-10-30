@@ -910,6 +910,23 @@
       "localSha256": "f345e22bd374fb2ae47659f8d134add01acb9744e4d7f5a6fbd00ee04428ce8b",
       "verifiedAt": "2026-10-29T16:05:59.405Z",
       "cached": true
+    },
+    {
+      "slug": "6l-mini-electric-water-heater-under-sink-storage-tank-hot-water-hea",
+      "productId": "1005013157933603",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S925b47de8f49415f9ca64ebc69714f72U.jpg",
+      "localPublicPath": "/products/verified/1005013157933603.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013157933603.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013157933603.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "82fc2092312ce37647d0ee8e94c6e28257f0c2175ac653dfbd37d96be8d45f56",
+      "localSha256": "8011fbc31a3345ba4d6e8a1946f8a34879104843cd4aac2d0765257f29279487",
+      "verifiedAt": "2026-10-30T16:06:41.804Z",
+      "cached": true
     }
   ]
 }
