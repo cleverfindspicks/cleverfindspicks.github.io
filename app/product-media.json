@@ -927,6 +927,23 @@
       "localSha256": "8011fbc31a3345ba4d6e8a1946f8a34879104843cd4aac2d0765257f29279487",
       "verifiedAt": "2026-10-30T16:06:41.804Z",
       "cached": true
+    },
+    {
+      "slug": "bread-storage-container-with-airtight-lid-clear-plastic-bread-box-wi",
+      "productId": "1005012806748408",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S4a2a18ba70654b488bd7b1a4ae5e16bdB.jpg",
+      "localPublicPath": "/products/verified/1005012806748408.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012806748408.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012806748408.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "26fec8fa0a031b7c9241040a6a68f3423e1e231eb505b09ab219fa20c9f7da42",
+      "localSha256": "aed3d7164dd58fcad56ed58b0ac399e200f6ac25a580edc4977d29ac8178a030",
+      "verifiedAt": "2026-10-31T16:05:44.713Z",
+      "cached": true
     }
   ]
 }
