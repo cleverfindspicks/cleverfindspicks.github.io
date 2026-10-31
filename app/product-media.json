@@ -944,6 +944,23 @@
       "localSha256": "aed3d7164dd58fcad56ed58b0ac399e200f6ac25a580edc4977d29ac8178a030",
       "verifiedAt": "2026-10-31T16:05:44.713Z",
       "cached": true
+    },
+    {
+      "slug": "bathroom-sink-kitchen-countertop-storage-rack-bathroom-supplies-snac",
+      "productId": "1005007202955388",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S985438ea9c1d435f9b8b031ab20de482q.jpg",
+      "localPublicPath": "/products/verified/1005007202955388.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005007202955388.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005007202955388.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "a98f8e6c3f7ef6dea5f93eb7b8afa7a89d51809e95f189d2356211beffc9fb36",
+      "localSha256": "a19ccb18a0a1f3548aec181ff9f4d8774faef027150feae8af4aae872d0037af",
+      "verifiedAt": "2026-10-31T19:05:40.640Z",
+      "cached": true
     }
   ]
 }
