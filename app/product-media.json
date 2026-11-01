@@ -978,6 +978,23 @@
       "localSha256": "5c27f251a4093c9bfe20e04b8d78d0c0aaba05338643f8ec932142691b2cef33",
       "verifiedAt": "2026-11-01T12:05:27.322Z",
       "cached": true
+    },
+    {
+      "slug": "raised-dog-bed-with-wooden-frame-and-velvet-upholstery-cushion-seat",
+      "productId": "1005013292265158",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sd6c585ec04d8454a899ee4328a8846caR.jpg",
+      "localPublicPath": "/products/verified/1005013292265158.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013292265158.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013292265158.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "d94fe5b8417038b41f47de17af4e930115467281357356d79ce0a7eb5e2dd650",
+      "localSha256": "a255ac75907a20eda35db023bf763ea009bafb6d45ef0c4d09b9ed625a6e721e",
+      "verifiedAt": "2026-11-01T19:05:51.099Z",
+      "cached": true
     }
   ]
 }
