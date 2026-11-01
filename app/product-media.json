@@ -961,6 +961,23 @@
       "localSha256": "a19ccb18a0a1f3548aec181ff9f4d8774faef027150feae8af4aae872d0037af",
       "verifiedAt": "2026-10-31T19:05:40.640Z",
       "cached": true
+    },
+    {
+      "slug": "simple-and-modern-white-metal-floor-to-ceiling-drying-rack-double-sh",
+      "productId": "1005013038409675",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S6f2af9741b694479a819186f2b16d27bl.jpg",
+      "localPublicPath": "/products/verified/1005013038409675.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013038409675.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013038409675.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "c63176600d6aa5cec1c99dad878789e62f7c46813aca5f060d5307d70af56429",
+      "localSha256": "5c27f251a4093c9bfe20e04b8d78d0c0aaba05338643f8ec932142691b2cef33",
+      "verifiedAt": "2026-11-01T12:05:27.322Z",
+      "cached": true
     }
   ]
 }
