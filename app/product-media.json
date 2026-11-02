@@ -995,6 +995,23 @@
       "localSha256": "a255ac75907a20eda35db023bf763ea009bafb6d45ef0c4d09b9ed625a6e721e",
       "verifiedAt": "2026-11-01T19:05:51.099Z",
       "cached": true
+    },
+    {
+      "slug": "creamy-coffee-capsule-organizer-2-tier-drawer-storage-box-for-tea-b",
+      "productId": "1005012486579300",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S4ab4cb00311748b3b601b0634953dc1ec.jpg",
+      "localPublicPath": "/products/verified/1005012486579300.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012486579300.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012486579300.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "5b8937c6f991c23b44e8dcdf19f3655312d0d4068c812518a55be0fe56d31d20",
+      "localSha256": "29e65ecd095fb4371380ffa50930d618e5ae0b6d08f8ebf6e4b602ef6e030853",
+      "verifiedAt": "2026-11-02T16:05:41.203Z",
+      "cached": true
     }
   ]
 }
