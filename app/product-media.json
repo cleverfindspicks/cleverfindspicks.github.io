@@ -1012,6 +1012,23 @@
       "localSha256": "29e65ecd095fb4371380ffa50930d618e5ae0b6d08f8ebf6e4b602ef6e030853",
       "verifiedAt": "2026-11-02T16:05:41.203Z",
       "cached": true
+    },
+    {
+      "slug": "modern-fluted-tall-dresser-4-drawer-wooden-chest-of-drawers-with-m",
+      "productId": "1005013396787927",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S93777da2e4ee455a82e43cd071587d4aL.jpg",
+      "localPublicPath": "/products/verified/1005013396787927.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013396787927.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013396787927.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "227ab5705e03099ec0dbb8ac3b8f2c4bfd85f7f738a5929281ca5ce53c239d57",
+      "localSha256": "aab62679c7acd843e6cae8e19e497197f1cb8a5d93bfa5f15842405d84b6afbc",
+      "verifiedAt": "2026-11-02T19:25:50.365Z",
+      "cached": true
     }
   ]
 }
