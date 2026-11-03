@@ -1029,6 +1029,23 @@
       "localSha256": "aab62679c7acd843e6cae8e19e497197f1cb8a5d93bfa5f15842405d84b6afbc",
       "verifiedAt": "2026-11-02T19:25:50.365Z",
       "cached": true
+    },
+    {
+      "slug": "pinggoextendable-bar-table-with-storage-space-fold-out-dining-table",
+      "productId": "1005012318707791",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sd93d66f6718a49099f6d0708d3dfcb3aC.jpg",
+      "localPublicPath": "/products/verified/1005012318707791.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012318707791.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012318707791.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "359d6d42785b807298619180b185bbcb8cbed8fb629a647477c2c464bbe40bb2",
+      "localSha256": "77340b3f92ac77ac34d17824841d5e983ee89b0de134d9cbb6b3658a150f8caf",
+      "verifiedAt": "2026-11-03T16:05:40.320Z",
+      "cached": true
     }
   ]
 }
