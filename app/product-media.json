@@ -1046,6 +1046,23 @@
       "localSha256": "77340b3f92ac77ac34d17824841d5e983ee89b0de134d9cbb6b3658a150f8caf",
       "verifiedAt": "2026-11-03T16:05:40.320Z",
       "cached": true
+    },
+    {
+      "slug": "5-tier-slim-pull-out-kitchen-storage-trolley-white-plastic-movable-n",
+      "productId": "1005013440846399",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S6a5fc1e52ad6408c961555a7e54a9225Z.jpg",
+      "localPublicPath": "/products/verified/1005013440846399.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013440846399.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013440846399.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "4d089a4c5446dcf4fa2d1971238bba85540459143688beed056e134c9f2b6dc0",
+      "localSha256": "53c48614187699d120b475b1ddfbe269c39879243cef42647d6275783a778514",
+      "verifiedAt": "2026-11-04T16:05:47.756Z",
+      "cached": true
     }
   ]
 }
