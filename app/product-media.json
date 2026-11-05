@@ -1063,6 +1063,23 @@
       "localSha256": "53c48614187699d120b475b1ddfbe269c39879243cef42647d6275783a778514",
       "verifiedAt": "2026-11-04T16:05:47.756Z",
       "cached": true
+    },
+    {
+      "slug": "over-the-door-hook-rack-no-drill-clothes-hanger-and-storage-organiz",
+      "productId": "1005010572777361",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S82d1d69e1ca6413697e4714bfcecd998V.jpg",
+      "localPublicPath": "/products/verified/1005010572777361.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005010572777361.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005010572777361.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "07001f92afb4a301cf68106f58acb5236d61d952a297c5fe1772c70aa7882974",
+      "localSha256": "037262cfe12ef16b49e0d40e66f149bfc3856c20d7518efdc3f20ea085495dfc",
+      "verifiedAt": "2026-11-05T19:05:54.766Z",
+      "cached": true
     }
   ]
 }
