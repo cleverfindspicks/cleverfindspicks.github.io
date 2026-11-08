@@ -1097,6 +1097,23 @@
       "localSha256": "318831da73a23cb106d09cf29ce091f8bf69d4f28f8f8ff26af85277f8164e88",
       "verifiedAt": "2026-11-08T16:25:38.718Z",
       "cached": true
+    },
+    {
+      "slug": "acrylic-a4-storage-filing-box-for-documents-plastic-paper-file-organ",
+      "productId": "1005013148415737",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S4c6d825f7a0e43b2a198fc21bc8f7d36g.jpg",
+      "localPublicPath": "/products/verified/1005013148415737.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013148415737.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013148415737.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "440771b3346ec8807de4b344f082ef89c959a420f9fde05df54f762aa2370750",
+      "localSha256": "ccc5d9c689ffba2252b52574749241cca67e21f0d29f3c4b8c7d46444c3b44f4",
+      "verifiedAt": "2026-11-08T19:05:44.155Z",
+      "cached": true
     }
   ]
 }
