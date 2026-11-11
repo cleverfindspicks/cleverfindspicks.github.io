@@ -1148,6 +1148,23 @@
       "localSha256": "6c0e390a3f2cc2abf7c4413f0980b22eff81adb357d1fa33babd0c912cbe7a3a",
       "verifiedAt": "2026-11-11T16:25:51.417Z",
       "cached": true
+    },
+    {
+      "slug": "stackable-storage-bins-4-tier-cabinet-with-doors-wheels-front-access",
+      "productId": "1005013515055318",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S5df4d1acbbbb4e90837ddca70858baa6F.jpg",
+      "localPublicPath": "/products/verified/1005013515055318.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013515055318.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013515055318.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "89b7af55de532b78a250d1504be1a50ae7d1fe53a031646ba49f55c9b253b4f5",
+      "localSha256": "e161e8153bbeb8b36c87194969984bb6bdc9100e933e2643b057c438c4c8455d",
+      "verifiedAt": "2026-11-11T19:05:48.495Z",
+      "cached": true
     }
   ]
 }
