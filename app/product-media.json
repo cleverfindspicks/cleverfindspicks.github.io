@@ -1114,6 +1114,23 @@
       "localSha256": "ccc5d9c689ffba2252b52574749241cca67e21f0d29f3c4b8c7d46444c3b44f4",
       "verifiedAt": "2026-11-08T19:05:44.155Z",
       "cached": true
+    },
+    {
+      "slug": "4pcs-magnetic-storage-rack-no-drill-wall-mounted-shelf-for-kitchen",
+      "productId": "1005010262695608",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S455de077f0c049dca13258b6c2320c91q.jpg",
+      "localPublicPath": "/products/verified/1005010262695608.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005010262695608.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005010262695608.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "3f25df73c7e00d9782e7809173a695c4460fa03afc9aaf9d63c13e7f2a87f3f1",
+      "localSha256": "f43a1b439a5b30bb28ec316ef0cc759a8fd88721c8d59d5eb4201fd8132be81a",
+      "verifiedAt": "2026-11-11T12:05:54.878Z",
+      "cached": true
     }
   ]
 }
