@@ -1131,6 +1131,23 @@
       "localSha256": "f43a1b439a5b30bb28ec316ef0cc759a8fd88721c8d59d5eb4201fd8132be81a",
       "verifiedAt": "2026-11-11T12:05:54.878Z",
       "cached": true
+    },
+    {
+      "slug": "slim-gap-portable-trolley-organizer-drawer-narrow-space-saver-kitche",
+      "productId": "1005013510358233",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S911646e641e846c4bf783a07fe5c4b99e.jpg",
+      "localPublicPath": "/products/verified/1005013510358233.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013510358233.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013510358233.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "6ce1151a9a9032a4a222a55988606bae3242d9eb8084d9179721945761541b71",
+      "localSha256": "6c0e390a3f2cc2abf7c4413f0980b22eff81adb357d1fa33babd0c912cbe7a3a",
+      "verifiedAt": "2026-11-11T16:25:51.417Z",
+      "cached": true
     }
   ]
 }
