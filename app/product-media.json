@@ -1165,6 +1165,23 @@
       "localSha256": "e161e8153bbeb8b36c87194969984bb6bdc9100e933e2643b057c438c4c8455d",
       "verifiedAt": "2026-11-11T19:05:48.495Z",
       "cached": true
+    },
+    {
+      "slug": "punch-free-suction-cup-bathroom-storage-rack-sink-faucet-draining-sh",
+      "productId": "1005012778010499",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S27b5c9e88bdf476abe57c1fc4c4b1c9ds.png",
+      "localPublicPath": "/products/verified/1005012778010499.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012778010499.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012778010499.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "200b21a6b6da6696384047b34853365bf4827af09ae6591cbee71ef6c02b61a0",
+      "localSha256": "c9a520f0442cf4b51dba636035d6fde1add3f7aa27958b7e7f88a887a251acbf",
+      "verifiedAt": "2026-11-12T16:05:49.055Z",
+      "cached": true
     }
   ]
 }
