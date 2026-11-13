@@ -1199,6 +1199,23 @@
       "localSha256": "5af7d6b5101913bc543b35d3b2e84b12795068dca266a53540840629eb54491f",
       "verifiedAt": "2026-11-13T16:05:52.421Z",
       "cached": true
+    },
+    {
+      "slug": "dish-drying-rack-polypropylene-covered-tableware-organizer-kitchen",
+      "productId": "1005013230354232",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S72fe284722f54fdea7c4ae6dca1d03551.jpg",
+      "localPublicPath": "/products/verified/1005013230354232.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013230354232.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013230354232.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "e84c0cd4573803a6d8fd9c132699a1a8040a9277c01464a7766c3fb69655e86c",
+      "localSha256": "67bc01e6af34a2b1394a48b6a035b2edaae14c8dd106207aa10fb90e5ad106ca",
+      "verifiedAt": "2026-11-13T19:25:50.972Z",
+      "cached": true
     }
   ]
 }
