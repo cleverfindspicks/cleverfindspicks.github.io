@@ -1216,6 +1216,23 @@
       "localSha256": "67bc01e6af34a2b1394a48b6a035b2edaae14c8dd106207aa10fb90e5ad106ca",
       "verifiedAt": "2026-11-13T19:25:50.972Z",
       "cached": true
+    },
+    {
+      "slug": "household-non-slip-plastic-hangers-wide-shoulder-design-leaves-no",
+      "productId": "1005013454394116",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sf34c57221ed240f0ac0ddab88601f9e6Q.png",
+      "localPublicPath": "/products/verified/1005013454394116.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013454394116.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013454394116.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "ea0490962afe61566ec0de4c9152eaf9204177b879d8a56bb879acbc8fa35728",
+      "localSha256": "422752101ed4581a56484fb15bd45c5212c68d3558fe916abaf800bc765a03ce",
+      "verifiedAt": "2026-11-14T12:06:08.753Z",
+      "cached": true
     }
   ]
 }
