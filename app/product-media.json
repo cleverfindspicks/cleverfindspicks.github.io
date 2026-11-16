@@ -1250,6 +1250,23 @@
       "localSha256": "a0411b607aaa2778416c6d24256dcafd95257ab8b5be4bfbb80ccb758bce7241",
       "verifiedAt": "2026-11-16T12:06:07.511Z",
       "cached": true
+    },
+    {
+      "slug": "lightly-luxurious-dressing-table-modern-minimalist-bedroom-make-up",
+      "productId": "1005013163311314",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Scb636a129d8a48a59b07d8cbf4b1c2c0L.jpg",
+      "localPublicPath": "/products/verified/1005013163311314.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013163311314.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013163311314.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "63264d6eb1b617a215087eed7a90888c8654a3427e75268415a2f1decdee0615",
+      "localSha256": "667ee3291443e7aebb33e291aaa14765fc668d91dbd0b365fd4975872c9f7f8b",
+      "verifiedAt": "2026-11-16T16:06:09.746Z",
+      "cached": true
     }
   ]
 }
