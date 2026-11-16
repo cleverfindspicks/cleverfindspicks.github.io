@@ -1233,6 +1233,23 @@
       "localSha256": "422752101ed4581a56484fb15bd45c5212c68d3558fe916abaf800bc765a03ce",
       "verifiedAt": "2026-11-14T12:06:08.753Z",
       "cached": true
+    },
+    {
+      "slug": "foldable-deep-storage-box-for-clothes-big-capacity-moisture-proof",
+      "productId": "1005013367326781",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa2b157d317174302a48e8a7643ce3228F.jpg",
+      "localPublicPath": "/products/verified/1005013367326781.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013367326781.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013367326781.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "0217c4e50a86833a1581369ff61c044d6be2b887beb890243cd433c222982dc0",
+      "localSha256": "a0411b607aaa2778416c6d24256dcafd95257ab8b5be4bfbb80ccb758bce7241",
+      "verifiedAt": "2026-11-16T12:06:07.511Z",
+      "cached": true
     }
   ]
 }
