@@ -1284,6 +1284,23 @@
       "localSha256": "87a122c7c574105af853e6544ea854d4d3dc299ea585db9704cd272e21466814",
       "verifiedAt": "2026-11-17T16:05:58.310Z",
       "cached": true
+    },
+    {
+      "slug": "multi-functional-toilet-narrow-slot-storage-cabinet-crevice-trolley",
+      "productId": "1005013243359775",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S30d9394790f44708807b8b508234f37eT.jpg",
+      "localPublicPath": "/products/verified/1005013243359775.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013243359775.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013243359775.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "bb0a755da1640e7469e9d2e994f773372e31adbac88f21f46b495749d01bbb79",
+      "localSha256": "ee31902a76765e289ebff81523421b6de6aa7a901b2a606c410746f4beafcc96",
+      "verifiedAt": "2026-11-17T19:06:07.602Z",
+      "cached": true
     }
   ]
 }
