@@ -1267,6 +1267,23 @@
       "localSha256": "667ee3291443e7aebb33e291aaa14765fc668d91dbd0b365fd4975872c9f7f8b",
       "verifiedAt": "2026-11-16T16:06:09.746Z",
       "cached": true
+    },
+    {
+      "slug": "drill-free-wall-mounted-storage-cabinet-moisture-proof-magnetic-org",
+      "productId": "1005012181035332",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S077027e575bd4c749b65bc000a5429fdM.jpg",
+      "localPublicPath": "/products/verified/1005012181035332.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012181035332.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012181035332.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "dc6af15d27e0e147388ead94d522f30db081caca8f2a20f9812349f184da6c13",
+      "localSha256": "87a122c7c574105af853e6544ea854d4d3dc299ea585db9704cd272e21466814",
+      "verifiedAt": "2026-11-17T16:05:58.310Z",
+      "cached": true
     }
   ]
 }
