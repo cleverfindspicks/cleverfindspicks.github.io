@@ -1318,6 +1318,23 @@
       "localSha256": "5844ed4fb0ce0feabb468537b72243697decdce43d6988bc6f968e712bf5652e",
       "verifiedAt": "2026-11-18T12:06:05.545Z",
       "cached": true
+    },
+    {
+      "slug": "12l-kitchen-trash-can-wall-mounted-hanging-trash-bin-with-lid-garbag",
+      "productId": "1005013380939447",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S9bdfe7c26ee049ccb7e1c1bc88ab7b8cF.jpg",
+      "localPublicPath": "/products/verified/1005013380939447.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013380939447.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013380939447.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "2fa5ebd2868ba65987bbc60688d3d74b97b6ae8224a5946b0f4c4ed782c599e4",
+      "localSha256": "70d3cff8490a2b819ab0340cbd6647ac6c70f5c7f5417651d44020f7c8087bd6",
+      "verifiedAt": "2026-11-18T19:06:01.924Z",
+      "cached": true
     }
   ]
 }
