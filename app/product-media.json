@@ -1301,6 +1301,23 @@
       "localSha256": "ee31902a76765e289ebff81523421b6de6aa7a901b2a606c410746f4beafcc96",
       "verifiedAt": "2026-11-17T19:06:07.602Z",
       "cached": true
+    },
+    {
+      "slug": "walnut-wood-bathroom-storage-rack-renter-friendly-wood-and-metal-bat",
+      "productId": "1005013538127184",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sd5b877686cee42a49cddbb0f15d8ff71P.jpg",
+      "localPublicPath": "/products/verified/1005013538127184.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013538127184.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013538127184.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "7a43e88593bcf1829e510bcf16bd784f1a9d98bfc5b1edff1d664e8142f10989",
+      "localSha256": "5844ed4fb0ce0feabb468537b72243697decdce43d6988bc6f968e712bf5652e",
+      "verifiedAt": "2026-11-18T12:06:05.545Z",
+      "cached": true
     }
   ]
 }
