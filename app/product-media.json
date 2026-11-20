@@ -1335,6 +1335,23 @@
       "localSha256": "70d3cff8490a2b819ab0340cbd6647ac6c70f5c7f5417651d44020f7c8087bd6",
       "verifiedAt": "2026-11-18T19:06:01.924Z",
       "cached": true
+    },
+    {
+      "slug": "renter-friendly-trash-bin-storage-shelf-organizers-no-drilling-req",
+      "productId": "1005009760777838",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S7183f70a2937488084e39eac4fac0f3dK.jpg",
+      "localPublicPath": "/products/verified/1005009760777838.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005009760777838.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005009760777838.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "f76df38c8b453a5c75f81e0a0a1702b4cf0dfd8541c7f87c8e0c7927020c3584",
+      "localSha256": "3b4f5ae98aaacee0246007c6635884f66b1a0d84ffe2476cdda0db4d8180ba98",
+      "verifiedAt": "2026-11-20T12:06:09.619Z",
+      "cached": true
     }
   ]
 }
