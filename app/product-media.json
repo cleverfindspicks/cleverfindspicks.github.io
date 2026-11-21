@@ -1369,6 +1369,23 @@
       "localSha256": "d515d2198f01a46762d12f0979cb518579c9dd94b474838fefd4772f6c773bb5",
       "verifiedAt": "2026-11-21T12:06:00.556Z",
       "cached": true
+    },
+    {
+      "slug": "acrylic-16-grid-drawer-style-acrylic-bead-storage-box-large-capacit",
+      "productId": "1005010535871553",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S219a99d5f1994f9d8766ad62549e68d3t.jpg",
+      "localPublicPath": "/products/verified/1005010535871553.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005010535871553.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005010535871553.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "16cac268b59eb081104c15869104d6c6ce4319bd926d40e6bce023b9957e589e",
+      "localSha256": "399368dbdcb957a3aa5d19151a7cb391a16ca09fb45b98a0e359fed35545b5ae",
+      "verifiedAt": "2026-11-21T19:06:07.636Z",
+      "cached": true
     }
   ]
 }
