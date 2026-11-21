@@ -1352,6 +1352,23 @@
       "localSha256": "3b4f5ae98aaacee0246007c6635884f66b1a0d84ffe2476cdda0db4d8180ba98",
       "verifiedAt": "2026-11-20T12:06:09.619Z",
       "cached": true
+    },
+    {
+      "slug": "slim-bathroom-floor-storage-cabinet-with-door-and-open-shelf-freest",
+      "productId": "1005013001765484",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/A5c75931e5c6a417f89fbc3478de8fa02l.jpg",
+      "localPublicPath": "/products/verified/1005013001765484.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013001765484.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013001765484.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "bdd60a04aaec342c7512a65747bdfc653ad3d3263277b6efa616dcab22571b39",
+      "localSha256": "d515d2198f01a46762d12f0979cb518579c9dd94b474838fefd4772f6c773bb5",
+      "verifiedAt": "2026-11-21T12:06:00.556Z",
+      "cached": true
     }
   ]
 }
