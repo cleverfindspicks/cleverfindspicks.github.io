@@ -1420,6 +1420,23 @@
       "localSha256": "34cbf70aeab129ccc1f1ce7264292123f2f5887fa38c70c91bd0441296e94154",
       "verifiedAt": "2026-11-23T12:06:16.130Z",
       "cached": true
+    },
+    {
+      "slug": "wall-mounted-suction-cup-bathroom-shelf-no-drill-u-shape-storage-rac",
+      "productId": "1005010487367354",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S5b318d887d8942809a08c1a1d9d39fe3F.jpg",
+      "localPublicPath": "/products/verified/1005010487367354.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005010487367354.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005010487367354.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "baa36135798a2eed54fc91b7586423d8e6a5aaa82b6c1bf4a187aa0feea0b040",
+      "localSha256": "aed17450898f53a39a56eb83efa0c57f8acc11e485a4e8e5879d697ceacecf6a",
+      "verifiedAt": "2026-11-23T19:06:01.593Z",
+      "cached": true
     }
   ]
 }
