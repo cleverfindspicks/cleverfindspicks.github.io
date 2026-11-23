@@ -1403,6 +1403,23 @@
       "localSha256": "be426336d8aebd8c149a2356866ded12c5a8e68010d18e14a8f9d3ca963dc668",
       "verifiedAt": "2026-11-22T12:06:20.879Z",
       "cached": true
+    },
+    {
+      "slug": "space-saving-pre-built-new-mobile-prefab-beach-cheap-tiny-manufactur",
+      "productId": "1005013639875254",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Se746e4bb0ba346579cd3cb82dc693d3aO.jpg",
+      "localPublicPath": "/products/verified/1005013639875254.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013639875254.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013639875254.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "cd8dad388b3f197acce4588dc59b4ef245afae72a663f90ee6f0c4a3d562496e",
+      "localSha256": "34cbf70aeab129ccc1f1ce7264292123f2f5887fa38c70c91bd0441296e94154",
+      "verifiedAt": "2026-11-23T12:06:16.130Z",
+      "cached": true
     }
   ]
 }
