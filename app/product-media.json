@@ -1437,6 +1437,23 @@
       "localSha256": "aed17450898f53a39a56eb83efa0c57f8acc11e485a4e8e5879d697ceacecf6a",
       "verifiedAt": "2026-11-23T19:06:01.593Z",
       "cached": true
+    },
+    {
+      "slug": "kitchen-crevice-rack-floor-to-ceiling-multi-layer-refrigerator-side",
+      "productId": "1005012783175121",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S48eb578caa81417fb83595efb2870d9as.jpg",
+      "localPublicPath": "/products/verified/1005012783175121.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005012783175121.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005012783175121.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "57fb7daea0c703a8f547acceced144bc79dcb19a8bf4737b2ed61fc844b8284e",
+      "localSha256": "9512d48fb0b0b6f03c70258b8373b2f80251d7a5a97f81a1661e26f6841eca14",
+      "verifiedAt": "2026-11-24T12:06:01.831Z",
+      "cached": true
     }
   ]
 }
