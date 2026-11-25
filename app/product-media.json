@@ -1454,6 +1454,23 @@
       "localSha256": "9512d48fb0b0b6f03c70258b8373b2f80251d7a5a97f81a1661e26f6841eca14",
       "verifiedAt": "2026-11-24T12:06:01.831Z",
       "cached": true
+    },
+    {
+      "slug": "top-up-kitchen-storage-rack-sink-organizer-dishwashing-drain-rack-ve",
+      "productId": "1005007513907042",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S78eae61237834b84ae0d0b1429e42fa6X.jpg",
+      "localPublicPath": "/products/verified/1005007513907042.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005007513907042.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005007513907042.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "cd5bf48f1e33a7b28731ff4f1d50852cb8f5389e75c84cbac6bf8e4e1538f153",
+      "localSha256": "647d4063d7a3db5e3e962544698bf184038bda08f4324b34c8a196f18d3894b1",
+      "verifiedAt": "2026-11-25T12:06:19.316Z",
+      "cached": true
     }
   ]
 }
