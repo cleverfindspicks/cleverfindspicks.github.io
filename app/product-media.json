@@ -1471,6 +1471,23 @@
       "localSha256": "647d4063d7a3db5e3e962544698bf184038bda08f4324b34c8a196f18d3894b1",
       "verifiedAt": "2026-11-25T12:06:19.316Z",
       "cached": true
+    },
+    {
+      "slug": "2-tier-l-shape-under-sink-organiser-height-adjustable-metal-pull-ou",
+      "productId": "1005013488381966",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S2078cc426b1848a7ad6b8bc6d652f56dx.jpg",
+      "localPublicPath": "/products/verified/1005013488381966.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013488381966.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013488381966.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "b75a1bd2124250d89d022712f97fed9547b753b5d201f0ffa8862e8be807e927",
+      "localSha256": "2ce60781731921c73d168acf78fbfc4e489f7dd67bb00f85fac1a1769ecbf452",
+      "verifiedAt": "2026-11-25T19:26:08.764Z",
+      "cached": true
     }
   ]
 }
