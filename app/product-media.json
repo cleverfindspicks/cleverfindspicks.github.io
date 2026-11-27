@@ -1488,6 +1488,23 @@
       "localSha256": "2ce60781731921c73d168acf78fbfc4e489f7dd67bb00f85fac1a1769ecbf452",
       "verifiedAt": "2026-11-25T19:26:08.764Z",
       "cached": true
+    },
+    {
+      "slug": "solid-wood-wall-mounted-storage-box-wall-mounted-key-holder-non-perf",
+      "productId": "1005013657123513",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S7ed52bb72ac04d91ae6ec77b834c9a050.jpg",
+      "localPublicPath": "/products/verified/1005013657123513.jpg",
+      "buildOutputPath": "dist/client/products/verified/1005013657123513.jpg",
+      "publicAssetUrl": "https://cleverfindspicks.github.io/products/verified/1005013657123513.jpg",
+      "productImageVerified": true,
+      "sameProductConfirmed": true,
+      "placeholder": false,
+      "httpStatus": 200,
+      "contentType": "image/webp",
+      "sourceSha256": "d867f06c99d258d86460f0a5335bdcae0ea5610aba9ee8199dae9a4c67cd1adc",
+      "localSha256": "161e0bd21daaff24a7e02d25116205fa50bb7bbe74899e3822fcef9e1cc24ef7",
+      "verifiedAt": "2026-11-27T19:06:26.336Z",
+      "cached": true
     }
   ]
 }
